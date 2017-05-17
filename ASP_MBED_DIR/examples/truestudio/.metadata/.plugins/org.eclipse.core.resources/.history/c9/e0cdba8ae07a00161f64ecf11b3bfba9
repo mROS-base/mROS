@@ -1,0 +1,72 @@
+################################################################################
+# 自動生成ファイルです。 編集しないでください!
+################################################################################
+
+-include ../makefile.init
+
+RM := del
+
+# ビルドに関係するソースがすべて、ここに定義されています
+-include sources.mk
+-include subdir.mk
+-include objects.mk
+
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(CC_DEPS)),)
+-include $(CC_DEPS)
+endif
+ifneq ($(strip $(C++_DEPS)),)
+-include $(C++_DEPS)
+endif
+ifneq ($(strip $(C_UPPER_DEPS)),)
+-include $(C_UPPER_DEPS)
+endif
+ifneq ($(strip $(CXX_DEPS)),)
+-include $(CXX_DEPS)
+endif
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
+endif
+ifneq ($(strip $(CPP_DEPS)),)
+-include $(CPP_DEPS)
+endif
+endif
+
+-include ../makefile.defs
+
+# これらのツール呼び出しからの入力および出力をビルド変数へ追加します
+EXECUTABLES += \
+USER_OBJS.elf \
+
+TEST += \
+EXECUTABLES \
+
+
+# すべてのターゲット
+all: httpsample secondary-outputs
+
+# ツール呼び出し
+	@echo 'No tool found that can build the extension specified with the build artifact name $@'
+USER_OBJS.elf: $(OBJS) $(USER_OBJS)
+	@echo '呼び出し中: C++ Linker'
+	arm-atollic-eabi-g++ $(OBJS) $(USER_OBJS) $(LIBS) -o "USER_OBJS.elf" -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler "-Wl,-Map=httpsample.map" -Wl,--defsym=malloc_getpagesize_P=0x1000
+	@echo 'ビルド完了: $@'
+	@echo ' '
+
+EXECUTABLES: $(EXECUTABLES) $(EXECUTABLES)
+	@echo '呼び出し中: Other'
+	"C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 6.0.0\ide\jre\bin\java" -jar "C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 6.0.0\Tools\arm-atollic-reports.jar" sizeinfo list  "$(EXECUTABLES)"
+	@echo 'ビルド完了: $@'
+	@echo ' '
+
+# その他のターゲット
+clean:
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(TEST)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(C_DEPS)$(CPP_DEPS) httpsample
+	-@echo ' '
+
+secondary-outputs: $(TEST)
+
+.PHONY: all clean dependents
+.SECONDARY:
+
+-include ../makefile.targets

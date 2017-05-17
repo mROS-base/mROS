@@ -1,0 +1,93 @@
+#!/bin/sh
+
+makefile_config="Makefile.config"
+
+# コマンドライン引数の処理
+for arg in "$@"
+do
+	name=`echo $arg | cut -d "=" -f 1`
+	value=`echo $arg | cut -d "=" -f 2`
+
+	case $name in
+		--with-headers)		include_path=$value ;;
+		--with-libraries)	library_path=$value ;;
+		--without-xml)		without_xml=1 ;;
+		--help)				echo "configure options:"
+							echo "--help"
+							echo "	display this information"
+							echo "--with-headers=<dir>"
+							echo "	specify the directory of Boost headers"
+							echo "--with-libraries=<dir>"
+							echo "	specify the directory of Boost libraries"
+							echo "--without-xml"
+							echo "  omit support for XML"
+							exit
+							;;
+	esac
+done
+
+# Boost C++ Librariesのヘッダファイルがあるディレクトリをサーチ
+for dir in $include_path "/usr/local/include" "/opt/local/include" "/opt/include" "/usr/include" "/mingw/include"
+do
+	ls $dir/boost* 2> /dev/null > /dev/null
+	if test $? -eq 0
+	then
+		boost_dir=`ls -d $dir/boost* | sort -r | head -1`
+		if test $boost_dir = $dir/boost
+		then
+			include_path=$dir
+		else
+			include_path=$boost_dir
+		fi
+		break
+	fi
+done
+
+# Boost C++ Librariesのライブラリファイルがあるディレクトリをサーチ
+for dir in $library_path "/usr/local/lib" "/opt/local/lib" "/opt/lib" "/usr/lib" "/lib" "/mingw/lib"
+do
+	ls $dir/libboost* 2> /dev/null > /dev/null
+	if test $? -eq 0
+	then
+		library_path=$dir
+		break
+	fi
+done
+
+##### 以下、Makefile.configを生成する #####
+
+rm Makefile.config 2> /dev/null
+
+# Boost C++ Librariesのバージョンを調べる
+boost_version=`echo "#include <boost/version.hpp>
+echo BOOST_VERSION" | g++ -E -I$include_path -L$library_path - | sh`
+
+boost_lib_version=`echo "#include <boost/version.hpp>
+echo BOOST_LIB_VERSION" | g++ -E -I$include_path -L$library_path - | sh`
+
+# ライブラリファイルの添字を調べる
+# 環境によって、-gcc-mt-s, -mt-s, -gcc42-mt-sなど、添字が異なるため
+libboost_regex_filename=`ls $library_path/libboost_regex*-s.* 2> /dev/null | head -1`
+if test -z $libboost_regex_filename
+then
+	libboost_regex_filename=`ls $library_path/libboost_regex*.* | head -1`
+fi
+libboost_suffix=`echo $libboost_regex_filename | sed -e s/.*libboost_regex//g -e s/\.[a-z]*$//g`
+echo "LIBBOOST_SUFFIX=$libboost_suffix" >> $makefile_config
+
+# 各種変数を出力
+echo BOOST_VERSION=$boost_lib_version >> $makefile_config
+echo BOOST_DIR=$include_path >> $makefile_config
+echo XERCES_DIR=$include_path >> $makefile_config
+echo LIBBOOST_DIR=$library_path >> $makefile_config
+echo LIBXERCES_DIR=$library_path >> $makefile_config
+echo OPTIONS=$options >> $makefile_config
+if test -z $without_xml
+then
+	echo HAS_CFG_XML=1 >> $makefile_config
+fi
+
+# 生成結果を表示
+cat Makefile.config
+
+# 終わり

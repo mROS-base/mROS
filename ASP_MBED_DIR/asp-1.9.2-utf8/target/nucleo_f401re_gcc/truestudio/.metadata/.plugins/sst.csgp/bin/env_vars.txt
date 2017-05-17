@@ -1,0 +1,4 @@
+C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 5.4.1\ide\plugins\sst.tm_1.1.2.201508171502\CSHOME\
+C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 5.4.1\ide\plugins\sst.csgp_1.0.5.201508171502\CSHOME
+C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 5.4.1\ARMTools
+C:\home\TOPPERS\ASP\asp_1.9.2_utf8\target\nucleo_f401re_gcc\truestudio\.metadata\.plugins\sst.tm

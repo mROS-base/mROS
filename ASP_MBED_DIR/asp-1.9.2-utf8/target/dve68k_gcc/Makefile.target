@@ -1,0 +1,84 @@
+#
+#		Makefileのターゲット依存部（DVE68K/40用）
+#
+
+#
+#  ボード名，プロセッサ名，開発環境名の定義
+#
+BOARD = dve68k
+PRC = m68k
+TOOL = gcc
+
+#
+#  コンパイルオプション
+#
+INCLUDES := $(INCLUDES) -I$(TARGETDIR)
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) target_support.o
+KERNEL_COBJS := $(KERNEL_COBJS) target_config.o target_timer.o
+
+#
+#  システムサービスに関する定義
+#
+SYSSVC_DIR := $(SYSSVC_DIR) $(SRCDIR)/pdic/upd72001
+SYSSVC_COBJS := $(SYSSVC_COBJS) target_serial.o upd72001.o
+
+#
+#  コンフィギュレータ関係の変数の定義
+#
+CFG_TABS := $(CFG_TABS) --cfg1-def-table $(TARGETDIR)/target_def.csv
+
+#
+#  トレースログ記録のサンプルコードに関する定義
+#
+ifeq ($(ENABLE_TRACE),true)
+	COPTS := $(COPTS) -DTOPPERS_ENABLE_TRACE
+	KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/logtrace
+	KERNEL_COBJS := $(KERNEL_COBJS) trace_config.o trace_dump.o
+endif
+
+#
+#  各セグメントの開始アドレスの定義
+#
+TEXT_START_ADDRESS = 00010000
+DATA_START_ADDRESS = 00100000
+
+#
+#  リンカスクリプトの定義
+#
+LDSCRIPT = $(SRCDIR)/arch/$(PRC)_$(TOOL)/m68kelf.ld
+
+#
+#  スタートアップモジュールに関する定義
+#
+#  m68kelf.ldに「STARTUP(start.o)」を記述したため，スタートアップモジュー
+#  ルの名前をHIDDEN_OBJSに定義する．また，LDFLAGSに-nostdlibを追加している．
+#
+HIDDEN_OBJS = start.o
+
+$(HIDDEN_OBJS): %.o: %.S
+	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
+
+$(HIDDEN_OBJS:.o=.d): %.d: %.S
+	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) $(MAKEDEP_OPTS) \
+		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
+
+LDFLAGS := -nostdlib $(LDFLAGS)
+CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
+LIBS := $(LIBS) -lgcc
+
+#
+#  依存関係の定義
+#
+cfg1_out.c: $(TARGETDIR)/target_def.csv
+kernel_cfg.timestamp: $(TARGETDIR)/target.tf
+$(OBJFILE): $(TARGETDIR)/target_check.tf
+
+#
+#  プロセッサ依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/Makefile.prc

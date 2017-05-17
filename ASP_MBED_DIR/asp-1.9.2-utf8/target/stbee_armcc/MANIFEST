@@ -1,0 +1,15 @@
+PACKAGE asp_arch_arm_m_gcc
+
+Makefile.target
+MANIFEST
+stbee.scat
+stbee_dfu.scat
+target.tf
+target_asm.inc
+target_check.tf
+target_test.h
+target_user.txt
+uvision/asp.uvproj
+uvision/asp_proj.uvmpw
+uvision/cfg1_out.uvproj
+uvision/libkernel.uvproj

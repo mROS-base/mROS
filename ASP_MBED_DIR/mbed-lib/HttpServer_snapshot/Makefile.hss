@@ -1,0 +1,9 @@
+CXX_OBJ += $(MBED_LIB_DIR)/HttpServer_snapshot/HTTPRequestHandler.o \
+	   $(MBED_LIB_DIR)/HttpServer_snapshot/Handler/FSHandler.o \
+	   $(MBED_LIB_DIR)/HttpServer_snapshot/Handler/RPCHandler.o \
+	   $(MBED_LIB_DIR)/HttpServer_snapshot/Handler/SimpleHandler.o \
+	   $(MBED_LIB_DIR)/HttpServer_snapshot/Handler/SnapshotHandler.o 
+
+INCLUDE_PATHS += -I$(MBED_LIB_DIR)/HttpServer_snapshot \
+	      	 -I$(MBED_LIB_DIR)/HttpServer_snapshot/Handler
+		 

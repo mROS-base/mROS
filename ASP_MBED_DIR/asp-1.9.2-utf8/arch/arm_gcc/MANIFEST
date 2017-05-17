@@ -1,0 +1,33 @@
+PACKAGE asp_arch_arm_gcc
+VERSION 1.7.0
+
+MANIFEST
+README.txt
+
+common/arm.h
+common/arm.c
+common/arm_tool.h
+common/core.tf
+common/core_asm.inc
+common/core_cfg1_out.h
+common/core_check.tf
+common/core_config.c
+common/core_config.h
+common/core_def.csv
+common/core_insn.h
+common/core_kernel.h
+common/core_offset.tf
+common/core_rename.def
+common/core_rename.h
+common/core_sil.h
+common/core_stddef.h
+common/core_support.S
+common/core_unrename.h
+common/core_user.txt
+common/Makefile.core
+common/start.S
+common/gic.h
+common/gic.c
+common/gic_support.S
+
+INCLUDE ../../target/at91skyeye_gcc/MANIFEST

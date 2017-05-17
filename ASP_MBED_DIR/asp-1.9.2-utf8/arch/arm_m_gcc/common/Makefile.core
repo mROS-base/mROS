@@ -1,0 +1,97 @@
+#
+#  @(#) $Id: Makefile.core 2728 2015-12-30 01:46:11Z ertl-honda $
+# 
+
+#
+#		Makefile のプロセッサ依存部（ARM-M用）
+#
+
+# 
+#  コア依存部ディレクトリ名の定義 
+# 
+COREDIR = $(SRCDIR)/arch/$(PRC)_$(TOOL)/common
+
+#
+#  ツール依存部ディレクトリ名の定義 
+#
+TOOLDIR = $(SRCDIR)/arch/$(TOOL)
+
+#
+#  コンパイルオプション
+#
+COPTS := $(COPTS) -mthumb 
+INCLUDES := $(INCLUDES) -I$(COREDIR) -I$(TOOLDIR)
+LDFLAGS := $(LDFLAGS) 
+CDEFS := $(CDEFS)
+LIBS := $(LIBS)  -lgcc
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(COREDIR)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS)
+KERNEL_COBJS := $(KERNEL_COBJS) core_config.o
+
+#
+#  コアのタイプによる違い
+#
+ifeq ($(CORE_TYPE),CORTEX_M4)
+	ARM_ARCH = ARMV7M
+	COPTS := $(COPTS) -mcpu=cortex-m4
+	CDEFS := $(CDEFS) -DTOPPERS_CORTEX_M4
+	FPU_ARCH_MACRO = __TARGET_FPU_FPV4_SP
+	FPU_ARCH_OPT   = fpv4-sp-d16
+else ifeq ($(CORE_TYPE),CORTEX_M0PLUS)
+	ARM_ARCH = ARMV6M
+	COPTS := $(COPTS) -mcpu=cortex-m0plus
+	CDEFS := $(CDEFS) -DTOPPERS_CORTEX_M0PLUS
+else ifeq ($(CORE_TYPE),CORTEX_M0)
+	ARM_ARCH = ARMV6M
+	COPTS := $(COPTS) -mcpu=cortex-m0
+	CDEFS := $(CDEFS) -DTOPPERS_CORTEX_M0
+else ifeq ($(CORE_TYPE),CORTEX_M3)
+	ARM_ARCH = ARMV7M
+	COPTS := $(COPTS) -mcpu=cortex-m3
+	CDEFS := $(CDEFS) -DTOPPERS_CORTEX_M3
+endif
+
+#
+#  アーキテクチャ毎に異なる設定
+#
+ifeq ($(ARM_ARCH),ARMV7M)
+	KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) core_support.o
+	CDEFS := $(CDEFS) -D__TARGET_ARCH_THUMB=4
+else ifeq ($(ARM_ARCH),ARMV6M)
+	KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) core_support_v6m.o
+	CDEFS := $(CDEFS) -D__TARGET_ARCH_THUMB=3
+endif
+
+#
+#  FPUの設定
+#
+ifeq ($(FPU_ABI),)
+	FPU_ABI = softfp
+endif 
+
+ifeq ($(FPU_USAGE),FPU_NO_PRESERV)
+	COPTS := $(COPTS) -mfloat-abi=$(FPU_ABI) -mfpu=$(FPU_ARCH_OPT)
+	CDEFS := $(CDEFS) -D$(FPU_ARCH_MACRO) -DTOPPERS_FPU_ENABLE
+else ifeq ($(FPU_USAGE),FPU_NO_LAZYSTACKING)
+	COPTS := $(COPTS) -mfloat-abi=$(FPU_ABI) -mfpu=$(FPU_ARCH_OPT)
+	CDEFS := $(CDEFS) -D$(FPU_ARCH_MACRO) -DTOPPERS_FPU_ENABLE -DTOPPERS_FPU_NO_LAZYSTACKING -DTOPPERS_FPU_CONTEXT
+else ifeq ($(FPU_USAGE),FPU_LAZYSTACKING)
+	COPTS := $(COPTS) -mfloat-abi=$(FPU_ABI) -mfpu=$(FPU_ARCH_OPT)
+	CDEFS := $(CDEFS) -D$(FPU_ARCH_MACRO) -DTOPPERS_FPU_ENABLE -DTOPPERS_FPU_LAZYSTACKING -DTOPPERS_FPU_CONTEXT
+endif
+
+
+#
+#  依存関係の定義
+#
+cfg1_out.c: $(COREDIR)/core_def.csv
+kernel_cfg.timestamp: $(COREDIR)/core.tf
+
+#
+#  コンフィギュレータ関係の変数の定義
+#
+CFG_TABS := $(CFG_TABS) --cfg1-def-table $(COREDIR)/core_def.csv

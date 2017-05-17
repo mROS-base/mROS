@@ -1,0 +1,14 @@
+# prc_config.c
+prc_initialize
+prc_terminate
+
+# prc_support.S
+dispatch
+start_dispatch
+exit_and_dispatch
+call_exit_kernel
+start_r
+ret_int
+exchdr_entry
+lock_flag
+saved_iipm

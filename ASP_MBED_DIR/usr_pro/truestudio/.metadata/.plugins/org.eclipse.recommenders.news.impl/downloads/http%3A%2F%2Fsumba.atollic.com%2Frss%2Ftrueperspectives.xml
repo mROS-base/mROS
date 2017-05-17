@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Atollic</title>
+    <link>http://blog.atollic.com</link>
+    <description>The TruePERSPECTIVES blog discusses topics relevant to embedded developers and their managers: best practices for embedded development, industry observations, and tips and techniques for using Atollic TrueSTUDIO development tools, ARM Cortex-M development, and more.</description>
+    <language>en-us</language>
+    <pubDate>Tue, 16 May 2017 07:00:02 GMT</pubDate>
+    <dc:date>2017-05-16T07:00:02Z</dc:date>
+    <dc:language>en-us</dc:language>
+    <item>
+      <title>Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]</title>
+      <link>http://blog.atollic.com/ashok_hard_fault_movie</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/ashok_hard_fault_movie" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ashok1.png?t=1494852999812" alt="Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Ashok is a devoted Cortex-M developer.&amp;nbsp;Meet him in this short video about the challenges of embedded development! In this episode, Ashok is stuck with mysterious hard fault exceptions that make his embedded system crash. Despite his years of development experience, he just can't figure out what is wrong with his excellent code.&lt;/p&gt; 
+&lt;p&gt;Watch the movie below to get to know Ashok and his struggles!&lt;span style="color: #ff0000;"&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/ashok_hard_fault_movie" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ashok1.png?t=1494852999812" alt="Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Ashok is a devoted Cortex-M developer.&amp;nbsp;Meet him in this short video about the challenges of embedded development! In this episode, Ashok is stuck with mysterious hard fault exceptions that make his embedded system crash. Despite his years of development experience, he just can't figure out what is wrong with his excellent code.&lt;/p&gt; 
+&lt;p&gt;Watch the movie below to get to know Ashok and his struggles!&lt;span style="color: #ff0000;"&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fashok_hard_fault_movie&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Debugging</category>
+      <pubDate>Tue, 16 May 2017 07:00:00 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/ashok_hard_fault_movie</guid>
+      <dc:date>2017-05-16T07:00:00Z</dc:date>
+    </item>
+    <item>
+      <title>Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]</title>
+      <link>http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/swv_rtos_feature.png?t=1494852999812" alt="Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Debugging RTOS-based applications often introduce new complexities. In this blog post, I will reveal a trick that can give you completely new insights into the system as you debug it.&lt;/p&gt; 
+&lt;p&gt;&lt;span&gt;Have you ever plotted the internal behavior of an RTOS graphically, live in real-time? If you havenâ€™t, perhaps you should consider this powerful debug technique now. Read more to find out how!&lt;/span&gt;&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/swv_rtos_feature.png?t=1494852999812" alt="Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Debugging RTOS-based applications often introduce new complexities. In this blog post, I will reveal a trick that can give you completely new insights into the system as you debug it.&lt;/p&gt; 
+&lt;p&gt;&lt;span&gt;Have you ever plotted the internal behavior of an RTOS graphically, live in real-time? If you havenâ€™t, perhaps you should consider this powerful debug technique now. Read more to find out how!&lt;/span&gt;&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Freal-time-graphical-visualization-of-the-internal-behavior-of-an-rtos&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Debugging</category>
+      <category>RTOS</category>
+      <category>SWV</category>
+      <pubDate>Wed, 10 May 2017 09:08:11 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos</guid>
+      <dc:date>2017-05-10T09:08:11Z</dc:date>
+    </item>
+    <item>
+      <title>MSP432 Development &amp; Debugging [New White Paper]</title>
+      <link>http://blog.atollic.com/msp432-development-debugging-whitepaper</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/msp432-development-debugging-whitepaper" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/msp432_whitepaper.png?t=1494852999812" alt="msp432_whitepaper.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Our free MSP432 development and debugging whitepaper outlines professional tool support for&amp;nbsp;MSP432 development, with a particular focus on advanced debugging including SWV/SWO/ITM event- and data tracing and kernel aware RTOS debugging. Stack and memory usage analysis as well as hard fault crash analysis are covered too.&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/msp432-development-debugging-whitepaper" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/msp432_whitepaper.png?t=1494852999812" alt="msp432_whitepaper.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Our free MSP432 development and debugging whitepaper outlines professional tool support for&amp;nbsp;MSP432 development, with a particular focus on advanced debugging including SWV/SWO/ITM event- and data tracing and kernel aware RTOS debugging. Stack and memory usage analysis as well as hard fault crash analysis are covered too.&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fmsp432-development-debugging-whitepaper&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Atollic TrueSTUDIO</category>
+      <category>MSP432</category>
+      <pubDate>Tue, 25 Apr 2017 06:43:49 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/msp432-development-debugging-whitepaper</guid>
+      <dc:date>2017-04-25T06:43:49Z</dc:date>
+    </item>
+    <item>
+      <title>Understanding Build Settings on Individual Files &amp; Folders [ARM Cortex-M Development Tips]</title>
+      <link>http://blog.atollic.com/build-settings-on-file-folder-level</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/build-settings-on-file-folder-level" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/build_settings_files.png?t=1494852999812" alt="build_settings_files.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Have you ever wondered what the key icon appearing on a specific file or folder in the project explorer actually means? If you don't know what it means, it could indicate you are in trouble. The key icon indicates one or several build settings for the related file or folder differs from the project's overall build settings. If you have set specific build settings for the file or folder, then the key icon is just a friendly reminder so you do not forget this.&lt;/p&gt; 
+&lt;p&gt;If you are not aware of specific build settings for the file or folder, then this could lead to frustration and problems as the project may not build or execute as intended. In this blog post, I will explain how to resolve these problems.&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/build-settings-on-file-folder-level" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/build_settings_files.png?t=1494852999812" alt="build_settings_files.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Have you ever wondered what the key icon appearing on a specific file or folder in the project explorer actually means? If you don't know what it means, it could indicate you are in trouble. The key icon indicates one or several build settings for the related file or folder differs from the project's overall build settings. If you have set specific build settings for the file or folder, then the key icon is just a friendly reminder so you do not forget this.&lt;/p&gt; 
+&lt;p&gt;If you are not aware of specific build settings for the file or folder, then this could lead to frustration and problems as the project may not build or execute as intended. In this blog post, I will explain how to resolve these problems.&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fbuild-settings-on-file-folder-level&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>ECLIPSE</category>
+      <category>Atollic TrueSTUDIO</category>
+      <category>build settings</category>
+      <pubDate>Fri, 24 Mar 2017 09:50:08 GMT</pubDate>
+      <author>mattias.norlander@atollic.com (Mattias Norlander)</author>
+      <guid>http://blog.atollic.com/build-settings-on-file-folder-level</guid>
+      <dc:date>2017-03-24T09:50:08Z</dc:date>
+    </item>
+    <item>
+      <title>Learn How to Become a More Efficient ARM Cortex Developer [Use Our White Paper Library]</title>
+      <link>http://blog.atollic.com/learn-how-to-become-a-more-efficient-arm-cortex-developer-use-our-white-paper-library</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/learn-how-to-become-a-more-efficient-arm-cortex-developer-use-our-white-paper-library" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/whitepaper_library.png?t=1494852999812" alt="whitepaper_library.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Time is precious for any embedded developer. If you're a consultant or contractor, you need to show your clients results - fast. And every developer needs to stay on project schedule also when tough problems halt progress. To help you on your journey towards ARM Cortex development nirvana, we have put together a library of free white papers you can read to educate yourself.&lt;/p&gt; 
+&lt;p&gt;Check out our library and utilize the information shared to become a better and more efficient embedded developer! Our current white paper library is listed below - use it for your benefit!&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/learn-how-to-become-a-more-efficient-arm-cortex-developer-use-our-white-paper-library" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/whitepaper_library.png?t=1494852999812" alt="whitepaper_library.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Time is precious for any embedded developer. If you're a consultant or contractor, you need to show your clients results - fast. And every developer needs to stay on project schedule also when tough problems halt progress. To help you on your journey towards ARM Cortex development nirvana, we have put together a library of free white papers you can read to educate yourself.&lt;/p&gt; 
+&lt;p&gt;Check out our library and utilize the information shared to become a better and more efficient embedded developer! Our current white paper library is listed below - use it for your benefit!&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Flearn-how-to-become-a-more-efficient-arm-cortex-developer-use-our-white-paper-library&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <pubDate>Tue, 14 Mar 2017 10:31:39 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/learn-how-to-become-a-more-efficient-arm-cortex-developer-use-our-white-paper-library</guid>
+      <dc:date>2017-03-14T10:31:39Z</dc:date>
+    </item>
+    <item>
+      <title>Atollic Launches a Web Shop - Come and Visit it now!</title>
+      <link>http://blog.atollic.com/atollic-launches-a-web-shop</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/atollic-launches-a-web-shop" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/web_shop.png?t=1494852999812" alt="web_shop.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;A few days ago, Atollic opened a web shop that makes it super-simple to purchase recurring Atollic TrueSTUDIO subscription licenses! You can now get a seamless upgrade to TrueSTUDIO Pro in just a couple of minutes using your credit card - the free TrueSTUDIO Lite immediately upgrades itself to a powerful Pro version right after the purchase.&lt;/p&gt; 
+&lt;p&gt;The whole process couldn't be simpler. And it is very cost-effective, too. In this blog post, I explain how you can upgrade to a TrueSTUDIO Pro subscription license in just a few minutes!&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/atollic-launches-a-web-shop" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/web_shop.png?t=1494852999812" alt="web_shop.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;A few days ago, Atollic opened a web shop that makes it super-simple to purchase recurring Atollic TrueSTUDIO subscription licenses! You can now get a seamless upgrade to TrueSTUDIO Pro in just a couple of minutes using your credit card - the free TrueSTUDIO Lite immediately upgrades itself to a powerful Pro version right after the purchase.&lt;/p&gt; 
+&lt;p&gt;The whole process couldn't be simpler. And it is very cost-effective, too. In this blog post, I explain how you can upgrade to a TrueSTUDIO Pro subscription license in just a few minutes!&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fatollic-launches-a-web-shop&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Atollic TrueSTUDIO</category>
+      <pubDate>Fri, 10 Mar 2017 12:21:18 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/atollic-launches-a-web-shop</guid>
+      <dc:date>2017-03-10T12:21:18Z</dc:date>
+    </item>
+    <item>
+      <title>See us at Embedded World in Nuremberg next week!</title>
+      <link>http://blog.atollic.com/see-us-at-embedded-world-in-nuremberg-next-week</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/see-us-at-embedded-world-in-nuremberg-next-week" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ew%20for%20blog.jpg?t=1494852999812" alt="See us at Embedded World in Nuremberg next week!" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Will you go to the Embedded World exhibition in Nuremberg (Germany) next week? If so, be sure to come by our booth and see the latest tools for professional ARM Cortex development!&lt;/p&gt; 
+&lt;p&gt;We will showcase TrueSTUDIO v7.1 and the new innovative &lt;em&gt;static stack usage analyzer&lt;/em&gt;, as well as the &lt;em&gt;build and memory usage analyzer&lt;/em&gt;, and much more!&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/see-us-at-embedded-world-in-nuremberg-next-week" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ew%20for%20blog.jpg?t=1494852999812" alt="See us at Embedded World in Nuremberg next week!" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Will you go to the Embedded World exhibition in Nuremberg (Germany) next week? If so, be sure to come by our booth and see the latest tools for professional ARM Cortex development!&lt;/p&gt; 
+&lt;p&gt;We will showcase TrueSTUDIO v7.1 and the new innovative &lt;em&gt;static stack usage analyzer&lt;/em&gt;, as well as the &lt;em&gt;build and memory usage analyzer&lt;/em&gt;, and much more!&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fsee-us-at-embedded-world-in-nuremberg-next-week&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Events</category>
+      <category>Atollic TrueSTUDIO</category>
+      <pubDate>Wed, 08 Mar 2017 07:54:40 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/see-us-at-embedded-world-in-nuremberg-next-week</guid>
+      <dc:date>2017-03-08T07:54:40Z</dc:date>
+    </item>
+    <item>
+      <title>Automate your ARM Cortex-M debug sessions [advanced GDB development and debugging]</title>
+      <link>http://blog.atollic.com/automate-your-gdb-debug-sessions-cortex-m-development</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/automate-your-gdb-debug-sessions-cortex-m-development" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/automate_gdb.png?t=1494852999812" alt="Automate your ARM Cortex-M debug sessions [advanced GDB development and debugging]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Debuggers are obviously created to help developers look inside the application as it executes in the target system. The whole point is to create an interactive, or semi-interactive, execution environment where the developer largely control the execution. But what if you want to completely automate the debugger? There are many use-cases where that is convenient.&lt;/p&gt; 
+&lt;p&gt;In fact, this is possible using Atollic TrueSTUDIO. You can write script files that completely control the execution of the debugger. In effect, you can completely automate certain repetitive debugger tasks.&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/automate-your-gdb-debug-sessions-cortex-m-development" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/automate_gdb.png?t=1494852999812" alt="Automate your ARM Cortex-M debug sessions [advanced GDB development and debugging]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;Debuggers are obviously created to help developers look inside the application as it executes in the target system. The whole point is to create an interactive, or semi-interactive, execution environment where the developer largely control the execution. But what if you want to completely automate the debugger? There are many use-cases where that is convenient.&lt;/p&gt; 
+&lt;p&gt;In fact, this is possible using Atollic TrueSTUDIO. You can write script files that completely control the execution of the debugger. In effect, you can completely automate certain repetitive debugger tasks.&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fautomate-your-gdb-debug-sessions-cortex-m-development&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>GNU tools (GCC/GDB)</category>
+      <category>Debugging</category>
+      <category>Atollic TrueSTUDIO</category>
+      <pubDate>Fri, 03 Mar 2017 12:56:37 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/automate-your-gdb-debug-sessions-cortex-m-development</guid>
+      <dc:date>2017-03-03T12:56:37Z</dc:date>
+    </item>
+    <item>
+      <title>How to Import Thousands of STM32Cube Example Projects Into TrueSTUDIO</title>
+      <link>http://blog.atollic.com/how-to-import-thousands-of-stm32cube-example-projects-into-truestudio</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/how-to-import-thousands-of-stm32cube-example-projects-into-truestudio" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/stm32cubeexamples.png?t=1494852999812" alt="stm32cubeexamples.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;STMicroelectronics has done a good job of creating example projects for their STM32 devices. A great job, in fact. At least if you ask me. There are well over 4000 different STM32 example projects to be downloaded from the STM32Cube page, which is a whole lot. Many of these are nontrivial, using feature-rich middleware too. I think it is safe to say they are a popular starting point for many new STM32 designs.&lt;/p&gt; 
+&lt;p&gt;All of these example projects have not been ported to the Atollic TrueSTUDIO IDE, unfortunately. But thanks to the project importer, TrueSTUDIO can import almost all of these example projects automatically. Learn how in this blog post!&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/how-to-import-thousands-of-stm32cube-example-projects-into-truestudio" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/stm32cubeexamples.png?t=1494852999812" alt="stm32cubeexamples.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;STMicroelectronics has done a good job of creating example projects for their STM32 devices. A great job, in fact. At least if you ask me. There are well over 4000 different STM32 example projects to be downloaded from the STM32Cube page, which is a whole lot. Many of these are nontrivial, using feature-rich middleware too. I think it is safe to say they are a popular starting point for many new STM32 designs.&lt;/p&gt; 
+&lt;p&gt;All of these example projects have not been ported to the Atollic TrueSTUDIO IDE, unfortunately. But thanks to the project importer, TrueSTUDIO can import almost all of these example projects automatically. Learn how in this blog post!&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fhow-to-import-thousands-of-stm32cube-example-projects-into-truestudio&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Atollic TrueSTUDIO</category>
+      <category>Project migration</category>
+      <pubDate>Tue, 14 Feb 2017 09:12:43 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/how-to-import-thousands-of-stm32cube-example-projects-into-truestudio</guid>
+      <dc:date>2017-02-14T09:12:43Z</dc:date>
+    </item>
+    <item>
+      <title>Atollic TrueSTUDIO v7.1.0 has been released!</title>
+      <link>http://blog.atollic.com/atollic-truestudio-v7.1.0-has-been-released</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/atollic-truestudio-v7.1.0-has-been-released" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/tsv7.1.png?t=1494852999812" alt="tsv7.1.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;A few days ago, we released Atollic TrueSTUDIO v7.1. The new version is a major new release, with significant improvements that many ARM Cortex-M developers will benefit from. In fact, many developers have already taken TrueSTUDIO v7.1 for a test flight!&lt;/p&gt; 
+&lt;p&gt;In addition to extended and improved target support, the new release adds a &lt;a href="/stack-depth-analyzer-in-truestudio-pro-cortex-m-debugging"&gt;static stack usage analyzer&lt;/a&gt;, as well as a &lt;a href="/migrate-stm32-projects-from-ac6-systemworkbench"&gt;project importer&lt;/a&gt; that makes it super-easy to import ARM Cortex-M projects from the System Workbench for STM32 IDE. Read this blog post to learn more!&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/atollic-truestudio-v7.1.0-has-been-released" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/tsv7.1.png?t=1494852999812" alt="tsv7.1.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;A few days ago, we released Atollic TrueSTUDIO v7.1. The new version is a major new release, with significant improvements that many ARM Cortex-M developers will benefit from. In fact, many developers have already taken TrueSTUDIO v7.1 for a test flight!&lt;/p&gt; 
+&lt;p&gt;In addition to extended and improved target support, the new release adds a &lt;a href="/stack-depth-analyzer-in-truestudio-pro-cortex-m-debugging"&gt;static stack usage analyzer&lt;/a&gt;, as well as a &lt;a href="/migrate-stm32-projects-from-ac6-systemworkbench"&gt;project importer&lt;/a&gt; that makes it super-easy to import ARM Cortex-M projects from the System Workbench for STM32 IDE. Read this blog post to learn more!&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fatollic-truestudio-v7.1.0-has-been-released&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <category>Atollic TrueSTUDIO</category>
+      <pubDate>Tue, 07 Feb 2017 08:26:41 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/atollic-truestudio-v7.1.0-has-been-released</guid>
+      <dc:date>2017-02-07T08:26:41Z</dc:date>
+    </item>
+  </channel>
+</rss>

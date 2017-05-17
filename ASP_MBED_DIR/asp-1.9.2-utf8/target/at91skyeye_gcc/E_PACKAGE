@@ -1,0 +1,6 @@
+E_PACKAGE asp_at91skyeye_gcc
+VERSION %date
+
+INCLUDE ../../MANIFEST
+INCLUDE ../../arch/arm_gcc/MANIFEST
+../../cfg/cfg/cfg.exe

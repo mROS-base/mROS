@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.atollic.truestudio.exe.debug.toolchain.682236599.247619856">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.atollic.truestudio.exe.debug.toolchain.682236599.247619856" moduleId="org.eclipse.cdt.core.settings" name="SPI-FLASH BOOT">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.atollic.truestudio.exe.debug.toolchain.682236599.247619856" name="SPI-FLASH BOOT" parent="org.eclipse.cdt.build.core.emptycfg">
+					<folderInfo id="com.atollic.truestudio.exe.debug.toolchain.682236599.247619856." name="/" resourcePath="">
+						<toolChain id="com.atollic.truestudio.exe.debug.toolchain.1249534238" name="Atollic ARM Tools" superClass="com.atollic.truestudio.exe.debug.toolchain">
+							<option id="com.atollic.truestudio.toolchain_options.mcu.283563597" name="Microcontroller" superClass="com.atollic.truestudio.toolchain_options.mcu" value="Cortex-A9" valueType="string"/>
+							<option id="com.atollic.truestudio.toolchain_options.vendor.233651795" name="Vendor name" superClass="com.atollic.truestudio.toolchain_options.vendor" value="ARM" valueType="string"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.atollic.truestudio.exe.debug.toolchain.platform.715828628" isAbstract="false" name="Debug platform" superClass="com.atollic.truestudio.exe.debug.toolchain.platform"/>
+							<builder command="make" id="org.eclipse.cdt.build.core.settings.default.builder.1319848343" incrementalBuildTarget="asp.bin EXECUTE_ON=ROM" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.as.357196576" name="Assembler" superClass="com.atollic.truestudio.exe.debug.toolchain.as">
+								<option id="com.atollic.truestudio.common_options.target.fpucore.1007765689" name="FPU" superClass="com.atollic.truestudio.common_options.target.fpucore" value="NEON-VFPv3" valueType="enumerated"/>
+								<inputType id="com.atollic.truestudio.as.input.1979309227" name="Input" superClass="com.atollic.truestudio.as.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gcc.368424232" name="C Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gcc">
+								<option id="com.atollic.truestudio.common_options.target.fpucore.1654814780" name="FPU" superClass="com.atollic.truestudio.common_options.target.fpucore" value="NEON-VFPv3" valueType="enumerated"/>
+								<inputType id="com.atollic.truestudio.gcc.input.762116367" superClass="com.atollic.truestudio.gcc.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.ld.142037615" name="C Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ld"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.gpp.1470268741" name="C++ Compiler" superClass="com.atollic.truestudio.exe.debug.toolchain.gpp">
+								<option id="com.atollic.truestudio.common_options.target.instr_set.807026259" name="Instruction set" superClass="com.atollic.truestudio.common_options.target.instr_set"/>
+								<option id="com.atollic.truestudio.common_options.target.interwork.681201800" name="Mix ARM/Thumb" superClass="com.atollic.truestudio.common_options.target.interwork"/>
+								<option id="com.atollic.truestudio.common_options.target.fpu.139967959" name="Floating point" superClass="com.atollic.truestudio.common_options.target.fpu"/>
+								<option id="com.atollic.truestudio.common_options.target.fpucore.1724596853" name="FPU" superClass="com.atollic.truestudio.common_options.target.fpucore" value="NEON-VFPv3" valueType="enumerated"/>
+								<inputType id="com.atollic.truestudio.gpp.input.2054127020" superClass="com.atollic.truestudio.gpp.input"/>
+							</tool>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.ldcc.735415051" name="C++ Linker" superClass="com.atollic.truestudio.exe.debug.toolchain.ldcc">
+								<option id="com.atollic.truestudio.common_options.target.fpucore.620752207" name="FPU" superClass="com.atollic.truestudio.common_options.target.fpucore" value="NEON-VFPv3" valueType="enumerated"/>
+								<inputType id="com.atollic.truestudio.ldcc.input.955701561" name="Input" superClass="com.atollic.truestudio.ldcc.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.atollic.truestudio.ar.base.913256139" name="Archiver" superClass="com.atollic.truestudio.ar.base"/>
+							<tool id="com.atollic.truestudio.exe.debug.toolchain.secoutput.895935958" name="Other" superClass="com.atollic.truestudio.exe.debug.toolchain.secoutput"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="sample1.null.1952387637" name="sample1"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/sample1"/>
+		</configuration>
+		<configuration configurationName="SPI-FLASH BOOT"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.atollic.truestudio.exe.debug.toolchain.682236599.247619856;com.atollic.truestudio.exe.debug.toolchain.682236599.247619856.;com.atollic.truestudio.exe.debug.toolchain.gcc.368424232;com.atollic.truestudio.gcc.input.762116367">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.atollic.truestudio.mbs.ARMToolsPerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.atollic.truestudio.exe.debug.toolchain.682236599.247619856;com.atollic.truestudio.exe.debug.toolchain.682236599.247619856.;com.atollic.truestudio.exe.debug.toolchain.gpp.1470268741;com.atollic.truestudio.gpp.input.2054127020">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.atollic.truestudio.mbs.ARMToolsPerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+</cproject>

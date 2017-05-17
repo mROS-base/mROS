@@ -1,0 +1,273 @@
+#! /usr/bin/perl
+#
+#  TOPPERS Software
+#      Toyohashi Open Platform for Embedded Real-Time Systems
+# 
+#  Copyright (C) 2001-2003 by Embedded and Real-Time Systems Laboratory
+#                              Toyohashi Univ. of Technology, JAPAN
+#  Copyright (C) 2006-2012 by Embedded and Real-Time Systems Laboratory
+#              Graduate School of Information Science, Nagoya Univ., JAPAN
+# 
+#  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+#  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+#  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+#  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+#      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+#      スコード中に含まれていること．
+#  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+#      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+#      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+#      の無保証規定を掲載すること．
+#  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+#      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+#      と．
+#    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+#        作権表示，この利用条件および下記の無保証規定を掲載すること．
+#    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+#        報告すること．
+#  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+#      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+#      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+#      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+#      免責すること．
+# 
+#  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+#  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+#  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+#  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+#  の責任を負わない．
+# 
+#  @(#) $Id: configure 2728 2015-12-30 01:46:11Z ertl-honda $
+# 
+
+use Getopt::Std;
+
+#  オプションの定義
+#
+#  -T <target>			ターゲット名（必須）
+#  -A <applname>		アプリケーションプログラム名（デフォルトはsample1）
+#  -a <appldir>			アプリケーションのディレクトリ名
+#  -U <applobjs>		他のアプリケーションプログラムファイル
+#						（.oファイル名で指定．複数指定可）
+#  -S <syssvcobjs>		システムサービスのプログラムファイル
+#						（.oファイル名で指定．複数指定可）
+#  -L <kernel_lib>		カーネルライブラリ（libkernel.a）のディレクトリ名
+#						（省略した場合，カーネルライブラリもmakeする）
+#  -f					カーネルを関数単位でコンパイルするかどうかの指定
+#  -D <srcdir>			カーネル等のソースの置かれているディレクトリ
+#  -l <srclang>			プログラミング言語（現時点ではcとc++のみサポート）
+#  -t <templatedir>		テンプレートディレクトリの指定（デフォルトはsample）
+#  -m <makefile>		テンプレートMakefile名の指定（デフォルトはMakefile）
+#  -d <dbgenv>			実行環境の名称
+#  -r					トレースログ記録のサンプルコードを使用するかどうか
+#						の指定
+#  -p <perl>			perlのパス名（明示的に指定する場合）
+#  -g <cfg>				コンフィギュレータ（cfg）のパス名
+#  -P <num>				プロセッサ数（マルチプロセッサ対応カーネルの場合）
+#  -o <options>			共通コンパイルオプション（COPTSに追加）
+#  -O <options>			共通シンボル定義オプション（CDEFSに追加）
+#  -k <options>			共通リンカオプション（LDFLAGS等に追加）
+
+#  使用例(1)
+#
+#  % ../configure -T dve68k_gcc -D GDB_STUB -A perf1 -a ../test -U histogram.o
+#
+#  使用例(2)
+#
+#  % ../configure -T macosx_gcc -L .
+#	アプリケーションプログラムは sample1 になる．
+
+#
+#  オプションの処理
+#
+getopt("TAaUSLDltmdpgPoOk");
+
+#
+#  変数の初期化
+#
+
+$target = $opt_T;
+$applname = $opt_A ? $opt_A : "sample1";
+$appldir = $opt_a ? $opt_a : "";
+$applobjs = $opt_U ? $opt_U : "";
+$syssvcobjs = $opt_S ? $opt_S : "";
+$kernel_lib = $opt_L ? $opt_L : "";
+$kernel_funcobjs = $opt_f ? "true" : "";
+$srclang = $opt_l ? $opt_l : "c";
+$makefile = $opt_m ? $opt_m : "Makefile";
+$dbgenv = $opt_d ? "TOPPERS_".$opt_d : "";
+$enable_trace = $opt_r ? "true" : "";
+$prc_num = $opt_P ? $opt_P : "";
+$copts = $opt_o ? $opt_o : "";
+$cdefs = $opt_O ? $opt_O : "";
+$ldflags = $opt_k ? $opt_k : "";
+
+#
+#  オブジェクトファイル名の拡張子を返す
+#
+sub get_objext {
+	if ($^O eq 'cygwin') {
+		return("exe");
+	}
+	else {
+		return("");
+	}
+}
+
+#
+#  プログラムの場所を検索する
+#
+sub get_path {
+	my($progname, @pathlist) = @_;
+	my($path);
+
+	foreach $path (@pathlist) {
+		if (-x $path."/".$progname) {
+			return($path."/".$progname);
+		}
+	}
+	return("");
+}
+
+#
+#  ファイルを変換する
+#
+sub convert {
+	my($infile, $outfile) = @_;
+	my($line);
+
+	print STDERR "configure: Generating $outfile from $infile.\n";
+	if (-f $outfile) {
+		print STDERR "configure: $outfile exists.",
+						"  Save as $outfile.bak.\n";
+		rename($outfile, $outfile.".bak");
+	}
+	unless (open(INFILE, $infile)) {
+		print STDERR "configure: can't open $infile\n";
+		exit(1);
+	}
+	unless (open(OUTFILE, "> ".$outfile)) {
+		print STDERR "configure: can't open $outfile\n";
+		exit(1);
+	}
+
+	while ($line = <INFILE>) {
+		chop $line;
+		while ($line =~ /^(.*)\@\(([A-Za-z_]+)\)(.*)$/) {
+			$line = $1.$vartable{$2}.$3;
+		}
+		print OUTFILE $line,"\n";
+	}
+
+	close(INFILE);
+	close(OUTFILE);
+}
+
+#
+#  サンプルを見つけてファイルを生成する
+#
+sub generate {
+	my($file, $mandatory) = @_;
+	my($path);
+
+	$path = $templatedir."/".$file.".".$target;
+	if (-f $path) {
+		convert($path, $file);
+		return;
+	}	
+
+	$path = $templatedir."/".$file;
+	if ($mandatory || -f $path) {
+		convert($path, $file);
+	}	
+}
+
+#
+#  ソースディレクトリ名を取り出す
+#
+$pwd = `pwd`; chop $pwd;
+if ($opt_D) {
+	$srcabsdir = $srcdir = $opt_D;
+}
+elsif ($0 =~ /(.*)\/configure/) {
+	$srcdir = $1;
+	if ($srcdir =~ /^\//) {
+		$srcabsdir = $srcdir;
+	}
+	else {
+		$srcabsdir = $pwd."/".$srcdir;
+	}
+}
+else {
+	$srcabsdir = $srcdir = $pwd;
+}
+
+$perl = $opt_p ? $opt_p : get_path("perl", ("/usr/local/bin", "/usr/bin"));
+$cfg = $opt_g ? $opt_g : "\$(SRCDIR)/cfg/cfg/cfg";
+$cfgfile = $opt_g ? $opt_g : $srcdir."/cfg/cfg/cfg";
+$templatedir = $opt_t ? $opt_t : $srcdir."/sample";
+
+#
+#  -Tオプションの確認
+#
+unless ($opt_T) {
+	print STDERR "configure: -T option is mandatory\n";
+	print STDERR "Installed targets are:\n";
+	foreach $targetname (<$srcdir/target/[a-zA-Z0-9]*>) {
+		$targetname =~ s|$srcdir/target/||;
+		print STDERR "\t$targetname\n";
+	}
+	exit(1);
+}
+
+#
+#  変数テーブルの作成
+#
+%vartable = ();
+$vartable{"TARGET"} = $target;
+$vartable{"APPLNAME"} = $applname;
+$vartable{"APPLDIR"} = $appldir;
+$vartable{"APPLOBJS"} = $applobjs;
+$vartable{"SYSSVCOBJS"} = $syssvcobjs;
+$vartable{"KERNEL_LIB"} = $kernel_lib;
+$vartable{"KERNEL_FUNCOBJS"} = $kernel_funcobjs;
+$vartable{"SRCDIR"} = $srcdir;
+$vartable{"SRCABSDIR"} = $srcabsdir;
+$vartable{"SRCLANG"} = $srclang;
+$vartable{"DBGENV"} = $dbgenv;
+$vartable{"ENABLE_TRACE"} = $enable_trace;
+$vartable{"PERL"} = $perl;
+$vartable{"CFG"} = $cfg;
+$objext = get_objext();
+$vartable{"OBJEXT"} = $objext;
+$vartable{"PRC_NUM"} = $prc_num;
+$vartable{"COPTS"} = $copts;
+$vartable{"CDEFS"} = $cdefs;
+$vartable{"LDFLAGS"} = $ldflags;
+
+#
+#  ターゲットディレクトリのチェック
+#
+
+if (! -d $srcdir."/target/".$target) {
+	print STDERR "configure: $srcdir/target/$target not exist\n";
+	exit(1);
+}
+
+#
+#  Makefile とアプリケーションファイルの生成
+#
+
+generate($makefile, 1);
+generate($applname.".c", 0);
+generate($applname.".cpp", 0);
+generate($applname.".h", 0);
+generate($applname.".cfg", 0);
+
+#
+#  cfg ができているかのチェック
+#
+
+if (!(-x ($objext eq "" ? $cfgfile : $cfgfile.".".$objext))) {
+	print STDERR "Executable file of the configurator (cfg) is not found.\n";
+}

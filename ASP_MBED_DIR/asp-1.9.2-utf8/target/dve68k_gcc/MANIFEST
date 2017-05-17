@@ -1,0 +1,26 @@
+PACKAGE asp
+
+MANIFEST
+Makefile.target
+dve68k.h
+target.tf
+target_cfg1_out.h
+target_check.tf
+target_config.c
+target_config.h
+target_def.csv
+target_kernel.h
+target_rename.def
+target_rename.h
+target_serial.c
+target_serial.cfg
+target_serial.h
+target_sil.h
+target_stddef.h
+target_support.S
+target_syssvc.h
+target_test.h
+target_timer.c
+target_timer.cfg
+target_timer.h
+target_unrename.h

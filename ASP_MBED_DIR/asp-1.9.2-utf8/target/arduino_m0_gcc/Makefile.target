@@ -1,0 +1,184 @@
+#
+#  @(#) $Id: Makefile.target 2728 2015-12-30 01:46:11Z ertl-honda $
+# 
+
+#
+#		Makefile のターゲット依存部（ARDUINO_M0用）
+#
+
+#
+#  ボード名，プロセッサ名，開発環境名の定義
+#
+BOARD = arduino_m0
+PRC = arm_m
+TOOL = gcc
+
+#
+#  コアタイプ
+#
+CORE_TYPE = CORTEX_M0PLUS
+
+#
+# Arduinoの開発環境のパス(Windows表記)
+#
+ARDUINO_BASE_DIR_WIN = C:\Program Files (x86)\Arduino
+
+#
+# Arduinoの開発環境へのインクルードパス
+#
+ifndef ARDUINO_LIB_DIR
+#
+# ARDUINO_LIB_DIR が定義されていなければArduino IDEでインストールされた
+# ライブラリを使用する
+#
+ARDUINO_LIB_DIR = $(ARDUINO_BASE_DIR_WIN)
+endif
+
+ARDUINO_INCLUDES = -I"$(ARDUINO_LIB_DIR)/hardware/tools/CMSIS/CMSIS/Include/" \
+                   -I"$(ARDUINO_LIB_DIR)/hardware/tools/CMSIS/Device/ATMEL/" \
+                   -I"$(ARDUINO_LIB_DIR)/hardware/arduino/samd/cores/arduino/" \
+                   -I"$(ARDUINO_LIB_DIR)/hardware/arduino/samd/variants/arduino_zero/"
+
+#
+#  コンパイルオプション
+#
+INCLUDES :=  $(ARDUINO_INCLUDES) $(INCLUDES) -I$(TARGETDIR)
+COPTS := $(COPTS) -mcpu=cortex-m0plus
+LDFLAGS := $(LDFLAGS) -mcpu=cortex-m0plus
+CDEFS := $(CDEFS) -DTOPPERS_CORTEX_M0PLUS -D__SAMD21G18A__
+CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
+
+#
+# ファイルサイズ削減のためのオプション
+#
+COPTS   := $(COPTS) -ffunction-sections -fdata-sections
+LDFLAGS := $(LDFLAGS) -Wl,--gc-sections
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) start.o
+KERNEL_COBJS := $(KERNEL_COBJS) target_config.o core_timer.o arduino_m0_startup.o
+
+#
+#  システムサービスに関する定義
+#
+SYSSVC_DIR := $(SYSSVC_DIR)
+SYSSVC_COBJS := $(SYSSVC_COBJS) target_serial.o 
+
+#
+#  コンフィギュレータ関係の変数の定義
+#
+CFG_TABS := $(CFG_TABS) --cfg1-def-table $(TARGETDIR)/target_def.csv
+
+#
+#  トレースログに関する設定
+#
+ifeq ($(ENABLE_TRACE),true)
+      COPTS := $(COPTS) 
+      CDEFS := $(CDEFS) -DTOPPERS_ENABLE_TRACE
+      KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/logtrace
+      KERNEL_COBJS := $(KERNEL_COBJS) trace_config.o trace_dump.o
+endif
+
+#
+#  GNU開発環境のターゲットアーキテクチャの定義
+#
+GCC_TARGET = arm-none-eabi
+
+#
+#  リンカスクリプトの定義
+#
+LDSCRIPT = "$(ARDUINO_LIB_DIR)/hardware/arduino/samd/variants/arduino_zero/linker_scripts/gcc/flash_with_bootloader.ld"
+#LDSCRIPT = "$(ARDUINO_LIB_DIR)/hardware//arduino/samd/variants/arduino_zero/linker_scripts/gcc/flash.ld"
+
+#
+#  スタートアップモジュールに関する定義
+#
+#  at91skyeye.ldに「STARTUP(start.o)」を記述したため，スタートアップモジュー
+#  ルの名前をHIDDEN_OBJSに定義する．
+#
+#HIDDEN_OBJS = start.o
+#
+#$(HIDDEN_OBJS): %.o: %.S
+#	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
+#
+#$(HIDDEN_OBJS:.o=.d): %.d: %.S
+#	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) \
+#		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
+#
+#LDFLAGS := $(LDFLAGS)
+
+#
+#  依存関係の定義
+#
+cfg1_out.c: $(TARGETDIR)/target_def.csv
+kernel_cfg.timestamp: $(TARGETDIR)/target.tf
+$(OBJFILE): $(TARGETDIR)/target_check.tf
+
+# 
+#  オフセットファイル生成のための定義 
+# 
+OFFSET_TF := $(TARGETDIR)/target_offset.tf
+
+#
+#  プロセッサ依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/Makefile.core
+
+
+#
+#  環境の判定
+#
+ifneq (,$(findstring /cygdrive/,$(PATH)))
+    UNAME_TARGET := Cygwin
+else
+ifneq (,$(findstring Windows,$(PATH)))
+    UNAME_TARGET := Windows
+else
+    UNAME_TARGET := Unix
+endif
+endif
+
+
+#
+#  フラッシュへの書き込み
+#
+OPENOCD_PATH = $(ARDUINO_BASE_DIR_WIN)\hardware\tools\OpenOCD-0.9.0-arduino\bin\openocd.exe
+OPENOCD_SCRIPT_PATH = $(ARDUINO_BASE_DIR_WIN)\hardware\tools\OpenOCD-0.9.0-arduino\share\openocd\scripts
+OPENOCD_SCRIPT  = $(ARDUINO_BASE_DIR_WIN)\hardware\arduino\samd\variants\arduino_zero\openocd_scripts\arduino_zero.cfg
+
+ifeq ($(UNAME_TARGET), Cygwin)
+	GDB = arm-gdb_m0.exe
+else
+	GDB = $(ARDUINO_BASE_DIR_WIN)\hardware\tools\gcc-arm-none-eabi-4.8.3-2014q1\bin\arm-none-eabi-gdb
+endif
+
+run: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	"`cygpath -u "$(OPENOCD_PATH)"`" -s "$(OPENOCD_SCRIPT_PATH)" -f "$(OPENOCD_SCRIPT)" -c "program ./$(OBJNAME).bin verify 0x4000 reset exit"
+else
+	"$(OPENOCD_PATH)" -s "$(OPENOCD_SCRIPT_PATH)" -f "$(OPENOCD_SCRIPT)" -c "program ./$(OBJNAME).bin verify 0x4000 reset exit"
+endif
+
+ocd: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	cygstart "$(OPENOCD_PATH)" '-s "$(OPENOCD_SCRIPT_PATH)"' '-f "$(OPENOCD_SCRIPT)"'
+else
+	start /MIN "" "$(OPENOCD_PATH)" -s "$(OPENOCD_SCRIPT_PATH)" -f "$(OPENOCD_SCRIPT)"
+endif
+
+db: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	$(GDB) $(OBJFILE) -x $(TARGETDIR)/gdb.ini
+else
+	$(GDB) $(OBJFILE) -x $(TARGETDIR)/gdb.ini
+endif
+
+d: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	$(GDB) $(OBJFILE) -x $(TARGETDIR)/gdb_noflash.ini
+else
+
+endif

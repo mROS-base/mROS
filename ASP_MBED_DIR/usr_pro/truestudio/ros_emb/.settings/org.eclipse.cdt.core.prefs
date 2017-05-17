@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/PATH/delimiter=;
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/PATH/operation=replace
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/PATH/value=C\:\\Program Files (x86)\\Atollic\\TrueSTUDIO for ARM 7.0.1\\ARMTools\\bin;C\:\\Program Files (x86)\\Atollic\\TrueSTUDIO for ARM 7.0.1\\Tools;C\:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.0.1/ide/jre/bin/client;C\:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.0.1/ide/jre/bin;C\:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.0.1/ide/jre/lib/i386;C\:\\ProgramData\\Oracle\\Java\\javapath;C\:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live;C\:\\Program Files (x86)\\Common Files\\Microsoft Shared\\Windows Live;C\:\\WINDOWS\\system32;C\:\\WINDOWS;C\:\\WINDOWS\\System32\\Wbem;C\:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Program Files\\Git\\cmd;C\:\\Program Files\\Git\\mingw64\\bin;C\:\\w32tex\\bin;C\:\\Program Files (x86)\\gs\\gs9.18\\bin;C\:\\Program Files (x86)\\gs\\gs9.18\\lib;C\:\\Program Files (x86)\\Windows Live\\Shared;;C\:\\Program Files (x86)\\Microsoft VS Code\\bin;C\:\\altera\\15.0\\modelsim_ase\\win32aloem;C\:\\Program Files (x86)\\Atollic\\TrueSTUDIO for ARM 7.0.1
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/PWD/delimiter=;
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/PWD/operation=replace
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/PWD/value=C\:\\Users\\mori\\Dropbox\\ros_frame\\ASP_MBED_DIR\\usr_pro\\truestudio\\ros_node\\
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/TOOLCHAIN_PATH/delimiter=;
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/TOOLCHAIN_PATH/operation=replace
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/TOOLCHAIN_PATH/value=C\:\\Program Files (x86)\\Atollic\\TrueSTUDIO for ARM 7.0.1\\ARMTools\\bin
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/append=true
+environment/project/com.atollic.truestudio.exe.debug.toolchain.682236599.247619856/appendContributed=true

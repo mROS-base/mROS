@@ -1,0 +1,88 @@
+#
+#		Makefile のターゲット依存部（STBEE_ARMCC用）
+#
+
+#
+#  ボード名，プロセッサ名，開発環境名の定義
+#  それぞれの名前はディレクトリ名に対応していることに注意。
+#
+PRC   = arm_m
+CHIP  = stm32f
+TOOL  = armcc
+BOARD = stbee
+
+#
+#  DFUを使用するか
+#
+#USE_DFU = true
+
+#
+#  GCC用のファイルのディレクトリ
+#
+TARGETDIR_GCC := $(SRCDIR)/target/$(BOARD)_gcc
+
+#
+#  コンパイルオプション
+#
+INCLUDES := $(INCLUDES) -I$(TARGETDIR)
+ifeq ($(USE_DFU),true)
+	CDEFS := $(CDEFS) -DINIT_MSP
+endif
+COPTS := $(COPTS)
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS)
+KERNEL_COBJS := $(KERNEL_COBJS)  target_config.o 
+KERNEL_CFLAGS := $(KERNEL_CFLAGS) 
+
+#
+#  システムサービスに関する定義
+#
+SYSSVC_DIR := $(SYSSVC_DIR)
+SYSSVC_COBJS := $(SYSSVC_COBJS) usart.o
+
+#
+#  リンカスクリプト(スキャッターファイル)の定義
+#
+ifeq ($(USE_DFU),true)
+    SCATTER = $(SRCDIR)/target/$(BOARD)_$(TOOL)/stbee_dfu.scat
+else
+    SCATTER = $(SRCDIR)/target/$(BOARD)_$(TOOL)/stbee.scat
+endif
+
+LDFLAGS := $(LDFLAGS) --scatter=$(SCATTER)
+
+#
+#  スタートアップモジュールに関する定義
+#
+START_OBJS = start.o
+
+$(START_OBJS): %.o: %.sx
+	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
+
+$(START_OBJS:.o=.d): %.d: %.sx
+	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) $(MAKEDEP_OPTS) \
+		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
+
+LDFLAGS := $(LDFLAGS) --entry=_kernel__start
+
+#
+#  依存関係の定義
+#
+kernel_cfg.timestamp: $(TARGETDIR_GCC)/target.tf
+$(OBJFILE): $(TARGETDIR_GCC)/target_check.tf
+
+#
+#  プロセッサ依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/Makefile.chip
+
+#
+#  同じファイルがあった場合にARMCC依存部の
+#  ファイルを使用するようにする
+#
+INCLUDES := $(INCLUDES) -I$(TARGETDIR_GCC)
+KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR_GCC)

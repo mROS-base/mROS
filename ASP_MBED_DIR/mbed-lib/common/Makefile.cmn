@@ -1,0 +1,7 @@
+CXX_OBJ += $(MBED_LIB_DIR)/common/common.o 
+
+INCLUDE_PATHS += -I$(MBED_LIB_DIR)/common \
+ 		 -I$(SRCDIR)/include \
+		 -I$(SRCDIR)/target/gr_peach_gcc \
+ 		 -I$(SRCDIR)/arch \
+ 		 -I$(SRCDIR)/arch/arm_gcc/common \

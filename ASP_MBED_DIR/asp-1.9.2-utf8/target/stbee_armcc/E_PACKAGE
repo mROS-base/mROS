@@ -1,0 +1,8 @@
+E_PACKAGE asp_stbee_armcc
+VERSION %date
+
+INCLUDE MANIFEST
+INCLUDE ../stbee_gcc/MANIFEST
+INCLUDE ../../MANIFEST
+INCLUDE ../../arch/arm_m_armcc/MANIFEST
+../../cfg/cfg/cfg.exe

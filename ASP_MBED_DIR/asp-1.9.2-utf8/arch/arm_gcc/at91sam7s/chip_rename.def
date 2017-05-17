@@ -1,0 +1,24 @@
+# chip_config.c, chip_support.S
+idf
+ipm
+inh_tbl
+ipm_mask_tbl
+inh_ipm_tbl
+bitpat_cfgint
+x_config_int
+irq_handler
+target_exc_handler
+
+undef_handler
+swi_handler
+prefetch_handler
+data_abort_handler
+interrupt_handler
+fiq_handler
+
+# core_config.c, core_support.S
+core_initialize
+core_terminate
+default_int_handler
+
+INCLUDE "arm_gcc/common/core"

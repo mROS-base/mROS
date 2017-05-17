@@ -1,0 +1,4 @@
+com.atollic.hardwaredebug.openocd.location=C\:\\Program Files\\GNU ARM Eclipse\\OpenOCD\\0.10.0-201601101000-dev\\bin\\openocd.exe
+com.atollic.hardwaredebug.openocd.sleep_bf_connect=1
+com.atollic.hardwaredebug.openocd.working_dir=C\:\\Program Files\\GNU ARM Eclipse\\OpenOCD\\0.10.0-201601101000-dev
+eclipse.preferences.version=1

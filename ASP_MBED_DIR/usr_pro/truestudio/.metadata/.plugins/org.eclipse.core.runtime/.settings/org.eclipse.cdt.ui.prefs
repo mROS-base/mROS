@@ -1,0 +1,7 @@
+content_assist_disabled_computers=org.eclipse.cdt.ui.textProposalCategory\u0000org.eclipse.cdt.ui.parserProposalCategory\u0000
+eclipse.preferences.version=1
+properties.multi.displ.mode=1
+properties.multi.write.mode=4
+spelling_locale_initialized=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

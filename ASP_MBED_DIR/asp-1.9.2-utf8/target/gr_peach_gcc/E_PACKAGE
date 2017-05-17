@@ -1,0 +1,8 @@
+E_PACKAGE asp_gr_peach_gcc
+VERSION %date
+
+INCLUDE MANIFEST
+INCLUDE ../../MANIFEST
+INCLUDE ../../arch/arm_gcc/MANIFEST
+INCLUDE ../../arch/arm_gcc/rza1/MANIFEST
+../../cfg/cfg/cfg.exe

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.atollic.hardwaredebug.launch.launchConfigurationType">
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.cpu_core" value="Cortex-M"/>
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.device" value="STM32F401RE"/>
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.endian" value="little"/>
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.init_speed" value="4000"/>
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.jlink_script_path" value=""/>
+<booleanAttribute key="com.atollic.hardwaredebug.jlink_common.jlink_script_used" value="false"/>
+<stringAttribute key="com.atollic.hardwaredebug.jlink_common.jlink_trace_port_cfg_path" value=""/>
+<intAttribute key="com.atollic.hardwaredebug.jlink_common.jlink_tracebuffer_size" value="16"/>
+<booleanAttribute key="com.atollic.hardwaredebug.jlink_common.scan_chain_auto" value="true"/>
+<intAttribute key="com.atollic.hardwaredebug.jlink_common.scan_chain_irpre" value="0"/>
+<intAttribute key="com.atollic.hardwaredebug.jlink_common.scan_chain_pos" value="0"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.analyzeCommands" value="# Set flash parallelism mode to 32, 16, or 8 bit when using STM32 F2/F4 microcontrollers&#13;&#10;# Uncomment next line, 2=32 bit, 1=16 bit and 0=8 bit parallelism mode&#13;&#10;#monitor flash set_parallelism_mode 2&#13;&#10;&#13;&#10;# Set character encoding&#13;&#10;set host-charset CP1252&#13;&#10;set target-charset CP1252&#13;&#10;&#13;&#10;# Reset to known state&#13;&#10;monitor reset&#13;&#10;&#13;&#10;# Load the program executable&#13;&#10;load&#9;&#9;&#13;&#10;&#13;&#10;# Reset the chip to get to a known state. Remove &quot;monitor reset&quot; command &#13;&#10;#  if the code is not located at default address and does not run by reset. &#13;&#10;monitor reset&#13;&#10;&#13;&#10;# Enable Debug connection in low power modes (DBGMCU-&gt;CR)&#13;&#10;set *0xE0042004 = (*0xE0042004) | 0x7&#13;&#10;&#13;&#10;# Start the executable&#13;&#10;continue"/>
+<intAttribute key="com.atollic.hardwaredebug.launch.formatVersion" value="2"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.hwinitCommands" value="# 使用するターゲットハードウェアの初期化を記述して下さい&#13;&#10;"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.ipAddress" value="localhost"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.jtagDevice" value="ST-LINK"/>
+<intAttribute key="com.atollic.hardwaredebug.launch.portNumber" value="61234"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.remoteCommand" value="target extended-remote"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.runCommands" value="# Set flash parallelism mode to 32, 16, or 8 bit when using STM32 F2/F4 microcontrollers&#13;&#10;# Uncomment next line, 2=32 bit, 1=16 bit and 0=8 bit parallelism mode&#13;&#10;#monitor flash set_parallelism_mode 2&#13;&#10;&#13;&#10;# Set character encoding&#13;&#10;set host-charset CP1252&#13;&#10;set target-charset CP1252&#13;&#10;&#13;&#10;# Reset to known state&#13;&#10;monitor reset&#13;&#10;&#13;&#10;# Load the program executable&#13;&#10;load&#9;&#9;&#13;&#10;&#13;&#10;# Reset the chip to get to a known state. Remove &quot;monitor reset&quot; command &#13;&#10;#  if the code is not located at default address and does not run by reset. &#13;&#10;monitor reset&#13;&#10;&#13;&#10;# Enable Debug connection in low power modes (DBGMCU-&gt;CR)&#13;&#10;set *0xE0042004 = (*0xE0042004) | 0x7&#13;&#10;&#13;&#10;# Set a breakpoint at main().&#13;&#10;tbreak main_task&#13;&#10;&#13;&#10;# Run to the breakpoint.&#13;&#10;#continue"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.serverParam" value="-p 61234 -l 1 -d"/>
+<booleanAttribute key="com.atollic.hardwaredebug.launch.startServer" value="true"/>
+<booleanAttribute key="com.atollic.hardwaredebug.launch.swd_mode" value="true"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.swv_port" value="61235"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.swv_trace_div" value="16"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.swv_trace_hclk" value="16000000"/>
+<booleanAttribute key="com.atollic.hardwaredebug.launch.swv_wait_for_sync" value="true"/>
+<intAttribute key="com.atollic.hardwaredebug.launch.trace_system" value="0"/>
+<booleanAttribute key="com.atollic.hardwaredebug.launch.useRemoteTarget" value="true"/>
+<stringAttribute key="com.atollic.hardwaredebug.launch.verifyCommands" value="# Set flash parallelism mode to 32, 16, or 8 bit when using STM32 F2/F4 microcontrollers&#13;&#10;# Uncomment next line, 2=32 bit, 1=16 bit and 0=8 bit parallelism mode&#13;&#10;#monitor flash set_parallelism_mode 2&#13;&#10;&#13;&#10;# Set character encoding&#13;&#10;set host-charset CP1252&#13;&#10;set target-charset CP1252&#13;&#10;&#13;&#10;# Reset to known state&#13;&#10;monitor reset&#13;&#10;&#13;&#10;# Load the program executable&#13;&#10;load&#9;&#9;&#13;&#10;&#13;&#10;# Reset the chip to get to a known state. Remove &quot;monitor reset&quot; command &#13;&#10;#  if the code is not located at default address and does not run by reset. &#13;&#10;monitor reset&#13;&#10;&#13;&#10;# Enable Debug connection in low power modes (DBGMCU-&gt;CR)&#13;&#10;set *0xE0042004 = (*0xE0042004) | 0x7&#13;&#10;&#13;&#10;# The executable starts automatically"/>
+<booleanAttribute key="com.atollic.hardwaredebug.stlink.enable_logging" value="false"/>
+<stringAttribute key="com.atollic.hardwaredebug.stlink.log_file" value="C:\home\TOPPERS\ASP\asp_1.9.2_utf8\target\nucleo_f401re_gcc\truestudio\st-link_gdbserver_log.txt"/>
+<booleanAttribute key="com.atollic.hardwaredebug.stlink.verify_flash" value="false"/>
+<stringAttribute key="org.eclipse.cdt.debug.mi.core.DEBUG_NAME" value="${TOOLCHAIN_PATH}/arm-atollic-eabi-gdb"/>
+<stringAttribute key="org.eclipse.cdt.debug.mi.core.commandFactory" value="標準 (Windows)"/>
+<stringAttribute key="org.eclipse.cdt.debug.mi.core.protocol" value="mi"/>
+<booleanAttribute key="org.eclipse.cdt.debug.mi.core.verboseMode" value="false"/>
+<stringAttribute key="org.eclipse.cdt.dsf.gdb.DEBUG_NAME" value="${TOOLCHAIN_PATH}/arm-atollic-eabi-gdb"/>
+<booleanAttribute key="org.eclipse.cdt.dsf.gdb.UPDATE_THREADLIST_ON_SUSPEND" value="false"/>
+<intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
+<stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="asp.elf"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="asp"/>
+<booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.atollic.truestudio.exe.debug.toolchain.994706796"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/asp"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.dsf.launch.MEMORY_BLOCKS" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;memoryBlockExpressionList context=&quot;reserved-for-future-use&quot;/&gt;&#13;&#10;"/>
+<stringAttribute key="process_factory_id" value="org.eclipse.cdt.dsf.gdb.GdbProcessFactory"/>
+</launchConfiguration>

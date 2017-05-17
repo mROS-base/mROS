@@ -1,0 +1,59 @@
+#
+#		Makefile のターゲット依存部（STM32F用）
+#
+
+# 
+#  チップ依存部ディレクトリ名の定義 
+# 
+CHIPDIR = $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
+
+#
+#  コアタイプ
+#
+CORE_TYPE = CORTEX_M3
+
+#
+#  コンパイルオプション
+#
+INCLUDES := $(INCLUDES) -I$(CHIPDIR)
+CDEFS := $(CDEFS) 
+COPTS := $(COPTS) 
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(CHIPDIR)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS)
+KERNEL_COBJS := $(KERNEL_COBJS) chip_config.o core_timer.o
+KERNEL_CFLAGS := $(KERNEL_CFLAGS) -fno-strict-aliasing
+
+#
+#  システムサービスに関する定義
+#
+SYSSVC_DIR := $(SYSSVC_DIR)
+SYSSVC_COBJS := $(SYSSVC_COBJS)
+
+#
+#  トレースログに関する設定
+#
+ifeq ($(ENABLE_TRACE),true)
+	COPTS := $(COPTS) -DTOPPERS_ENABLE_TRACE
+	KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/logtrace
+	KERNEL_COBJS := $(KERNEL_COBJS) trace_config.o trace_dump.o
+endif
+
+#
+#  依存関係の定義
+#
+kernel_cfg.timestamp: $(CHIPDIR)/chip.tf
+$(OBJFILE): $(CHIPDIR)/chip_check.tf
+
+# 
+#  オフセットファイル生成のための定義 
+# 
+OFFSET_TF := $(CHIPDIR)/chip_offset.tf
+
+#
+#  コア依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/Makefile.core

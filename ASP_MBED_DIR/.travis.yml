@@ -1,0 +1,21 @@
+sudo: required
+dist: trusty
+language: cpp
+
+compiler: gcc
+
+before_install:
+ - sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa -y
+ - sudo apt-get update
+ - sudo apt-get install gcc-arm-embedded libboost1.55-all-dev -y
+ - pushd asp-1.9.2-utf8/cfg
+ - make
+ - /home/travis/build/ncesnagoya/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/cfg/cfg/cfg -v
+ - popd
+
+script:
+ - pushd examples/sample1; make depend; make; popd
+ - pushd examples/blinky; make depend; make; popd
+ - pushd examples/httpsample; make depend; make; popd
+ - pushd examples/blinky_arduino; make depend; make; popd
+ - pushd examples/multitask_arduino; make depend; make; popd

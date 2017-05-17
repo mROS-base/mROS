@@ -1,0 +1,33 @@
+PACKAGE asp_arch_arm_m_gcc
+VERSION 1.9.2
+
+MANIFEST
+README.txt
+
+common/arm_m.h
+common/core.tf
+common/core_asm.inc
+common/core_cfg1_out.h
+common/core_check.tf
+common/core_config.c
+common/core_config.h
+common/core_config_v6m.h
+common/core_def.csv
+common/core_design.txt
+common/core_insn.h
+common/core_kernel.h
+common/core_offset.tf
+common/core_rename.def
+common/core_rename.h
+common/core_sil.h
+common/core_stddef.h
+common/core_support.S
+common/core_support_v6m.S
+common/core_test.h
+common/core_timer.c
+common/core_timer.cfg
+common/core_timer.h
+common/core_unrename.h
+common/core_user.txt
+common/Makefile.core
+common/start.S

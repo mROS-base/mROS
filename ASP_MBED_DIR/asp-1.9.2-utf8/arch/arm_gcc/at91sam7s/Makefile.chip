@@ -1,0 +1,86 @@
+#
+#  @(#) $Id: Makefile.chip 2742 2016-01-09 04:25:18Z ertl-honda $
+# 
+
+#
+#		Makefile のチップ依存部（AT91SAM7S用）
+#
+
+#
+#  チップ名，コア名，開発環境名の定義
+#
+CHIP = at91sam7s
+PRC  = arm
+TOOL = gcc
+
+#
+#  コンパイルオプション
+#
+INCLUDES := $(INCLUDES) -I$(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
+COPTS := $(COPTS) -mcpu=arm7tdmi -mlittle-endian -Wa,--gstabs 
+LDFLAGS := $(LDFLAGS) -mcpu=arm7tdmi  -N -mlittle-endian -L$(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
+CFG1_OUT_LDFLAGS := $(CFG1_OUT_LDFLAGS) -mcpu=arm7tdmi  -N -mlittle-endian -L$(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
+CDEFS := $(CDEFS) -D__TARGET_ARCH_ARM=4
+
+#
+# チップの種類の指定
+#
+ifeq ($(AT91SAM7S_TYPE),at91sam7s128)
+COPTS := $(COPTS) -D__AT91SAM7S128__ 
+endif
+
+ifeq ($(AT91SAM7S_TYPE),at91sam7s256)
+COPTS := $(COPTS) -D__AT91SAM7S256__ 
+endif
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) chip_support.o
+KERNEL_COBJS := $(KERNEL_COBJS) chip_config.o chip_timer.o \
+
+#
+#  コンフィギュレータ関係の変数の定義
+#
+CFG_TABS := $(CFG_TABS) --cfg1-def-table $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip_def.csv
+
+#
+#  リンカスクリプトの定義
+#
+ifeq ($(AT91SAM7S_TYPE),at91sam7s128)
+LDSCRIPT = $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/at91sam7s128.ld
+endif
+
+ifeq ($(AT91SAM7S_TYPE),at91sam7s256)
+LDSCRIPT = $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/at91sam7s256.ld
+endif
+
+#
+#  スタートアップモジュールに関する定義
+#
+#  リンカスクリプトに「STARTUP(start.o)」を記述したため，スタートアップモジュー
+#  ルの名前をHIDDEN_OBJSに定義する．また，LDFLAGSに-nostdlibを追加している．
+#
+HIDDEN_OBJS = start.o
+
+$(HIDDEN_OBJS): %.o: %.S
+	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
+
+$(HIDDEN_OBJS:.o=.d): %.d: %.S
+	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) \
+		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
+
+LDFLAGS := -nostdlib $(LDFLAGS)
+
+#
+#  依存関係の定義
+#
+cfg1_out.c: $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip_def.csv
+kernel_cfg.timestamp: $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip.tf
+$(OBJFILE): $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip_check.tf
+
+#
+#  コア依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/Makefile.core

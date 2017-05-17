@@ -1,0 +1,134 @@
+#
+#  @(#) $Id: Makefile.target 2741 2016-01-09 04:25:00Z ertl-honda $
+# 
+
+#
+#		Makefile のターゲット依存部（AT91SKYEYE用）
+#
+
+#
+#  ボード名，プロセッサ名，開発環境名の定義
+#
+BOARD = at91skyeye
+PRC = arm
+TOOL = gcc
+
+#
+#  コンパイルオプション
+#
+INCLUDES := $(INCLUDES) -I$(TARGETDIR)
+COPTS := $(COPTS) -mcpu=arm7tdmi -mlittle-endian
+LDFLAGS := $(LDFLAGS) -mcpu=arm7tdmi  -N -mlittle-endian
+CDEFS := $(CDEFS) -D__TARGET_ARCH_ARM=4
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR)
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) target_support.o
+KERNEL_COBJS := $(KERNEL_COBJS) target_config.o target_timer.o
+
+#
+#  システムサービスに関する定義
+#
+SYSSVC_DIR := $(SYSSVC_DIR)
+SYSSVC_COBJS := $(SYSSVC_COBJS) target_serial.o 
+
+#
+#  コンフィギュレータ関係の変数の定義
+#
+CFG_TABS := $(CFG_TABS) --cfg1-def-table $(TARGETDIR)/target_def.csv
+
+#
+#  トレースログに関する設定
+#
+ifeq ($(ENABLE_TRACE),true)
+      COPTS := $(COPTS) 
+      CDEFS := $(CDEFS) -DTOPPERS_ENABLE_TRACE
+      KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/logtrace
+      KERNEL_COBJS := $(KERNEL_COBJS) trace_config.o trace_dump.o
+endif
+
+#
+#  GNU開発環境のターゲットアーキテクチャの定義
+#
+GCC_TARGET = arm-none-eabi
+
+#
+#  リンカスクリプトの定義
+#
+LDSCRIPT = $(TARGETDIR)/at91skyeye.ld
+
+#
+#  スタートアップモジュールに関する定義
+#
+#  at91skyeye.ldに「STARTUP(start.o)」を記述したため，スタートアップモジュー
+#  ルの名前をHIDDEN_OBJSに定義する．
+#
+HIDDEN_OBJS = start.o
+
+$(HIDDEN_OBJS): %.o: %.S
+	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
+
+$(HIDDEN_OBJS:.o=.d): %.d: %.S
+	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) \
+		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
+
+LDFLAGS := $(LDFLAGS)
+
+#
+#  依存関係の定義
+#
+cfg1_out.c: $(TARGETDIR)/target_def.csv
+kernel_cfg.timestamp: $(TARGETDIR)/target.tf
+$(OBJFILE): $(TARGETDIR)/target_check.tf
+
+# 
+#  オフセットファイル生成のための定義 
+# 
+OFFSET_TF := $(TARGETDIR)/target_offset.tf
+
+#
+#  プロセッサ依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/Makefile.core
+
+#
+#  gcovを有効に
+#  
+
+#
+#  ENABLE_GCOVに設定可能な値
+#    full              : 全体取得
+#    part              : 一部取得
+#    only_kernel_full  : 全体取得(カーネルコードのみ)
+#    only_kernel_part  : 一部取得(カーネルコードのみ)
+#    false             : 無効
+ifdef ENABLE_GCOV
+ifneq ($(ENABLE_GCOV),false)
+ifeq ($(ENABLE_GCOV),full)
+      CDEFS := $(CDEFS) -DTOPPERS_ENABLE_GCOV_FULL
+      COPTS := $(COPTS) -fprofile-arcs -ftest-coverage
+endif
+ifeq ($(ENABLE_GCOV),part)
+      CDEFS := $(CDEFS) -DTOPPERS_ENABLE_GCOV_PART
+      COPTS := $(COPTS) -fprofile-arcs -ftest-coverage
+endif
+ifeq ($(ENABLE_GCOV),only_kernel_full)
+      CDEFS := $(CDEFS) -DTOPPERS_ENABLE_GCOV_FULL
+      KERNEL_CFLAGS := $(KERNEL_CFLAGS) -fprofile-arcs -ftest-coverage
+      CFG1_OUT_LDFLAGS := $(CFG1_OUT_LDFLAGS) -fprofile-arcs -ftest-coverage
+endif
+ifeq ($(ENABLE_GCOV),only_kernel_part)
+      CDEFS := $(CDEFS) -DTOPPERS_ENABLE_GCOV_PART
+      KERNEL_CFLAGS := $(KERNEL_CFLAGS) -fprofile-arcs -ftest-coverage
+      CFG1_OUT_LDFLAGS := $(CFG1_OUT_LDFLAGS) -fprofile-arcs -ftest-coverage
+endif
+      LIBS := $(LIBS) -lgcov
+      CLEAN_FILES := $(CLEAN_FILES) *.gcda *.gcda.bak *.gcno *.gcov coverage.info
+lcov:
+	rm -f makeoffset.gcno cfg1_out.*
+	lcov -c -d . -o coverage.info --gcov-tool $(GCC_TARGET)-gcov.exe
+	genhtml coverage.info -o coverage_html
+endif
+endif
