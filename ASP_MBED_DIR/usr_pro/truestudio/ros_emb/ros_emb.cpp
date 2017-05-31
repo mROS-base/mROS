@@ -60,7 +60,6 @@ void connect_host(){
 		//HTTPServerAddHandler<FSHandler>("/");
 		//HTTPServerAddHandler<RPCHandler>("/rpc");
 		//HTTPServerStart(80);
-	}
 }
 
 TCPSocketConnection mas_sock;
