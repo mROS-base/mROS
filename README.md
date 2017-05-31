@@ -4,18 +4,18 @@
 
 作業ディレクトリを<git_clone_dir>とする
 
-1. asp-gr_peach_gcc-mbed のclone
+- asp-gr_peach_gcc-mbed のclone
  - `$ cd <git_clone_dir>`
  - `$ git clone https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed.git`
-1. 本リポジトリのclone
+- 本リポジトリのclone
  - `$ cd <git_clone_dir>`
  - `$ git clone https://github.com/tlk-emb/mROS.git`
-1. TrueSTUDIOからプロジェクトを設定する
+- TrueSTUDIOからプロジェクトを設定する
  - <git_clone_dir>/mROS/truestudio をworkspaceとして指定して開く
  - ~~ファイル > インポート > 一般 > 既存プロジェクトをワークスペースへ~~
  - ~~ルートディレクトリの選択: <git_clone_dir>/mROS/truestudio/ros_emb~~
   - .metadata, .settings も管理対象にしているため本操作は不要
-1. TrueSTUDIO上でビルドする
+- TrueSTUDIO上でビルドする
 
 ## TODO
 
