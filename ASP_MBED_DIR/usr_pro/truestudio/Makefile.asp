@@ -151,11 +151,12 @@ ifndef OMIT_OPTIMIZATION
   COPTS := $(COPTS) -O2
 endif
 CDEFS := $(CDEFS) 
-INCLUDES := -I. -I$(SRCDIR)/include -I$(SRCDIR)/arch -I$(SRCDIR) $(INCLUDES) -I c:/programfiles(x86)/atollic/truestudioforarm7.0.1/armtools/arm-atollic-eabi/include/c++/5.3.1
+INCLUDES := -I. -I$(SRCDIR)/include -I$(SRCDIR)/arch -I$(SRCDIR) $(INCLUDES)
 LDFLAGS := $(LDFLAGS) 
 CFG1_OUT_LDFLAGS := $(CFG1_OUT_LDFLAGS) 
 LIBS := $(LIBS) $(CXXLIBS)
 CFLAGS = $(COPTS) $(CDEFS) $(INCLUDES)
+APPL_CXXFLAGS := $(APPL_CXXFLAGS) -fpermissive
 
 #
 #  アプリケーションプログラムに関する定義
@@ -167,7 +168,7 @@ CFLAGS = $(COPTS) $(CDEFS) $(INCLUDES)
 APPL_DIR = $(APPLDIR) $(SRCDIR)/library
 APPL_ASMOBJS =
 ifdef USE_CXX
-  APPL_CXXOBJS = $(APPLNAME).o 
+  APPL_CXXOBJS = $(APPLNAME).o tcp_ros.o xmlcall.o xmlparser.o 
   APPL_COBJS =
 else
   APPL_COBJS = $(APPLNAME).o 
@@ -375,7 +376,7 @@ endif
 	rm -f makeoffset.s offset.h
 else
 	-rm -f $(LIB).a $(ALL_OBJ) $(DEPS)
-	-rm -f *.o $(CLEAN_FILES)
+	-rm -f *.d *.o $(CLEAN_FILES)
 	-rm -f $(OBJFILE) $(OBJNAME).syms $(OBJNAME).srec $(OBJNAME).bin
 	-rm -f kernel_cfg.timestamp $(CFG2_OUT_SRCS)
 	-rm -f cfg1_out.c $(CFG1_OUT) cfg1_out.syms cfg1_out.srec
