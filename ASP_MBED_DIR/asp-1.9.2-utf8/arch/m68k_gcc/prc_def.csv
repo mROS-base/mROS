@@ -1,5 +1,0 @@
-sizeof_TCB,sizeof(TCB)
-offsetof_TCB_p_tinib,"offsetof(TCB,p_tinib)"
-offsetof_TCB_texptn,"offsetof(TCB,texptn)"
-offsetof_TCB_msp,"offsetof(TCB,tskctxb.msp)"
-offsetof_TCB_pc,"offsetof(TCB,tskctxb.pc)"

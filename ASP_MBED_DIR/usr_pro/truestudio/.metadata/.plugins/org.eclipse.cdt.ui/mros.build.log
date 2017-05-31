@@ -1,7 +1,0 @@
-12:58:46 **** Clean-only build of configuration Debug for project mros ****
-make clean 
-rm -rf  EXECUTABLES  ./src/common/rza_io_regrw.o  ./src/main.o ./src/startup_rz.o ./src/tiny_printf.o  ./src/common/rza_io_regrw.d  ./src/tiny_printf.d  ./src/main.d  mros.elf
-' '
-
-12:58:46 Build Finished (took 144ms)
-

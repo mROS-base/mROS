@@ -1,8 +1,0 @@
-TMAX_INTNO,TMAX_INTNO
-TBITW_IPRI,TBITW_IPRI
-__TARGET_ARCH_THUMB,__TARGET_ARCH_THUMB
-sizeof_TCB,sizeof(TCB)
-offsetof_TCB_p_tinib,"offsetof(TCB,p_tinib)"
-offsetof_TCB_texptn,"offsetof(TCB,texptn)"
-offsetof_TCB_sp,"offsetof(TCB,tskctxb.sp)"
-offsetof_TCB_pc,"offsetof(TCB,tskctxb.pc)"

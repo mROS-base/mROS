@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="リソース &apos;ros_node&apos; を削除します" deleteContents="false" description="リソース &apos;ros_node&apos; を削除します" element1="/ros_node" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1492770840942"/>&#x0A;<refactoring comment="リソース &apos;sample1&apos; を削除します" deleteContents="false" description="リソース &apos;sample1&apos; を削除します" element1="/sample1" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1492770845990"/>
-</session>

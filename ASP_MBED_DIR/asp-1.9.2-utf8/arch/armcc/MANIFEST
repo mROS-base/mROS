@@ -1,7 +1,0 @@
-PACKAGE asp
-
-armcc.txt
-makedep
-Makefile.sample
-MANIFEST
-tool_stddef.h

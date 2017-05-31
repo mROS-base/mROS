@@ -1,6 +1,0 @@
-INCLUDE "arm_gcc/rza1/chip"
-
-#target_config.c
-target_initialize
-target_exit
-target_mmu_init

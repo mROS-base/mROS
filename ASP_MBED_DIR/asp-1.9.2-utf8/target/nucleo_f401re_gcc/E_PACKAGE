@@ -1,8 +1,0 @@
-E_PACKAGE asp_nucleo_f401re_gcc
-VERSION %date
-
-INCLUDE MANIFEST
-INCLUDE ../../MANIFEST
-INCLUDE ../../arch/arm_m_gcc/MANIFEST
-INCLUDE ../../arch/arm_m_gcc/stm32f4xx_stm32cube/MANIFEST
-../../cfg/cfg/cfg.exe

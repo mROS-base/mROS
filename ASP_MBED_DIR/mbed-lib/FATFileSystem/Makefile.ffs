@@ -1,9 +1,0 @@
-CXX_OBJ += $(MBED_LIB_DIR)/FATFileSystem/FATDirHandle.o \
-	   $(MBED_LIB_DIR)/FATFileSystem/FATFileHandle.o \
-	   $(MBED_LIB_DIR)/FATFileSystem/FATFileSystem.o \
-	   $(MBED_LIB_DIR)/FATFileSystem/ChaN/ccsbcs.o \
-   	   $(MBED_LIB_DIR)/FATFileSystem/ChaN/diskio.o \
-   	   $(MBED_LIB_DIR)/FATFileSystem/ChaN/ff.o 
-
-INCLUDE_PATHS += -I$(MBED_LIB_DIR)/FATFileSystem \
-	      	 -I$(MBED_LIB_DIR)/FATFileSystem/ChaN

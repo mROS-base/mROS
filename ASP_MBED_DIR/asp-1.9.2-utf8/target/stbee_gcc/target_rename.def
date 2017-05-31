@@ -1,5 +1,0 @@
-INCLUDE	"arm_m_gcc/stm32f/chip"
-
-#target_config.c
-target_initialize
-target_exit
