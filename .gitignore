@@ -1,6 +1,5 @@
-mros/
-blinky/
-blinky_arduino/
-httpsample/
-multitask_arduino/
-
+.metadata
+*.o
+*.d
+*.a
+*.bin
