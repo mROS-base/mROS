@@ -3,9 +3,10 @@
 
 
 #include "target_test.h"
+#ifdef __cplusplus
 #include "xmlcall.h"
 #include "xmlparser.h"
-
+#endif
 
 #ifndef ROS_MAIN_TASK_PRI
 #define ROS_MAIN_TASK_PRI  4
