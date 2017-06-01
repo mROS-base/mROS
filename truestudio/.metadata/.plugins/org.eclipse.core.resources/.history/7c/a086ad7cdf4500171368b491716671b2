@@ -62,11 +62,10 @@ void connect_host(){
 		//HTTPServerStart(80);
 }
 
-//マスタへのXML-RPCクライアント通信OK
 TCPSocketConnection mas_sock;
-
 const char *m_ip = "192.168.0.15";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
+
 /* masterとの通信タスク*/
 /* HTTPクライアントが必要 */
 void connect_master(){
@@ -76,15 +75,44 @@ void connect_master(){
 	}
 }
 
-//
+//master への　rpc call とりあえずrpc_numでメソッドの仕分け
+void rpc_call(int rpc_num){
+
+}
+
+
+/*トピックの購読
+ * ポーリングとか？この辺はまた調べる*/
+/*
+void sub_topic(){
+
+}
+*/
+
+/*トピックのデータ処理*/
+/*
+void topic_func(){
+
+}
+
+*/
+
+/*トピックの出版
+ * とりあえず出す*/
+ /*
+void pub_topic(){
+
+}
+*/
+
 void xml2master(){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ
 	xml = registerSubscriber("/mros_node","/tpc_name","/tpc_type","http://mros_uri");
-	char *buff = xml.c_str();
+	const char *buff = xml.c_str();
 	int n;
 	n = mas_sock.send(buff,strlen(buff));
-	syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",buff);
+	syslog(LOG_NOTICE, "LOG_INFO: data send\n %s",buff);
 	if(n < 0){
 		//printf("fail register\n");
 		exit(1);
@@ -97,7 +125,7 @@ void xml2master(){
 		free(bufr);
 		exit(1);
 	}else{
-		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",bufr);
+		syslog(LOG_NOTICE, "LOG_INFO: data receive\n %s",buff);
 		//printf("****receive data****\n");
 		//printf("%s",buff);
 		free(bufr);

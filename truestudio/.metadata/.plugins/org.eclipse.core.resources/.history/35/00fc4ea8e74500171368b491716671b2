@@ -81,7 +81,7 @@ void xml2master(){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ
 	xml = registerSubscriber("/mros_node","/tpc_name","/tpc_type","http://mros_uri");
-	char *buff = xml.c_str();
+	const char *buff = xml.c_str();
 	int n;
 	n = mas_sock.send(buff,strlen(buff));
 	syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",buff);

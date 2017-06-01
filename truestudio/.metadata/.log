@@ -932,3 +932,245 @@ java.io.FileNotFoundException: C:\research\mROS\gitrepo\mROS\httpsample\file_tab
 
 !ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 16:11:14.485
 !MESSAGE Unloading product manager
+!SESSION 2017-05-31 17:36:42.158 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 17:36:57.230
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 17:36:57.322
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:37:03.444
+!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:37:03.444
+!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
+
+!ENTRY LicenseSystem 1 0 2017-05-31 17:37:03.479
+!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
+
+!ENTRY TrueSTUDIO License 1 0 2017-05-31 17:37:05.454
+!MESSAGE Valid local features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-05-31 17:37:05.455
+!MESSAGE Valid network features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-05-31 17:37:05.455
+!MESSAGE License system initialized in 717ms
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:37:05.511
+!MESSAGE License numbers: 0 []
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:37:05.511
+!MESSAGE This installation is running as LITE
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:37:21.154
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:37:21.326
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:37:25.920
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:37:28.840
+!MESSAGE Failed to find device info
+
+!ENTRY org.eclipse.jface 2 0 2017-05-31 17:37:29.994
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-05-31 17:37:29.994
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@101fc6d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5cd413,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:37:50.114
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:37:50.117
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-05-31 17:37:50.178
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-05-31 17:37:50.216
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-05-31 17:37:51.516
+!MESSAGE Code Review is up.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 17:39:59.591
+!MESSAGE Unloading product manager
+!SESSION 2017-05-31 17:41:04.316 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 17:41:07.295
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 17:41:07.306
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:41:08.112
+!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:41:08.113
+!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
+
+!ENTRY LicenseSystem 1 0 2017-05-31 17:41:08.127
+!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
+
+!ENTRY TrueSTUDIO License 1 0 2017-05-31 17:41:08.237
+!MESSAGE Valid local features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-05-31 17:41:08.238
+!MESSAGE Valid network features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-05-31 17:41:08.238
+!MESSAGE License system initialized in 74ms
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:41:08.243
+!MESSAGE License numbers: 0 []
+
+!ENTRY TrueSTUDIO 1 0 2017-05-31 17:41:08.243
+!MESSAGE This installation is running as LITE
+
+!ENTRY org.eclipse.jface 2 0 2017-05-31 17:41:09.194
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-05-31 17:41:09.194
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@ac1249,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1f10fe1,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:41:11.511
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:41:11.514
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-05-31 17:41:12.393
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-05-31 17:41:12.559
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-05-31 17:41:12.631
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:41:55.826
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:41:55.828
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:45:02.040
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:45:02.042
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:46:11.657
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:46:11.659
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:51:18.971
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:51:18.972
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:55:38.492
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:55:38.494
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:57:13.228
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 17:57:13.230
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:00:59.659
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:00:59.661
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:03:38.526
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:03:38.528
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:09:58.550
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:09:58.552
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:57:14.891
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:57:14.893
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:58:20.128
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 18:58:20.130
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 19:00:04.827
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-05-31 19:00:04.829
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-05-31 19:01:02.088
+!MESSAGE Unloading product manager

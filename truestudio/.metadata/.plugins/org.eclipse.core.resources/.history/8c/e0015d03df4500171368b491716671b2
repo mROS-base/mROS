@@ -32,7 +32,7 @@ string  makexmlcall(string name,vector<string> params,int pnum){
         m += "</string></value>\n</param>\n";
     }
     m += "</params>";
-    m += "</methodCall>";
+    m += "</methodCall>"
     return m;
 }
 
@@ -64,7 +64,7 @@ string  unregisterSubscriber(string id,string topic,string c_uri){
     params.push_back(id);
     params.push_back(topic);
     params.push_back(c_uri);
-    xml = makexmlcall("unregisterSubscriber",params,3);
+    xml = makexmlcall("unregisterSubscriver",params,3);
     xml = addHttpheader(xml);
     return xml;
 
@@ -76,7 +76,7 @@ string  registerSubscriber(string id,string topic,string type,string c_uri){
     params.push_back(topic);
     params.push_back(type);
     params.push_back(c_uri);
-    xml = makexmlcall("registerSubscriber",params,4);
+    xml = makexmlcall("registerSubscriver",params,4);
     xml = addHttpheader(xml);
     return xml;
 }

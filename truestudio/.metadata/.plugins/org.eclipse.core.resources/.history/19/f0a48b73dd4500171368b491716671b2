@@ -1,20 +1,17 @@
 #include "xmlcall.h"
 
 string addHttpheader(string xml){
-	//なんか汚いし効率悪そうだから変更の余地あり
-	stringstream ss;
+	stream ss;
 	ss <<  xml.size();
-	string xml2;
-	xml2 += "POST /RPC2 HTTP/1.1\n";
-	xml2 += "Host: \n";
-	xml2 += "Accept-Encoding: \n";
-	xml2 += "User-Agent: \n";
-	xml2 += "Content-Type: \n";
-	xml2 += "Content-Length: ";
-	xml2 += ss.str();
-	xml2 += "\n\n";
-	xml2 += xml;
-	return xml2;
+	xml += "POST /RPC2 HTTP/1.1\n";
+	xml += "Host: \n";
+	xml += "Accept-Encoding: \n";
+	xml += "User-Agent: \n";
+	xml += "Content-Type: \n";
+	xml += "Content-Length: ";
+	xml += ss.str();
+	xml += "\n\n";
+	return xml;
 }
 
 
@@ -27,12 +24,11 @@ string  makexmlcall(string name,vector<string> params,int pnum){
     m += "</methodName>\n";
     m += "<params>\n";
     for(int i=0; i < pnum;i++){
-        m += "<param>\n<value><string>";
+        m += "<param><value>";
         m += params[i];
-        m += "</string></value>\n</param>\n";
+        m += "</value></param>\n";
     }
     m += "</params>";
-    m += "</methodCall>";
     return m;
 }
 
@@ -64,7 +60,7 @@ string  unregisterSubscriber(string id,string topic,string c_uri){
     params.push_back(id);
     params.push_back(topic);
     params.push_back(c_uri);
-    xml = makexmlcall("unregisterSubscriber",params,3);
+    xml = makexmlcall("unregisterSubscriver",params,3);
     xml = addHttpheader(xml);
     return xml;
 
@@ -76,7 +72,7 @@ string  registerSubscriber(string id,string topic,string type,string c_uri){
     params.push_back(topic);
     params.push_back(type);
     params.push_back(c_uri);
-    xml = makexmlcall("registerSubscriber",params,4);
+    xml = makexmlcall("registerSubscriver",params,4);
     xml = addHttpheader(xml);
     return xml;
 }
