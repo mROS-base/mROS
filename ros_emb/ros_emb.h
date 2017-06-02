@@ -6,6 +6,7 @@
 #ifdef __cplusplus
 #include "xmlcall.h"
 #include "xmlparser.h"
+#include "node_server.h"
 #endif
 
 #ifndef ROS_MAIN_TASK_PRI

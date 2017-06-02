@@ -12,7 +12,7 @@
 //#include "rtos.h"
 //#include "JPEG_Converter.h"
 #include "EthernetInterface.h"
-#include "HTTPServer.h"
+
 
 #include "syssvc/logtask.h"
 
@@ -31,7 +31,6 @@
 #endif
 
 EthernetInterface network;
-HTTPServer svr;
 
 
 void network_init(){
@@ -77,7 +76,7 @@ void connect_master(){
 void xml2master(){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ
-	xml = registerSubscriber("/mros_node","/tpc_name","/tpc_type","http://mros_uri");
+	xml = registerPublisher("/mros_node","/cmd_vel","geometry_msgs/Twist","http://192.168.0.10:8000");
 	char *buff = xml.c_str();
 	int n;
 	n = mas_sock.send(buff,strlen(buff));
@@ -99,9 +98,10 @@ void xml2master(){
 }
 
 void node_server(){
-	svr.HTTPServerAddHandler<SimpleHandler>("/");
+	TCPSocketConnection csock;
+	TCPSocketServer svr;
 	syslog(LOG_NOTICE, "LOG_INFO: Simple Handler");
-	svr.HTTPServerStart(80);
+	nodeServerStart(svr,csock,8000);
 	syslog(LOG_NOTICE, "LOG_INFO: Server start");
 }
 
@@ -111,13 +111,13 @@ void main_task(){
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
 
-/*	//MASTER CLIENT TEST//
+	//MASTER CLIENT TEST//
 	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
 	connect_master();	
 	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
 	syslog(LOG_NOTICE, "LOG_INFO: DO RPC CALL");
 	xml2master();
-*/
+
 
 	//SERVER TEST//
 	syslog(LOG_NOTICE, "LOG_INFO: starting server...");
