@@ -34,7 +34,7 @@
 extern "C" {
 #endif
 
-void connect_host();
+void network_init();
 void connect_master();
 
 //extern void	cyclic_handler(intptr_t exinf);

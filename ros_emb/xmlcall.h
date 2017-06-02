@@ -3,10 +3,11 @@
 
 
 #include <string>
-#include <c++/5.3.1/iostream>
+#include <sstream>
+//#include <iostream>
 #include <stdint.h>
 #include <stdio.h>
-#include <c++/5.3.1/vector>
+#include <vector>
 
 using namespace std;
 
@@ -37,6 +38,7 @@ string  requestTopic(string id,string topic,string prt);
 //現状prt = "TCPROS"のみを考える．引数も特になし
 
 //local function
+string	addHttpheader(string xml);
 string  makexmlcall(string name,vector<string> params,int pnum); 
 
 

@@ -36,6 +36,61 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>node_server.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/node_server.cpp</locationURI>
+		</link>
+		<link>
+			<name>node_server.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/node_server.h</locationURI>
+		</link>
+		<link>
+			<name>ros_emb.cfg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/ros_emb.cfg</locationURI>
+		</link>
+		<link>
+			<name>ros_emb.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/ros_emb.cpp</locationURI>
+		</link>
+		<link>
+			<name>ros_emb.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/ros_emb.h</locationURI>
+		</link>
+		<link>
+			<name>tcp_ros.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/tcp_ros.cpp</locationURI>
+		</link>
+		<link>
+			<name>tcp_ros.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/tcp_ros.h</locationURI>
+		</link>
+		<link>
+			<name>xmlcall.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/xmlcall.cpp</locationURI>
+		</link>
+		<link>
+			<name>xmlcall.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/xmlcall.h</locationURI>
+		</link>
+		<link>
+			<name>xmlparser.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/xmlparser.cpp</locationURI>
+		</link>
+		<link>
+			<name>xmlparser.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/xmlparser.h</locationURI>
+		</link>
+		<link>
 			<name>asp-1.9.2-utf8/MANIFEST</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/asp-1.9.2-utf8/MANIFEST</locationURI>
