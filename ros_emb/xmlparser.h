@@ -13,10 +13,10 @@
 #define XMLRPC_PARAM_INT 2   // OK
 #define XMLRPC_PARAM_DOUBLE 3  //OK
 #define XMLRPC_PARAM_STRING 4  //OK
-#define XMLRPC_PARAM_ARRAY 5  // OK
+#define XMLRPC_PARAM_ARRAY 5
 #define XMLRPC_PARAM_DATETIME 6
 #define XMLRPC_PARAM_BINARY 7
-#define XMLRPC_PARAM_STRUCT 8  //OK
+#define XMLRPC_PARAM_STRUCT 8
 */
 using namespace std;
 
@@ -48,6 +48,6 @@ void callparser(xmlNode *node,string xml);
 void resparser(xmlNode *node,string xml);
 
 bool parser(xmlNode *node,string xml);
-
+int ParseReceiveMessage(string http,xmlNode *node);
 
 #endif /* _XMLPARSER_H_ */  

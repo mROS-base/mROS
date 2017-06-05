@@ -4,6 +4,7 @@
 
 #include "mbed.h"
 #include "EthernetInterface.h"
+#include "xmlparser.h"
 
 
 

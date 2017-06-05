@@ -116,3 +116,29 @@ string requestTopic(string id,string topic,string prt){
     xml = addHttpheader(xml);
     return xml;
 }
+
+//test用methodResponse生成
+string test_requestResponse(){
+    string res;
+    string xml;
+    xml += "<?xml version='1.0'?>\n";
+    xml += "<methodResponse>\n";
+    xml += "<params>\n";
+    xml += "<param>\n";
+    xml += "<value><int>0</int></value>\n";
+    xml += "</param>\n";
+    xml += "<param>\n";
+    xml += "<value><string>OK!</string></value>\n";
+    xml += "</param>\n";
+    xml += "<param>\n";
+    xml += "<value><array>\n";
+    xml += "<data><value>8080</value></data>\n";
+    xml += "<data><value></value></data>\n";
+    xml += "</array></value>\n";
+    xml += "</param>\n";
+    xml += "</params>\n";
+    xml += "</methodResponse>\n";
+
+    res = addHttpheader(xml);
+    return res;
+}

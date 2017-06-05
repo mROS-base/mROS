@@ -1,5 +1,14 @@
 #include "xmlparser.h"
 
+//エラーコード
+#define SUCCESS_PARSING 1
+#define NON_POST_METHOD -2
+#define METHOD_ERROR -3
+#define FAIL_TO_PARSE_XML -4
+
+int err_stat;
+
+
 string getbool(string param){
     string val;
     for(int i = param.find("<boolean>") + sizeof("<boolean>") - 1 ; i < param.find("</boolean>") ; i++){
@@ -145,6 +154,10 @@ void paramparser(xmlNode *node,string params){
         param = "";
         phead = (int)params.find("<param>");
         ptail = (int)params.find("</param>");
+        if(phead == -1 || ptail == -1){
+            err_stat = FAIL_TO_PARSE_XML;
+            return;
+        }
         for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
             param = param + params[i];
         }
@@ -175,6 +188,10 @@ void callparser(xmlNode *node,string xml){
     //<methodCall></methodCall>を分割
     int head = (int)xml.find("<methodCall>");
     int tail = (int)xml.find("</methodCall>");
+    if(head == -1 || tail == -1){
+        err_stat = FAIL_TO_PARSE_XML;
+        return;
+    }
     for(int i = head + sizeof("<methodCall>") - 1 ; i < tail ; i ++ ){
         m_call = m_call + xml[i];
     }
@@ -182,6 +199,10 @@ void callparser(xmlNode *node,string xml){
     //<methodName></methodName>の取り出し
     int mhead = (int)m_call.find("<methodName>");
     int mtail = (int)m_call.find("</methodName>");
+    if(mhead == -1 || mtail == -1){
+        err_stat = FAIL_TO_PARSE_XML;
+        return;
+    }
     for(int i = mhead + sizeof("<methodName>") - 1 ; i < mtail ; i ++ ){
         m_name = m_name + m_call[i];
     }
@@ -191,6 +212,10 @@ void callparser(xmlNode *node,string xml){
     //<params></params>の取り出し
     int phead = (int)m_call.find("<params>");
     int ptail = (int)m_call.find("</params>");
+    if(phead == -1 || ptail == -1){
+        err_stat = FAIL_TO_PARSE_XML;
+        return;
+    }
     for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
         params = params + m_call[i];
     }
@@ -202,48 +227,81 @@ void callparser(xmlNode *node,string xml){
 //methodResponseのパース
 void resparser(xmlNode *node,string xml){
     string resp;
-    string  body;
+    string body;
     string params;
     //Response
     int head = (int)xml.find("<methodResponse>");
     int tail = (int)xml.find("</methodResponse>");
-    for(int i = head + sizeof("<methodResponse>") - 1 ; i < tail ; i ++ ){
-        body = body + xml[i];
-    }
-    node->methodName = "Response";
-    //
-    if(body.find("<fault>") != -1){
-        int fhead = (int)body.find("<fault>");
-        int ftail = (int)body.find("</fault>");
-        for(int i = fhead + sizeof("<fault>") - 1; i < ftail ; i ++ ){
-            params = params + body[i];
-        }
-        node->fault = false;
-        //faultCode,faultStringの取り出し
-        faultparser(node,params);
+    if(head == -1 || tail == -1){
+        err_stat = FAIL_TO_PARSE_XML;
+        return;
     }else{
-        int phead = (int)body.find("<params>");
-        int ptail = (int)body.find("</params>");
-        for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
-            params = params + body[i];
+        for(int i = head + sizeof("<methodResponse>") - 1 ; i < tail ; i ++ ){
+            body = body + xml[i];
         }
-        node->fault = true;
-        //<params>の取り出し
-        paramparser(node,params);
+        node->methodName = "Response";
+        if(body.find("<fault>") != -1){
+            int fhead = (int)body.find("<fault>");
+            int ftail = (int)body.find("</fault>");
+            if(fhead != -1 && ftail != -1){
+                for(int i = fhead + sizeof("<fault>") - 1; i < ftail ; i ++ ){
+                    params = params + body[i];
+                }
+                node->fault = false;
+                //faultCode,faultStringの取り出し
+                faultparser(node,params);
+            }else{
+                err_stat = FAIL_TO_PARSE_XML;
+                return;
+            }
+        }else{
+            int phead = (int)body.find("<params>");
+            int ptail = (int)body.find("</params>");
+            if(phead != -1 && ptail != -1){
+                for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
+                    params = params + body[i];
+                }
+                node->fault = true;
+            //<params>の取り出し
+                paramparser(node,params);
+            }else{
+                err_stat = FAIL_TO_PARSE_XML;
+                return;
+            }
+        }
     }
 }
 
 
 //XMLのメソッドの判別
 bool parser(xmlNode *node,string xml){
-
-    if(xml.find("<methodCall>") != -1){
+    if(xml.find("<methodCall>") != -1 && xml.find("</methodCall>") != -1){
         callparser(node,xml);
-    }else if(xml.find("<methodResponse>") != -1){
+    }else if(xml.find("<methodResponse>") != -1 && xml.find("</methodResponse>") != -1){
         resparser(node,xml);
     }else{
         cout << "invalid XML-RPC !" << endl;
+        err_stat = METHOD_ERROR;
         return false;
     }
     return true;
+}
+
+
+//HTTP POSTのメッセージ解析
+//メソッドの判別とXMLの切り出し
+
+
+
+int ParseReceiveMessage(string http,xmlNode *node){
+	err_stat = SUCCESS_PARSING;
+    if(http.find("POST") != -1){
+        if(!parser(node,http)){
+        }else{
+            err_stat = SUCCESS_PARSING;
+        }
+    }else{
+        err_stat = NON_POST_METHOD;
+    }
+    return err_stat;
 }

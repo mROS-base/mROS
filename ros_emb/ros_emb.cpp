@@ -105,6 +105,12 @@ void node_server(){
 	syslog(LOG_NOTICE, "LOG_INFO: Server start");
 }
 
+
+/* mROS communication test
+ * [registration as Publisher] mROS ->(XML-RPC)-> master node
+ * [request topic] mROS <- (XML-RPC) <- Subscriber node
+ */
+
 void main_task(){
 	syslog(LOG_NOTICE, "**********mROS START******************");
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
