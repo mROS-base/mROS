@@ -76,32 +76,36 @@ void connect_master(){
 void xml2master(){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ
-	xml = registerPublisher("/mros_node","/cmd_vel","geometry_msgs/Twist","http://192.168.0.10:8000");
-	char *buff = xml.c_str();
+	xml = registerPublisher("/mros_node","/cmd_vel","geometry_msgs/Twist","http://192.168.0.10:40009");
+	char *snd_buff;
+	snd_buff = (char *)malloc(1024*sizeof(char));
+	strcpy(snd_buff,xml.c_str());
 	int n;
-	n = mas_sock.send(buff,strlen(buff));
-	syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",buff);
+	n = mas_sock.send(snd_buff,strlen(snd_buff));
+	syslog(LOG_NOTICE,"LOG_INFO: strlen: %d , sizeof: %d",strlen(snd_buff),sizeof(snd_buff));
+	free(snd_buff);
+	//syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",snd_buff);
 	if(n < 0){
 		exit(1);
 	}
-	char *bufr;
-	bufr = (char *)malloc(1024);
-	n = mas_sock.receive(bufr,1024);
+	char *rcv_buff;
+	rcv_buff = (char *)malloc(1024*sizeof(char));
+	n = mas_sock.receive(rcv_buff,1024);
 	if(n < 0){
-		free(bufr);
+		free(rcv_buff);
 		exit(1);
 	}else{
-		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",bufr);
-		free(bufr);
+		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
+		free(rcv_buff);
 	}
 
 }
 
+
 void node_server(){
 	TCPSocketConnection csock;
 	TCPSocketServer svr;
-	syslog(LOG_NOTICE, "LOG_INFO: Simple Handler");
-	nodeServerStart(svr,csock,8000);
+	nodeServerStart(svr,csock,40009);
 	syslog(LOG_NOTICE, "LOG_INFO: Server start");
 }
 
@@ -119,7 +123,7 @@ void main_task(){
 
 	//MASTER CLIENT TEST//
 	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
-	connect_master();	
+	connect_master();
 	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
 	syslog(LOG_NOTICE, "LOG_INFO: DO RPC CALL");
 	xml2master();
@@ -130,5 +134,6 @@ void main_task(){
 	node_server();
 
 	syslog(LOG_NOTICE, "**********mROS FINISH***********");
-	
+
 }
+

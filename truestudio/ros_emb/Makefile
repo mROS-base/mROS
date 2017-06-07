@@ -20,7 +20,7 @@ OMIT_OPTIMIZATION = true
 #  メインファイル以外に追加するものを記述する
 #
 APPL_ASMOBJS = 
-APPL_CXXOBJS = tcp_ros.o xmlcall.o xmlparser.o
+APPL_CXXOBJS = xmlparser.o xmlcall.o node_server.o tcp_ros.o 
 APPL_COBJS = 
 
 #
@@ -39,10 +39,6 @@ SRCDIR = ../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
 include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
-include $(MBED_LIB_DIR)/mbed-rpc/Makefile.rpc
-include $(MBED_LIB_DIR)/HttpServer_snapshot/Makefile.hss
-include $(MBED_LIB_DIR)/FATFileSystem/Makefile.ffs
-include $(MBED_LIB_DIR)/i2c/Makefile.i2c
 include ../Makefile.mbd
 
 #
