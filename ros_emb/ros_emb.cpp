@@ -76,7 +76,7 @@ void connect_master(){
 void xml2master(){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ
-	xml = registerPublisher("/mros_node","/cmd_vel","geometry_msgs/Twist","http://192.168.0.10:40009");
+	xml = registerPublisher("/mros_node","/test_string","std_msgs/String","http://192.168.0.10:40040");
 	char *snd_buff;
 	snd_buff = (char *)malloc(1024*sizeof(char));
 	strcpy(snd_buff,xml.c_str());
