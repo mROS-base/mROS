@@ -31,7 +31,7 @@
 #endif
 
 EthernetInterface network;
-
+xmlNode *node;
 
 void network_init(){
 
@@ -91,6 +91,8 @@ void xml2master(){
 	char *rcv_buff;
 	rcv_buff = (char *)malloc(1024*sizeof(char));
 	n = mas_sock.receive(rcv_buff,1024);
+	string tmp;
+	tmp = rcv_buff;
 	if(n < 0){
 		free(rcv_buff);
 		exit(1);
@@ -98,14 +100,13 @@ void xml2master(){
 		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
 		free(rcv_buff);
 	}
-
 }
 
 
 void node_server(){
 	TCPSocketConnection csock;
 	TCPSocketServer svr;
-	nodeServerStart(svr,csock,40009);
+	nodeServerStart(svr,csock,40040);
 	syslog(LOG_NOTICE, "LOG_INFO: Server start");
 }
 

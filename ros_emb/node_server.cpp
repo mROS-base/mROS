@@ -1,6 +1,6 @@
 #include "node_server.h"
 
-void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port=40009){
+void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 	string msg;
 	xmlNode *node;
 	if(svr.bind(port) == -1){

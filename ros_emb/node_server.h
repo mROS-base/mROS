@@ -10,6 +10,6 @@
 
 
 
-void nodeServerStart(TCPSocketServer ssock,TCPSocketConnection csock,int port=40009);
+void nodeServerStart(TCPSocketServer ssock,TCPSocketConnection csock,int port=40040);
 
 #endif
