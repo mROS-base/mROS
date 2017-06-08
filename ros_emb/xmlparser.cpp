@@ -1,17 +1,19 @@
 #include "xmlparser.h"
+#include <stdlib.h>
 
 //エラーコード
 #define SUCCESS_PARSING 1
+#define HTTP_OK 2
 #define NON_POST_METHOD -2
 #define METHOD_ERROR -3
 #define FAIL_TO_PARSE_XML -4
 
-int err_stat;
+int err_status;
 
 
 string getbool(string param){
     string val;
-    for(int i = param.find("<boolean>") + sizeof("<boolean>") - 1 ; i < param.find("</boolean>") ; i++){
+    for(int i = param.find("<boolean>") + sizeof("<boolean>") - 1 ; i < param.rfind("</boolean>") ; i++){
             val = val + param[i];
     }
     return val;
@@ -20,11 +22,11 @@ string getbool(string param){
 string getint(string param){
     string val;
     if(param.find("<int>") != -1){
-        for(int i = param.find("<int>") + sizeof("<int>") -1 ; i < param.find("</int>") ; i++){
+        for(int i = param.find("<int>") + sizeof("<int>") -1 ; i < param.rfind("</int>") ; i++){
             val = val + param[i];
         }
     }else if(param.find("<i4>") != -1){
-        for(int i = param.find("<i4>") + sizeof("<i4>") -1 ; i < param.find("</i4>") ; i++){
+        for(int i = param.find("<i4>") + sizeof("<i4>") -1 ; i < param.rfind("</i4>") ; i++){
         val = val + param[i];
         }
     }
@@ -33,7 +35,7 @@ string getint(string param){
 
 string getdouble(string param){
     string val;
-    for(int i = param.find("<double>") + sizeof("<double>") -1 ; i < param.find("</double>") ; i++){
+    for(int i = param.find("<double>") + sizeof("<double>") -1 ; i < param.rfind("</double>") ; i++){
         val = val + param[i];
     }
     return val;
@@ -41,17 +43,17 @@ string getdouble(string param){
 
 string getstring(string param){
     string val;
-    for(int i = param.find("<string>") + sizeof("<string>") -1 ; i < param.find("</string>") ; i++){
+    for(int i = param.find("<string>") + sizeof("<string>") -1 ; i < param.rfind("</string>") ; i++){
         val = val + param[i];
     }
     return val;
     //vec->push_back(val);
     //cout << "can't reach here" << endl; 
 }
-
+//arrayの中からdataparser呼び出してgetstringとかする
 string getarray(string param){
     string val;
-    for(int i = param.find("<array>") + sizeof("<array>") - 1 ; i < param.find("</array>") ; i++){
+    for(int i = param.find("<array>") + sizeof("<array>") - 1 ; i < param.rfind("</array>") ; i++){
         if(param[i] != ' '){
             val = val + param[i];
         }
@@ -61,7 +63,7 @@ string getarray(string param){
 
 string getdate(string param){
     string val;
-    for(int i = param.find("<dateTime.iso8601>") + sizeof("<dateTime.iso8601>") -1 ; i < param.find("</dateTime.iso8601>") ; i++){
+    for(int i = param.find("<dateTime.iso8601>") + sizeof("<dateTime.iso8601>") -1 ; i < param.rfind("</dateTime.iso8601>") ; i++){
         val = val + param[i];
     }
     return val;
@@ -69,7 +71,7 @@ string getdate(string param){
 
 string getbinary(string param){
     string val;
-    for(int i = param.find("<base64>") + sizeof("<base64>") -1 ; i < param.find("</base64>") ; i++){
+    for(int i = param.find("<base64>") + sizeof("<base64>") -1 ; i < param.rfind("</base64>") ; i++){
         val = val + param[i];
     }
     return val;
@@ -77,7 +79,7 @@ string getbinary(string param){
 
 string getstruct(string param){
     string val;
-    for(int i = param.find("<struct>") + sizeof("<struct>") - 1 ; i < param.find("</struct>") ; i++){
+    for(int i = param.find("<struct>") + sizeof("<struct>") - 1 ; i < param.rfind("</struct>") ; i++){
         if(param[i] != ' '){
             val = val + param[i];
         }
@@ -97,73 +99,58 @@ string gettagless(string param){
 void valparse(xmlNode *node,string param){
     //cout << "value::" << param << endl;
     //arrayとstructの先に来る方の検出
-    if(param.find("<array>") != -1 && (param.find("<array>") < param.find("<struct>") || (param.find("<struct>") == -1))){ 
-        cout << "in array " << endl;
+    if((param.find("<array>") != -1 && (param.find("<array>") < param.find("<struct>"))) || (param.find("<struct>") == -1)){ 
         node->params.push_back(getarray(param));
-        node->ptype.push_back(5);
 
     }else if(param.find("<struct>") != -1){
-        cout << "in struct " << endl;
         node->params.push_back(getstruct(param));
-        node->ptype.push_back(8);
 
     }else if(param.find("<string>") != -1){
         //cout << "get string!!" << endl;
 
         node->params.push_back(getstring(param));
-        node->ptype.push_back(4);
-
     }else if(param.find("<int>") != -1 || param.find("<i4>") != -1){
 
         node->params.push_back(getint(param));
-        node->ptype.push_back(2);
-
     }else if(param.find("<boolean>") != -1){
 
         node->params.push_back(getbool(param));
-        node->ptype.push_back(1);
 
     }else if(param.find("<double>") != -1){
 
         node->params.push_back(getdouble(param));
-        node->ptype.push_back(3);
 
     }else if(param.find("<dateTime.iso8601>") != -1){
        
         node->params.push_back(getdate(param));
-        node->ptype.push_back(6);
 
     }else if(param.find("<base64>") != -1){
 
         node->params.push_back(getbinary(param));
-        node->ptype.push_back(7);
 
     }else{
         //tagless string 
         node->params.push_back(gettagless(param));
-        node->ptype.push_back(4);
     }
 }
 
 void paramparser(xmlNode *node,string params){
     string param;
     int phead,ptail;
-    int elements = 0;
     //<param>がなくなるまで回す
     while((int)params.find("<param>") != -1){
         param = "";
         phead = (int)params.find("<param>");
         ptail = (int)params.find("</param>");
         if(phead == -1 || ptail == -1){
-            err_stat = FAIL_TO_PARSE_XML;
+            err_status = FAIL_TO_PARSE_XML;
             return;
         }
         for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
             param = param + params[i];
         }
-        elements ++;
         //<value></value>の取得
-        node->e_num = elements;
+        node->e_num++;
         valparse(node,param);
         params = params.erase(phead,ptail);
     }
@@ -173,9 +160,7 @@ void paramparser(xmlNode *node,string params){
 void faultparser(xmlNode *node,string body){
     //faultCode検出
     node->params.push_back(getint(body));
-    node->ptype.push_back(2);
     node->params.push_back(getstring(body));
-    node->ptype.push_back(4);
 }
 
 //methodCallのパース
@@ -189,7 +174,7 @@ void callparser(xmlNode *node,string xml){
     int head = (int)xml.find("<methodCall>");
     int tail = (int)xml.find("</methodCall>");
     if(head == -1 || tail == -1){
-        err_stat = FAIL_TO_PARSE_XML;
+        err_status = FAIL_TO_PARSE_XML;
         return;
     }
     for(int i = head + sizeof("<methodCall>") - 1 ; i < tail ; i ++ ){
@@ -200,7 +185,7 @@ void callparser(xmlNode *node,string xml){
     int mhead = (int)m_call.find("<methodName>");
     int mtail = (int)m_call.find("</methodName>");
     if(mhead == -1 || mtail == -1){
-        err_stat = FAIL_TO_PARSE_XML;
+        err_status = FAIL_TO_PARSE_XML;
         return;
     }
     for(int i = mhead + sizeof("<methodName>") - 1 ; i < mtail ; i ++ ){
@@ -213,7 +198,7 @@ void callparser(xmlNode *node,string xml){
     int phead = (int)m_call.find("<params>");
     int ptail = (int)m_call.find("</params>");
     if(phead == -1 || ptail == -1){
-        err_stat = FAIL_TO_PARSE_XML;
+        err_status = FAIL_TO_PARSE_XML;
         return;
     }
     for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
@@ -233,7 +218,7 @@ void resparser(xmlNode *node,string xml){
     int head = (int)xml.find("<methodResponse>");
     int tail = (int)xml.find("</methodResponse>");
     if(head == -1 || tail == -1){
-        err_stat = FAIL_TO_PARSE_XML;
+        err_status = FAIL_TO_PARSE_XML;
         return;
     }else{
         for(int i = head + sizeof("<methodResponse>") - 1 ; i < tail ; i ++ ){
@@ -251,12 +236,12 @@ void resparser(xmlNode *node,string xml){
                 //faultCode,faultStringの取り出し
                 faultparser(node,params);
             }else{
-                err_stat = FAIL_TO_PARSE_XML;
+                err_status = FAIL_TO_PARSE_XML;
                 return;
             }
         }else{
             int phead = (int)body.find("<params>");
-            int ptail = (int)body.find("</params>");
+            int ptail = (int)body.rfind("</params>");
             if(phead != -1 && ptail != -1){
                 for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
                     params = params + body[i];
@@ -265,7 +250,7 @@ void resparser(xmlNode *node,string xml){
             //<params>の取り出し
                 paramparser(node,params);
             }else{
-                err_stat = FAIL_TO_PARSE_XML;
+                err_status = FAIL_TO_PARSE_XML;
                 return;
             }
         }
@@ -281,7 +266,7 @@ bool parser(xmlNode *node,string xml){
         resparser(node,xml);
     }else{
         cout << "invalid XML-RPC !" << endl;
-        err_stat = METHOD_ERROR;
+        err_status = METHOD_ERROR;
         return false;
     }
     return true;
@@ -289,19 +274,46 @@ bool parser(xmlNode *node,string xml){
 
 
 //HTTP POSTのメッセージ解析
+//HTTP OK の対応
 //メソッドの判別とXMLの切り出し
 
 
 
 int ParseReceiveMessage(string http,xmlNode *node){
-	err_stat = SUCCESS_PARSING;
-    if(http.find("POST") != -1){
+	err_status = SUCCESS_PARSING;
+    if((int)http.find("POST") != -1){
+        if(!parser(node,http)){  
+        }else{
+            err_status = SUCCESS_PARSING;
+        }
+    }else if((int)http.find("HTTP/1.0 200 OK") != -1){
         if(!parser(node,http)){
         }else{
-            err_stat = SUCCESS_PARSING;
+            err_status = HTTP_OK;
         }
     }else{
-        err_stat = NON_POST_METHOD;
+        err_status = NON_POST_METHOD;
     }
-    return err_stat;
+    cout << "ERROR_STATUS: " << err_status << endl;
+    return err_status;
+}
+
+int get_port(string http){
+	string val;
+	int head = (int)http.find("http://mori-PC-GN246Y3G6:");
+	int tail = (int)http.find("/",head + sizeof("http://mori-PC-GN246Y3G6:") -1);
+    for(int i = head + sizeof("http://mori-PC-GN246Y3G6:") -1 ; i < tail ; i++){
+        val = val + http[i];
+    }
+    return atoi(val.c_str());
+}
+
+int get_port2(string http){
+	string val;
+	int head = (int)http.find("<i4>",http.find("TCPROS"));
+	int tail = (int)http.find("</i4>",head + sizeof("<i4>") -1);
+    for(int i = head + sizeof("<i4>") -1 ; i < tail ; i++){
+        val = val + http[i];
+    }
+    return atoi(val.c_str());
 }

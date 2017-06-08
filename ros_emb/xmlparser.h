@@ -4,8 +4,6 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <stdint.h>
-#include <stdio.h>
 
 
 /* 型の割り振り
@@ -22,12 +20,16 @@ using namespace std;
 
 
 //XMLノードの構造体
+//arrayとstructはそのままstringに2次元展開する
 typedef struct xmlNode{
     string  methodName;
     vector<string> params;    //paramベクトル
-    vector<int> ptype;
     int e_num;  //param数
     bool fault; //foult ならfalse デフォルト true
+    xmlNode(){
+        e_num=0;
+        fault = true;
+    }
 }xmlNode;
 
 
@@ -49,5 +51,7 @@ void resparser(xmlNode *node,string xml);
 
 bool parser(xmlNode *node,string xml);
 int ParseReceiveMessage(string http,xmlNode *node);
+int get_port(string http);
+int get_port2(string http);
 
 #endif /* _XMLPARSER_H_ */  

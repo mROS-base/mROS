@@ -39,7 +39,8 @@ string  test_requestResponse(); //テスト用XML-RPCレスポンス生成関数
 //現状prt = "TCPROS"のみを考える．引数も特になし
 
 //local function
-string	addHttpheader(string xml);
+string	addHttpPost(string xml);
+string	addHttpOK(string xml);
 string  makexmlcall(string name,vector<string> params,int pnum); 
 
 

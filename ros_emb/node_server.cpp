@@ -1,8 +1,8 @@
 #include "node_server.h"
 
 void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
-	string msg;
-	xmlNode *node;
+	//string msg;
+	//xmlNode *node;
 	if(svr.bind(port) == -1){
 		syslog(LOG_NOTICE,"Failed bind");
 		exit(1);
@@ -34,7 +34,9 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 					//if(i == 0){
 					//	connect_status = false;
 					//}
-					csock.send(test_requestResponse().c_str(),test_requestResponse().size());
+					if(port == 40040){
+						csock.send(test_requestResponse().c_str(),test_requestResponse().size());
+					}
 					break;
 				}
 			}
@@ -42,5 +44,6 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 		}else{
 			syslog(LOG_NOTICE,"SERVER_INFO: Denied connection");
 		}
+	csock.close();
 	svr.close();
 }
