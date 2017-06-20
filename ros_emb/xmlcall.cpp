@@ -146,7 +146,7 @@ string test_requestResponse(){
     xml += "<value><array>\n";
     xml += "<data><value>TCPROS</value>\n";
     xml += "<value>192.168.0.10</value>\n";
-    xml += "<value>8080</value>\n</data>";
+    xml += "<value><i4>40400</i4></value>\n</data>";
     xml += "</array></value>\n";
     xml += "</data></array></value>";
     xml += "</param>\n";
