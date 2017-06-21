@@ -4,15 +4,18 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
+#include "mbed.h"
+#include "EthernetInterface.h"
 
 //TCPROSヘッダデータサイズを付与する関数
 char* addtcproshead(char *buf);
 
 //TCPROSコネクションヘッダを作る関数
-int genPubTcpRosH(char *buf);
+int genPubTcpRosH(TCPSocketConnection sock);
 
 //TCPROSのボディを作る関数
-int genMessage(char *buf);
+int genMessage(TCPSocketConnection sock);
 
 /* 
 * TCPROSのヘッダに必要なfieldの要素をどうするか考える．

@@ -191,7 +191,7 @@ void main_task(){
 	syslog(LOG_NOTICE, "LOG_INFO: DO RPC CALL");
 	xml2master();
 
-/*
+
 	//SERVER TEST//
 	syslog(LOG_NOTICE, "LOG_INFO: starting server...");
 	node_server(40040);
@@ -204,7 +204,7 @@ void main_task(){
 	node_server(40400);
 
 	//TCPROS TEST//
-*/
+
 	syslog(LOG_NOTICE, "**********mROS FINISH***********");
 
 }

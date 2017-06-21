@@ -1,10 +1,9 @@
 #include "tcp_ros.h"
 
-
 //TCPROSのfield lengthを計算して付与する関数
 char* addtcproshead(char *buf){
 	char *c;
-    c = (char *)malloc(512);
+    c = (char *)malloc(256);
 	int len = strlen(buf);
 	c[0] = len - 0;
 	c[1] = len/256 - 0;
@@ -17,15 +16,17 @@ char* addtcproshead(char *buf){
 
 //TCPROSコネクションヘッダを作る関数
 //Publisherのヘッダを生成
-int genPubTcpRosH(char *buf){    
+int genPubTcpRosH(TCPSocketConnection sock){
     //この辺の文字列をROSのプログラムから取ってくる必要ある
-	char *id = "/mros_node";
-    char *msg_def = "message_definition=string data\n";
-    char *topic = "topic=/test_string";
-    char *type = "type=std_msgs/String"; 
-    char *md5 = "md5sum=992ce8a1687cec8cbd883ec73ca41d1";
+    char *buf;
+    buf = (char *)malloc(512);
+    char *id = "/mros_node";
+	char *msg_def = "message_definition=string data\n";
+	char *topic = "topic=/test_string";
+	char *type = "type=std_msgs/String";
+    char *md5 = "md5sum=992ce8a1687cec8c8bd883ec73ca41d1";
 
-    int lid = strlen(id);
+    int lid = strlen(id) + 4;
     id = addtcproshead(id);
     int ldef = strlen(msg_def) + 4;
     msg_def = addtcproshead(msg_def);
@@ -62,16 +63,21 @@ int genPubTcpRosH(char *buf){
         p++;
     }
     free(md5);
-    buf[0] = p - 0;
-    buf[1] = p/256 - 0;
-    buf[2] = p/65536 - 0;
-    buf[3] = p/16777216 - 0;
+    int q = p - 4; 
+    buf[0] = q - 0;
+    buf[1] = q/256 - 0;
+    buf[2] = q/65536 - 0;
+    buf[3] = q/16777216 - 0;
+    sock.send(buf,p);
+    free(buf);
     return p;
 }
 
 
 //TCPROSのボディを作る関数
-int genMessage(char *buf){
+int genMessage(TCPSocketConnection sock){
+    char *buf;
+    buf = (char *)malloc(512);
     char *msg = "Hello mROS!!";
     int len = strlen(msg) + 4;
     msg = addtcproshead(msg);
@@ -82,10 +88,13 @@ int genMessage(char *buf){
         p++;
     }
     free(msg);
-    buf[0] = p - 0;
-    buf[1] = p/256 - 0;
-    buf[2] = p/65536 - 0;
-    buf[3] = p/16777216 - 0;
+    int q = p - 4; 
+    buf[0] = q - 0;
+    buf[1] = q/256 - 0;
+    buf[2] = q/65536 - 0;
+    buf[3] = q/16777216 - 0;
+    sock.send(buf,p);
+    free(buf);
     return p;
 }
 
