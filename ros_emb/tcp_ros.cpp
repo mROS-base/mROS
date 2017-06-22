@@ -77,6 +77,59 @@ int genPubTcpRosH(char *buf){
     return p;
 }
 
+int genSubTcpRosH(char *buf){
+	char *id = "callerid=/mros_node";
+	//char *msg_def = "message_definition=string data\n";
+	char *nodel= "tcp_nodelay=0";
+	char *topic = "topic=/test_string";
+	char *type = "type=std_msgs/String";
+	char *md5 = "md5sum=992ce8a1687cec8c8bd883ec73ca41d1";
+	int lid = strlen(id) + 4;
+	    id = addtcproshead(id);
+	    int ll = strlen(nodel) + 4;
+	    nodel = addtcproshead(nodel);
+	    int ltpc = strlen(topic) + 4;
+	    topic = addtcproshead(topic);
+	    int ltyp = strlen(type) + 4;
+	    type = addtcproshead(type);
+	    int lmd5 = strlen(md5) + 4;
+	    md5 = addtcproshead(md5);
+
+	    int p=4;
+	    for(int i=0;i < lid;i++){
+	        buf[p] = id[i];
+	        p++;
+	    }
+	    free(id);
+	    for(int i=0;i < ll;i++){
+	        buf[p] = nodel[i];
+	        p++;
+	    }
+	    free(nodel);
+	    for(int i=0;i < ltpc;i++){
+	        buf[p] = topic[i];
+	        p++;
+	    }
+	    free(topic);
+	    for(int i=0;i < ltyp;i++){
+	        buf[p] = type[i];
+	        p++;
+	    }
+	    free(type);
+	    for(int i=0;i < lmd5;i++){
+	        buf[p] = md5[i];
+	        p++;
+	    }
+	    free(md5);
+	    int q = p - 4;
+	    buf[0] = q - 0;
+	    buf[1] = q/256 - 0;
+	    buf[2] = q/65536 - 0;
+	    buf[3] = q/16777216 - 0;
+
+	    return p;
+}
+
 
 //TCPROSのボディを作る関数
 int genMessage(char *buf){

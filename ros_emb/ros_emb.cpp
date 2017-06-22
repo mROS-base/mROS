@@ -13,6 +13,11 @@
 #include "syssvc/logtask.h"
 
 
+//test mode
+//true:Subscriber test scenario
+//false:Publisher test scenario
+bool mode = true;
+
 
 
 
@@ -26,7 +31,7 @@
 #endif
 
 EthernetInterface network;
-xmlNode *node;
+//xmlNode *node;
 
 
 void network_init(){
@@ -69,7 +74,6 @@ void connect_master(){
 void xml2master(){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ mode = false -> サブスクライバ
-	bool mode = false;
 	if(!mode){
 		xml = registerPublisher("/mros_node","/test_string","std_msgs/String","http://192.168.0.10:40040");
 	}else{
@@ -100,7 +104,7 @@ void xml2master(){
 		free(rcv_buff);
 		exit(1);
 	}else{
-		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
+		//syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
 		free(rcv_buff);
 	}
 }
@@ -134,43 +138,44 @@ void request_topic(){
 		string tmp;
 		tmp = rcv_buff;
 		//ポート番号の切り出しは動く
+		//XML-RPCはここで終わり
 		tcp_port = get_port2(tmp);
 		syslog(LOG_NOTICE,"LOG_INFO: TCP port %d",tcp_port);
 		if(n < 0){
 			free(rcv_buff);
 			exit(1);
 		}else{
-			syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
+			//syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
 			free(rcv_buff);
 		}
 }
 
 void rostcp(){
+	//TCPROSを行ってデータを受信するところ
 	TCPSocketConnection tcpsock;
 	tcpsock.connect(m_ip,tcp_port);
-	string rpc;
-	//rpc = requestTopic("requestTopic","/mros_node","TCPROS");
 	char *snd_buff;
-		snd_buff = (char *)malloc(1024*sizeof(char));
-		strcpy(snd_buff,rpc.c_str());
-		int n;
-		n = tcpsock.send(snd_buff,strlen(snd_buff));
-		free(snd_buff);
-		if(n < 0){
-			exit(1);
-		}
-		char *rcv_buff;
-		rcv_buff = (char *)malloc(1024*sizeof(char));
-		n = tcpsock.receive(rcv_buff,1024);
-		string tmp;
-		tmp = rcv_buff;
+	snd_buff = (char *)malloc(1024*sizeof(char));
+	int len = genSubTcpRosH(snd_buff); //tcprosヘッダの作成
+	int n = tcpsock.send(snd_buff,len);
+	free(snd_buff);
+	if(n < 0){
+		exit(1);
+	}
+	char *rcv_buff;
+	char *rcv_p;
+	rcv_buff = (char *)malloc(1024*sizeof(char));
+	rcv_p = &rcv_buff[8]; //tcprosのヘッダの部分は避ける
+	while(1){
+		n = tcpsock.receive(rcv_buff,256);
 		if(n < 0){
 			free(rcv_buff);
 			exit(1);
 		}else{
-			syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
+			syslog(LOG_NOTICE, "mROS_INFO:Subsclibed [%s]\n",rcv_p);
 			free(rcv_buff);
 		}
+	}
 }
 
 /* mROS communication test
@@ -184,44 +189,28 @@ void main_task(){
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
 
-
-	TCPSocketConnection testsock;
-	testsock.connect("192.168.0.15",21112);
-	syslog(LOG_NOTICE,"TCPROS: SEND HEADER");
-/*
-	char *buf;
-	buf = (char *)malloc(512);
-	int len = genPubTcpRosH(buf);
-	testsock.send(buf,len);
-	free(buf);
-	syslog(LOG_NOTICE,"TCPROS: GO SEND LOOP");
-	char *buff;
-	buff = (char *)malloc(256);
-	genMessage(testsock);
-	testsock(buff,body);
-*/
-
-
 	//MASTER CLIENT TEST//
 	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
 	connect_master();
 	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
-	syslog(LOG_NOTICE, "LOG_INFO: DO RPC CALL");
 	xml2master();
 
 
-	//SERVER TEST//
-	syslog(LOG_NOTICE, "LOG_INFO: starting server...");
-	node_server(40040);
+	//PUBLISHER TEST//
+	if(!mode){
+		syslog(LOG_NOTICE, "===============mROS PUBLISHER TEST============");
+		node_server(40040);
+		node_server(40400);
+	}
 
 	//SUBSCRIBER TEST//
-	//request_topic();
+	if(mode){
+		syslog(LOG_NOTICE, "===============mROS SUBSCRIBER TEST============");
+		request_topic();
+		rostcp();
+	}
 
-	syslog(LOG_NOTICE,"LOG_INFO: starting TCPROS...");
-	//RECEIVE TCPROS//
-	node_server(40400);
 
-	//TCPROS TEST//
 
 	syslog(LOG_NOTICE, "**********mROS FINISH***********");
 

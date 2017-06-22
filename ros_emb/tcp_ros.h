@@ -13,6 +13,7 @@ char* addtcproshead(char *buf);
 
 //TCPROSコネクションヘッダを作る関数
 int genPubTcpRosH(char *buf);
+int genSubTcpRosH(char *buf);
 
 //TCPROSのボディを作る関数
 int genMessage(char *buf);
