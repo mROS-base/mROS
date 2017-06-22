@@ -3,13 +3,15 @@
 //TCPROSのfield lengthを計算して付与する関数
 char* addtcproshead(char *buf){
 	char *c;
-    c = (char *)malloc(256);
+	c = (char *)malloc(128);
 	int len = strlen(buf);
 	c[0] = len - 0;
-	c[1] = len/256 - 0;
+    c[1] = len/256 - 0;
 	c[2] = len/65536 - 0;
 	c[3] = len/16777216 - 0;
-	strcat(&c[4],buf);
+	strcpy(&c[4],buf);
+	//syslog(LOG_NOTICE,"c:%s\n",&c[4]);
+
 	return c;
 	
 }
@@ -20,7 +22,8 @@ int genPubTcpRosH(TCPSocketConnection sock){
     //この辺の文字列をROSのプログラムから取ってくる必要ある
     char *buf;
     buf = (char *)malloc(512);
-    char *id = "/mros_node";
+    char *id = "callerid=/mros_node";
+    syslog(LOG_NOTICE,"id:%s",id);
 	char *msg_def = "message_definition=string data\n";
 	char *topic = "topic=/test_string";
 	char *type = "type=std_msgs/String";
@@ -69,8 +72,11 @@ int genPubTcpRosH(TCPSocketConnection sock){
     buf[2] = q/65536 - 0;
     buf[3] = q/16777216 - 0;
     sock.send(buf,p);
+    //for(int i=0;i < p;i++){
+    //	syslog(LOG_NOTICE,"bin:%x\n",buf[i]);
+    //}
     free(buf);
-    return p;
+    return 0;
 }
 
 
@@ -94,8 +100,11 @@ int genMessage(TCPSocketConnection sock){
     buf[2] = q/65536 - 0;
     buf[3] = q/16777216 - 0;
     sock.send(buf,p);
+   // for(int i=0;i < p;i++){
+   //     syslog(LOG_NOTICE,"bin:%x\n",buf[i]);
+   // }
     free(buf);
-    return p;
+    return 0;
 }
 
 /* 

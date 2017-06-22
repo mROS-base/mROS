@@ -1,7 +1,7 @@
 #include "node_server.h"
 
 //テストサーバ
-/*
+
 void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 	//string msg;
 	//xmlNode *node;
@@ -57,16 +57,16 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 			}
 			//message send loop
 			if(port == 40400){
+				syslog(LOG_NOTICE,"TCPROS: GO SEND LOOP");
 				double c=0;
 				while(1){
-				if(c==5000){
-				syslog(LOG_NOTICE,"Hello mROS");
-				genMessage(csock);
-				//free(snd_body);
-				}else if(c == 5000000){
-					c = 0;
-				}
-				c++;
+					if(c==5000){
+						syslog(LOG_NOTICE,"Hello mROS!");
+						genMessage(csock);
+					}else if(c == 5000000){
+						c = 0;
+					}
+					c++;
 				}
 			}
 			free(srv_buff);
@@ -76,8 +76,8 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 	csock.close();
 	svr.close();
 }
-*/
 
+/*
 void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 	//string msg;
 	//xmlNode *node;
@@ -126,8 +126,8 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 				while(1){
 				if(c==5000){
 					syslog(LOG_NOTICE,"Hello mROS!");
-					char *snd_body="\x14\x00\x00\x00\x10\x00\x00\x00Hello mROS!!!!!!";
-					csock.send(snd_body,24);
+					char *snd_body="\x10\x00\x00\x00\x0c\x00\x00\x00Hello mROS!!";
+					csock.send(snd_body,20);
 					//free(snd_body);
 				}else if(c == 5000000){
 					c = 0;
@@ -142,4 +142,4 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 	csock.close();
 	svr.close();
 }
-
+*/

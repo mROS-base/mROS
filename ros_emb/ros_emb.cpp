@@ -183,6 +183,12 @@ void main_task(){
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
+	/*
+	TCPSocketConnection testsock;
+	testsock.connect("192.168.0.15",21112);
+	genMessage(testsock);
+	*/
+
 
 	//MASTER CLIENT TEST//
 	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
