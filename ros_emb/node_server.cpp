@@ -21,6 +21,7 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 			bool tcp_first = true;
 			while(connect_status && tcp_first){
 				int status = csock.receive(srv_buff,1024);
+				free(srv_buff);
 				syslog(LOG_NOTICE,"SERVER_INFO: receive success");
 				switch(status){
 				case 0:
@@ -40,7 +41,6 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 					//	connect_status = false;
 					//}
 
-
 					//リクエストにこたえる用
 					if(port == 40040){
 						csock.send(test_requestResponse().c_str(),test_requestResponse().size());
@@ -48,34 +48,41 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 					//tcprosの通信する用
 					if(port == 40400 && tcp_first){
 						//エンコードが必要
-						genPubTcpRosH(csock);
+						char *snd_buf;
+						snd_buf = (char *)malloc(512);
+						int len = genPubTcpRosH(snd_buf);
+						csock.send(snd_buf,len);
+						syslog(LOG_NOTICE,"TCPROS: SEND HEADER");
 						tcp_first = false;
-						//free(snd_head);
 					}
 					break;
 				}
 			}
+
 			//message send loop
 			if(port == 40400){
-				syslog(LOG_NOTICE,"TCPROS: GO SEND LOOP");
-				double c=0;
-				while(1){
-					if(c==5000){
-						syslog(LOG_NOTICE,"Hello mROS!");
-						genMessage(csock);
-					}else if(c == 5000000){
-						c = 0;
-					}
-					c++;
-				}
+				char *buf;
+				buf = (char *)malloc(256);
+			    long c=0;
+			    	while(1){
+			    		if(c==5000){
+			    			int l = genMessage(buf);
+			    			syslog(LOG_NOTICE,"Hello mROS!");
+			    			csock.send(buf,l);
+			    	}else if(c == 5000000){
+			    			c = 0;
+			    	}
+			    		c++;
+			    	}
+			    	free(buf);
 			}
-			free(srv_buff);
 		}else{
 			syslog(LOG_NOTICE,"SERVER_INFO: Denied connection");
 		}
 	csock.close();
 	svr.close();
 }
+
 
 /*
 void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
@@ -122,7 +129,7 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 			}
 			//message send loop
 			if(port == 40400){
-				double c=0;
+				long c=0;
 				while(1){
 				if(c==5000){
 					syslog(LOG_NOTICE,"Hello mROS!");

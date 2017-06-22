@@ -12,10 +12,10 @@
 char* addtcproshead(char *buf);
 
 //TCPROSコネクションヘッダを作る関数
-int genPubTcpRosH(TCPSocketConnection sock);
+int genPubTcpRosH(char *buf);
 
 //TCPROSのボディを作る関数
-int genMessage(TCPSocketConnection sock);
+int genMessage(char *buf);
 
 /* 
 * TCPROSのヘッダに必要なfieldの要素をどうするか考える．

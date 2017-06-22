@@ -18,12 +18,10 @@ char* addtcproshead(char *buf){
 
 //TCPROSコネクションヘッダを作る関数
 //Publisherのヘッダを生成
-int genPubTcpRosH(TCPSocketConnection sock){
+int genPubTcpRosH(char *buf){
     //この辺の文字列をROSのプログラムから取ってくる必要ある
-    char *buf;
-    buf = (char *)malloc(512);
+
     char *id = "callerid=/mros_node";
-    syslog(LOG_NOTICE,"id:%s",id);
 	char *msg_def = "message_definition=string data\n";
 	char *topic = "topic=/test_string";
 	char *type = "type=std_msgs/String";
@@ -71,19 +69,17 @@ int genPubTcpRosH(TCPSocketConnection sock){
     buf[1] = q/256 - 0;
     buf[2] = q/65536 - 0;
     buf[3] = q/16777216 - 0;
-    sock.send(buf,p);
+    //sock.send(buf,p);
     //for(int i=0;i < p;i++){
     //	syslog(LOG_NOTICE,"bin:%x\n",buf[i]);
     //}
-    free(buf);
-    return 0;
+    //free(buf);
+    return p;
 }
 
 
 //TCPROSのボディを作る関数
-int genMessage(TCPSocketConnection sock){
-    char *buf;
-    buf = (char *)malloc(512);
+int genMessage(char *buf){
     char *msg = "Hello mROS!!";
     int len = strlen(msg) + 4;
     msg = addtcproshead(msg);
@@ -99,12 +95,23 @@ int genMessage(TCPSocketConnection sock){
     buf[1] = q/256 - 0;
     buf[2] = q/65536 - 0;
     buf[3] = q/16777216 - 0;
-    sock.send(buf,p);
+/*
+    long c=0;
+    	while(1){
+    		if(c==5000){
+    			syslog(LOG_NOTICE,"Hello mROS!");
+    			sock.send(buf,p);
+    	}else if(c == 5000000){
+    			c = 0;
+    	}
+    		c++;
+    	}
+*/
    // for(int i=0;i < p;i++){
    //     syslog(LOG_NOTICE,"bin:%x\n",buf[i]);
    // }
-    free(buf);
-    return 0;
+    //free(buf);
+    return p;
 }
 
 /* 

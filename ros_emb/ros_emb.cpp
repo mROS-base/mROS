@@ -183,11 +183,23 @@ void main_task(){
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
-	/*
+
+
 	TCPSocketConnection testsock;
 	testsock.connect("192.168.0.15",21112);
+	syslog(LOG_NOTICE,"TCPROS: SEND HEADER");
+/*
+	char *buf;
+	buf = (char *)malloc(512);
+	int len = genPubTcpRosH(buf);
+	testsock.send(buf,len);
+	free(buf);
+	syslog(LOG_NOTICE,"TCPROS: GO SEND LOOP");
+	char *buff;
+	buff = (char *)malloc(256);
 	genMessage(testsock);
-	*/
+	testsock(buff,body);
+*/
 
 
 	//MASTER CLIENT TEST//
@@ -214,4 +226,3 @@ void main_task(){
 	syslog(LOG_NOTICE, "**********mROS FINISH***********");
 
 }
-
