@@ -11,6 +11,9 @@
 
 #ifndef ROS_MAIN_TASK_PRI
 #define ROS_MAIN_TASK_PRI  4
+
+#define ROS_PUB_TASK_PRI  5
+#define ROS_SUB_TASK_PRI  6
 #endif /* ROS_MAIN_TASK_PRI */
 
 #ifndef TASK_PORTID
@@ -41,6 +44,8 @@ void connect_master();
 //extern void	cyclic_handler(intptr_t exinf);
 //extern void task(intptr_t exinf);
 extern void main_task();
+extern void sub_task();
+extern void pub_task();
 
 #ifdef __cplusplus
 }

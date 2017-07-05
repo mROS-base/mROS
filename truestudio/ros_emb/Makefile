@@ -38,6 +38,7 @@ SRCDIR = ../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
 #
 include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
+include $(MBED_LIB_DIR)/SoftPWM/Makefile.pwm
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
 include ../Makefile.mbd
 

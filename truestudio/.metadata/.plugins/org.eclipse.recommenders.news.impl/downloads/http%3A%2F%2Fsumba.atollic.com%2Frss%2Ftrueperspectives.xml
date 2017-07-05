@@ -5,18 +5,35 @@
     <link>http://blog.atollic.com</link>
     <description>The TruePERSPECTIVES blog discusses topics relevant to embedded developers and their managers: best practices for embedded development, industry observations, and tips and techniques for using Atollic TrueSTUDIO development tools, ARM Cortex-M development, and more.</description>
     <language>en-us</language>
-    <pubDate>Tue, 06 Jun 2017 17:52:33 GMT</pubDate>
-    <dc:date>2017-06-06T17:52:33Z</dc:date>
+    <pubDate>Fri, 09 Jun 2017 07:15:28 GMT</pubDate>
+    <dc:date>2017-06-09T07:15:28Z</dc:date>
     <dc:language>en-us</dc:language>
+    <item>
+      <title>Code quiz: Test your coding skills! [do you measure up?]</title>
+      <link>http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up</link>
+      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/coding_quiz.png?t=1499107318088" alt="coding_quiz.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;In this blog post, I will give you a difficult coding task to crack. One of my colleagues presented it to the Atollic development team over a coffee break a few days ago, and I thought this could be an interesting problem for other developers to discuss over the coffee break as well! Are you up for a challenge to prove you are an expert developer?&lt;/p&gt;</description>
+      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
+ &lt;a href="http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/coding_quiz.png?t=1499107318088" alt="coding_quiz.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;    
+&lt;p&gt;In this blog post, I will give you a difficult coding task to crack. One of my colleagues presented it to the Atollic development team over a coffee break a few days ago, and I thought this could be an interesting problem for other developers to discuss over the coffee break as well! Are you up for a challenge to prove you are an expert developer?&lt;/p&gt;    
+&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fcode-quiz-test-your-coding-skills-do-you-measure-up&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
+      <pubDate>Fri, 09 Jun 2017 07:00:00 GMT</pubDate>
+      <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
+      <guid>http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up</guid>
+      <dc:date>2017-06-09T07:00:00Z</dc:date>
+    </item>
     <item>
       <title>"It Was a Disaster," a new entry in our video series on the struggles of embedded developers</title>
       <link>http://blog.atollic.com/it-was-a-disaster_videoseries</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1496770012147" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1499107318088" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    Previous episodes in our video series focused on a problem-solution approach to telling the story of the challenges of embedded development. This installment takes a "post mortem" view of a project that began more than a year ago and lets you draw your own conclusions about what could have been done differently. 
 &lt;br&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1496770012147" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1499107318088" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    Previous episodes in our video series focused on a problem-solution approach to telling the story of the challenges of embedded development. This installment takes a "post mortem" view of a project that began more than a year ago and lets you draw your own conclusions about what could have been done differently. 
 &lt;br&gt;    
 &lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fit-was-a-disaster_videoseries&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -30,11 +47,11 @@
       <title>Webinar: How to configure a reliable file system on Cortex-M</title>
       <link>http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1496770012147" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1499107318088" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Iot devices are being trusted to handle more critical data all the time, making it vital for the data not to become corrupted. This has increased the need for reliable file systems that protect data in the case of unexpected power loss, which is common in these devices.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1496770012147" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1499107318088" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Iot devices are being trusted to handle more critical data all the time, making it vital for the data not to become corrupted. This has increased the need for reliable file systems that protect data in the case of unexpected power loss, which is common in these devices.&lt;/p&gt;    
 &lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fjoin-our-free-datalight-reliance-edge-webinar&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -50,12 +67,12 @@
       <title>Meet Frederic - his boss is giving him memory problems! [embedded development video]</title>
       <link>http://blog.atollic.com/embedded_movie_memory_stack_analyzer</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1496770012147" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1499107318088" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;&amp;nbsp;In this episode of our embedded development movie series, Frederic's boss sets an unreasonable deadline for Frederic.&lt;/p&gt; 
 &lt;p&gt;Watch the video below and follow Frederic's efforts as an embedded developer and the struggles of meeting management expectations.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1496770012147" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1499107318088" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;&amp;nbsp;In this episode of our embedded development movie series, Frederic's boss sets an unreasonable deadline for Frederic.&lt;/p&gt; 
 &lt;p&gt;Watch the video below and follow Frederic's efforts as an embedded developer and the struggles of meeting management expectations.&lt;/p&gt;    
@@ -69,12 +86,12 @@
       <title>Join The FREE Webinar: RTOS Fundamentals Using FreeRTOS on STM32F7</title>
       <link>http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1496770012147" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1499107318088" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Embedded system complexity has reached the point where many systems require a real-time operating system. In this free webinar, attendees will become familiar with the design methodologies necessary to properly schedule tasks in addition to understanding when and where to use mutexes, semaphores and message queues.&lt;/p&gt; 
 &lt;p&gt;Important concepts such as preventing priority inversions, deadlock and thread starvation will be examined. The webinar will provide hands-on demonstrations using the STMicrolectronics STM32F7 Nucleo Board which uses an ARM Cortex-M7 processor with the Atollic TrueSTUDIO&amp;nbsp;toolchain. Learn more!&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1496770012147" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1499107318088" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Embedded system complexity has reached the point where many systems require a real-time operating system. In this free webinar, attendees will become familiar with the design methodologies necessary to properly schedule tasks in addition to understanding when and where to use mutexes, semaphores and message queues.&lt;/p&gt; 
 &lt;p&gt;Important concepts such as preventing priority inversions, deadlock and thread starvation will be examined. The webinar will provide hands-on demonstrations using the STMicrolectronics STM32F7 Nucleo Board which uses an ARM Cortex-M7 processor with the Atollic TrueSTUDIO&amp;nbsp;toolchain. Learn more!&lt;/p&gt;    
@@ -93,12 +110,12 @@
       <title>Have you met John? He struggles with variables that randomly get the wrong value [a short video on embedded development]</title>
       <link>http://blog.atollic.com/variables-randomly-gets-the-wrong-value</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/variables-randomly-gets-the-wrong-value" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/john_movie1.png?t=1496770012147" alt="john_movie1.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/variables-randomly-gets-the-wrong-value" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/john_movie1.png?t=1499107318088" alt="john_movie1.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;In this short video you get to meet John. Like you, he is a skilled embedded developer. But he has a problem. In this episode of our embedded development movie series, John struggles with a variable that gets wrong values randomly.&lt;/p&gt; 
 &lt;p&gt;I think we have all been in the same situation. Watch the video below and follow John's efforts as an embedded developer!&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/variables-randomly-gets-the-wrong-value" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/john_movie1.png?t=1496770012147" alt="john_movie1.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/variables-randomly-gets-the-wrong-value" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/john_movie1.png?t=1499107318088" alt="john_movie1.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;In this short video you get to meet John. Like you, he is a skilled embedded developer. But he has a problem. In this episode of our embedded development movie series, John struggles with a variable that gets wrong values randomly.&lt;/p&gt; 
 &lt;p&gt;I think we have all been in the same situation. Watch the video below and follow John's efforts as an embedded developer!&lt;/p&gt;    
@@ -113,11 +130,11 @@
       <title>How To Import IAR EWARM Projects Into Atollic TrueSTUDIO [Using The New Project Import Converter]</title>
       <link>http://blog.atollic.com/import-iar-ewarm-projects-atollic-truestudio</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/import-iar-ewarm-projects-atollic-truestudio" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/project_importer.png?t=1496770012147" alt="project_importer.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/import-iar-ewarm-projects-atollic-truestudio" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/project_importer.png?t=1499107318088" alt="project_importer.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Atollic now has a new &lt;em&gt;Project Import Converter &lt;/em&gt;supporting IAR&lt;strong&gt;Â®&lt;/strong&gt; EmbeddedWorkbench&lt;strong&gt;Â®&lt;/strong&gt; for ARM&lt;strong&gt;Â®&lt;/strong&gt; (EWARM) projects. The new &lt;em&gt;Project Import Converter&lt;/em&gt; automatically updates EWARM projects to Atollic TrueSTUDIO format during import.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/import-iar-ewarm-projects-atollic-truestudio" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/project_importer.png?t=1496770012147" alt="project_importer.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/import-iar-ewarm-projects-atollic-truestudio" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/project_importer.png?t=1499107318088" alt="project_importer.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Atollic now has a new &lt;em&gt;Project Import Converter &lt;/em&gt;supporting IAR&lt;strong&gt;Â®&lt;/strong&gt; EmbeddedWorkbench&lt;strong&gt;Â®&lt;/strong&gt; for ARM&lt;strong&gt;Â®&lt;/strong&gt; (EWARM) projects. The new &lt;em&gt;Project Import Converter&lt;/em&gt; automatically updates EWARM projects to Atollic TrueSTUDIO format during import.&lt;/p&gt;    
 &lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fimport-iar-ewarm-projects-atollic-truestudio&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -131,12 +148,12 @@
       <title>Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]</title>
       <link>http://blog.atollic.com/ashok_hard_fault_movie</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/ashok_hard_fault_movie" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ashok1.png?t=1496770012147" alt="Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/ashok_hard_fault_movie" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ashok1.png?t=1499107318088" alt="Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Ashok is a devoted Cortex-M developer.&amp;nbsp;Meet him in this short video about the challenges of embedded development! In this episode, Ashok is stuck with mysterious hard fault exceptions that make his embedded system crash. Despite his years of development experience, he just can't figure out what is wrong with his excellent code.&lt;/p&gt; 
 &lt;p&gt;Watch the movie below to get to know Ashok and his struggles!&lt;span style="color: #ff0000;"&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/ashok_hard_fault_movie" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ashok1.png?t=1496770012147" alt="Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/ashok_hard_fault_movie" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ashok1.png?t=1499107318088" alt="Ashok struggles with hard fault system crashes [don't miss this fresh take on a common problem]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Ashok is a devoted Cortex-M developer.&amp;nbsp;Meet him in this short video about the challenges of embedded development! In this episode, Ashok is stuck with mysterious hard fault exceptions that make his embedded system crash. Despite his years of development experience, he just can't figure out what is wrong with his excellent code.&lt;/p&gt; 
 &lt;p&gt;Watch the movie below to get to know Ashok and his struggles!&lt;span style="color: #ff0000;"&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;    
@@ -151,12 +168,12 @@
       <title>Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]</title>
       <link>http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/swv_rtos_feature.png?t=1496770012147" alt="Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/swv_rtos_feature.png?t=1499107318088" alt="Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Debugging RTOS-based applications often introduce new complexities. In this blog post, I will reveal a trick that can give you completely new insights into the system as you debug it.&lt;/p&gt; 
 &lt;p&gt;&lt;span&gt;Have you ever plotted the internal behavior of an RTOS graphically, live in real-time? If you havenâ€™t, perhaps you should consider this powerful debug technique now. Read more to find out how!&lt;/span&gt;&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/swv_rtos_feature.png?t=1496770012147" alt="Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/real-time-graphical-visualization-of-the-internal-behavior-of-an-rtos" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/swv_rtos_feature.png?t=1499107318088" alt="Graphical Visualization of the Internal Behavior of an RTOS [don't just see half the picture]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Debugging RTOS-based applications often introduce new complexities. In this blog post, I will reveal a trick that can give you completely new insights into the system as you debug it.&lt;/p&gt; 
 &lt;p&gt;&lt;span&gt;Have you ever plotted the internal behavior of an RTOS graphically, live in real-time? If you havenâ€™t, perhaps you should consider this powerful debug technique now. Read more to find out how!&lt;/span&gt;&lt;/p&gt;    
@@ -173,11 +190,11 @@
       <title>MSP432 Development &amp; Debugging [New White Paper]</title>
       <link>http://blog.atollic.com/msp432-development-debugging-whitepaper</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/msp432-development-debugging-whitepaper" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/msp432_whitepaper.png?t=1496770012147" alt="msp432_whitepaper.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/msp432-development-debugging-whitepaper" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/msp432_whitepaper.png?t=1499107318088" alt="msp432_whitepaper.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Our free MSP432 development and debugging whitepaper outlines professional tool support for&amp;nbsp;MSP432 development, with a particular focus on advanced debugging including SWV/SWO/ITM event- and data tracing and kernel aware RTOS debugging. Stack and memory usage analysis as well as hard fault crash analysis are covered too.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/msp432-development-debugging-whitepaper" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/msp432_whitepaper.png?t=1496770012147" alt="msp432_whitepaper.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/msp432-development-debugging-whitepaper" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/msp432_whitepaper.png?t=1499107318088" alt="msp432_whitepaper.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Our free MSP432 development and debugging whitepaper outlines professional tool support for&amp;nbsp;MSP432 development, with a particular focus on advanced debugging including SWV/SWO/ITM event- and data tracing and kernel aware RTOS debugging. Stack and memory usage analysis as well as hard fault crash analysis are covered too.&lt;/p&gt;    
 &lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fmsp432-development-debugging-whitepaper&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -187,28 +204,6 @@
       <author>magnus.unemyr@atollic.com (Magnus Unemyr)</author>
       <guid>http://blog.atollic.com/msp432-development-debugging-whitepaper</guid>
       <dc:date>2017-04-25T06:43:49Z</dc:date>
-    </item>
-    <item>
-      <title>Understanding Build Settings on Individual Files &amp; Folders [ARM Cortex-M Development Tips]</title>
-      <link>http://blog.atollic.com/build-settings-on-file-folder-level</link>
-      <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/build-settings-on-file-folder-level" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/build_settings_files.png?t=1496770012147" alt="build_settings_files.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
-&lt;/div&gt;    
-&lt;p&gt;Have you ever wondered what the key icon appearing on a specific file or folder in the project explorer actually means? If you don't know what it means, it could indicate you are in trouble. The key icon indicates one or several build settings for the related file or folder differs from the project's overall build settings. If you have set specific build settings for the file or folder, then the key icon is just a friendly reminder so you do not forget this.&lt;/p&gt; 
-&lt;p&gt;If you are not aware of specific build settings for the file or folder, then this could lead to frustration and problems as the project may not build or execute as intended. In this blog post, I will explain how to resolve these problems.&lt;/p&gt;</description>
-      <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/build-settings-on-file-folder-level" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/build_settings_files.png?t=1496770012147" alt="build_settings_files.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
-&lt;/div&gt;    
-&lt;p&gt;Have you ever wondered what the key icon appearing on a specific file or folder in the project explorer actually means? If you don't know what it means, it could indicate you are in trouble. The key icon indicates one or several build settings for the related file or folder differs from the project's overall build settings. If you have set specific build settings for the file or folder, then the key icon is just a friendly reminder so you do not forget this.&lt;/p&gt; 
-&lt;p&gt;If you are not aware of specific build settings for the file or folder, then this could lead to frustration and problems as the project may not build or execute as intended. In this blog post, I will explain how to resolve these problems.&lt;/p&gt;    
-&lt;img src="http://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fbuild-settings-on-file-folder-level&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
-      <category>ECLIPSE</category>
-      <category>Atollic TrueSTUDIO</category>
-      <category>build settings</category>
-      <pubDate>Fri, 24 Mar 2017 09:50:08 GMT</pubDate>
-      <author>mattias.norlander@atollic.com (Mattias Norlander)</author>
-      <guid>http://blog.atollic.com/build-settings-on-file-folder-level</guid>
-      <dc:date>2017-03-24T09:50:08Z</dc:date>
     </item>
   </channel>
 </rss>

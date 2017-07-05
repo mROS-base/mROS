@@ -4,20 +4,15 @@
 #include "syssvc/serial.h"
 #include "syssvc/syslog.h"
 #include "kernel_cfg.h"
-#include "ros_emb.h"
-
 #include "mbed.h"
 #include "EthernetInterface.h"
-
-
 #include "syssvc/logtask.h"
 
+#include "ros_emb.h"
+#include "SoftPWM.h"
 
-//test mode
-//true:Subscriber test scenario
-//false:Publisher test scenario
-bool mode = true;
-
+#define SUBSCRIBER true
+#define PUBLISHER false
 
 
 
@@ -71,13 +66,13 @@ void connect_master(){
 }
 
 //マスタとのXML-RPC通信クライアント
-void xml2master(){
+void xml2master(bool mode){
 	string xml;
 	//テスト用にとりあえずサブスクライバの登録だけ mode = false -> サブスクライバ
 	if(!mode){
-		xml = registerPublisher("/mros_node","/test_string","std_msgs/String","http://192.168.0.10:40040");
+		xml = registerPublisher("/mros_pub","/mros_msg","std_msgs/String","http://192.168.0.18:40040");
 	}else{
-		xml = registerSubscriber("/mros_node","/test_string","std_msgs/String","http://192.168.0.10:40040");
+		xml = registerSubscriber("/mros_sub","/test_string","std_msgs/String","http://192.168.0.18:40040");
 	}
 	char *snd_buff;
 	snd_buff = (char *)malloc(1024*sizeof(char));
@@ -150,8 +145,24 @@ void request_topic(){
 		}
 }
 
+//デモ用
+
+static DigitalOut ledu(P6_12);                                  // LED-User
+static SoftPWM ledr(P6_13);                                     // LED-Red
+static SoftPWM ledg(P6_14);                                     // LED-Green
+static SoftPWM ledb(P6_15);                                     // LED-Blue
+
 void rostcp(){
 	//TCPROSを行ってデータを受信するところ
+//デモ用
+	ledu = 0;
+	ledr.period_ms(10);
+	ledr = 0.0f;
+	ledg.period_ms(10);
+	ledg = 0.0f;
+	ledb.period_ms(10);
+	ledb = 0.0f;
+//
 	TCPSocketConnection tcpsock;
 	tcpsock.connect(m_ip,tcp_port);
 	char *snd_buff;
@@ -168,13 +179,73 @@ void rostcp(){
 	rcv_p = &rcv_buff[8]; //tcprosのヘッダの部分は避ける
 	while(1){
 		n = tcpsock.receive(rcv_buff,256);
+		rcv_buff[0] = rcv_buff[0] + '0';
+		rcv_buff[1] = rcv_buff[1] + '0';
+		rcv_buff[2] = rcv_buff[2] + '0';
+		rcv_buff[3] = rcv_buff[3] + '0';
+		rcv_buff[4] = rcv_buff[4] + '0';
+		rcv_buff[5] = rcv_buff[5] + '0';
+		rcv_buff[6] = rcv_buff[6] + '0';
+		rcv_buff[7] = rcv_buff[7] + '0';
 		if(n < 0){
 			free(rcv_buff);
 			exit(1);
 		}else{
-			syslog(LOG_NOTICE, "mROS_INFO:Subsclibed [%s]\n",rcv_p);
-			free(rcv_buff);
+			//データリード
+			//データレングス取得
+			int len = rcv_buff[4] - '0';
+			len = len + (rcv_buff[5] - '0') * 256;
+			len = len + (rcv_buff[6] - '0') * 65536;
+			len = len + (rcv_buff[7] - '0') * 16777216;
+			rcv_p[len] = '\0';
+			syslog(LOG_NOTICE, "mROS_INFO:Subsclibed %d [%s]\n",len,rcv_p);
+
+			ledu = !ledu; //あんまり関係ないスイッチングしてるだけ
+			string str = rcv_p;
+
+			//LED云々するプログラム
+			//loopを入れるかどうかあとで
+			if(str.find("red") != -1){
+				ledr = (float)100/128;		//LED RED
+			}else if(str.find("blue") != -1){
+				ledb = (float)100/128;		//LED BLUE
+			}else if(str.find("green") != -1){
+				ledg = (float)100/128;		//LED GREEN
+			}else if(str.find("reset") != -1){
+				ledr =0;
+				ledg =0;
+				ledb =0;
+			}else if(str.find("end") != -1){
+				return;
+			}
+            free(rcv_buff);
 		}
+	}
+}
+
+void rosfinish(){
+	string xml;
+	xml = unregisterSubscriber("/mros_node","/test_string","http://192.168.0.18:40040");
+	char *snd_buff;
+	snd_buff = (char *)malloc(1024*sizeof(char));
+	strcpy(snd_buff,xml.c_str());
+	int n;
+	n = mas_sock.send(snd_buff,strlen(snd_buff));
+	//syslog(LOG_NOTICE,"LOG_INFO: strlen: %d , sizeof: %d",strlen(snd_buff),sizeof(snd_buff));
+	free(snd_buff);
+	//syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",snd_buff);
+	if(n < 0){
+		exit(1);
+	}
+	char *rcv_buff;
+	rcv_buff = (char *)malloc(1024*sizeof(char));
+	n = mas_sock.receive(rcv_buff,1024);
+	if(n < 0){
+		free(rcv_buff);
+		exit(1);
+	}else{
+		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
+		free(rcv_buff);
 	}
 }
 
@@ -182,6 +253,7 @@ void rostcp(){
  * [registration as Publisher] mROS ->(XML-RPC)-> master node
  * [request topic] mROS <- (XML-RPC) <- Subscriber node
  */
+ /*
 void main_task(){
 
 	syslog(LOG_NOTICE, "**********mROS START******************");
@@ -209,9 +281,63 @@ void main_task(){
 		request_topic();
 		rostcp();
 	}
+	syslog(LOG_NOTICE, "**********mROS FINISH***********");
 
+}
+*/
+
+//ETWEST用デモプログラム
+void main_task(){
+
+	syslog(LOG_NOTICE, "**********mROS START******************");
+	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
+	network_init();
+	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
+	//MASTER CLIENT TEST//
+		syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
+		connect_master(SUBSCRIBER);
+		syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
+		xml2master();
+		syslog(LOG_NOTICE, "===============mROS-LED SUBSCRIBER============");
+		request_topic();
+		rostcp();
+		//rosfinish();
 
 
 	syslog(LOG_NOTICE, "**********mROS FINISH***********");
 
 }
+/*
+void pub_task(){
+#ifndef _PUB_
+#define _PUB_
+	//MASTER CLIENT TEST//
+	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
+	connect_master(PUBSLISHER);
+	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
+	xml2master();
+#endif //_PUB_
+	syslog(LOG_NOTICE, "===============mROS PUBLISHER============");
+	node_server(40040); //xmlrpc受付
+	node_server(40400);	//TCPの受付＆トピック出版
+
+}
+
+void sub_task(){
+#ifndef _SUB_
+#define _SUB_
+	//MASTER CLIENT TEST//
+	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
+	connect_master(SUBSCRIBER);
+	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
+	xml2master();
+#endif //_SUB_
+	syslog(LOG_NOTICE, "===============mROS-LED SUBSCRIBER============");
+	request_topic();
+	rostcp();
+	//rosfinish();
+}
+*/
+
+
+

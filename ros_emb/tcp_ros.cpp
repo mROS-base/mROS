@@ -23,7 +23,7 @@ int genPubTcpRosH(char *buf){
 
     char *id = "callerid=/mros_node";
 	char *msg_def = "message_definition=string data\n";
-	char *topic = "topic=/test_string";
+	char *topic = "topic=/mros_msg";
 	char *type = "type=std_msgs/String";
     char *md5 = "md5sum=992ce8a1687cec8c8bd883ec73ca41d1";
 

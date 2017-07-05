@@ -12,5 +12,5 @@
 
 
 void nodeServerStart(TCPSocketServer ssock,TCPSocketConnection csock,int port=40040);
-//void SubServer(TCPSocketServer ssock,TCPSocketConnection csock,int port=40040);
+
 #endif
