@@ -68,11 +68,14 @@ void connect_master(){
 //マスタとのXML-RPC通信クライアント
 void xml2master(bool mode){
 	string xml;
+	if(mas_sock.connect(m_ip,m_port) == -1){
+			exit(1);
+		}
 	//テスト用にとりあえずサブスクライバの登録だけ mode = false -> サブスクライバ
 	if(!mode){
-		xml = registerPublisher("/mros_pub","/mros_msg","std_msgs/String","http://192.168.0.18:40040");
+		xml = registerPublisher("/mros_node","/mros_msg","std_msgs/String","http://192.168.0.10:40040");
 	}else{
-		xml = registerSubscriber("/mros_sub","/test_string","std_msgs/String","http://192.168.0.18:40040");
+		xml = registerSubscriber("/mros_node","/test_string","std_msgs/String","http://192.168.0.10");
 	}
 	char *snd_buff;
 	snd_buff = (char *)malloc(1024*sizeof(char));
@@ -87,9 +90,16 @@ void xml2master(bool mode){
 	}
 	char *rcv_buff;
 	rcv_buff = (char *)malloc(1024*sizeof(char));
-	n = mas_sock.receive(rcv_buff,1024);
 	string tmp;
+	bool f = true;
+	while(f){
+	n = mas_sock.receive(rcv_buff,1024);
+	syslog(LOG_NOTICE,"LOGINFO : RECIEVING now..");
 	tmp = rcv_buff;
+	if(tmp.find("OK") != -1){
+		f = !f;
+	}
+	}
 	//ポートの取得　サブスクライバの時だけでいい
 	if(mode){
 		n_port = get_port(tmp);
@@ -102,6 +112,7 @@ void xml2master(bool mode){
 		//syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
 		free(rcv_buff);
 	}
+	mas_sock.close();
 }
 
 
@@ -222,122 +233,79 @@ void rostcp(){
 		}
 	}
 }
-
-void rosfinish(){
-	string xml;
-	xml = unregisterSubscriber("/mros_node","/test_string","http://192.168.0.18:40040");
-	char *snd_buff;
-	snd_buff = (char *)malloc(1024*sizeof(char));
-	strcpy(snd_buff,xml.c_str());
-	int n;
-	n = mas_sock.send(snd_buff,strlen(snd_buff));
-	//syslog(LOG_NOTICE,"LOG_INFO: strlen: %d , sizeof: %d",strlen(snd_buff),sizeof(snd_buff));
-	free(snd_buff);
-	//syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",snd_buff);
-	if(n < 0){
-		exit(1);
-	}
-	char *rcv_buff;
-	rcv_buff = (char *)malloc(1024*sizeof(char));
-	n = mas_sock.receive(rcv_buff,1024);
-	if(n < 0){
-		free(rcv_buff);
-		exit(1);
-	}else{
-		syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
-		free(rcv_buff);
-	}
-}
-
 /* mROS communication test
  * [registration as Publisher] mROS ->(XML-RPC)-> master node
  * [request topic] mROS <- (XML-RPC) <- Subscriber node
  */
- /*
-void main_task(){
-
-	syslog(LOG_NOTICE, "**********mROS START******************");
-	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
-	network_init();
-	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
-
-	//MASTER CLIENT TEST//
-	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
-	connect_master();
-	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
-	xml2master();
-
-
-	//PUBLISHER TEST//
-	if(!mode){
-		syslog(LOG_NOTICE, "===============mROS PUBLISHER TEST============");
-		node_server(40040);
-		node_server(40400);
-	}
-
-	//SUBSCRIBER TEST//
-	if(mode){
-		syslog(LOG_NOTICE, "===============mROS SUBSCRIBER TEST============");
-		request_topic();
-		rostcp();
-	}
-	syslog(LOG_NOTICE, "**********mROS FINISH***********");
-
-}
-*/
 
 //ETWEST用デモプログラム
-void main_task(){
+//userタスク
 
+void main_task(){
 	syslog(LOG_NOTICE, "**********mROS START******************");
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
-	//MASTER CLIENT TEST//
-		syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
-		connect_master(SUBSCRIBER);
-		syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
-		xml2master();
-		syslog(LOG_NOTICE, "===============mROS-LED SUBSCRIBER============");
-		request_topic();
-		rostcp();
-		//rosfinish();
 
-
+	act_tsk(PUB_TASK);
+	act_tsk(SUB_TASK);
+	char c;
+	bool loop = true;
+	while(loop){
+	    serial_rea_dat(TASK_PORTID, &c, 1);
+		switch(c){ //PUNLISHERのほうが優先度高い
+		case 'p':
+			act_tsk(PUB_TASK);
+			break;
+		case 's':
+			act_tsk(SUB_TASK);
+			break;
+		case '1': //SUBSCRIBERのほうを高くする
+			chg_pri(1,ROS_SUB_TASK_PRI);
+			chg_pri(2,ROS_PUB_TASK_PRI);
+			break;
+		case '2': //PUBLISHERのほうを高くする
+			chg_pri(2,ROS_SUB_TASK_PRI);
+			chg_pri(1,ROS_PUB_TASK_PRI);
+			break;
+		case 'q':
+			loop = false;
+			ter_tsk(PUB_TASK);
+			ter_tsk(SUB_TASK);
+			break;
+		case 'e':
+			ter_tsk(PUB_TASK);
+		default:
+			break;
+		}
+	}
 	syslog(LOG_NOTICE, "**********mROS FINISH***********");
 
 }
-/*
+
 void pub_task(){
 #ifndef _PUB_
 #define _PUB_
-	//MASTER CLIENT TEST//
-	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
-	connect_master(PUBSLISHER);
-	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
-	xml2master();
+	xml2master(PUBLISHER);
+	syslog(LOG_NOTICE, "========Activate mROS PUBLISHER========");
 #endif //_PUB_
-	syslog(LOG_NOTICE, "===============mROS PUBLISHER============");
+
 	node_server(40040); //xmlrpc受付
 	node_server(40400);	//TCPの受付＆トピック出版
-
 }
 
 void sub_task(){
 #ifndef _SUB_
 #define _SUB_
-	//MASTER CLIENT TEST//
-	syslog(LOG_NOTICE, "LOG_INFO: connecting master...");
-	connect_master(SUBSCRIBER);
-	syslog(LOG_NOTICE, "LOG_INFO: CONNECTED master");
-	xml2master();
+	syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBER========");
+	xml2master(SUBSCRIBER);
 #endif //_SUB_
-	syslog(LOG_NOTICE, "===============mROS-LED SUBSCRIBER============");
+
 	request_topic();
 	rostcp();
 	//rosfinish();
 }
-*/
+
 
 
 

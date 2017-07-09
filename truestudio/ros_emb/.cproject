@@ -68,11 +68,5 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="com.atollic.truestudio.exe.debug.toolchain.1377170031.1099004938;com.atollic.truestudio.exe.debug.toolchain.1377170031.1099004938.;com.atollic.truestudio.exe.debug.toolchain.gcc.12928327;com.atollic.truestudio.gcc.input.1076139713">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.atollic.truestudio.mbs.ARMToolsPerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.atollic.truestudio.exe.debug.toolchain.1377170031.1099004938;com.atollic.truestudio.exe.debug.toolchain.1377170031.1099004938.;com.atollic.truestudio.exe.debug.toolchain.gpp.306694583;com.atollic.truestudio.gpp.input.991382342">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.atollic.truestudio.mbs.ARMToolsPerProjectProfileCPP"/>
-		</scannerConfigBuildInfo>
 	</storageModule>
 </cproject>

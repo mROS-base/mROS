@@ -66,9 +66,9 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 				buf = (char *)malloc(256);
 			    long c=0;
 			    	while(1){
-			    		if(c==5000){
+			    		if(c==50000){
 			    			int l = genMessage(buf);
-			    			syslog(LOG_NOTICE,"Hello mROS!");
+			    			//syslog(LOG_NOTICE,"Hello mROS!");
 			    			csock.send(buf,l);
 			    	}else if(c == 5000000){
 			    			c = 0;

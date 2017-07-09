@@ -10,10 +10,10 @@
 #endif
 
 #ifndef ROS_MAIN_TASK_PRI
-#define ROS_MAIN_TASK_PRI  4
+#define ROS_MAIN_TASK_PRI  6
 
-#define ROS_PUB_TASK_PRI  5
-#define ROS_SUB_TASK_PRI  6
+#define ROS_PUB_TASK_PRI  3
+#define ROS_SUB_TASK_PRI  3
 #endif /* ROS_MAIN_TASK_PRI */
 
 #ifndef TASK_PORTID
@@ -33,15 +33,19 @@
 #define LOOP_REF		ULONG_C(1000000)	/* 速度計測用のループ回数 */
 #endif /* LOOP_REF */
 
+#ifndef ROS_DTQ			/*PUB/SUBタスクのためのデータキュー*/
+#define ROS_DTQ
+#define PUB_DTQ 1
+#define SUB_DTQ 2
+#endif
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void network_init();
-void connect_master();
 
-//extern void	cyclic_handler(intptr_t exinf);
+//extern void cyclic_handler(intptr_t exinf);
 //extern void task(intptr_t exinf);
 extern void main_task();
 extern void sub_task();
