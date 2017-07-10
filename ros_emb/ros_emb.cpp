@@ -20,8 +20,8 @@
  *マスタに対する名前解決とかもかな？ */
 #define USE_DHCP (1)
 #if(USE_DHCP == 0)
-	#define IP_ADDRESS  	("")	/*IP address */
-	#define SUBNET_MASK		("")	/*Subset mask */
+	#define IP_ADDRESS  	("192.168.0.10")	/*IP address */
+	#define SUBNET_MASK		("255.0.0.0")	/*Subset mask */
 	#define DEFAULT_GATEWAY	("")	/*Default gateway */
 #endif
 
@@ -73,9 +73,9 @@ void xml2master(bool mode){
 		}
 	//テスト用にとりあえずサブスクライバの登録だけ mode = false -> サブスクライバ
 	if(!mode){
-		xml = registerPublisher("/mros_node","/mros_msg","std_msgs/String","http://192.168.0.10:40040");
+		xml = registerPublisher("/mros_node","/mros_msg","std_msgs/String","http://192.168.10:40040");
 	}else{
-		xml = registerSubscriber("/mros_node","/test_string","std_msgs/String","http://192.168.0.10");
+		xml = registerSubscriber("/mros_node","/test_string","std_msgs/String","http://192.168.10");
 	}
 	char *snd_buff;
 	snd_buff = (char *)malloc(1024*sizeof(char));
@@ -233,12 +233,22 @@ void rostcp(){
 		}
 	}
 }
+
+
 /* mROS communication test
  * [registration as Publisher] mROS ->(XML-RPC)-> master node
  * [request topic] mROS <- (XML-RPC) <- Subscriber node
  */
 
 //ETWEST用デモプログラム
+
+
+/***************************************************
+ * @brief       Parameterの値をPC画面に出力
+ * @param       Value : 画面に出力する値
+ * @return      なし
+ * @date 2014/12/14 新規作成
+ **************************************************/
 //userタスク
 
 void main_task(){
@@ -246,12 +256,15 @@ void main_task(){
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
+	syslog(LOG_NOTICE, "-----please type operation-----");
 
-	//act_tsk(PUB_TASK);
-	//act_tsk(SUB_TASK);
 	char c;
 	bool loop = true;
 	while(loop){
+		syslog(LOG_NOTICE, "-----please type operation-----");
+		syslog(LOG_NOTICE, "p: activate publisher task");
+		syslog(LOG_NOTICE, "s: activate subscriber task");
+		syslog(LOG_NOTICE, "q: Finish mROS");
 	    serial_rea_dat(TASK_PORTID, &c, 1);
 		switch(c){ //SUBSCRIBERのほうが優先度高い
 		case 'p':
@@ -260,6 +273,7 @@ void main_task(){
 		case 's':
 			act_tsk(SUB_TASK);
 			break;
+/*
 		case '1': //SUBSCRIBERのほうを高くする
 			chg_pri(1,ROS_SUB_TASK_PRI);
 			chg_pri(2,ROS_PUB_TASK_PRI);
@@ -268,13 +282,15 @@ void main_task(){
 			chg_pri(2,ROS_SUB_TASK_PRI);
 			chg_pri(1,ROS_PUB_TASK_PRI);
 			break;
-		case 'q':
-			loop = false;
-			ter_tsk(PUB_TASK);
-			ter_tsk(SUB_TASK);
-			break;
 		case 'e':
 			ter_tsk(PUB_TASK);
+			break;
+*/
+		case 'q':
+					loop = false;
+					ter_tsk(PUB_TASK);
+					ter_tsk(SUB_TASK);
+					break;
 		default:
 			break;
 		}
@@ -300,10 +316,9 @@ void sub_task(){
 	syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBER========");
 	xml2master(SUBSCRIBER);
 #endif //_SUB_
-
 	request_topic();
 	rostcp();
-	//rosfinish();
+
 }
 
 

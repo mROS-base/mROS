@@ -16,7 +16,7 @@ int genPubTcpRosH(char *buf);
 int genSubTcpRosH(char *buf);
 
 //TCPROSのボディを作る関数
-int genMessage(char *buf);
+int genMessage(char *buf,char *msg);
 
 /* 
 * TCPROSのヘッダに必要なfieldの要素をどうするか考える．

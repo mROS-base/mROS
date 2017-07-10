@@ -132,8 +132,7 @@ int genSubTcpRosH(char *buf){
 
 
 //TCPROSのボディを作る関数
-int genMessage(char *buf){
-    char *msg = "Hello mROS!!";
+int genMessage(char *buf,char *msg){
     int len = strlen(msg) + 4;
     msg = addtcproshead(msg);
 
