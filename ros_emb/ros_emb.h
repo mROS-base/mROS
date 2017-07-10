@@ -10,9 +10,9 @@
 #endif
 
 #ifndef ROS_MAIN_TASK_PRI
-#define ROS_MAIN_TASK_PRI  6
+#define ROS_MAIN_TASK_PRI  5
 
-#define ROS_PUB_TASK_PRI  3
+#define ROS_PUB_TASK_PRI  6
 #define ROS_SUB_TASK_PRI  3
 #endif /* ROS_MAIN_TASK_PRI */
 

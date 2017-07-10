@@ -247,13 +247,13 @@ void main_task(){
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
 
-	act_tsk(PUB_TASK);
-	act_tsk(SUB_TASK);
+	//act_tsk(PUB_TASK);
+	//act_tsk(SUB_TASK);
 	char c;
 	bool loop = true;
 	while(loop){
 	    serial_rea_dat(TASK_PORTID, &c, 1);
-		switch(c){ //PUNLISHERのほうが優先度高い
+		switch(c){ //SUBSCRIBERのほうが優先度高い
 		case 'p':
 			act_tsk(PUB_TASK);
 			break;
