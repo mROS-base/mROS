@@ -9,19 +9,19 @@
 #include "node_server.h"
 #endif
 
-#ifndef ROS_MAIN_TASK_PRI
-#define ROS_MAIN_TASK_PRI  5
+#ifndef MROS_USR_TASK_PRI
+#define MROS_USR_TASK_PRI  7
 
-#define ROS_PUB_TASK_PRI  6
-#define ROS_SUB_TASK_PRI  3
-#endif /* ROS_MAIN_TASK_PRI */
+#define MROS_TASK_PRI  3
+#define MROS_TASK_PRI  3
+#endif /* ROS_USR_TASK_PRI */
 
 #ifndef TASK_PORTID
 #define	TASK_PORTID		1			/* 文字入力するシリアルポートID */
 #endif /* TASK_PORTID */
 
-#ifndef ROS_MAIN_TASK_STACK_SIZE
-#define ROS_MAIN_TASK_STACK_SIZE 1024 * 5
+#ifndef MROS_USR_TASK_STACK_SIZE
+#define MROS_USR_TASK_STACK_SIZE 1024 * 5
 #endif  /* ROS_MAIN_TASK_STACK_SIZE */
 
 
@@ -33,8 +33,8 @@
 #define LOOP_REF		ULONG_C(1000000)	/* 速度計測用のループ回数 */
 #endif /* LOOP_REF */
 
-#ifndef ROS_DTQ			/*PUB/SUBタスクのためのデータキュー*/
-#define ROS_DTQ
+#ifndef MROS_DTQ			/*PUB/SUBタスクのためのデータキュー*/
+#define MROS_DTQ
 #define PUB_DTQ 1
 #define SUB_DTQ 2
 #endif
@@ -50,6 +50,8 @@ extern "C" {
 extern void main_task();
 extern void sub_task();
 extern void pub_task();
+extern void xml_slv_task();
+extern void xml_mas_task();
 
 #ifdef __cplusplus
 }

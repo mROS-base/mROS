@@ -58,13 +58,13 @@ const char *m_ip = "192.168.0.15";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 int n_port,tcp_port;
 
-
+/*いらない
 void connect_master(){
 	if(mas_sock.connect(m_ip,m_port) == -1){
 		exit(1);
 	}
 }
-
+*/
 //マスタとのXML-RPC通信クライアント
 void xml2master(bool mode){
 	string xml;
@@ -158,22 +158,10 @@ void request_topic(){
 
 //デモ用
 
-static DigitalOut ledu(P6_12);                                  // LED-User
-static SoftPWM ledr(P6_13);                                     // LED-Red
-static SoftPWM ledg(P6_14);                                     // LED-Green
-static SoftPWM ledb(P6_15);                                     // LED-Blue
-
 void rostcp(){
 	//TCPROSを行ってデータを受信するところ
 //デモ用
-	ledu = 0;
-	ledr.period_ms(10);
-	ledr = 0.0f;
-	ledg.period_ms(10);
-	ledg = 0.0f;
-	ledb.period_ms(10);
-	ledb = 0.0f;
-//
+
 	TCPSocketConnection tcpsock;
 	tcpsock.connect(m_ip,tcp_port);
 	char *snd_buff;
@@ -188,67 +176,14 @@ void rostcp(){
 	char *rcv_p;
 	rcv_buff = (char *)malloc(1024*sizeof(char));
 	rcv_p = &rcv_buff[8]; //tcprosのヘッダの部分は避ける
-	while(1){
-		n = tcpsock.receive(rcv_buff,256);
-		rcv_buff[0] = rcv_buff[0] + '0';
-		rcv_buff[1] = rcv_buff[1] + '0';
-		rcv_buff[2] = rcv_buff[2] + '0';
-		rcv_buff[3] = rcv_buff[3] + '0';
-		rcv_buff[4] = rcv_buff[4] + '0';
-		rcv_buff[5] = rcv_buff[5] + '0';
-		rcv_buff[6] = rcv_buff[6] + '0';
-		rcv_buff[7] = rcv_buff[7] + '0';
-		if(n < 0){
-			free(rcv_buff);
-			exit(1);
-		}else{
-			//データリード
-			//データレングス取得
-			int len = rcv_buff[4] - '0';
-			len = len + (rcv_buff[5] - '0') * 256;
-			len = len + (rcv_buff[6] - '0') * 65536;
-			len = len + (rcv_buff[7] - '0') * 16777216;
-			rcv_p[len] = '\0';
-			syslog(LOG_NOTICE, "mROS_INFO:Subsclibed %d [%s]\n",len,rcv_p);
 
-			ledu = !ledu; //あんまり関係ないスイッチングしてるだけ
-			string str = rcv_p;
-
-			//LED云々するプログラム
-			//loopを入れるかどうかあとで
-			if(str.find("red") != -1){
-				ledr = (float)100/128;		//LED RED
-			}else if(str.find("blue") != -1){
-				ledb = (float)100/128;		//LED BLUE
-			}else if(str.find("green") != -1){
-				ledg = (float)100/128;		//LED GREEN
-			}else if(str.find("reset") != -1){
-				ledr =0;
-				ledg =0;
-				ledb =0;
-			}else if(str.find("end") != -1){
-				return;
-			}
-            free(rcv_buff);
-		}
-	}
+    free(rcv_buff);
 }
 
 
 /* mROS communication test
- * [registration as Publisher] mROS ->(XML-RPC)-> master node
- * [request topic] mROS <- (XML-RPC) <- Subscriber node
- */
+*/
 
-//ETWEST用デモプログラム
-
-
-/***************************************************
- * @brief       Parameterの値をPC画面に出力
- * @param       Value : 画面に出力する値
- * @return      なし
- * @date 2014/12/14 新規作成
- **************************************************/
 //userタスク
 
 void main_task(){
@@ -256,71 +191,72 @@ void main_task(){
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
-	syslog(LOG_NOTICE, "-----please type operation-----");
+	syslog(LOG_NOTICE, "Activated Main task");
 
-	char c;
-	bool loop = true;
-	while(loop){
-		syslog(LOG_NOTICE, "-----please type operation-----");
-		syslog(LOG_NOTICE, "p: activate publisher task");
-		syslog(LOG_NOTICE, "s: activate subscriber task");
-		syslog(LOG_NOTICE, "q: Finish mROS");
-	    serial_rea_dat(TASK_PORTID, &c, 1);
-		switch(c){ //SUBSCRIBERのほうが優先度高い
-		case 'p':
-			act_tsk(PUB_TASK);
-			break;
-		case 's':
-			act_tsk(SUB_TASK);
-			break;
-/*
-		case '1': //SUBSCRIBERのほうを高くする
-			chg_pri(1,ROS_SUB_TASK_PRI);
-			chg_pri(2,ROS_PUB_TASK_PRI);
-			break;
-		case '2': //PUBLISHERのほうを高くする
-			chg_pri(2,ROS_SUB_TASK_PRI);
-			chg_pri(1,ROS_PUB_TASK_PRI);
-			break;
-		case 'e':
-			ter_tsk(PUB_TASK);
-			break;
-*/
-		case 'q':
-					loop = false;
-					ter_tsk(PUB_TASK);
-					ter_tsk(SUB_TASK);
-					break;
-		default:
-			break;
-		}
-	}
-	syslog(LOG_NOTICE, "**********mROS FINISH***********");
+//mROS通信ライブラリタスク起動
+	act_task(pub_task);
+	act_task(sub_task);
+	act_task(xml_slv_task);
+	act_task(xml_mas_task);
+//ユーザタスク起動
+	act_task(usr_task1);
+
 
 }
 
+//パブリッシュタスク
 void pub_task(){
 #ifndef _PUB_
 #define _PUB_
 	xml2master(PUBLISHER);
-	syslog(LOG_NOTICE, "========Activate mROS PUBLISHER========");
+	syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 #endif //_PUB_
 
+	while(1){
+		rcv_dtq(PUB_DTQ,p_data);		//ER ercd = rcv_dtq(ID dtqid, intptr_t *p_data) 
+	}
+	/*
 	node_server(40040); //xmlrpc受付
 	node_server(40400);	//TCPの受付＆トピック出版
+	*/
 }
 
+//サブスクライブタスク
+//ユーザタスクがほしいときにとりにくる実装
 void sub_task(){
 #ifndef _SUB_
 #define _SUB_
-	syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBER========");
+	syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	xml2master(SUBSCRIBER);
 #endif //_SUB_
 	request_topic();
 	rostcp();
+}
+
+//XML-RPCスレーブタスク
+//周期ハンドラ回して確認する実装にする
+void xml_slv_task(){
+#ifndef _XML_SLAVE_
+#define _XML_SLAVE_
+	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Slave========");
+#endif
+
 
 }
 
+//XML-RPCマスタタスク
+void xml_mas_task(){
+#ifndef _XML_MASTER_
+#define _XML_MASTER_
+	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Master========");
 
+#endif
+}
 
-
+void usr_task1(){
+#ifndef _USR_TASK_
+#define _USR_TASK_
+	syslog(LOG_NOTICE,"========Activate user task========");
+#endif
+	
+}
