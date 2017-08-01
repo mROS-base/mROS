@@ -14,10 +14,14 @@
 #define SUBSCRIBER true
 #define PUBLISHER false
 
+/***** congiuration ros master ******/
+const char *m_ip = "192.168.0.15";	//ros master IP
+const int m_port = 11311;	//ros master xmlrpc port
 
+/***** タスク間共有メモリ *****/
+char *mem = (char *)malloc(sizeof(char)*2048);
 
-/*ネットワーク初期化
- *マスタに対する名前解決とかもかな？ */
+/* ネットワーク初期化 */
 #define USE_DHCP (1)
 #if(USE_DHCP == 0)
 	#define IP_ADDRESS  	("192.168.0.10")	/*IP address */
@@ -54,24 +58,14 @@ void network_init(){
 //マスタへのソケット
 TCPSocketConnection mas_sock;
 
-const char *m_ip = "192.168.0.15";	//ros master IP
-const int m_port = 11311;	//ros master xmlrpc port
 int n_port,tcp_port;
 
-/*いらない
-void connect_master(){
-	if(mas_sock.connect(m_ip,m_port) == -1){
-		exit(1);
-	}
-}
-*/
 //マスタとのXML-RPC通信クライアント
 void xml2master(bool mode){
 	string xml;
 	if(mas_sock.connect(m_ip,m_port) == -1){
 			exit(1);
 		}
-	//テスト用にとりあえずサブスクライバの登録だけ mode = false -> サブスクライバ
 	if(!mode){
 		xml = registerPublisher("/mros_node","/mros_msg","std_msgs/String","http://192.168.10:40040");
 	}else{
@@ -82,9 +76,7 @@ void xml2master(bool mode){
 	strcpy(snd_buff,xml.c_str());
 	int n;
 	n = mas_sock.send(snd_buff,strlen(snd_buff));
-	//syslog(LOG_NOTICE,"LOG_INFO: strlen: %d , sizeof: %d",strlen(snd_buff),sizeof(snd_buff));
 	free(snd_buff);
-	//syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",snd_buff);
 	if(n < 0){
 		exit(1);
 	}
@@ -109,7 +101,6 @@ void xml2master(bool mode){
 		free(rcv_buff);
 		exit(1);
 	}else{
-		//syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
 		free(rcv_buff);
 	}
 	mas_sock.close();
@@ -132,9 +123,7 @@ void request_topic(){
 		strcpy(snd_buff,rpc.c_str());
 		int n;
 		n = subsock.send(snd_buff,strlen(snd_buff));
-		//syslog(LOG_NOTICE,"LOG_INFO: strlen: %d , sizeof: %d",strlen(snd_buff),sizeof(snd_buff));
 		free(snd_buff);
-		//syslog(LOG_NOTICE, "LOG_INFO: data send\n%s",snd_buff);
 		if(n < 0){
 			exit(1);
 		}
@@ -151,7 +140,6 @@ void request_topic(){
 			free(rcv_buff);
 			exit(1);
 		}else{
-			//syslog(LOG_NOTICE, "LOG_INFO: data receive\n%s",rcv_buff);
 			free(rcv_buff);
 		}
 }
@@ -160,8 +148,6 @@ void request_topic(){
 
 void rostcp(){
 	//TCPROSを行ってデータを受信するところ
-//デモ用
-
 	TCPSocketConnection tcpsock;
 	tcpsock.connect(m_ip,tcp_port);
 	char *snd_buff;
@@ -175,25 +161,20 @@ void rostcp(){
 	char *rcv_buff;
 	char *rcv_p;
 	rcv_buff = (char *)malloc(1024*sizeof(char));
-	rcv_p = &rcv_buff[8]; //tcprosのヘッダの部分は避ける
-
+	rcv_p = &rcv_buff[8]; //tcprosのヘッダの部分は避ける 詳しくはETWESTブランチを見る
     free(rcv_buff);
 }
 
 
-/* mROS communication test
-*/
-
-//userタスク
-
 void main_task(){
-	syslog(LOG_NOTICE, "**********mROS START******************");
+	syslog(LOG_NOTICE, "**********mROS main task start**********");
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
 	syslog(LOG_NOTICE, "Activated Main task");
 
 //mROS通信ライブラリタスク起動
+//初期化
 	act_task(pub_task);
 	act_task(sub_task);
 	act_task(xml_slv_task);
@@ -201,19 +182,76 @@ void main_task(){
 //ユーザタスク起動
 	act_task(usr_task1);
 
-
+	syslog(LOG_NOTICE,"**********mROS main task finish**********")
 }
 
 //パブリッシュタスク
+//mbedのEathernetConnectionはマルチキャストできないからポートに対して一つの接続
 void pub_task(){
 #ifndef _PUB_
 #define _PUB_
-	xml2master(PUBLISHER);
 	syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
+	struct mros_pair {
+		char ID;
+		TCPSocketServer *p_sock;	
+		mros_pair(char c,TCPSocketServer *s){
+			ID = c;
+			p_sock = s;
+		}	
+	};
+	struct mros_list{
+	private:
+		std::vetcor<mros_pair> mros_vec;
+	public:
+		int find(char c){
+			for(int i=0;i < this->mros_vec.size();i++){
+				if(c == this->mros_vec[i].ID){
+					return i;
+				}
+			}
+			return -1;
+		}
+		void add(mros_pair){this->mros_vec.push_back(mros_pair);}
+	};
+	static mros_list lst;
+	//1ワード -> 32bit -> 4B
+	//pdq[0]      : mROSID -> 参照してリストかなんかになかったら初期化と判断
+	//pdq[1]  : address 
+	//pdq[2][3] : data length ->初期化の場合はポート番号を入れる
+	static char *pdq;
+	pdq = (char*)malloc(sizeof(char)*4);
+	char *addr;
 #endif //_PUB_
-
+	//ソケットの接続受付をどうするか？周期的に見る？
 	while(1){
-		rcv_dtq(PUB_DTQ,p_data);		//ER ercd = rcv_dtq(ID dtqid, intptr_t *p_data) 
+		rcv_dtq(PUB_DTQ,pdq);		//ER ercd = rcv_dtq(ID dtqid, intptr_t *p_data)
+		int num = lst.find(pdq[0]); 	//ID取得
+		if(num == -1){ //初期化
+		//指定されたポート番号を開通させ，mROSIDと紐づけ
+			int port;
+			port = atoi(pdq[2]);
+			port = size + atoi(pdq[3])*256;
+			static TCPSocketServer *sock;
+			sock.bind(port);	//ポートバインド
+			lst.add(pdq[0],sock);
+		}else{	//パブリッシュ
+		//mROSIDに紐づけられたポートで出版
+		//データ長
+		int size;
+			size = atoi(pdq[2]);
+			size = size + atoi(pdq[3])*256;
+		//メモリアドレス どこまで必要かはわからんがとりあえず1B分の処理
+		int offset = atoi(pdq[1]);
+		//offset = offset + atoi(pdq[2])*256;
+		//offset = offset + atoi(pdq[3])*65536;
+		//offset = offset + atoi(pdq[4])*16777216
+		addr = 	&mem[offset];		//共有メモリのアドレスを入れる
+		//データコピー
+		char *buff;
+		memcpy(buff,addr,size);
+		//出版
+		lst.mros_vec[num].p_sock.send(buff,size);
+		}
 	}
 	/*
 	node_server(40040); //xmlrpc受付
@@ -227,7 +265,7 @@ void sub_task(){
 #ifndef _SUB_
 #define _SUB_
 	syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
-	xml2master(SUBSCRIBER);
+	
 #endif //_SUB_
 	request_topic();
 	rostcp();
@@ -240,8 +278,6 @@ void xml_slv_task(){
 #define _XML_SLAVE_
 	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Slave========");
 #endif
-
-
 }
 
 //XML-RPCマスタタスク
@@ -249,8 +285,15 @@ void xml_mas_task(){
 #ifndef _XML_MASTER_
 #define _XML_MASTER_
 	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Master========");
-
 #endif
+	while(1){
+		//register
+		if(node_type == PUBLISHER){
+			xml2master(PUBLISHER);
+		}else if(node_type == SUBSCRIBER){
+			xml2master(SUBSCRIBER);
+		}
+	}
 }
 
 void usr_task1(){
@@ -258,5 +301,17 @@ void usr_task1(){
 #define _USR_TASK_
 	syslog(LOG_NOTICE,"========Activate user task========");
 #endif
-	
+	//ros::init,nodeHandleとかを定義しないといけない別ファイル
+	//共有メモリ先頭ポインタ mem
+/****	参考コード
+	ros::init(argc,argv,"mros_talker");
+	ros::NodeHandel n;			//ノードハンドラ
+	ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);		//パブリッシャとして登録XML-RPCをする
+	ros::Rate loop_rate(10);
+	while(ros::ok()){
+		chatter_pub.publish(data);			//TCPROSでデータ出版
+		ros::spineOnce();
+		loop_rate.sleep();
+	}
+*/
 }
