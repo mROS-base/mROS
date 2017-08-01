@@ -9464,151 +9464,60 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !ENTRY com.atollic.truestudio.mbs 4 0 2017-07-10 18:23:25.583
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-10 18:39:47.738
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 01:54:05.848
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-10 18:39:47.741
-!MESSAGE Failed to find device info
-!SESSION 2017-07-16 15:59:21.313 -----------------------------------------------
-eclipse.buildId=unknown
-java.version=1.8.0_121
-java.vendor=Oracle Corporation
-BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
-Command-line arguments:  -os win32 -ws win32 -arch x86
-
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-16 15:59:27.107
-!MESSAGE Loading product manager
-
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-16 15:59:27.197
-!MESSAGE OS info: Windows 10, 10.0, x86
-
-!ENTRY org.eclipse.core.resources 2 10035 2017-07-16 15:59:27.927
-!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
-
-!ENTRY TrueSTUDIO 1 0 2017-07-16 15:59:32.724
-!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
-
-!ENTRY TrueSTUDIO 1 0 2017-07-16 15:59:32.727
-!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
-
-!ENTRY LicenseSystem 1 0 2017-07-16 15:59:32.806
-!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
-
-!ENTRY TrueSTUDIO License 1 0 2017-07-16 15:59:33.609
-!MESSAGE Valid local features found: 0
-
-!ENTRY TrueSTUDIO License 1 0 2017-07-16 15:59:33.610
-!MESSAGE Valid network features found: 0
-
-!ENTRY TrueSTUDIO License 1 0 2017-07-16 15:59:33.611
-!MESSAGE License system initialized in 44ms
-
-!ENTRY TrueSTUDIO 1 0 2017-07-16 15:59:33.621
-!MESSAGE License numbers: 0 []
-
-!ENTRY TrueSTUDIO 1 0 2017-07-16 15:59:33.623
-!MESSAGE This installation is running as LITE
-
-!ENTRY org.eclipse.jface 2 0 2017-07-16 15:59:40.571
-!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
-!SUBENTRY 1 org.eclipse.jface 2 0 2017-07-16 15:59:40.572
-!MESSAGE A conflict occurred for ALT+CTRL+T:
-Binding(ALT+CTRL+T,
-	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
-		,
-		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
-		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@18cb283,
-		,,true),null),
-	org.eclipse.ui.defaultAcceleratorConfiguration,
-	org.eclipse.ui.contexts.window,,,system)
-Binding(ALT+CTRL+T,
-	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
-		,
-		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
-		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@b54694,
-		,,true),null),
-	org.eclipse.ui.defaultAcceleratorConfiguration,
-	org.eclipse.ui.contexts.window,,,system)
-
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-16 15:59:46.525
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 01:54:05.850
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-16 15:59:46.561
-!MESSAGE Failed to find device info
-
-!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-07-16 15:59:54.028
-!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
-
-!ENTRY org.eclipse.egit.ui 2 0 2017-07-16 15:59:54.325
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-07-16 15:59:54.533
-!MESSAGE Code Review is up.
-
-!ENTRY org.eclipse.core.net 1 0 2017-07-16 15:59:55.909
-!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
-
-!ENTRY org.eclipse.core.net 1 0 2017-07-16 15:59:55.909
-!MESSAGE System property http.proxyPort is not set but should be 8080.
-
-!ENTRY org.eclipse.core.net 1 0 2017-07-16 15:59:55.921
-!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
-
-!ENTRY org.eclipse.core.net 1 0 2017-07-16 15:59:55.922
-!MESSAGE System property http.proxyPort is not set but should be 8080.
-
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-16 17:56:11.056
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-11 11:31:58.449
 !MESSAGE Unloading product manager
-!SESSION 2017-07-18 10:30:27.089 -----------------------------------------------
+!SESSION 2017-07-11 11:32:27.557 -----------------------------------------------
 eclipse.buildId=unknown
 java.version=1.8.0_121
 java.vendor=Oracle Corporation
 BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
 Command-line arguments:  -os win32 -ws win32 -arch x86
 
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-18 10:30:29.319
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-11 11:32:31.318
 !MESSAGE Loading product manager
 
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-18 10:30:29.331
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-11 11:32:31.328
 !MESSAGE OS info: Windows 10, 10.0, x86
 
-!ENTRY TrueSTUDIO 1 0 2017-07-18 10:30:30.193
+!ENTRY TrueSTUDIO 1 0 2017-07-11 11:32:32.153
 !MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
 
-!ENTRY TrueSTUDIO 1 0 2017-07-18 10:30:30.194
+!ENTRY TrueSTUDIO 1 0 2017-07-11 11:32:32.155
 !MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
 
-!ENTRY LicenseSystem 1 0 2017-07-18 10:30:30.198
+!ENTRY LicenseSystem 1 0 2017-07-11 11:32:32.160
 !MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
 
-!ENTRY TrueSTUDIO License 1 0 2017-07-18 10:30:30.318
+!ENTRY TrueSTUDIO License 1 0 2017-07-11 11:32:32.281
 !MESSAGE Valid local features found: 0
 
-!ENTRY TrueSTUDIO License 1 0 2017-07-18 10:30:30.319
+!ENTRY TrueSTUDIO License 1 0 2017-07-11 11:32:32.282
 !MESSAGE Valid network features found: 0
 
-!ENTRY TrueSTUDIO License 1 0 2017-07-18 10:30:30.319
-!MESSAGE License system initialized in 83ms
+!ENTRY TrueSTUDIO License 1 0 2017-07-11 11:32:32.282
+!MESSAGE License system initialized in 87ms
 
-!ENTRY TrueSTUDIO 1 0 2017-07-18 10:30:30.324
+!ENTRY TrueSTUDIO 1 0 2017-07-11 11:32:32.285
 !MESSAGE License numbers: 0 []
 
-!ENTRY TrueSTUDIO 1 0 2017-07-18 10:30:30.324
+!ENTRY TrueSTUDIO 1 0 2017-07-11 11:32:32.286
 !MESSAGE This installation is running as LITE
 
-!ENTRY org.eclipse.jface 2 0 2017-07-18 10:30:31.305
+!ENTRY org.eclipse.jface 2 0 2017-07-11 11:32:33.262
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
-!SUBENTRY 1 org.eclipse.jface 2 0 2017-07-18 10:30:31.305
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-07-11 11:32:33.262
 !MESSAGE A conflict occurred for ALT+CTRL+T:
 Binding(ALT+CTRL+T,
 	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
 		,
 		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
-		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1ad2363,
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1fd35dd,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
@@ -9616,90 +9525,258 @@ Binding(ALT+CTRL+T,
 	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
 		,
 		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
-		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@14b2414,
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@11a09b2,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-18 10:30:33.147
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:32:34.994
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-18 10:30:33.154
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:32:34.999
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-07-18 10:30:35.139
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-07-11 11:32:36.860
 !MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
 
-!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-07-18 10:30:35.191
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-07-11 11:32:36.916
 !MESSAGE Code Review is up.
 
-!ENTRY org.eclipse.core.net 1 0 2017-07-18 10:30:35.344
-!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
-
-!ENTRY org.eclipse.core.net 1 0 2017-07-18 10:30:35.345
-!MESSAGE System property http.proxyPort is not set but should be 8080.
-
-!ENTRY org.eclipse.core.net 1 0 2017-07-18 10:30:35.355
-!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
-
-!ENTRY org.eclipse.egit.ui 2 0 2017-07-18 10:30:35.356
+!ENTRY org.eclipse.egit.ui 2 0 2017-07-11 11:32:37.011
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 
-!ENTRY org.eclipse.core.net 1 0 2017-07-18 10:30:35.356
-!MESSAGE System property http.proxyPort is not set but should be 8080.
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:38:00.372
+!MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-18 12:39:19.478
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:38:00.374
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:41:06.820
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:41:06.822
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:49:21.094
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:49:21.096
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:53:32.930
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:53:32.931
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:59:01.633
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 11:59:01.634
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:03:05.123
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:03:05.127
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:07:25.732
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:07:25.734
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:13:06.372
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:13:06.374
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:13:43.947
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:13:43.948
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:14:42.098
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:14:42.100
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:15:13.531
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:15:13.533
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:25:48.717
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:25:48.719
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:36:23.147
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:36:23.150
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:38:16.088
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:38:16.090
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:38:26.333
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:38:26.335
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:42:20.099
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:42:20.101
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:44:04.966
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:44:04.968
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:46:52.597
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:46:52.598
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:48:30.771
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:48:30.772
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:50:15.600
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:50:15.602
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:50:28.325
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:50:28.326
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:53:27.280
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:53:27.282
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:55:32.009
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 12:55:32.011
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:06:36.377
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:06:36.378
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:31:46.633
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:31:46.634
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:37:49.634
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:37:49.636
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:38:42.617
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:38:42.620
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:42:34.851
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:42:34.853
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:49:45.501
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:49:45.505
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:54:41.698
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-11 13:54:41.701
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-11 14:10:43.593
 !MESSAGE Unloading product manager
-!SESSION 2017-08-01 13:29:08.301 -----------------------------------------------
+!SESSION 2017-07-19 16:28:18.916 -----------------------------------------------
 eclipse.buildId=unknown
 java.version=1.8.0_121
 java.vendor=Oracle Corporation
 BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
 Command-line arguments:  -os win32 -ws win32 -arch x86
 
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:29:10.715
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-19 16:28:22.094
 !MESSAGE Loading product manager
 
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:29:10.726
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-19 16:28:22.109
 !MESSAGE OS info: Windows 10, 10.0, x86
 
-!ENTRY TrueSTUDIO 1 0 2017-08-01 13:29:11.581
+!ENTRY TrueSTUDIO 1 0 2017-07-19 16:28:23.041
 !MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
 
-!ENTRY TrueSTUDIO 1 0 2017-08-01 13:29:11.584
+!ENTRY TrueSTUDIO 1 0 2017-07-19 16:28:23.041
 !MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
 
-!ENTRY LicenseSystem 1 0 2017-08-01 13:29:11.588
+!ENTRY LicenseSystem 1 0 2017-07-19 16:28:23.044
 !MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
 
-!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:29:11.696
+!ENTRY TrueSTUDIO License 1 0 2017-07-19 16:28:23.172
 !MESSAGE Valid local features found: 0
 
-!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:29:11.697
+!ENTRY TrueSTUDIO License 1 0 2017-07-19 16:28:23.173
 !MESSAGE Valid network features found: 0
 
-!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:29:11.697
-!MESSAGE License system initialized in 63ms
+!ENTRY TrueSTUDIO License 1 0 2017-07-19 16:28:23.173
+!MESSAGE License system initialized in 91ms
 
-!ENTRY TrueSTUDIO 1 0 2017-08-01 13:29:11.701
+!ENTRY TrueSTUDIO 1 0 2017-07-19 16:28:23.178
 !MESSAGE License numbers: 0 []
 
-!ENTRY TrueSTUDIO 1 0 2017-08-01 13:29:11.701
+!ENTRY TrueSTUDIO 1 0 2017-07-19 16:28:23.178
 !MESSAGE This installation is running as LITE
 
-!ENTRY org.eclipse.jface 2 0 2017-08-01 13:29:12.728
+!ENTRY org.eclipse.jface 2 0 2017-07-19 16:28:24.234
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
-!SUBENTRY 1 org.eclipse.jface 2 0 2017-08-01 13:29:12.728
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-07-19 16:28:24.234
 !MESSAGE A conflict occurred for ALT+CTRL+T:
 Binding(ALT+CTRL+T,
 	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
 		,
 		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
-		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@459c28,
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6244e7,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
@@ -9707,41 +9784,695 @@ Binding(ALT+CTRL+T,
 	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
 		,
 		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
-		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1fdbeef,
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1dad235,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-08-01 13:29:15.291
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-19 16:28:26.206
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.mbs 4 0 2017-08-01 13:29:15.308
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-19 16:28:26.218
 !MESSAGE Failed to find device info
 
-!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-08-01 13:29:18.560
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-07-19 16:28:28.067
 !MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
 
-!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-08-01 13:29:18.608
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-07-19 16:28:28.115
 !MESSAGE Code Review is up.
 
-!ENTRY org.eclipse.egit.ui 2 0 2017-08-01 13:29:18.696
+!ENTRY org.eclipse.egit.ui 2 0 2017-07-19 16:28:28.271
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 
-!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:29:18.717
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-19 16:31:50.013
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.mbs 4 0 2017-07-19 16:31:50.016
+!MESSAGE Failed to find device info
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-07-19 16:37:58.686
+!MESSAGE Unloading product manager
+!SESSION 2017-08-01 13:17:39.950 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:17:44.896
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:17:45.260
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:17:54.867
+!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:17:54.869
+!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
+
+!ENTRY LicenseSystem 1 0 2017-08-01 13:17:54.907
+!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:17:55.848
+!MESSAGE Valid local features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:17:55.851
+!MESSAGE Valid network features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:17:55.853
+!MESSAGE License system initialized in 626ms
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:17:55.859
+!MESSAGE License numbers: 0 []
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:17:55.860
+!MESSAGE This installation is running as LITE
+
+!ENTRY org.eclipse.jface 2 0 2017-08-01 13:18:13.691
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-08-01 13:18:13.691
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1b3d869,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1f4439e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui 4 4 2017-08-01 13:18:21.649
+!MESSAGE Unable to create part
+!SUBENTRY 1 org.eclipse.core.filebuffers 4 0 2017-08-01 13:18:21.650
+!MESSAGE '/ros_emb/node_server.cpp' に対する URI を判別できません。
+!STACK 1
+org.eclipse.core.runtime.CoreException: '/ros_emb/node_server.cpp' に対する URI を判別できません。
+	at org.eclipse.core.internal.filebuffers.ResourceFileBuffer.create(ResourceFileBuffer.java:239)
+	at org.eclipse.core.internal.filebuffers.TextFileBufferManager.connect(TextFileBufferManager.java:112)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider.createFileInfo(TextFileDocumentProvider.java:560)
+	at org.eclipse.cdt.internal.ui.editor.CDocumentProvider.createFileInfo(CDocumentProvider.java:789)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider.connect(TextFileDocumentProvider.java:478)
+	at org.eclipse.cdt.internal.ui.editor.CDocumentProvider.connect(CDocumentProvider.java:721)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.doSetInput(AbstractTextEditor.java:4178)
+	at org.eclipse.ui.texteditor.StatusTextEditor.doSetInput(StatusTextEditor.java:229)
+	at org.eclipse.ui.texteditor.AbstractDecoratedTextEditor.doSetInput(AbstractDecoratedTextEditor.java:1466)
+	at org.eclipse.ui.editors.text.TextEditor.doSetInput(TextEditor.java:150)
+	at org.eclipse.cdt.internal.ui.editor.CEditor.internalDoSetInput(CEditor.java:1437)
+	at org.eclipse.cdt.internal.ui.editor.CEditor.doSetInput(CEditor.java:1402)
+	at org.eclipse.ui.texteditor.AbstractTextEditor$5.run(AbstractTextEditor.java:3154)
+	at org.eclipse.ui.internal.WorkbenchWindow.run(WorkbenchWindow.java:2126)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.internalInit(AbstractTextEditor.java:3172)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.init(AbstractTextEditor.java:3197)
+	at org.eclipse.ui.internal.EditorReference.initialize(EditorReference.java:362)
+	at org.eclipse.ui.internal.e4.compatibility.CompatibilityPart.create(CompatibilityPart.java:318)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:55)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:966)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:931)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:151)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:375)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:294)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:162)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:105)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:74)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:56)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ContributedPartRenderer.createWidget(ContributedPartRenderer.java:129)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:975)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:651)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer.showTab(StackRenderer.java:1317)
+	at org.eclipse.e4.ui.workbench.renderers.swt.LazyStackRenderer.postProcess(LazyStackRenderer.java:103)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:669)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$1.run(PartRenderingEngine.java:536)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:520)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ElementReferenceRenderer.createWidget(ElementReferenceRenderer.java:70)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:975)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:651)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:142)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:142)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.createElement(PartServiceImpl.java:1253)
+	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.showPart(PartServiceImpl.java:1218)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:401)
+	at org.eclipse.ui.internal.ViewReference.getView(ViewReference.java:85)
+	at org.eclipse.ui.internal.WorkbenchPage.findView(WorkbenchPage.java:1966)
+	at com.atollic.truestudio.pro.arm.doc.NewWelcomeInfoDetector.isNewContentAvailable(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchIntroManager.isNewContentAvailable(WorkbenchIntroManager.java:299)
+	at org.eclipse.ui.application.WorkbenchWindowAdvisor.openIntro(WorkbenchWindowAdvisor.java:182)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor.openIntro(IDEWorkbenchWindowAdvisor.java:567)
+	at org.eclipse.ui.internal.WorkbenchWindow.setup(WorkbenchWindow.java:776)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:55)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:966)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:151)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:118)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.inject(ContextInjectionFactory.java:73)
+	at org.eclipse.ui.internal.Workbench.createWorkbenchWindow(Workbench.java:1525)
+	at org.eclipse.ui.internal.Workbench.openWorkbenchWindow(Workbench.java:2653)
+	at org.eclipse.ui.internal.Workbench.getWorkbenchPage(Workbench.java:2083)
+	at org.eclipse.ui.internal.Workbench.setReference(Workbench.java:2131)
+	at org.eclipse.ui.internal.Workbench.access$28(Workbench.java:2099)
+	at org.eclipse.ui.internal.Workbench$35.handleEvent(Workbench.java:2021)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler$1.run(UIEventHandler.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:233)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:145)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4813)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application$1.syncExec(E4Application.java:211)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.handleEvent(UIEventHandler.java:36)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:201)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:197)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:148)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:135)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:78)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:39)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:94)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:60)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:374)
+	at org.eclipse.e4.ui.model.application.ui.basic.impl.PartImpl.setContext(PartImpl.java:431)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:626)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$1.run(PartRenderingEngine.java:536)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:520)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ElementReferenceRenderer.createWidget(ElementReferenceRenderer.java:70)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:975)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:651)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer.showTab(StackRenderer.java:1317)
+	at org.eclipse.e4.ui.workbench.renderers.swt.LazyStackRenderer.postProcess(LazyStackRenderer.java:103)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:669)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:142)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.workbench.renderers.swt.PerspectiveRenderer.processContents(PerspectiveRenderer.java:49)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.PerspectiveStackRenderer.showTab(PerspectiveStackRenderer.java:82)
+	at org.eclipse.e4.ui.workbench.renderers.swt.LazyStackRenderer.postProcess(LazyStackRenderer.java:103)
+	at org.eclipse.e4.ui.workbench.renderers.swt.PerspectiveStackRenderer.postProcess(PerspectiveStackRenderer.java:63)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:669)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SashRenderer.processContents(SashRenderer.java:142)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.workbench.renderers.swt.SWTPartRenderer.processContents(SWTPartRenderer.java:70)
+	at org.eclipse.e4.ui.workbench.renderers.swt.WBWRenderer.processContents(WBWRenderer.java:725)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:665)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1059)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1022)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:150)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:687)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:604)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:142)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+!SUBENTRY 2 org.eclipse.core.filebuffers 4 0 2017-08-01 13:18:21.666
+!MESSAGE '/ros_emb/node_server.cpp' に対する URI を判別できません。
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-08-01 13:18:27.509
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-08-01 13:18:29.186
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-08-01 13:18:30.053
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:18:31.375
 !MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
 
-!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:29:18.717
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:18:31.441
 !MESSAGE System property http.proxyPort is not set but should be 8080.
 
-!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:29:18.726
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:18:31.513
 !MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
 
-!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:29:18.726
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:18:31.515
 !MESSAGE System property http.proxyPort is not set but should be 8080.
 
-!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:30:58.525
+!ENTRY org.eclipse.ui 4 4 2017-08-01 13:18:57.340
+!MESSAGE Unable to create part
+!SUBENTRY 1 org.eclipse.core.filebuffers 4 0 2017-08-01 13:18:57.340
+!MESSAGE '/ros_emb/xmlparser.cpp' に対する URI を判別できません。
+!STACK 1
+org.eclipse.core.runtime.CoreException: '/ros_emb/xmlparser.cpp' に対する URI を判別できません。
+	at org.eclipse.core.internal.filebuffers.ResourceFileBuffer.create(ResourceFileBuffer.java:239)
+	at org.eclipse.core.internal.filebuffers.TextFileBufferManager.connect(TextFileBufferManager.java:112)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider.createFileInfo(TextFileDocumentProvider.java:560)
+	at org.eclipse.cdt.internal.ui.editor.CDocumentProvider.createFileInfo(CDocumentProvider.java:789)
+	at org.eclipse.ui.editors.text.TextFileDocumentProvider.connect(TextFileDocumentProvider.java:478)
+	at org.eclipse.cdt.internal.ui.editor.CDocumentProvider.connect(CDocumentProvider.java:721)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.doSetInput(AbstractTextEditor.java:4178)
+	at org.eclipse.ui.texteditor.StatusTextEditor.doSetInput(StatusTextEditor.java:229)
+	at org.eclipse.ui.texteditor.AbstractDecoratedTextEditor.doSetInput(AbstractDecoratedTextEditor.java:1466)
+	at org.eclipse.ui.editors.text.TextEditor.doSetInput(TextEditor.java:150)
+	at org.eclipse.cdt.internal.ui.editor.CEditor.internalDoSetInput(CEditor.java:1437)
+	at org.eclipse.cdt.internal.ui.editor.CEditor.doSetInput(CEditor.java:1402)
+	at org.eclipse.ui.texteditor.AbstractTextEditor$5.run(AbstractTextEditor.java:3154)
+	at org.eclipse.jface.operation.ModalContext.runInCurrentThread(ModalContext.java:437)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:353)
+	at org.eclipse.ui.internal.WorkbenchWindow$14.run(WorkbenchWindow.java:2184)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.WorkbenchWindow.run(WorkbenchWindow.java:2180)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.internalInit(AbstractTextEditor.java:3172)
+	at org.eclipse.ui.texteditor.AbstractTextEditor.init(AbstractTextEditor.java:3197)
+	at org.eclipse.ui.internal.EditorReference.initialize(EditorReference.java:362)
+	at org.eclipse.ui.internal.e4.compatibility.CompatibilityPart.create(CompatibilityPart.java:318)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:55)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:966)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:931)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:151)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:375)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:294)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:162)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:105)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:74)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:56)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ContributedPartRenderer.createWidget(ContributedPartRenderer.java:129)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:975)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:651)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:757)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.access$0(PartRenderingEngine.java:728)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:722)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:706)
+	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl$1.handleEvent(PartServiceImpl.java:104)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler$1.run(UIEventHandler.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:233)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:145)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4813)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application$1.syncExec(E4Application.java:211)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.handleEvent(UIEventHandler.java:36)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:201)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:197)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:148)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:135)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:78)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:39)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:94)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:60)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:374)
+	at org.eclipse.e4.ui.model.application.ui.impl.ElementContainerImpl.setSelectedElement(ElementContainerImpl.java:173)
+	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer$5.widgetSelected(StackRenderer.java:1095)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:249)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4410)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1103)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1088)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:802)
+	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3167)
+	at org.eclipse.swt.custom.CTabFolder.onMouse(CTabFolder.java:1850)
+	at org.eclipse.swt.custom.CTabFolder$1.handleEvent(CTabFolder.java:333)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4410)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4228)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3816)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1121)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1022)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:150)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:687)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:604)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:142)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+!SUBENTRY 2 org.eclipse.core.filebuffers 4 0 2017-08-01 13:18:57.341
+!MESSAGE '/ros_emb/xmlparser.cpp' に対する URI を判別できません。
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:19:25.188
+!MESSAGE Unloading product manager
+!SESSION 2017-08-01 13:19:27.779 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:19:33.536
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:19:33.547
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:19:34.187
+!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:19:34.187
+!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
+
+!ENTRY LicenseSystem 1 0 2017-08-01 13:19:34.190
+!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:19:34.295
+!MESSAGE Valid local features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:19:34.296
+!MESSAGE Valid network features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:19:34.296
+!MESSAGE License system initialized in 68ms
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:19:34.312
+!MESSAGE License numbers: 0 []
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:19:34.312
+!MESSAGE This installation is running as LITE
+
+!ENTRY org.eclipse.jface 2 0 2017-08-01 13:19:35.298
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-08-01 13:19:35.298
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@157413e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@45efdb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-08-01 13:19:37.728
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-08-01 13:19:37.786
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-08-01 13:19:37.838
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:19:37.879
+!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:19:37.879
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:19:37.903
+!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:19:37.903
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:21:21.670
+!MESSAGE Unloading product manager
+!SESSION 2017-08-01 13:21:51.935 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:22:00.543
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:22:00.575
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:22:01.251
+!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:22:01.251
+!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
+
+!ENTRY LicenseSystem 1 0 2017-08-01 13:22:01.255
+!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:22:01.366
+!MESSAGE Valid local features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:22:01.368
+!MESSAGE Valid network features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:22:01.370
+!MESSAGE License system initialized in 71ms
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:22:01.386
+!MESSAGE License numbers: 0 []
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:22:01.387
+!MESSAGE This installation is running as LITE
+
+!ENTRY org.eclipse.jface 2 0 2017-08-01 13:22:02.349
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-08-01 13:22:02.349
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@157413e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@45efdb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-08-01 13:22:04.853
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-08-01 13:22:04.878
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-08-01 13:22:04.960
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:22:04.988
+!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:22:04.989
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:22:04.997
+!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:22:04.998
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:24:02.234
+!MESSAGE Unloading product manager
+!SESSION 2017-08-01 13:24:43.525 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ja_JP
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:25:03.310
+!MESSAGE Loading product manager
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:25:03.321
+!MESSAGE OS info: Windows 10, 10.0, x86
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:25:03.975
+!MESSAGE Target: ARM, Version: 7.1.2, Build date: 20170322-1909, Installation dir: /C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:25:03.976
+!MESSAGE Workspace: C:\Users\mori\Dropbox\mROS\mROS\truestudio
+
+!ENTRY LicenseSystem 1 0 2017-08-01 13:25:03.979
+!MESSAGE Updated java.library.path to: C:;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2\ide;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin/client;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/bin;C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ide/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.18\bin;C:\Program Files (x86)\gs\gs9.18\lib;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft VS Code\bin;C:\altera\15.0\modelsim_ase\win32aloem;C:\Users\mori\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM 7.1.2;;.
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:25:04.090
+!MESSAGE Valid local features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:25:04.092
+!MESSAGE Valid network features found: 0
+
+!ENTRY TrueSTUDIO License 1 0 2017-08-01 13:25:04.105
+!MESSAGE License system initialized in 71ms
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:25:04.111
+!MESSAGE License numbers: 0 []
+
+!ENTRY TrueSTUDIO 1 0 2017-08-01 13:25:04.112
+!MESSAGE This installation is running as LITE
+
+!ENTRY org.eclipse.jface 2 0 2017-08-01 13:25:05.088
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2017-08-01 13:25:05.088
+!MESSAGE A conflict occurred for ALT+CTRL+T:
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.EditPropertiesCommand,Show Properties,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@612078,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+T,
+	ParameterizedCommand(Command(org.eclipse.tm.terminal.connector.local.command.launch,Open Local Terminal on Selection,
+		,
+		Category(org.eclipse.tm.terminal.view.ui.commands.category,ターミナル・コマンド,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@bc3bcf,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.atollic.truestudio.integration.processorexpert 0 0 2017-08-01 13:25:07.625
+!MESSAGE Atollic TrueSTUDIO Processor Expert integration is up.
+
+!ENTRY edu.hawaii.ics.csdl.jupiter 1 0 2017-08-01 13:25:07.647
+!MESSAGE Code Review is up.
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-08-01 13:25:07.730
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\mori'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:25:07.772
+!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:25:07.773
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:25:07.782
+!MESSAGE System property http.proxyHost is not set but should be www-cache.kuins.kyoto-u.ac.jp.
+
+!ENTRY org.eclipse.core.net 1 0 2017-08-01 13:25:07.782
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY com.atollic.truestudio.productmanager 1 0 2017-08-01 13:28:31.647
 !MESSAGE Unloading product manager
