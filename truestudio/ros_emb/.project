@@ -46,6 +46,16 @@
 			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/node_server.h</locationURI>
 		</link>
 		<link>
+			<name>ros.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/ros.cpp</locationURI>
+		</link>
+		<link>
+			<name>ros.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/ros.h</locationURI>
+		</link>
+		<link>
 			<name>ros_emb.cfg</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/ros_emb/ros_emb.cfg</locationURI>

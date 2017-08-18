@@ -156,3 +156,66 @@ string test_requestResponse(){
     res = addHttpOK(xml);
     return res;
 }
+
+//task用関数
+string get_ttype(string *xml){
+	int head,tail;
+	string body;
+	head = (int)xml->find("<topic_type>");
+	tail = (int)xml->find("</topic_type>");
+	for(int i = head + sizeof("<topic_type>");i < tail; i++){
+		body = body + xml[i];
+	}
+	return body;
+}
+string get_tname(string *xml){
+	int head,tail;
+		string body;
+		head = (int)xml->find("<topic_name>");
+		tail = (int)xml->find("</topic_name>");
+		for(int i = head + sizeof("<topic_name>");i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+string get_cid(string *xml){
+	int head,tail;
+		string body;
+		head = (int)xml->find("<caller_id>");
+		tail = (int)xml->find("</caller_id>");
+		for(int i = head + sizeof("<caller_id>");i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+string get_msgdef(string *xml){
+	int head,tail;
+		string body;
+		head = (int)xml->find("<message_definition>");
+		tail = (int)xml->find("</message_definition>");
+		for(int i = head + sizeof("<message_definition>");i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+intptr_t get_faddr(string *xml){
+	int head,tail;
+		string body;
+		head = (int)xml->find("<function_pointer>");
+		tail = (int)xml->find("</function_pointer>");
+		for(int i = head + sizeof("<function_pointer>");i < tail; i++){
+			body = body + xml[i];
+		}
+		return atoi(body.c_str());
+}
+
+string registerSubtask(intptr_t func,string port){
+	string body;
+	body += "<funcp>";
+	body += func;
+	body += "</funcp>";
+	body += "<port>";
+	body += port;
+	body += "</port>";
+	return body;
+}

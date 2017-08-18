@@ -4,15 +4,15 @@
 
 #include "target_test.h"
 #ifdef __cplusplus
+#include "ros.h"
 #include "xmlcall.h"
 #include "xmlparser.h"
 #include "node_server.h"
 #endif
 
 #ifndef MROS_USR_TASK_PRI
-#define MROS_USR_TASK_PRI  7
+#define MROS_USR_TASK_PRI  6
 
-#define MROS_TASK_PRI  3
 #define MROS_TASK_PRI  3
 #endif /* ROS_USR_TASK_PRI */
 
@@ -26,17 +26,22 @@
 
 
 #ifndef KMM_SIZE
-#define	KMM_SIZE	(ROS_MAIN_TASK_STACK_SIZE * 16)	/* カーネルが割り付ける */
+#define	KMM_SIZE	(MROS_USR_TASK_STACK_SIZE * 16)	/* カーネルが割り付ける */
 #endif /* KMM_SIZE */						/* メモリ領域のサイズ */
 
 #ifndef LOOP_REF
 #define LOOP_REF		ULONG_C(1000000)	/* 速度計測用のループ回数 */
 #endif /* LOOP_REF */
 
+#ifndef MROS_CYC
+#define MROS_CYC	1
+#endif
+
 #ifndef MROS_DTQ			/*PUB/SUBタスクのためのデータキュー*/
 #define MROS_DTQ
 #define PUB_DTQ 1
 #define SUB_DTQ 2
+#define XML_DTQ 3
 #endif
 
 
@@ -52,7 +57,9 @@ extern void sub_task();
 extern void pub_task();
 extern void xml_slv_task();
 extern void xml_mas_task();
+extern void usr_task1();
 
+extern void cyclic_handler(intptr_t exinf);
 #ifdef __cplusplus
 }
 #endif

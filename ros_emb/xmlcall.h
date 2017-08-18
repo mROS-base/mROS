@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <vector>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -27,6 +28,13 @@ string  unregisterSubscriber(string id,string topic,string c_uri);
 string  registerSubscriber(string id,string topic,string type,string c_uri);
 string  unregisterPublisher(string id,string topic,string c_uri);
 string  registerPublisher(string id,string topic,string type,string c_uri);
+
+string get_ttype(string *xml);
+string get_tname(string *xml);
+string get_cid(string *xml);
+string get_msgdef(string *xml);
+intptr_t get_faddr(string *xml);
+string registerSubtask(intptr_t func,string port);
 
 //slave API response make
 /*

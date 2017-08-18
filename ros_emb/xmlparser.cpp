@@ -298,22 +298,22 @@ int ParseReceiveMessage(string http,xmlNode *node){
     return err_status;
 }
 
-int get_port(string http){
+string get_port(string http){
 	string val;
 	int head = (int)http.find("http://mori-PC-GN246Y3G6:");
 	int tail = (int)http.find("/",head + sizeof("http://mori-PC-GN246Y3G6:") -1);
     for(int i = head + sizeof("http://mori-PC-GN246Y3G6:") -1 ; i < tail ; i++){
         val = val + http[i];
     }
-    return atoi(val.c_str());
+    return val;
 }
 
-int get_port2(string http){
+string get_port2(string http){
 	string val;
 	int head = (int)http.find("<i4>",http.find("TCPROS"));
 	int tail = (int)http.find("</i4>",head + sizeof("<i4>") -1);
     for(int i = head + sizeof("<i4>") -1 ; i < tail ; i++){
         val = val + http[i];
     }
-    return atoi(val.c_str());
+    return val;
 }

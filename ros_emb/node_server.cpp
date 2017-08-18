@@ -1,5 +1,6 @@
 #include "node_server.h"
 
+//たぶん使わないからコードがてきとう
 //パブリッシャー用TCPサーバ
 void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 	//xmlNode *node;
@@ -58,20 +59,19 @@ void nodeServerStart(TCPSocketServer svr,TCPSocketConnection csock,int port){
 			}
 			if(port == 40400){
 				char *msg;
-				buf = (char *)malloc(256);
+				char buf = (char *)malloc(256);
 				bool b = false;
 				bool bb = true;
 			    	while(1){
-			    			csock.send(buf,l);
+			    			csock.send(buf,256);
 			    		}
-			    	}
 			    	free(buf);
 			    	free(msg);
-			}
 		}else{
 			syslog(LOG_NOTICE,"SERVER_INFO: Denied connection");
 		}
 	csock.close();
 	svr.close();
+}
 }
 

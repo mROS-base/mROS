@@ -20,7 +20,7 @@ OMIT_OPTIMIZATION = true
 #  メインファイル以外に追加するものを記述する
 #
 APPL_ASMOBJS = 
-APPL_CXXOBJS = xmlparser.o xmlcall.o node_server.o tcp_ros.o 
+APPL_CXXOBJS = ros.o xmlparser.o xmlcall.o node_server.o tcp_ros.o 
 APPL_COBJS = 
 
 #

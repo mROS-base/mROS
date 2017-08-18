@@ -51,7 +51,7 @@ void resparser(xmlNode *node,string xml);
 
 bool parser(xmlNode *node,string xml);
 int ParseReceiveMessage(string http,xmlNode *node);
-int get_port(string http);
-int get_port2(string http);
+string get_port(string http);
+string get_port2(string http);
 
 #endif /* _XMLPARSER_H_ */  
