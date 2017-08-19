@@ -54,4 +54,13 @@ int ParseReceiveMessage(string http,xmlNode *node);
 string get_port(string http);
 string get_port2(string http);
 
+//タスク用
+string get_ttype(string xml);
+string get_tname(string xml);
+string get_cid(string xml);
+string get_msgdef(string xml);
+string get_fptr(string xml);
+//string get_prt(string xml);
+string get_ip(string ip);
+
 #endif /* _XMLPARSER_H_ */  

@@ -11,8 +11,8 @@
 #endif
 
 #ifndef MROS_USR_TASK_PRI
-#define MROS_USR_TASK_PRI  6
-
+#define MAIN_TASK_PRI 5
+#define MROS_USR_TASK_PRI  4
 #define MROS_TASK_PRI  3
 #endif /* ROS_USR_TASK_PRI */
 

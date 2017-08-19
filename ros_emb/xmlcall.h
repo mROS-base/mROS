@@ -29,12 +29,7 @@ string  registerSubscriber(string id,string topic,string type,string c_uri);
 string  unregisterPublisher(string id,string topic,string c_uri);
 string  registerPublisher(string id,string topic,string type,string c_uri);
 
-string get_ttype(string *xml);
-string get_tname(string *xml);
-string get_cid(string *xml);
-string get_msgdef(string *xml);
-intptr_t get_faddr(string *xml);
-string registerSubtask(intptr_t func,string port);
+
 
 //slave API response make
 /*
@@ -42,7 +37,7 @@ string registerSubtask(intptr_t func,string port);
     prt => communication protocol
             TCP?[[str,!XMLRPCLeagalValue*]]
 */
-string  requestTopic(string id,string topic,string prt);
+string  requestTopic(string id,string topic,string prt="TCPROS");
 string  test_requestResponse(); //テスト用XML-RPCレスポンス生成関数
 //現状prt = "TCPROS"のみを考える．引数も特になし
 
@@ -51,5 +46,7 @@ string	addHttpPost(string xml);
 string	addHttpOK(string xml);
 string  makexmlcall(string name,vector<string> params,int pnum); 
 
+//タスク用
+string registerSubtask(string func,string port);
 
 #endif

@@ -277,8 +277,6 @@ bool parser(xmlNode *node,string xml){
 //HTTP OK の対応
 //メソッドの判別とXMLの切り出し
 
-
-
 int ParseReceiveMessage(string http,xmlNode *node){
 	err_status = SUCCESS_PARSING;
     if((int)http.find("POST") != -1){
@@ -302,7 +300,7 @@ string get_port(string http){
 	string val;
 	int head = (int)http.find("http://mori-PC-GN246Y3G6:");
 	int tail = (int)http.find("/",head + sizeof("http://mori-PC-GN246Y3G6:") -1);
-    for(int i = head + sizeof("http://mori-PC-GN246Y3G6:") -1 ; i < tail ; i++){
+	for(int i = head + sizeof("http://mori-PC-GN246Y3G6:") -1 ; i < tail ; i++){
         val = val + http[i];
     }
     return val;
@@ -317,3 +315,85 @@ string get_port2(string http){
     }
     return val;
 }
+
+//task用関数
+//parserに置くべき
+
+string get_ttype(string xml){
+	int head,tail;
+	string body;
+	head = (int)xml.find("<topic_type>");
+	tail = (int)xml.find("</topic_type>");
+	for(int i = head + sizeof("<topic_type>") -1;i < tail; i++){
+		body = body + xml[i];
+	}
+	return body;
+}
+
+string get_tname(string xml){
+	int head,tail;
+		string body;
+		head = (int)xml.find("<topic_name>");
+		tail = (int)xml.find("</topic_name>");
+		for(int i = head + sizeof("<topic_name>")-1;i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+
+string get_cid(string xml){
+	int head,tail;
+		string body;
+		head = (int)xml.find("<caller_id>");
+		tail = (int)xml.find("</caller_id>");
+		for(int i = head + sizeof("<caller_id>")-1;i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+
+string get_msgdef(string xml){
+	int head,tail;
+		string body;
+		head = (int)xml.find("<message_definition>");
+		tail = (int)xml.find("</message_definition>");
+		for(int i = head + sizeof("<message_definition>")-1;i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+
+string get_fptr(string xml){
+	int head,tail;
+		string body;
+		head = (int)xml.find("<fptr>");
+		tail = (int)xml.find("</fptr>");
+		for(int i = head + sizeof("<fptr>")-1;i < tail; i++){
+			body = body + xml[i];
+		}
+		return body;
+}
+/*
+string get_prt(string xml){
+	int head,tail;
+			string body;
+			head = (int)xml.find("<port>");
+			tail = (int)xml.find("</port>");
+			for(int i = head + sizeof("<port>")-1;i < tail; i++){
+				body = body + xml[i];
+			}
+			return body;
+}
+*/
+string get_ip(string xml){
+	int head,tail;
+			string body;
+			head = (int)xml.find("<IP>");
+			tail = (int)xml.find("</IP>");
+			for(int i = head + sizeof("<IP>")-1;i < tail; i++){
+				body = body + xml[i];
+			}
+			return body;
+}
+
+
