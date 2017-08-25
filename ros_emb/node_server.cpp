@@ -1,4 +1,4 @@
-#include "node_server.h"
+#include "ros_emb.h"
 
 //たぶん使わないからコードがてきとう
 //パブリッシャー用TCPサーバ

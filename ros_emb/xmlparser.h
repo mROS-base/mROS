@@ -62,5 +62,5 @@ string get_msgdef(string xml);
 string get_fptr(string xml);
 //string get_prt(string xml);
 string get_ip(string ip);
-
+string req_topic_name(string xml);
 #endif /* _XMLPARSER_H_ */  

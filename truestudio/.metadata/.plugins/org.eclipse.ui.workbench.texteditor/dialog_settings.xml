@@ -6,30 +6,30 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="14141" key="selection"/>
+		<item value="network.getIPAddress" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="14141"/>
-			<item value="sdqp"/>
-			<item value="n_port"/>
-			<item value="get_port"/>
-			<item value="getport"/>
-			<item value="mros_list"/>
-			<item value="node_type"/>
-			<item value="Node"/>
+			<item value="network.getIPAddress"/>
+			<item value="m_ip"/>
+			<item value="USR_TASK"/>
+			<item value="TASK: data"/>
+			<item value="offset"/>
+			<item value="rcv_buff"/>
+			<item value="wup"/>
+			<item value="tsk"/>
 		</list>
 		<list key="replacehistory">
+			<item value="buf"/>
+			<item value="srv"/>
+			<item value="node-&gt;set_"/>
 			<item value="snd_dqp"/>
 			<item value="pub_list"/>
 			<item value="tcpsock"/>
 			<item value="sizeof"/>
 			<item value="rcv"/>
-			<item value="buff"/>
-			<item value="snd_buff"/>
-			<item value="rec_buff"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

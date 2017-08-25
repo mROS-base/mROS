@@ -1,9 +1,7 @@
-#ifndef _ROS_H_
-#define _ROS_H_
+#ifndef _ROS_HEADER_
+#define _ROS_DEADER_
 
 #include <string>
-#include <stdio.h>
-
 
 //ROSの関数をmROSにマッピングする
 
@@ -11,15 +9,13 @@ namespace ros{
 
 typedef class Publisher{
 public:
-	Publisher(){};
 	char topic;
 	char node;
-
+	void publish(char *data);
 }Publisher;
 
 typedef class Subscriber{
 public:
-	Subscriber(){};
 	char topic;
 	char node;
 
@@ -32,17 +28,23 @@ class NodeHandle{
 	Subscriber sub;
 	Publisher pub;
 public:
-	template <class M, class T> Subscriber subscriber(std::string topic,int queue_size,void(T::*fp)(M));
-	template <class M> Subscriber subscriber(std::string topic,int queue_size,void(*fp)(M));
-	template <class M > Publisher advertise(char topic,int queue_size);
+	Subscriber subscriber(std::string topic,int queue_size,void(*fp)(std::string));
+	Publisher advertise(std::string topic,int queue_size);
 };
 
+class Rate{
+	int rate;
+public:
+	Rate(int rate){this->rate = rate;};
+	void sleep();
+};
 
-//Rate;
-//spineOnce();
+void spine();
+//bool ok();
+//void spineOnce();
 
 }
-
+/*
 class std_msgs{
 public:
 	class String{
@@ -53,7 +55,7 @@ public:
 		}ConstPtr;
 	};
 };
-
+*/
 void ros_info(const char c,char cc);
 
 

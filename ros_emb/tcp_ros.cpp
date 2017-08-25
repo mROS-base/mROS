@@ -1,4 +1,4 @@
-#include "tcp_ros.h"
+#include "ros_emb.h"
 
 //TCPROSのfield lengthを計算して付与する関数
 char* addtcproshead(char *buf){
@@ -21,7 +21,7 @@ char* addtcproshead(char *buf){
 int genPubTcpRosH(char *buf){
     //この辺の文字列をROSのプログラムから取ってくる必要ある
 
-    char *id = "callerid=/mros_node";
+    char *id = "callerid=/mros_node2";
 	char *msg_def = "message_definition=string data\n";
 	char *topic = "topic=/mros_msg";
 	char *type = "type=std_msgs/String";

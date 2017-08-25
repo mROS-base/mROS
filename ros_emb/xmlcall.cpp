@@ -1,4 +1,4 @@
-#include "xmlcall.h"
+#include "ros_emb.h"
 
 string addHttpPost(string xml){
 	//なんか汚いし効率悪そうだから変更の余地あり
@@ -145,14 +145,13 @@ string test_requestResponse(){
     xml += "<value></value>\n";
     xml += "<value><array>\n";
     xml += "<data><value>TCPROS</value>\n";
-    xml += "<value>192.168.0.10</value>\n";
-    xml += "<value><i4>40400</i4></value>\n</data>";
+    xml += "<value>192.168.11.2</value>\n";
+    xml += "<value><i4>11511</i4></value>\n</data>";
     xml += "</array></value>\n";
     xml += "</data></array></value>";
     xml += "</param>\n";
     xml += "</params>\n";
     xml += "</methodResponse>\n";
-
     res = addHttpOK(xml);
     return res;
 }

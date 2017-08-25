@@ -7,12 +7,12 @@
 #include "ros.h"
 #include "xmlcall.h"
 #include "xmlparser.h"
-#include "node_server.h"
+#include "tcp_ros.h"
 #endif
 
 #ifndef MROS_USR_TASK_PRI
-#define MAIN_TASK_PRI 5
-#define MROS_USR_TASK_PRI  4
+#define MAIN_TASK_PRI 7
+#define MROS_USR_TASK_PRI  5
 #define MROS_TASK_PRI  3
 #endif /* ROS_USR_TASK_PRI */
 
@@ -44,11 +44,16 @@
 #define XML_DTQ 3
 #endif
 
+#ifndef CYC
+#define CYC_HDR 1
+#define CYC
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+extern char *mem;
 
 //extern void cyclic_handler(intptr_t exinf);
 //extern void task(intptr_t exinf);
@@ -58,6 +63,7 @@ extern void pub_task();
 extern void xml_slv_task();
 extern void xml_mas_task();
 extern void usr_task1();
+extern void usr_task2();
 
 extern void cyclic_handler(intptr_t exinf);
 #ifdef __cplusplus

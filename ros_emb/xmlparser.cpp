@@ -1,5 +1,5 @@
-#include "xmlparser.h"
-#include <stdlib.h>
+#include "ros_emb.h"
+
 
 //エラーコード
 #define SUCCESS_PARSING 1
@@ -394,6 +394,18 @@ string get_ip(string xml){
 				body = body + xml[i];
 			}
 			return body;
+}
+
+string req_topic_name(string xml){
+	int ini,head,tail;
+				string body;
+				ini = (int)xml.find("<value>");
+				head = (int)xml.find("<value>",ini + sizeof("<value>"));
+				tail = (int)xml.find("</value>",head);
+				for(int i = head + sizeof("<value>")-1;i < tail; i++){
+					body = body + xml[i];
+				}
+				return body;
 }
 
 
