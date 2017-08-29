@@ -16,7 +16,7 @@
 #define PUBLISHER false
 bool node_type;
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.11.4";	//ros master IP
+const char *m_ip = "192.168.0.21";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********グローバル変数***************/
@@ -413,8 +413,9 @@ void xml_slv_task(){
 					data[1] = 0;
 					data[0] = node_lst[num].ID;
 					dqp = (intptr_t) &data;
-					//syslog(LOG_NOTICE,"XML_SLV_TASK:send data dqp [%8x]",*dqp);
-					str = test_requestResponse();				//テスト用関数
+					string tmp;
+					tmp = network.getIPAddress();
+					str = test_requestResponse(tmp);				//テスト用関数
 					xml_slv_sock.send(str.c_str(),str.size());
 					connect_status = false;
 					snd_dtq(PUB_DTQ,*dqp);

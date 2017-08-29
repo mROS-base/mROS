@@ -38,7 +38,7 @@ string  registerPublisher(string id,string topic,string type,string c_uri);
             TCP?[[str,!XMLRPCLeagalValue*]]
 */
 string  requestTopic(string id,string topic,string prt="TCPROS");
-string  test_requestResponse(); //テスト用XML-RPCレスポンス生成関数
+string  test_requestResponse(string ip); //テスト用XML-RPCレスポンス生成関数
 //現状prt = "TCPROS"のみを考える．引数も特になし
 
 //local function

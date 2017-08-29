@@ -134,7 +134,7 @@ string requestTopic(string id,string topic,string prt="TCPROS"){
 }
 
 //test用methodResponse生成
-string test_requestResponse(){
+string test_requestResponse(string ip){
     string res;
     string xml;
     xml += "<?xml version='1.0'?>\n";
@@ -145,7 +145,9 @@ string test_requestResponse(){
     xml += "<value></value>\n";
     xml += "<value><array>\n";
     xml += "<data><value>TCPROS</value>\n";
-    xml += "<value>192.168.11.2</value>\n";
+    xml += "<value>";
+    xml += ip;
+    xml += "</value>\n";
     xml += "<value><i4>11511</i4></value>\n</data>";
     xml += "</array></value>\n";
     xml += "</data></array></value>";
@@ -153,6 +155,7 @@ string test_requestResponse(){
     xml += "</params>\n";
     xml += "</methodResponse>\n";
     res = addHttpOK(xml);
+    syslog(LOG_NOTICE,"LOG_INFO: xml [%s]",xml.c_str());
     return res;
 }
 

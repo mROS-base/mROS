@@ -25,8 +25,6 @@ TOPPERS/ASPカーネルとmbedライブラリを使用してROSノード軽量�
     mROS上の作業
         １，ROSマスタIPの設定
             ros_emb.cpp:19　m_ipにIPを設定
-        ２，gr-peach側のIP設定(ここを自動でできるようにしたいできるはず)
-            xml_call.cpp:148 <value>******</value>にgr-peachのIPを設定(DHCPで配られるのでまず起動して確認する必要あり)
         ２，truestudioで再ビルド
         ３，asp.binをgr-peachに書き込む
 
