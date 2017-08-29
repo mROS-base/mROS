@@ -18,13 +18,15 @@ int main(int argc,char **argv){
     while(ok()){
         std_msgs::String msg;
         std::stringstream ss;
-        ss << "Hello World!" << count;
-        msg.data = ss.str();
+        //ss << "Hello World!" << count;
+	ss << std::cin;
+	ss << std::endl;
+	msg.data = ss.str();
 
         ROS_INFO("%s",msg.data.c_str());
         
         pub.publish(msg);
-	spineOnce();
+	spinOnce();
         loop_rate.sleep();
         ++count;    
     }
