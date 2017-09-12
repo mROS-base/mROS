@@ -14,6 +14,9 @@ template<class M> ros::Subscriber ros::NodeHandle::subscriber(std::string topic,
 }
 */
 ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,void (*fp)(std::string)){
+	while(sem != 0){
+			}
+	sem++;
 	Subscriber sub;
 	char tmp[8];
 	sprintf(tmp,"%d",fp);
@@ -44,10 +47,14 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 		sdq = (intptr_t) &sbuf;
 		//syslog(LOG_NOTICE,"USR_TASK:data [%8x]",*dq);
 		snd_dtq(XML_DTQ,*sdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
+		sem = 0;
 	return sub;
 }
 
 ros::Publisher ros::NodeHandle::advertise(std::string topic,int queue_size){
+	while(sem != 0){
+		}
+	sem++;
 	Publisher pub;
 	string pstr;
 			pstr = "<methodCall>registerPublisher</methodCall>\n";
@@ -73,6 +80,10 @@ ros::Publisher ros::NodeHandle::advertise(std::string topic,int queue_size){
 			pdq = (intptr_t) &pbuf;
 			//syslog(LOG_NOTICE,"USR_TASK:data [%8x]",*dq);
 			snd_dtq(XML_DTQ,*pdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
+			sem = 0;
+			pub_sem++;
+			while(pub_sem != 0){
+			}
 	return pub;
 }
 
@@ -88,14 +99,13 @@ void ros::Publisher::publish(char* data){
 			pbuf[3] = size/256;
 			pdq = (intptr_t) &pbuf;
 			snd_dtq(PUB_DTQ,*pdq);
-			slp_tsk();
 }
 
 void ros::Rate::sleep(){
 	wait_ms(this->rate);
 }
 
-void ros::spine(){
+void ros::spin(){
 	slp_tsk();
 }
 
@@ -105,7 +115,7 @@ bool ros::ok(){
 }
 
 
-void ros::spineOnce(){
+void ros::spinOnce(){
 
 }
 */
