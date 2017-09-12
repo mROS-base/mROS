@@ -39,9 +39,9 @@ public:
 	void sleep();
 };
 
-void spin();
+void spine();
 //bool ok();
-//void spinOnce();
+//void spineOnce();
 
 }
 /*

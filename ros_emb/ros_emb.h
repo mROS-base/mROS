@@ -11,9 +11,9 @@
 #endif
 
 #ifndef MROS_USR_TASK_PRI
-#define MAIN_TASK_PRI 5
-#define MROS_USR_TASK_PRI  7
-#define MROS_TASK_PRI  1
+#define MAIN_TASK_PRI 7
+#define MROS_USR_TASK_PRI  5
+#define MROS_TASK_PRI  3
 #endif /* ROS_USR_TASK_PRI */
 
 #ifndef TASK_PORTID
@@ -54,8 +54,7 @@ extern "C" {
 #endif
 
 extern char *mem;
-extern int pub_sem;
-extern int sem;
+
 //extern void cyclic_handler(intptr_t exinf);
 //extern void task(intptr_t exinf);
 extern void main_task();

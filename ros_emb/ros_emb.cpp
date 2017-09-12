@@ -23,9 +23,8 @@ const int m_port = 11311;	//ros master xmlrpc port
 
 /***** タスク間共有メモリ *****/
 //sizeは未定
-char *mem = (char *)malloc(sizeof(char)*1024*50);
-int sem = 0;	//とりあえずセマフォ　0じゃなければ空いてない
-int pub_sem = 0; 	//PUBがつながるまで
+char *mem = (char *)malloc(sizeof(char)*2048);
+
 /*****************************************
  * XML_MAS taskで管理するノード構造体                      *
  * ***************************************/
@@ -61,9 +60,6 @@ std::vector<node> node_lst;
 
 int find_node(vector<node> list,string topic){for(unsigned int i=0;i < list.size();i++){if(list[i].topic_name == topic){return i;}}return -1;}
 int find_id(vector<node> list,char ID){for(unsigned int i=0;i < list.size();i++){if(list[i].ID == ID){return i;}}return -1;}
-
-SYSUTM time1,time2;
-
 /* ネットワーク初期化 */
 #define USE_DHCP (1)
 #if(USE_DHCP == 0)
@@ -110,7 +106,6 @@ void main_task(){
 	act_tsk(XML_SLV_TASK);
 	act_tsk(XML_MAS_TASK);
 //ユーザタスク起動
-
 	act_tsk(USR_TASK2);
 	act_tsk(USR_TASK1);
 	//syslog(LOG_NOTICE,"**********mROS Main task finish**********");
@@ -131,7 +126,6 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 		std::vector<char> id_vec;
 		int find(char c){
 			for(int i=0;i < this->id_vec.size();i++){
-				//syslog(LOG_NOTICE,"find :[%x]",this->id_vec[i]);
 				if(c == this->id_vec[i]){
 					return i;
 				}
@@ -151,9 +145,8 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 	char *pdqp,*rbuf,*buf;
 	intptr_t *dqp;	//たぶん32bitのはず(未確認)
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
-	//rbuf = (char *)malloc(sizeof(char)*1024*);
-	buf = (char *)malloc(sizeof(char)*1024*50);
-	rbuf = &buf[8];
+	rbuf = (char *)malloc(sizeof(char)*1024);
+	buf = (char *)malloc(sizeof(char)*1024);
 	char *addr;
 #endif 	//_PUB_
 														//ソケットの接続受付をどうするか？周期的に見る？listenのタイミング
@@ -162,8 +155,6 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 		rcv_dtq(PUB_DTQ,dqp);							//ER ercd = rcv_dtq(ID dtqid, intptr_t *p_data) よくわからなi
 		pdqp = (char *)dqp;
 		int num = lst.find(pdqp[0]); 					//ID取得
-		//syslog(LOG_NOTICE,"PUB_TASK:ID [%x]",pdqp[0]);
-		//syslog(LOG_NOTICE,"PUB_TASK:num [%d]",num);
 		int size;
 		size = pdqp[2];
 		size = size + pdqp[3]*256;
@@ -198,10 +189,9 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 						lst.sock_vec[num].send(snd_buf,len);
 						syslog(LOG_NOTICE,"PUB_TASK: SEND HEADER");
 						connect_status = false;
-						pub_sem=0;
+						wup_tsk(USR_TASK1);
 						}
 				}
-				free(snd_buf);
 			}
 		}else{	//パブリッシュ(ユーザタスクから送られてくるデータ)
 		//データコピー
@@ -209,8 +199,8 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 		rbuf[size] = '\0';	//データを切る
 		int l = genMessage(buf,rbuf);
 		//出版
-		int len = lst.sock_vec[num].send(buf,l);
-		//syslog(LOG_NOTICE,"PUB_TASK: send len:[%d],recieve len:[%d]",l,len);
+		lst.sock_vec[num].send(buf,l);
+		wup_tsk(USR_TASK2);
 		}
 	}
 }
@@ -244,14 +234,14 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	*/
 	intptr_t *dqp,*snd_dqp;
 	dqp = (intptr_t *)malloc(sizeof(char)*4);	//レシーブ用領域
-	char *sdq,*ip,*tmp,*addr; //data queue pointer,IP address,temporary buffer,receive buffer,memory address
+	char *sdq,*ip,*tmp,*addr,*buf; //data queue pointer,IP address,temporary buffer,receive buffer,memory address
 	tmp = (char *)malloc(sizeof(char)*512);
-	//buf = (char *)malloc(sizeof(char)*512);
+	buf = (char *)malloc(sizeof(char)*512);
 	int port;	//port number
 #endif //_SUB_
 
 	while(1){
-		syslog(LOG_NOTICE,"SUB_TASK:enter loop");
+		//syslog(LOG_NOTICE,"SUB_TASK:enter loop");
 		slp_tsk();
 	    int t = trcv_dtq(SUB_DTQ,dqp,1);	//登録用のデータレシーブ，待ち時間が0で，キューにパケットがなければスルー
 	   // syslog(LOG_NOTICE,"SUB_TASK:ER [%d]",t);
@@ -378,7 +368,7 @@ void xml_slv_task(){
 	string str,meth;
 	intptr_t *dqp;
 	bool connect_status = false;
-	rbuf = (char *)malloc(sizeof(char)*512);
+	rbuf = (char *)malloc(sizeof(char)*1024);
 	if(xml_slv_srv.bind(port) == -1){
 			syslog(LOG_NOTICE,"Failed bind");
 			exit(1);
@@ -394,7 +384,7 @@ void xml_slv_task(){
 			connect_status = true;
 			syslog(LOG_NOTICE,"XML_SLV_TASK: Connected");
 			while(connect_status){
-			int stat = xml_slv_sock.receive(rbuf,512);
+			int stat = xml_slv_sock.receive(rbuf,1024);
 			switch(stat){
 			case 0:
 			case -1:
@@ -430,6 +420,7 @@ void xml_slv_task(){
 					connect_status = false;
 					snd_dtq(PUB_DTQ,*dqp);
 					xml_slv_sock.close();
+					wup_tsk(USR_TASK2);
 					}
 				}
 			}
@@ -479,9 +470,9 @@ void xml_mas_task(){
 	intptr_t *dq,*sdata;
 	dq = (intptr_t *)malloc(sizeof(char)*4);	//データを受信するハコを用意する
 	char data[3];
-	char *xdq,*addr,*rbuf;
+	char *xdq,*addr,*buf,*rbuf;
 	rbuf = (char *)malloc(sizeof(char)*512);
-	//buf = (char *)malloc(sizeof(char)*512);
+	buf = (char *)malloc(sizeof(char)*512);
 	int count=1;
 #endif
 	while(1){
@@ -496,16 +487,19 @@ void xml_mas_task(){
 		//syslog(LOG_NOTICE,"XML_MAS_TASK: receive dtq data[%8x]",&dq);
 		//syslog(LOG_NOTICE,"XML_MAS_TASK: receive dtq data[%8x]",*dq);	//中身取るならこれ
 		xdq = (char *)dq;
+		for(int i=0;i<4;i++){
+			//syslog(LOG_NOTICE,"XML_MAS_TASK: xdq [%x]",xdq[i]);
+			}
 		int size = xdq[2];
 		size = size + xdq[3]*256;
 		int offset = xdq[1]*256;
 		addr = &mem[offset];
 		//syslog(LOG_NOTICE,"XML_MAS_TASK:get addr [%d]",offset);
-		memcpy(rbuf,addr,size);				//get date
+		memcpy(buf,addr,size);				//get date
 		//syslog(LOG_NOTICE,"XML_MAS_TASK:get data [%s]",buf);
 		//メソッドの識別
 		std::string str,meth;
-		str = rbuf;
+		str = buf;
 		int mh,mt;
 		mh = (int)str.find("<methodCall>");
 		mt = (int)str.find("</methodCall>");
@@ -602,15 +596,17 @@ void xml_mas_task(){
 		}
 
 		xml_mas_sock.close();
+	//slp_tsk(); //テスト用 スリープすることはないはず
 	} //end while loop
 }
 
 //周期ハンドラ
 //XML-RPCスレーブタスクとサブスクライブタスクを起動させる？
 void cyclic_handler(intptr_t exinf){
-	//周期ハンドラからはiwup_tsk()で起こす．wup_tsk()だとコンテキストエラー
-	iwup_tsk(SUB_TASK);
+
+	iwup_tsk(SUB_TASK); 	//周期ハンドラからはiwup_tsk()で起こす．wup_tsk()だとコンテキストエラー
 	iwup_tsk(XML_SLV_TASK);
+	//syslog(LOG_NOTICE,"CYCLIC_HANDLER:wake up xml slv task ER [%d]",n);
 }
 
 
@@ -675,8 +671,6 @@ void sensor_init(void){
 }
 
 
-
-
 //コールバック関数
 void Callback(string *msg){	//ConstPtr& msgの意味が分からん
 	syslog(LOG_NOTICE,"Call back: I heard: [%s]", msg->c_str()); //ROS＿INFOだとなんかうまくいかない
@@ -720,13 +714,14 @@ void usr_task1(){
 
 	syslog(LOG_NOTICE,"========Activate user task1========");
 	//テストコード
+	slp_tsk();	//現状sleep　セマフォとかでブロック
 	led_init();
 	int argc = 0;
 	char *argv = NULL;
 	ros::init(argc,argv,"/mros_node");
 	ros::NodeHandle n;
 	ros::Subscriber sub = n.subscriber("test_string",1,Callback);
-	ros::spin();
+	ros::spine();
 #endif
 }
 
@@ -735,45 +730,36 @@ void usr_task2(){
 #define _USR_TASK_2_
 
 	syslog(LOG_NOTICE,"========Activate user task2========");
+	char *data;
+	data = (char *)malloc(sizeof(char)*64);
 	int argc = 0;
 	char *argv = NULL;
 	ros::init(argc,argv,"mros_node2");
 	ros::NodeHandle n;			//ノードハンドラ
 	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);		//パブリッシャとして登録XML-RPCをする
-	ros::Rate loop_rate(100);
+	ros::Rate loop_rate(200);
+	slp_tsk();	//現状スリープしないといけない…セマフォとかでブロックしてやる必要がある**************************************
 	//publish loop
-	/*****文字列投げるだけのやつ*****/
-
-	char *data;
-	data = (char *)malloc(sizeof(char)*64);
-	int count =0;
+	sensor_init();
+	bool b = true;
+	bool bb = true;
 	while(1){
-		sprintf(data,"mROS [%d]",count);
-		chatter_pub.publish(data);
-		loop_rate.sleep();
-		count++;
+		if(Button.read() == 0 && bb){
+			b = !b;
+			bb = false;
+		}else if(Button.read() == 1){
+			bb = true;
+		}
+		if(b){
+			sprintf(data,"Sonic Sensor Distance [%d]cm\0",USSDistance);
+			chatter_pub.publish(data);			//TCPROSでデータ出版
+			//ros::spineOnce();
+			loop_rate.sleep();
+		}
 	}
 
-	/****測距センサ使うやつ****/
-	/*
-	sensor_init();
-		bool b = true;
-		bool bb = true;
-		while(1){
-			if(Button.read() == 0 && bb){
-				b = !b;
-				bb = false;
-			}else if(Button.read() == 1){
-				bb = true;
-			}
-			if(b){
-				sprintf(data,"Sonic Sensor Distance [%d]cm\0",USSDistance);
-				chatter_pub.publish(data);			//TCPROSでデータ出版
-				//ros::spineOnce();
-				loop_rate.sleep();
-			}
-		}
-*/
-
-	#endif
+#endif
 }
+
+
+

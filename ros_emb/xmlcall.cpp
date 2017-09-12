@@ -155,7 +155,7 @@ string test_requestResponse(string ip){
     xml += "</params>\n";
     xml += "</methodResponse>\n";
     res = addHttpOK(xml);
-    //syslog(LOG_NOTICE,"LOG_INFO: xml [%s]",xml.c_str());
+    syslog(LOG_NOTICE,"LOG_INFO: xml [%s]",xml.c_str());
     return res;
 }
 
