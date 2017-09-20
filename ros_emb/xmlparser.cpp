@@ -298,9 +298,9 @@ int ParseReceiveMessage(string http,xmlNode *node){
 
 string get_port(string http){
 	string val;
-	int head = (int)http.find("http://mori-PC-GN246Y3G6:");
-	int tail = (int)http.find("/",head + sizeof("http://mori-PC-GN246Y3G6:") -1);
-	for(int i = head + sizeof("http://mori-PC-GN246Y3G6:") -1 ; i < tail ; i++){
+	int head = (int)http.find(":",http.find("http:")+6);
+	int tail = (int)http.find("/",head);
+	for(int i = head + 1; i < tail ; i++){
         val = val + http[i];
     }
     return val;
