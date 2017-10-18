@@ -1,34 +1,33 @@
 # mROS
+tast
+## 導入方法
 
-## �������@
+作業ディレクトリを<git_clone_dir>とする
 
-��ƃf�B���N�g����<git_clone_dir>�Ƃ���
-
-1. asp-gr_peach_gcc-mbed ��clone
+1. asp-gr_peach_gcc-mbed のclone
   * `$ cd <git_clone_dir>`
   * `$ git clone https://github.com/ncesnagoya/asp-gr_peach_gcc-mbed.git`
-2. �{���|�W�g����clone
+2. 本リポジトリのclone
   * `$ cd <git_clone_dir>`
   * `$ git clone https://github.com/tlk-emb/mROS.git`
-3. TrueSTUDIO����v���W�F�N�g��ݒ肷��
-  * <git_clone_dir>/mROS/truestudio ��workspace�Ƃ��Ďw�肵�ĊJ��
-  * ~~�t�@�C�� > �C���|�[�g > ��� > �����v���W�F�N�g�����[�N�X�y�[�X��~~
-  * ~~���[�g�f�B���N�g���̑I��: <git_clone_dir>/mROS/truestudio/ros_emb~~
-    * .metadata, .settings ���Ǘ��Ώۂɂ��Ă��邽�ߖ{����͕s�v
-4. TrueSTUDIO��Ńr���h����
+3. TrueSTUDIOからプロジェクトを設定する
+  * <git_clone_dir>/mROS/truestudio をworkspaceとして指定して開く
+  * ~~ファイル > インポート > 一般 > 既存プロジェクトをワークスペースへ~~
+  * ~~ルートディレクトリの選択: <git_clone_dir>/mROS/truestudio/ros_emb~~
+    * .metadata, .settings も管理対象にしているため本操作は不要
+4. TrueSTUDIO上でビルドする
 
 
 ## TODO
 
-ros_emb.cpp �̃R���p�C�����ɃG���[�ƂȂ�s����������邽�߁C  
-truestudio\ros_emb\Makefile 60�s�ڂɃI�v�V������t�^���Ă���D  
-�\�ł���΃I�v�V���������ŃR���p�C���ł���悤�ɕύX���ׂ�  
+ros_emb.cpp のコンパイル時にエラーとなる不具合を解消するため，  
+truestudio\ros_emb\Makefile 60行目にオプションを付与している．  
+可能であればオプション無しでコンパイルできるように変更すべき  
  `APPL_CXXFLAGS := $(APPL_CXXFLGS) -fpermissive`
 
 
+## 参考情報
 
-## �Q�l���
-
-TOPPERS�R���t�B�M�����[�^�͈ȉ�����Release 1.9.6�iWindows�p�o�C�i���j����肵��  
+TOPPERSコンフィギュレータは以下からRelease 1.9.6（Windows用バイナリ）を入手した  
 https://www.toppers.jp/cfg-download.html
 

@@ -1,0 +1,7 @@
+16:46:20 **** Build of configuration SPI-FLASH BOOT for project app ****
+make asp.bin EXECUTE_ON=ROM 
+../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/target/gr_peach_gcc/Makefile.target:145: ../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/arch/arm_gcc/rza1/Makefile.chip: No such file or directory
+make: *** No rule to make target '../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/arch/arm_gcc/rza1/Makefile.chip'.  Stop.
+
+16:46:20 Build Finished (took 103ms)
+
