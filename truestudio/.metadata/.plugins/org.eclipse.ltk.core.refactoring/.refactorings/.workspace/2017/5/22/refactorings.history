@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="5 リソースを削除します" deleteContents="false" description="5 リソースを削除します" element1="/ros_emb/file_table.h" element2="/ros_emb/httpsample.cpp" element3="/ros_emb/httpsample.h" element4="/ros_emb/RomRamFileSystem.h" element5="/ros_emb/httpsample.cfg" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="5" stamp="1496211935625"/>
-</session>

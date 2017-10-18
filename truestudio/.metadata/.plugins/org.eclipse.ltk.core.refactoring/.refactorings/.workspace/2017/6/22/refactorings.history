@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="リソース &apos;ros_emb&apos; を削除します" deleteContents="false" description="リソース &apos;ros_emb&apos; を削除します" element1="/ros_emb" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1496375515929"/>
-</session>

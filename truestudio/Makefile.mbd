@@ -89,7 +89,7 @@ $(LIB).a: $(ALL_OBJ)
 #  ASPカーネルのビルドに関するその他のオプション
 #
 CLEAN_FILES += $(PROJECT).map $(APPLNAME).d
-DEPS = $(ALL_OBJ:.o=.d)
+DEPS += $(ALL_OBJ:.o=.d)
 -include $(DEPS)
 
 APPL_CFLAGS =

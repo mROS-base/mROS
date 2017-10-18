@@ -265,12 +265,13 @@ APPL_OBJS = $(APPL_ASMOBJS) $(APPL_COBJS) $(APPL_CXXOBJS)
 ALL_OBJS = $(START_OBJS) $(APPL_OBJS) $(SYSSVC_OBJS) $(CFG_OBJS) \
 											$(END_OBJS) $(HIDDEN_OBJS)
 ifdef KERNEL_LIB
-  ALL_LIBS = $(APPL_LIBS) $(SYSSVC_LIBS) -lkernel $(LIBS)
+#libmros.a libmbed.aの順番で書く $(APPL_LIBS)で記述
+  ALL_LIBS = libmros.a libmbed.a $(SYSSVC_LIBS) -lkernel $(LIBS)
   LIBS_DEP = $(filter %.a,$(ALL_LIBS)) $(KERNEL_LIB)/libkernel.a
   LDFLAGS := $(LDFLAGS) -L$(KERNEL_LIB)
   REALCLEAN_FILES := libkernel.a $(REALCLEAN_FILES)
 else
-  ALL_LIBS = $(APPL_LIBS) $(SYSSVC_LIBS) libkernel.a $(LIBS)
+  ALL_LIBS = libmros.a libmbed.a $(SYSSVC_LIBS) libkernel.a $(LIBS)
   LIBS_DEP = $(filter %.a,$(ALL_LIBS))
 endif
 
@@ -337,7 +338,7 @@ banner.o: kernel_cfg.timestamp $(filter-out banner.o,$(ALL_OBJS)) $(LIBS_DEP)
 
 #
 #  全体のリンク
-#
+#	$(APPL_OBJS)の位置が変？デフォルト\のあと
 $(OBJFILE): $(APPL_CFG) kernel_cfg.timestamp $(ALL_OBJS) $(LIBS_DEP)
 	$(LINK) $(CFLAGS) $(LDFLAGS) -o $(OBJFILE) $(START_OBJS) \
 			$(APPL_OBJS) $(SYSSVC_OBJS) $(CFG_OBJS) $(ALL_LIBS) $(END_OBJS)
