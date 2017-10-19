@@ -52,8 +52,7 @@ void LED_switch(string *msg){
 
 
 
-//コールバック関数
-void Callback(string *msg){	//ConstPtr& msgの意味が分からん
+void Callback(string *msg){	
 	LED_switch(msg);
 	ros_info("I heard [%s]",msg->c_str());
 }
@@ -65,7 +64,6 @@ void usr_task1(){
 #define _USR_TASK_
 
 	syslog(LOG_NOTICE,"========Activate user task1========");
-	//テストコード_USR_TASK_
 	led_init();
 	int argc = 0;
 	char *argv = NULL;
@@ -84,10 +82,9 @@ void usr_task2(){
 	int argc = 0;
 	char *argv = NULL;
 	ros::init(argc,argv,"mros_node2");
-	ros::NodeHandle n;			//ノードハンドラ
-	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);		//パブリッシャとして登録XML-RPCをする
+	ros::NodeHandle n;			
+	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);	
 	ros::Rate loop_rate(200);
-	//publish loop
 #endif
 
 	char* str;
