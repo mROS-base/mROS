@@ -28,7 +28,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sprintf(tmp,"%d",fp);
 	std::string sstr;
 	sstr = "<methodCall>registerSubscriber</methodCall>\n";
-	sstr += "<topic_name>";
+	sstr += "<topic_name>/";
 	sstr += topic;
 	sstr += "</topic_name>\n";
 	sstr += "<topic_type>std_msgs/String</topic_type>\n";
@@ -68,18 +68,15 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	count++;
 	string pstr;
 	pstr = "<methodCall>registerPublisher</methodCall>\n";
-	pstr += "<topic_name>";
+	pstr += "<topic_name>/";
 	pstr += topic;
 	pstr += "</topic_name>\n";
 	pstr += "<topic_type>std_msgs/String</topic_type>\n";
-	pstr += "<caller_id>/mros_node2</caller_id>\n";
-	pstr += "<message_definition>std_msgs/String</message_definition>\n";
+	pstr += "<caller_id>mros_node2</caller_id>\n";
+	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
-	syslog(LOG_NOTICE,"mROS_INFO:size[%d]\nbody[%s]",pstr.size(),pstr.c_str());
-
 	intptr_t *pdq;
 	memcpy(&mem[XML_ADDR],pstr.c_str(),pstr.size());
-	syslog(LOG_NOTICE,"mROS_INFO: mem[%s],ros_sem[%d]",&mem[XML_ADDR],ros_sem);
 	char pbuf[3];
 	pbuf[0] = pub.ID;
 	int size = strlen(pstr.c_str());
@@ -92,9 +89,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 		wait_ms(100);
 	}
 	ros_sem++;
-	syslog(LOG_NOTICE,"mROS_INFO: get sem");
-
-	snd_dtq(XML_DTQ,*pdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
+	snd_dtq(XML_DTQ,*pdq);
 	sus_all();
 
 	return pub;

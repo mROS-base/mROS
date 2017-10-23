@@ -9,52 +9,52 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
+#include "md5.h"
 
 
 /***** congiuration ros master ******/
 const char *m_ip = "192.168.11.4";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
-/*********グローバル変数***************/
-
-/***** タスク間共有メモリ *****/
-//sizeは未定
-//char *mem = (char *)malloc(sizeof(char)*1024*1024*2);
+/*********global variables***************/
+/***** shared memory *****/
 char mem[1024*1024*2];
 extern std::vector<ID> IDv;
-int ros_sem =0;	//mROSの登録資源セマフォ
-int count=1;	//ノードのID割り当てカウンタ
+int ros_sem =0;	//mROS resource semapho
+int count=1;	//for assign node ID
 
 
 
-/******* ユーザタスクをいろいろする関数 ******/
+/******* function to operate user task  ******/
 void sus_all(){
-	for(int i =0;i < IDv.size();i++){
+	for(unsigned int i =0;i < IDv.size();i++){
 		sus_tsk(IDv[i]);
+		syslog(LOG_NOTICE,"sus task [%d]",IDv[i]);
 	}
 }
 
 void rsm_all(){
-	for(int i=0;i < IDv.size();i++){
-		int l = rsm_tsk(IDv[i]);
+	for(unsigned int i=0;i < IDv.size();i++){
+		rsm_tsk(IDv[i]);
+		syslog(LOG_NOTICE,"rsm task [%d]",IDv[i]);
 	}
 	ros_sem = 0;
 }
 
 /*****************************************
- * XML_MAS taskで管理するノード構造体        *
+ * Node information structure for XML-MAS TASK        *
  * ***************************************/
 typedef struct node{
 		bool node_type;						//true->subscriber false->publisher
 		bool stat = true;
-		char ID;							//タスク用
-		std::string topic_name;				//ROS用
+		char ID;							//for mROS
+		std::string topic_name;				//ROS
 		std::string topic_type;				//ROS
 		std::string callerid;				//ROS
 		std::string message_definition;		//ROS
 		std::string uri;					//ROS
-		std::string port;					//サブスクライバ用 パブリッシャのXML-RPCポートを格納
-		std::string fptr;					//タスク用　intptr_tだとなんかうまくいかないので文字列として処理 使うところでintptr_tに戻す
+		std::string port;					//for sub 
+		std::string fptr;					//for taks
 
 public:
 		void set_node_type(bool type){this->node_type=type;};
@@ -69,17 +69,17 @@ public:
 		void set_fptr(string t){this->fptr=t;};
 }node;
 
-/******mROSノードリスト***********/
+/******mROS node list***********/
 std::vector<node> node_lst;
 
 int find_node(vector<node> list,string topic){for(unsigned int i=0;i < list.size();i++){if(list[i].topic_name == topic){return i;}}return -1;}
 int find_id(vector<node> list,char ID){for(unsigned int i=0;i < list.size();i++){if(list[i].ID == ID){return i;}}return -1;}
 
-/***評価用時間変数***/
+/***variables for evaluation***/
 SYSUTM time1;
 SYSUTM time2;
 
-/* ネットワーク初期化 */
+/* Initialize Network Configuration */
 #define USE_DHCP (1)
 #if(USE_DHCP == 0)
 	#define IP_ADDRESS  	("192.168.0.10")	/*IP address */
@@ -91,8 +91,6 @@ EthernetInterface network;
 
 
 void network_init(){
-
-/*TCP/IPでホストPCと接続*/
 #if (USE_DHCP == 1)
 	if(network.init() != 0) {
 #else
@@ -111,40 +109,36 @@ void network_init(){
 		syslog(LOG_NOTICE,"Gateway Address is %s\r\n", network.getGateway());
 }
 
-
-
 /*********************************
-メインタスク
+Main Task
 ***********************************/
 
 void main_task(){
+	
 	syslog(LOG_NOTICE, "**********mROS main task start**********");
 	syslog(LOG_NOTICE, "LOG_INFO: network initialize...");
 	network_init();
 	syslog(LOG_NOTICE, "LOG_INFO: SUCCESS INITIALIZATION");
 	syslog(LOG_NOTICE, "**********Activate Main task**********");
 
-//mROS通信ライブラリタスク起動
-//初期化
-	syslog(LOG_NOTICE,"MAIN_TASK:global variables mem[%d],ros_sem[%d]",&mem,ros_sem);
+//activate mROS communication library 
 	act_tsk(PUB_TASK);
 	act_tsk(SUB_TASK);
 	act_tsk(XML_SLV_TASK);
 	act_tsk(XML_MAS_TASK);
+	act_tsk(USR_TASK2);
 	//	syslog(LOG_NOTICE,"**********mROS Main task finish**********");
 }
 
 
  /******************************************************************************************************************************************************************
- * パブリッシュタスク            ||
+ * PUB TASK            ||
   ******************************************************************************************************************************************************************/
-//mbedのEathernetConnectionはマルチキャストできないからポートに対して一つの接続
-//SocketServerを複数用意すればなんとかなるっちゃなる
 void pub_task(){
 #ifndef _PUB_
 #define _PUB_
 syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
-	//PUB_TASKが管理するソケット情報
+	//node and socket information in PUB_TASK
 	struct pub_list{
 		public:
 			std::vector<TCPSocketConnection> sock_vec;
@@ -157,46 +151,51 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				}
 				return -1;
 			}
-			void add(TCPSocketConnection sock,char ID){this->sock_vec.push_back(sock);this->id_vec.push_back(ID);} //ペア追加
+			void add(TCPSocketConnection sock,char ID){this->sock_vec.push_back(sock);this->id_vec.push_back(ID);} //add pair
 			void del(int num){this->sock_vec.erase(this->sock_vec.begin() + num - 1);this->id_vec.erase(this->id_vec.begin() + num - 1);}
 	};
-	TCPSocketServer srv; 					//TCPROSの入り口
-	srv.bind(11511);		//ポートバインド：：とりあえず固定ポート11511
+	TCPSocketServer srv; 	//for TCPROS connection
+	srv.bind(11511);		//port binding
 	pub_list lst;
-	char *pdqp,*rbuf,*buf;
-	intptr_t *dqp;	//たぶん32bitのはず(未確認)
+	char *pdqp,*rbuf;
+	intptr_t *dqp;	
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
-	buf = (char *)malloc(sizeof(char)*1024*50);
+	//buf = (char *)malloc(sizeof(char)*1024*50);
+	char buf[1024*1024];
+	char snd_buf[512];
 	rbuf = &buf[8];
-	char *addr;
 #endif 	//_PUB_
-														//ソケットの接続受付をどうするか？周期的に見る？listenのタイミング
 	while(1){
 		//syslog(LOG_NOTICE,"PUB_TASK:enter loop");
-		rcv_dtq(PUB_DTQ,dqp);							//ER ercd = rcv_dtq(ID dtqid, intptr_t *p_data) よくわからなi
+		rcv_dtq(PUB_DTQ,dqp);
 		pdqp = (char *)dqp;
-		int num = lst.find(pdqp[0]);  			//ID取得
+		int num = lst.find(pdqp[0]);  
+		int node_num = find_id(node_lst,pdqp[0]);			
 		int size;
 		size = pdqp[1];
 		size += pdqp[2]*256;
 		size += pdqp[3]*65536;
-		if(num == -1){ 									//初期化
+		//syslog(LOG_NOTICE,"PUB_TASK:operate node [%d]",num);
+		if(num == -1){ 									
+			//initialization
 			syslog(LOG_NOTICE,"PUB_TASK:publisher initialize");
 			static TCPSocketConnection sock;
 			lst.add(sock,pdqp[0]);
-		}else if((num != -1) && (size == 0)){	//requestTopicがあるとき
+		}else if((num != -1) && (size == 0)){
+			//receive request topic
 			bool connect_status = false;
-			//TCPROSを受け付ける
-			//syslog(LOG_NOTICE,"PUB_TASK:request Topic node[%x]",node_lst[num].ID);
+			//wait TCPROS connection
+			syslog(LOG_NOTICE,"PUB_TASK:request Topic node[%x]",node_lst[node_num].ID);
 			srv.listen();
-			//syslog(LOG_NOTICE,"PUB_TASK: Listening...");
-			//syslog(LOG_NOTICE,"PUB_TASK: Waiting...");
+			syslog(LOG_NOTICE,"PUB_TASK:Listening");
 			if(srv.accept(lst.sock_vec[num]) == 0){
+				syslog(LOG_NOTICE,"PUB_TASK:Conneted");
 				connect_status = true;
-				char *snd_buf;
-				snd_buf = (char *)malloc(512);
 				while(connect_status){
-					int stat = lst.sock_vec[num].receive(rbuf,512);	//受け取ったデータがヘッダかどうかの判断をしないといけない
+					//to do: check if data is TCPROS header
+					syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection receiving");
+					int stat = lst.sock_vec[num].receive(rbuf,512);
+					syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection received");
 					switch(stat){
 					case 0:
 					case -1:
@@ -204,45 +203,44 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 						break;
 					default:
 						if(check_head(rbuf)){
-						int len = genPubTcpRosH(snd_buf);	//テスト用関数
-						int l = lst.sock_vec[num].send(snd_buf,len);
+						int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+						//int len = pub_gen_header(snd_buf,"mros_node2","string data\n","mros_msg","std_msgs/String","992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+						//syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection header[%s]",snd_buf[8]);
+						lst.sock_vec[num].send(snd_buf,len);
 						connect_status = false;
 						}else{
 							syslog(LOG_NOTICE,"PUB_TASK: not TCPROS connection header");
 						}
 					}
 				}
-				free(snd_buf);
 				syslog(LOG_NOTICE,"PUB_TASK: publisher connected");
 				rsm_all();
 			}
-		}else{	//パブリッシュ(ユーザタスクから送られてくるデータ)
-		//データコピー
+		}else{
+		//publish phase
 		memcpy(rbuf,mem,size);
-		rbuf[size] = '\0';	//データを切る
-		int l = genMessage(buf,rbuf);
-		//出版
-		int len = lst.sock_vec[num].send(buf,l);
+		rbuf[size] = '\0';	//cutting data end
+		int l = pub_gen_msg(buf,rbuf);
+		//publish
+		lst.sock_vec[num].send(buf,l);
 		}
 	}
 }
 
 /******************************************************************************************************************************************************************************************************
-* サブスクライブタスク        ||
+* SUB TASK        ||
  ************************************************************************************************************************************************************************************/
-//ユーザタスクがほしいときにとりにくる実装
-//周期ハンドラかな？
 void sub_task(){
 #ifndef _SUB_
 #define _SUB_
 syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
-	//SUB_TASKが管理するソケット情報
+	//socket information in SUB_TASK
 	struct sub_list{
 	public:
-		std::vector<TCPSocketConnection> sock_vec; 	//TCPソケット
+		std::vector<TCPSocketConnection> sock_vec; 	//TCP socket
 		std::vector<char> id_vec; 					//mROSID
-		std::vector<intptr_t> func_vec; 			//関数ポインタ
-		std::vector<bool> stat_vec;					//状態ベクトル
+		std::vector<intptr_t> func_vec; 			//callback function pointer
+		std::vector<bool> stat_vec;					//state vector
 		int find(char c){
 					for(int i=0;i < this->id_vec.size();i++){
 						if(c == this->id_vec[i]){
@@ -256,10 +254,10 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	};
 	sub_list lst;
 	intptr_t *dqp,*snd_dqp;
-	dqp = (intptr_t *)malloc(sizeof(char)*4);	//レシーブ用領域
-	char *sdq,*ip,*tmp,*rbuf,*rptr; //data queue pointer,IP address,temporary buffer,receive buffer,memory address
-	tmp = (char *)malloc(sizeof(char)*256);
-	rbuf = (char *)malloc(sizeof(char)*1024*512);
+	dqp = (intptr_t *)malloc(sizeof(char)*4);
+	char *sdq,*ip,*rptr; //data queue pointer,IP address,temporary buffer,receive buffer,memory address
+	char tmp[256];
+	char rbuf[1024*512];
 	int port;	//port number
 	bool init = false;
 	bool rcv_flag = true;
@@ -269,11 +267,12 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	while(1){
 		//syslog(LOG_NOTICE,"SUB_TASK:enter loop");
 		slp_tsk();
-	    int t = trcv_dtq(SUB_DTQ,dqp,1);	//登録用のデータレシーブ，待ち時間が0で，キューにパケットがなければスルー
+	    int t = trcv_dtq(SUB_DTQ,dqp,1);	//if queue is empty, go subscribe loop  
 	    if(t == 0){
 	    	sdq = (char *)dqp;
-	    	int num = lst.find(sdq[0]);
-	    	if(num == -1){
+			int num = lst.find(sdq[0]);
+			if(num == -1){
+				int node_num = find_id(node_lst,sdq[0]);
 	    		int idx = lst.id_vec.size();
 	    		//initialize
 				syslog(LOG_NOTICE,"SUB_TASK:subscriber initialize");
@@ -282,15 +281,13 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				int size = sdq[1];
 				size += sdq[2]*256;
 				size += sdq[3]*65536;
-				//ソケットの接続と各種アドレスの取得を行う
-				//必要なモノ：相手のURI，ポート，コールバック関数ポインタ，結果格納用共有メモリアドレス -> xml_mas_taskでやっちゃったほうがいいのでは？つながったソケットを返す？
-				memcpy(tmp,&mem[SUB_ADDR],size);				//get date
-				//関数ポインタの切り出し
+				memcpy(&tmp,&mem[SUB_ADDR],size);
+				//get function pointer address
 				string str = tmp;
 				funcp = (intptr_t)atoi(get_fptr(str).c_str());
 				lst.add(sock,sdq[0],funcp);
 				syslog(LOG_NOTICE,"SUB_TASK:fptr [%d]",funcp);
-				//requestTopic送信
+				//send requestTopic
 				str = "<methodCall>requestTopic</methodCall>";
 				size = str.size();
 				memcpy(&mem[XML_ADDR],str.c_str(),size);
@@ -306,18 +303,17 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				size = sdq[1];
 				size += sdq[2]*256;
 				size += sdq[3]*65536;
-				memcpy(tmp,&mem[SUB_ADDR],size);				//get date
+				memcpy(&tmp,&mem[SUB_ADDR],size);				//get date
 				str = tmp;
-				port = atoi(get_port2(str).c_str());	//これはパブリッシャのポートを入れる とりあえず前に使ってた関数を入れてる
+				port = atoi(get_port2(str).c_str());	//test function
 				ip = m_ip;
 				//syslog(LOG_NOTICE,"SUB_TASK:port [%d],IP [%s]",port,ip);
-				//TCPROSコネクションヘッダを送信
-				size = genSubTcpRosH(tmp);	//TCPROSの生成もうまくやるように実装する
-
+				//send TCPROS connection header
+				size = sub_gen_header(tmp,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");
 				lst.sock_vec[idx].connect(ip,port);
 				lst.sock_vec[idx].send(tmp,size);
 				wait_ms(500);
-				lst.sock_vec[idx].receive(tmp,256);	//TCPROSヘッダの受信
+				lst.sock_vec[idx].receive(tmp,256);
 				lst.set_stat(true,idx);
 				init = true;
 				syslog(LOG_NOTICE,"SUB_TASK: subscriber connected");
@@ -330,12 +326,10 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 //subscribe and callback loop
 	    if(init){
 		for(unsigned int i=0;i < lst.id_vec.size();i++){
-			//データレシーブ
 			while(rcv_flag){
-				rptr = rbuf;
+				rptr = &rbuf[0];
 				if(lst.stat_vec[i]){
 					int n = lst.sock_vec[i].receive(rptr,5000);
-					//コールバック関数実行
 					if(n < 0){
 						syslog(LOG_NOTICE,"SUB_TASK: No data");
 					}
@@ -346,26 +340,25 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 					}
 					len += n;
 					if(len == msg_size +4){
-						//データ長がきちんとあったときの処理;
+						//correct data received
 						rbuf[len] = '\0';
 						syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
 						void (*fp)(string);
 						fp = lst.func_vec[i];
 						fp(&rbuf[8]);
-						rptr = rbuf;
+						rptr = &rbuf[0];
 						rcv_flag = true;
 						len = 0;
 					}else if(len > msg_size + 4){
-						//データがオーバーしたときの処理　エラー処理にしたい
+						//data overflow
 						syslog(LOG_NOTICE,"invalid header[%d][%d] [%d]",msg_size,len,n);
-						rptr = rbuf;
+						rptr = &rbuf[0];
 						rcv_flag = true;
 						len = 0;
 					}else{
-					//データ長がすべて取り切れてないときの処理　レシーブのポインタを続きにする
+					//data receiving
 						rptr = &rbuf[n];
 					}
-					//syslog(LOG_NOTICE,"SUB_TASK: len:[%d] header:[%d][%d][%d]",len,(int)rbuf[4]+(int)rbuf[5]*256,(int)rbuf[4],(int)rbuf[5]*256);
 				}
 			}
 		}
@@ -375,23 +368,23 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 
 
 /******************************************************************************************************************************************************************
-* XML-RPCスレーブタスク  ||
+* XML-RPC SALAVE TASK ||
  ******************************************************************************************************************************************************************/
-//周期ハンドラ回して確認する実装にする
+
 void xml_slv_task(){
 #ifndef _XML_SLAVE_
 #define _XML_SLAVE_
 	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Slave========");
 	TCPSocketConnection xml_slv_sock;
 	TCPSocketServer xml_slv_srv;
-	xml_slv_srv.set_blocking(true,1000);	//ノンブロッキングにしてタイムアウトをつける? trueがいいのかfalseがいいのかわからない
+	xml_slv_srv.set_blocking(true,1000);	//Don't know blocking or non blocking
 	int port = 11411;
-	char *rbuf;
+	char rbuf[512];
 	char data[3];
 	string str,meth;
 	intptr_t *dqp;
 	bool connect_status = false;
-	rbuf = (char *)malloc(sizeof(char)*512);
+	//rbuf = (char *)malloc(sizeof(char)*512);
 	if(xml_slv_srv.bind(port) == -1){
 			syslog(LOG_NOTICE,"Failed bind");
 			exit(1);
@@ -404,9 +397,9 @@ void xml_slv_task(){
 		xml_slv_srv.listen();
 		//syslog(LOG_NOTICE,"XML_SLV_TASK: Listening...");
 		//syslog(LOG_NOTICE,"XML_SLV_TASK: Waiting...");
-		if(xml_slv_srv.accept(xml_slv_sock) == 0){ //acceptとかでタスクが待ち状態にならないか？
+		if(xml_slv_srv.accept(xml_slv_sock) == 0){
 			connect_status = true;
-			//syslog(LOG_NOTICE,"XML_SLV_TASK: Connected");
+			syslog(LOG_NOTICE,"XML_SLV_TASK: Connected");
 			while(connect_status){
 			int stat = xml_slv_sock.receive(rbuf,512);
 			switch(stat){
@@ -416,21 +409,22 @@ void xml_slv_task(){
 				//syslog(LOG_NOTICE,"XML_SLV_TASK:disconnected");
 				break;
 			default:
-				str =rbuf;
+				str = rbuf;
 				int mh,mt;
-				//メソッドの切り出し
+				//get method
 				mh = (int)str.find("<methodName>");
 				mt = (int)str.find("</methodName>");
 				for(int i = mh + sizeof("<methodName>") -1;i < mt ; i++){
 					meth = meth + str[i];
 				}
-				//メソッドごとの処理
 				if(meth == "requestTopic"){
-					//syslog(LOG_NOTICE,"XML_SLV_TASK:request Topic method");
+					syslog(LOG_NOTICE,"XML_SLV_TASK:request Topic method");
 					string topic_name = req_topic_name(str);
+					//syslog(LOG_NOTICE,"XML_SLV_TASK:topic name[%s]",topic_name.c_str());
 					int num = find_node(node_lst,topic_name);
 					if(num == -1){
-						//syslog(LOG_NOTICE,"No Existing node!");
+						syslog(LOG_NOTICE,"XML_SLV_TASK:No Existing node!");
+						//to Do:send fault response
 					}else{
 						data[2] = 0;
 						data[3] = 0;
@@ -439,7 +433,7 @@ void xml_slv_task(){
 						dqp = (intptr_t) &data;
 						string tmp;
 						tmp = network.getIPAddress();
-						str = test_requestResponse(tmp);				//テスト用関数
+						str = test_requestResponse(tmp);				//test function
 						xml_slv_sock.send(str.c_str(),str.size());
 						connect_status = false;
 						snd_dtq(PUB_DTQ,*dqp);
@@ -453,10 +447,6 @@ void xml_slv_task(){
 }
 
 
-/************************************************************************************************************************************************************************
- * ノードのメンバを入れる関数                                              *
- * (メンバ関数的にすればいいのかもしれない)         *
-* **********************************************************************************************************************************************************************/
 void get_node(node *node,std::string *xml,bool type){
 	string c;
 	node->set_node_type(type);
@@ -466,40 +456,37 @@ void get_node(node *node,std::string *xml,bool type){
 	node->set_message_definition(get_msgdef(*xml));
 	c += "http://";
 	c += network.getIPAddress();
-	c += ":11411";	//xml slaveのポートを追加
+	c += ":11411";
 	node->set_uri(c);
 	if(type){
 		node->set_fptr(get_fptr(*xml));
 	}
 }
 /******************************************************************************************************************************************************************
-* XML-RPCマスタタスク  ||
+* XML-RPC MASTER TASK  ||
  ******************************************************************************************************************************************************************/
 void xml_mas_task(){
 #ifndef _XML_MASTER_
 #define _XML_MASTER_
 	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Master========");
 	intptr_t *dq,*sdata;
-	dq = (intptr_t *)malloc(sizeof(char)*4);	//データを受信するハコを用意する
+	dq = (intptr_t *)malloc(sizeof(char)*4);
 	char data[3];
-	char *xdq,*addr,*rbuf;
-	rbuf = (char *)malloc(sizeof(char)*512);
-	int count=1;
+	char *xdq;
+	char rbuf[512];
+	//rbuf = (char *)malloc(sizeof(char)*512);
 #endif
 	while(1){
-		TCPSocketConnection xml_mas_sock;	//呼ばれるたびに新しい口じゃないとダメだったような気がする
+		syslog(LOG_NOTICE,"XML_MAS_TASK:enter loop");
+		TCPSocketConnection xml_mas_sock;	
 		xml_mas_sock.connect(m_ip,m_port);
-		//syslog(LOG_NOTICE,"XML_MAS_TASK:enter loop");
-		//usr_taskから呼ばれる，もしくはsub_taskから呼ばれる
-		//あらかじめデータフィールドを決めておいて，TCPROSチックにやり取りする？ ｛[data length + data]*｝　みたいな
-		//XMLを使った感じでいい？
 		rcv_dtq(XML_DTQ,dq);
+		syslog(LOG_NOTICE,"XML_MAS_TASK:receive dtq");
 		xdq = (char *)dq;
 		int size = xdq[1];
 		size += xdq[2]*256;
 		size += xdq[3]*65536;
-		memcpy(rbuf,&mem[XML_ADDR],size);				//get date
-		//メソッドの識別
+		memcpy(&rbuf,&mem[XML_ADDR],size);
 		std::string str,meth;
 		str = rbuf;
 		int mh,mt;
@@ -508,56 +495,48 @@ void xml_mas_task(){
 		for(int i = mh + sizeof("<methodCall>") -1;i < mt ; i++){
 			meth = meth + str[i];
 		}
-		//メソッドごとに送信XMLの生成とノードの登録
 //===registerSubscriber=========================================================================================================================
 		if(meth == "registerSubscriber"){
-			//sus_all();
 			node sub;
 			string xml;
 			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Subscriber");
 			sub.ID = xdq[0];
-			get_node(&sub,&str,true);														//データを取得
-			xml = registerSubscriber(sub.callerid,sub.topic_name,sub.topic_type,sub.uri); 	//ROSmaster用のXML生成
-			xml_mas_sock.send(xml.c_str(),strlen(xml.c_str()));						 		//ROSmasterにデータ送信
+			get_node(&sub,&str,true);														
+			xml = registerSubscriber(sub.callerid,sub.topic_name,sub.topic_type,sub.uri); 	
+			xml_mas_sock.send(xml.c_str(),strlen(xml.c_str()));
 			xml_mas_sock.receive(rbuf,sizeof(char)*512);
 			xml = rbuf;
-			sub.set_port(get_port(xml));	//IPは考慮していない　PUBノードが立っていない場合ここでポートが返ってこない
-			//syslog(LOG_NOTICE,"XML_MAS_TASK:port [%s]",sub.port.c_str());
-			//subタスクにデータ送信
+			sub.set_port(get_port(xml));	
 			node_lst.push_back(sub);
 			xml = registerSubtask(sub.fptr,sub.port);
 			int size = strlen(xml.c_str());
 			memcpy(&mem[SUB_ADDR],xml.c_str(),size);
 			mem[strlen(xml.c_str())+1] == '\0';
 			data[0] = sub.ID;
-			data[1] = size; //とりあえず先頭から入れる
+			data[1] = size; 
 			data[2] = size/256;
 			data[3] = size/65536;
 			sdata = (intptr_t) &data;
-			snd_dtq(SUB_DTQ,*sdata);	//subtaskに投げる
-
+			snd_dtq(SUB_DTQ,*sdata);
 //===registerPublisher===========================================================================================================================
 		}else if(meth == "registerPublisher"){
-			//sus_all();
+			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Publisher");
 			node pub;
 			std::string xml;
 			pub.ID = xdq[0];
-			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Publisher");
-			get_node(&pub,&str,false);														//データ取得
+			get_node(&pub,&str,false);														
 			node_lst.push_back(pub);
-			xml = registerPublisher(pub.callerid,pub.topic_name,pub.topic_type,pub.uri); 	//ROSmaster用のXML生成 uriにxml_slvのポートを入れないといけない->いれた
-			xml_mas_sock.send(xml.c_str(),strlen(xml.c_str())); 							//ROSmasterにデータ送信
+			xml = registerPublisher(pub.callerid,pub.topic_name,pub.topic_type,pub.uri); 	
+			xml_mas_sock.send(xml.c_str(),strlen(xml.c_str())); 							
 			xml_mas_sock.receive(rbuf,sizeof(char)*512);
-			//pubタスクにデータ送信
 			data[0] = pub.ID;
 			data[1] = 0;
 			data[2] = 0;
 			data[3] = 0;
-			sdata = (intptr_t) &data;
-			snd_dtq(PUB_DTQ,*sdata);	//pubtaskに投げる
-
+			sdata = (intptr_t) &data; //日本語
+			snd_dtq(PUB_DTQ,*sdata);	
 //===requestTopic================================================================================================================================
-		}else if(meth == "requestTopic"){	//sub taskからくるリクエストを投げる
+		}else if(meth == "requestTopic"){	
 			syslog(LOG_NOTICE,"XML_MAS_TASK:send request topic");
 				int num = find_id(node_lst,xdq[0]);
 				//syslog(LOG_NOTICE,"XML_MAS_TASK: node num [%d]",num);
@@ -572,7 +551,7 @@ void xml_mas_task(){
 				tmpsock.receive(rbuf,sizeof(char)*512);
 				tmpsock.close();
 				int size = strlen(rbuf);
-				memcpy(&mem[SUB_ADDR],rbuf,size);
+				memcpy(&mem[SUB_ADDR],&rbuf,size);
 				data[0] = node_lst[num].ID;
 				data[1] = size;
 				data[2] = size/256;
@@ -581,21 +560,18 @@ void xml_mas_task(){
 				snd_dtq(SUB_DTQ,*sdata);
 			}else{
 				//syslog(LOG_NOTICE,"XML_MAS: Can't find node! [request topic]");
-
 			}
 
 //===else========================================================================================================================================
-		}else{	//他のメソッドを処理する場合はここから追加する
-
+		}else{	
 		}
 		xml_mas_sock.close();
 	} //end while loop
 }
 
-//周期ハンドラ
-//XML-RPCスレーブタスクとサブスクライブタスクを起動させる？
+//cyclic handler
 void cyclic_handler(intptr_t exinf){
-	//周期ハンドラからはiwup_tsk()で起こす．wup_tsk()だとコンテキストエラー
+	//iwup_tsk():wake up tasks -> wup_tsk() causes context error
 	iwup_tsk(SUB_TASK);
 	iwup_tsk(XML_SLV_TASK);
 }

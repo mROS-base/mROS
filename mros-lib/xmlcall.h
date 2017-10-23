@@ -38,15 +38,13 @@ string  registerPublisher(string id,string topic,string type,string c_uri);
             TCP?[[str,!XMLRPCLeagalValue*]]
 */
 string  requestTopic(string id,string topic,string prt="TCPROS");
-string  test_requestResponse(string ip); //テスト用XML-RPCレスポンス生成関数
-//現状prt = "TCPROS"のみを考える．引数も特になし
-
+string  test_requestResponse(string ip);
 //local function
 string	addHttpPost(string xml);
 string	addHttpOK(string xml);
 string  makexmlcall(string name,vector<string> params,int pnum); 
 
-//タスク用
+//for TASK
 string registerSubtask(string func,string port);
 
 #endif

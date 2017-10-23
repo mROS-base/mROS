@@ -3,7 +3,6 @@
 
 #include "target_test.h"
 
-
 #ifdef __cplusplus
 #include "ros.h"
 #include "xmlcall.h"
@@ -28,11 +27,11 @@
 #endif	/*MROS_TASK_STACK_SIZE*/
 
 #ifndef KMM_SIZE
-#define	KMM_SIZE	(MROS_SUB_STACK_SIZE * 16)	/* カーネルが割り付ける */
-#endif /* KMM_SIZE */						/* メモリ領域のサイズ */
+#define	KMM_SIZE	(MROS_TASK_STACK_SIZE * 16)	/* kernel assign */
+#endif /* KMM_SIZE */						/* size of memory */
 
 #ifndef LOOP_REF
-#define LOOP_REF		ULONG_C(1000000)	/* 速度計測用のループ回数 */
+#define LOOP_REF		ULONG_C(1000000)	/* number of loops to evaluate speed */
 #endif /* LOOP_REF */
 
 #ifndef MROS_DTQ			/* data queue ID */

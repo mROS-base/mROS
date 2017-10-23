@@ -5,7 +5,7 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "SoftPWM.h"
-
+//pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
 static SoftPWM ledr(P6_13);                                     // LED-Red
 static SoftPWM ledg(P6_14);                                     // LED-Green
@@ -57,7 +57,7 @@ void Callback(string *msg){
 	ros_info("I heard [%s]",msg->c_str());
 }
 
-/*
+
 void usr_task1(){
 
 #ifndef _USR_TASK_
@@ -67,13 +67,14 @@ void usr_task1(){
 	led_init();
 	int argc = 0;
 	char *argv = NULL;
-	ros::init(argc,argv,"/mros_node");
+	ros::init(argc,argv,"mros_node");
 	ros::NodeHandle n;
 	ros::Subscriber sub = n.subscriber("test_string",1,Callback);
 	ros::spin();
 #endif
 }
-*/
+
+
 void usr_task2(){
 #ifndef _USR_TASK_2_
 #define _USR_TASK_2_
@@ -83,11 +84,11 @@ void usr_task2(){
 	char *argv = NULL;
 	ros::init(argc,argv,"mros_node2");
 	ros::NodeHandle n;			
-	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);	
-	ros::Rate loop_rate(200);
+	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);
+	ros::Rate loop_rate(5);
 #endif
 
-	char* str;
+	char str[100];
 	int count=0;
 	while(1){
 		sprintf(str,"mROS Hello!! [%d]",count);

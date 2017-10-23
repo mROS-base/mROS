@@ -1,7 +1,6 @@
 #include "mros.h"
 
 string addHttpPost(string xml){
-	//なんか汚いし効率悪そうだから変更の余地あり
 	stringstream ss;
 	ss <<  xml.size();
 	string xml2;

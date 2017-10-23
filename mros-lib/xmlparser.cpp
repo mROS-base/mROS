@@ -1,7 +1,6 @@
 #include "mros.h"
 
 
-//エラーコード
 #define SUCCESS_PARSING 1
 #define HTTP_OK 2
 #define NON_POST_METHOD -2
@@ -50,7 +49,6 @@ string getstring(string param){
     //vec->push_back(val);
     //cout << "can't reach here" << endl; 
 }
-//arrayの中からdataparser呼び出してgetstringとかする
 string getarray(string param){
     string val;
     for(int i = param.find("<array>") + sizeof("<array>") - 1 ; i < param.rfind("</array>") ; i++){
@@ -97,8 +95,6 @@ string gettagless(string param){
 
 
 void valparse(xmlNode *node,string param){
-    //cout << "value::" << param << endl;
-    //arrayとstructの先に来る方の検出
     if((param.find("<array>") != -1 && (param.find("<array>") < param.find("<struct>"))) || (param.find("<struct>") == -1)){ 
         node->params.push_back(getarray(param));
 
@@ -137,7 +133,6 @@ void valparse(xmlNode *node,string param){
 void paramparser(xmlNode *node,string params){
     string param;
     int phead,ptail;
-    //<param>がなくなるまで回す
     while((int)params.find("<param>") != -1){
         param = "";
         phead = (int)params.find("<param>");
@@ -149,7 +144,6 @@ void paramparser(xmlNode *node,string params){
         for(int i = phead + sizeof("<params>") - 1 ; i < ptail ; i ++ ){
             param = param + params[i];
         }
-        //<value></value>の取得
         node->e_num++;
         valparse(node,param);
         params = params.erase(phead,ptail);
@@ -158,19 +152,16 @@ void paramparser(xmlNode *node,string params){
 }
 
 void faultparser(xmlNode *node,string body){
-    //faultCode検出
     node->params.push_back(getint(body));
     node->params.push_back(getstring(body));
 }
 
-//methodCallのパース
 void callparser(xmlNode *node,string xml){
     string  m_call;
     string  m_name;
     string  params;
     
     node->fault = true;
-    //<methodCall></methodCall>を分割
     int head = (int)xml.find("<methodCall>");
     int tail = (int)xml.find("</methodCall>");
     if(head == -1 || tail == -1){
@@ -181,7 +172,6 @@ void callparser(xmlNode *node,string xml){
         m_call = m_call + xml[i];
     }
 
-    //<methodName></methodName>の取り出し
     int mhead = (int)m_call.find("<methodName>");
     int mtail = (int)m_call.find("</methodName>");
     if(mhead == -1 || mtail == -1){
@@ -194,7 +184,6 @@ void callparser(xmlNode *node,string xml){
     
     node->methodName = m_name;
 
-    //<params></params>の取り出し
     int phead = (int)m_call.find("<params>");
     int ptail = (int)m_call.find("</params>");
     if(phead == -1 || ptail == -1){
@@ -205,11 +194,9 @@ void callparser(xmlNode *node,string xml){
         params = params + m_call[i];
     }
     
-    //<param></param>の取り出し
     paramparser(node,params);
 }
 
-//methodResponseのパース
 void resparser(xmlNode *node,string xml){
     string resp;
     string body;
@@ -233,7 +220,6 @@ void resparser(xmlNode *node,string xml){
                     params = params + body[i];
                 }
                 node->fault = false;
-                //faultCode,faultStringの取り出し
                 faultparser(node,params);
             }else{
                 err_status = FAIL_TO_PARSE_XML;
@@ -247,7 +233,6 @@ void resparser(xmlNode *node,string xml){
                     params = params + body[i];
                 }
                 node->fault = true;
-            //<params>の取り出し
                 paramparser(node,params);
             }else{
                 err_status = FAIL_TO_PARSE_XML;
@@ -257,8 +242,6 @@ void resparser(xmlNode *node,string xml){
     }
 }
 
-
-//XMLのメソッドの判別
 bool parser(xmlNode *node,string xml){
     if(xml.find("<methodCall>") != -1 && xml.find("</methodCall>") != -1){
         callparser(node,xml);
@@ -272,10 +255,6 @@ bool parser(xmlNode *node,string xml){
     return true;
 }
 
-
-//HTTP POSTのメッセージ解析
-//HTTP OK の対応
-//メソッドの判別とXMLの切り出し
 
 int ParseReceiveMessage(string http,xmlNode *node){
 	err_status = SUCCESS_PARSING;
@@ -316,9 +295,6 @@ string get_port2(string http){
 
     return val;
 }
-
-//task用関数
-//parserに置くべき
 
 string get_ttype(string xml){
 	int head,tail;
@@ -374,18 +350,6 @@ string get_fptr(string xml){
 		}
 		return body;
 }
-/*
-string get_prt(string xml){
-	int head,tail;
-			string body;
-			head = (int)xml.find("<port>");
-			tail = (int)xml.find("</port>");
-			for(int i = head + sizeof("<port>")-1;i < tail; i++){
-				body = body + xml[i];
-			}
-			return body;
-}
-*/
 string get_ip(string xml){
 	int head,tail;
 			string body;
