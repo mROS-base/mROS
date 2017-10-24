@@ -11,13 +11,13 @@ void add_len(char *buf,int len){
 int pub_gen_header(char *buf,string id,string msg_def,string topic,string type,string md5){
     int len = 0;
     int it=0;
-    id = "callerid=/" + id;
+    id = "callerid=" + id;
     msg_def = "message_definition=" + msg_def + "\n";
     topic = "topic=" + topic;
     type = "type=" + type;
     md5 = "md5sum=" + md5;
     len = id.size() + msg_def.size() + topic.size() + type.size() + md5.size() + 24;
-    add_len(&buf[it],len);
+    add_len(&buf[it],len-4);
     it = it + 4;
     add_len(&buf[it],id.size());
     memcpy(&buf[it +4],id.c_str(),id.size());
@@ -40,14 +40,13 @@ int pub_gen_header(char *buf,string id,string msg_def,string topic,string type,s
 int sub_gen_header(char *buf,string id,string nodelay,string topic,string type,string md5){
     int len = 0;
     int it=0;
-    printf("id:[%p]\n",&id);
-    id = "callerid=/" + id;
-    nodelay = "tcp_nodelay=" + nodelay;
-    topic = "topic=/" + topic;
+    id = "callerid=" + id;
+    nodelay = "tcp_nodelay=0";
+    topic = "topic=" + topic;
     type = "type=" + type;
     md5 = "md5sum=" + md5;
     len = id.size() + nodelay.size() + topic.size() + type.size() + md5.size() + 24;
-    add_len(&buf[it],len);
+    add_len(&buf[it],len-4);
     it = it + 4;
     add_len(&buf[it],id.size());
     memcpy(&buf[it +4],id.c_str(),id.size());

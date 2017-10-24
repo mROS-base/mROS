@@ -19,7 +19,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	ID id;
 	get_tid(&id);
 	IDv.push_back(id);
-	//syslog(LOG_NOTICE,"usr task ID [%d]",id);
+	syslog(LOG_NOTICE,"usr task ID [%d]",id);
 	Subscriber sub;
 	sub.topic = topic.c_str();
 	sub.ID = (char) count;
@@ -51,9 +51,8 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 			wait_ms(100);
 		}
 	ros_sem++;
-	
 	snd_dtq(XML_DTQ,*sdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
-	sus_all();
+	slp_tsk();
 	return sub;
 }
 
@@ -72,7 +71,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += topic;
 	pstr += "</topic_name>\n";
 	pstr += "<topic_type>std_msgs/String</topic_type>\n";
-	pstr += "<caller_id>mros_node2</caller_id>\n";
+	pstr += "<caller_id>/mros_node2</caller_id>\n";
 	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
 	intptr_t *pdq;
@@ -90,8 +89,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	}
 	ros_sem++;
 	snd_dtq(XML_DTQ,*pdq);
-	sus_all();
-
+	slp_tsk();
 	return pub;
 }
 
