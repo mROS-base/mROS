@@ -20,10 +20,13 @@
 
 ## TODO
 
-ros_emb.cpp のコンパイル時にエラーとなる不具合を解消するため，  
-truestudio\ros_emb\Makefile 60行目にオプションを付与している．  
+mros.cpp のコンパイル時にエラーとなる不具合を解消するため，  
+truestudio\app\Makefile 60行目にオプションを付与している．  
 可能であればオプション無しでコンパイルできるように変更すべき  
  `APPL_CXXFLAGS := $(APPL_CXXFLGS) -fpermissive`
+
+ドキュメントの整備
+チュートリアルと仕様書
 
 
 ## 参考情報
