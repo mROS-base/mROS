@@ -20,6 +20,12 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	get_tid(&id);
 	IDv.push_back(id);
 	syslog(LOG_NOTICE,"usr task ID [%d]",id);
+	while(ros_sem != 0){
+
+	}
+	state = 1;
+	syslog(LOG_NOTICE,"Change state [%d]",state);
+	ros_sem++;
 	Subscriber sub;
 	sub.topic = topic.c_str();
 	sub.ID = (char) count;
@@ -32,7 +38,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sstr += topic;
 	sstr += "</topic_name>\n";
 	sstr += "<topic_type>std_msgs/String</topic_type>\n";
-	sstr += "<caller_id>/mros_node</caller_id>\n";
+	sstr += "<caller_id>/mros_node2</caller_id>\n";
 	sstr += "<message_definition>std_msgs/String</message_definition>\n";
 	sstr += "<fptr>";
 	sstr += tmp;
@@ -46,13 +52,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sbuf[2] = size/256;
 	sbuf[3] = size/65536;
 	sdq = (intptr_t) &sbuf;
-	//セマフォの確認
-	while(ros_sem != 0){
-			wait_ms(100);
-		}
-	ros_sem++;
 	snd_dtq(XML_DTQ,*sdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
-	slp_tsk();
 	return sub;
 }
 
@@ -61,6 +61,13 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	get_tid(&id);
 	IDv.push_back(id);
 	syslog(LOG_NOTICE,"usr task ID [%d]",id);
+	//セマフォの確認
+	while(ros_sem != 0){
+
+	}
+	ros_sem++;
+	state = 2;
+	syslog(LOG_NOTICE,"Change state [%d]",state);
 	Publisher pub;
 	pub.topic = topic.c_str();
 	pub.ID = count;
@@ -71,7 +78,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += topic;
 	pstr += "</topic_name>\n";
 	pstr += "<topic_type>std_msgs/String</topic_type>\n";
-	pstr += "<caller_id>/mros_node2</caller_id>\n";
+	pstr += "<caller_id>/mros_node</caller_id>\n";
 	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
 	intptr_t *pdq;
@@ -83,17 +90,15 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pbuf[2] = size/256;
 	pbuf[3] = size/65536;
 	pdq = (intptr_t) &pbuf;
-	//セマフォの確認
-	while(ros_sem != 0){
-		wait_ms(100);
-	}
-	ros_sem++;
 	snd_dtq(XML_DTQ,*pdq);
 	slp_tsk();
 	return pub;
 }
 
 void ros::Publisher::publish(char* data){
+	if(ros_sem != 0){
+		slp_tsk();
+	}
 	int size = strlen(data);
 	char pbuf[4];
 	memcpy(&mem[PUB_ADDR],data,size);

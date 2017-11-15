@@ -11,9 +11,9 @@
 #endif
 
 #ifndef MROS_USR_TASK_PRI
-#define MAIN_TASK_PRI 6
-#define MROS_USR_TASK_PRI  7
-#define MROS_TASK_PRI  5
+#define MAIN_TASK_PRI 7
+#define MROS_USR_TASK_PRI  8
+#define MROS_TASK_PRI  6
 #endif /* ROS_USR_TASK_PRI */
 
 #ifndef TASK_PORTID
@@ -60,6 +60,7 @@ extern "C" {
 extern char mem[1024*1024*2];
 extern int ros_sem;
 extern int count;
+extern int state;
 
 extern void main_task();
 extern void sub_task();

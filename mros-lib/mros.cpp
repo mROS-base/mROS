@@ -23,22 +23,31 @@ extern std::vector<ID> IDv;
 int ros_sem =0;	//mROS resource semapho
 int count=1;	//for assign node ID
 
-
+/**state variavle ***
+ * 0: initial state
+ * 1: register subscriber state ::XML_MAS_TASK,SUB_TASK
+ * 2: register publisher state ::XML_MAS_TASK,PUB_TASK
+ * 3: machine running state ::PUB_TASK,SUB_TASK
+ */
+int state = 0;
 
 /******* function to operate user task  ******/
 void sus_all(){
 	for(unsigned int i =0;i < IDv.size();i++){
 		sus_tsk(IDv[i]);
-		syslog(LOG_NOTICE,"sus task [%d]",IDv[i]);
+		syslog(LOG_NOTICE,"sus user task [%d]",IDv[i]);
 	}
 }
 
 void wup_all(){
-	for(unsigned int i=0;i < IDv.size();i++){
-		wup_tsk(IDv[i]);
-		syslog(LOG_NOTICE,"wake up task [%d]",IDv[i]);
-	}
 	ros_sem = 0;
+	for(unsigned int i=0;i < IDv.size();i++){
+		rsm_tsk(IDv[i]);
+		wup_tsk(IDv[i]);
+		syslog(LOG_NOTICE,"wake up user task [%d]",IDv[i]);
+	}
+	state = 3;
+	syslog(LOG_NOTICE,"Change state [%d]",state);
 }
 
 /*****************************************
@@ -53,7 +62,7 @@ typedef struct node{
 		std::string callerid;				//ROS
 		std::string message_definition;		//ROS
 		std::string uri;					//ROS
-		std::string port;					//for sub 
+		int port;					//for sub
 		std::string fptr;					//for taks
 
 public:
@@ -65,7 +74,7 @@ public:
 		void set_callerid(string t){this->callerid=t;};
 		void set_message_definition(string t){this->message_definition=t;};
 		void set_uri(string t){this->uri=t;};
-		void set_port(string t){this->port=t;};
+		void set_port(int t){this->port=t;};
 		void set_fptr(string t){this->fptr=t;};
 }node;
 
@@ -127,6 +136,8 @@ void main_task(){
 	act_tsk(XML_SLV_TASK);
 	act_tsk(XML_MAS_TASK);
 	act_tsk(USR_TASK1);
+	act_tsk(USR_TASK2);
+
 	//	syslog(LOG_NOTICE,"**********mROS Main task finish**********");
 }
 
@@ -144,7 +155,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 			std::vector<TCPSocketConnection> sock_vec;
 			std::vector<char> id_vec;
 			int find(char c){
-				for(int i=0;i < this->id_vec.size();i++){
+				for(unsigned int i=0;i < this->id_vec.size();i++){
 					if(c == this->id_vec[i]){
 						return i;
 					}
@@ -160,13 +171,15 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 	char *pdqp,*rbuf;
 	intptr_t *dqp;	
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
-	//buf = (char *)malloc(sizeof(char)*1024*50);
 	char buf[1024*1024];
 	char snd_buf[512];
 	rbuf = &buf[8];
 #endif 	//_PUB_
 	while(1){
 		//syslog(LOG_NOTICE,"PUB_TASK:enter loop");
+		if(state == 1){
+			slp_tsk();
+		}
 		rcv_dtq(PUB_DTQ,dqp);
 		pdqp = (char *)dqp;
 		int num = lst.find(pdqp[0]);  
@@ -184,37 +197,42 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 		}else if((num != -1) && (size == 0)){
 			//receive request topic
 			bool connect_status = false;
+			bool svr_status = true;
 			//wait TCPROS connection
 			syslog(LOG_NOTICE,"PUB_TASK:request Topic node[%x]",node_lst[node_num].ID);
-			srv.listen();
-			syslog(LOG_NOTICE,"PUB_TASK:Listening");
-			if(srv.accept(lst.sock_vec[num]) == 0){
-				syslog(LOG_NOTICE,"PUB_TASK:Conneted");
-				connect_status = true;
-				while(connect_status){
-					//to do: check if data is TCPROS header
-					syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection receiving");
-					int stat = lst.sock_vec[num].receive(rbuf,512);
-					syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection received");
-					switch(stat){
-					case 0:
-					case -1:
-						connect_status = false;
-						break;
-					default:
-						if(check_head(rbuf)){
-						int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
-						//int len = pub_gen_header(snd_buf,"mros_node2","string data\n","mros_msg","std_msgs/String","992ce8a1687cec8c8bd883ec73ca41d1");	//test function
-						//syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection header[%s]",snd_buf[8]);
-						lst.sock_vec[num].send(snd_buf,len);
-						connect_status = false;
-						}else{
-							syslog(LOG_NOTICE,"PUB_TASK: not TCPROS connection header");
+			while(svr_status){
+				srv.listen();
+				syslog(LOG_NOTICE,"PUB_TASK:Listening");
+				if(srv.accept(lst.sock_vec[num]) == 0){
+					svr_status = false;
+					syslog(LOG_NOTICE,"PUB_TASK:Conneted");
+					connect_status = true;
+					while(connect_status){
+						//to do: check if data is TCPROS header
+						//syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection receiving");
+						int con_stat = lst.sock_vec[num].receive(snd_buf,512);
+						syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection received");
+						switch(con_stat){
+						case 0:
+						case -1:
+							connect_status = false;
+							break;
+						default:
+							//if(check_head(rbuf)){
+							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+							//int len = pub_gen_header(snd_buf,"mros_node","string data\n","mros_msg","std_msgs/String","992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+							//syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection header[%s]",snd_buf[8]);
+							lst.sock_vec[num].send(snd_buf,len);
+							connect_status = false;
+							//}else{
+								//syslog(LOG_NOTICE,"PUB_TASK: not TCPROS connection header");
+							//}
 						}
 					}
+					syslog(LOG_NOTICE,"PUB_TASK: publisher connected");
+					wup_all();
+					rsm_tsk(SUB_TASK);
 				}
-				syslog(LOG_NOTICE,"PUB_TASK: publisher connected");
-				wup_all();
 			}
 		}else{
 		//publish phase
@@ -242,7 +260,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 		std::vector<intptr_t> func_vec; 			//callback function pointer
 		std::vector<bool> stat_vec;					//state vector
 		int find(char c){
-					for(int i=0;i < this->id_vec.size();i++){
+					for(unsigned int i=0;i < this->id_vec.size();i++){
 						if(c == this->id_vec[i]){
 							return i;
 						}
@@ -268,7 +286,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	while(1){
 		//syslog(LOG_NOTICE,"SUB_TASK:enter loop");
 		slp_tsk();
-	    int t = trcv_dtq(SUB_DTQ,dqp,1);	//if queue is empty, go subscribe loop  
+		int t = trcv_dtq(SUB_DTQ,dqp,1);	//if queue is empty, go subscribe loop
 	    if(t == 0){
 	    	sdq = (char *)dqp;
 			int num = lst.find(sdq[0]);
@@ -282,12 +300,12 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				int size = sdq[1];
 				size += sdq[2]*256;
 				size += sdq[3]*65536;
-				memcpy(&tmp,&mem[SUB_ADDR],size);
+				memcpy(tmp,&mem[SUB_ADDR],size);
 				//get function pointer address
 				string str = tmp;
 				funcp = (intptr_t)atoi(get_fptr(str).c_str());
 				lst.add(sock,sdq[0],funcp);
-				syslog(LOG_NOTICE,"SUB_TASK:fptr [%d]",funcp);
+				//syslog(LOG_NOTICE,"SUB_TASK:fptr [%d]",funcp);
 				//send requestTopic
 				str = "<methodCall>requestTopic</methodCall>";
 				size = str.size();
@@ -322,56 +340,56 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				syslog(LOG_NOTICE,"SUB_TASK: subscriber connected");
 				wup_all();
 			}
-	    }
-
-	    //end initialize
-
-//subscribe and callback loop
-	    if(init){
-		for(unsigned int i=0;i < lst.id_vec.size();i++){
-				rptr = &rbuf[0];
-				if(lst.stat_vec[i]){
-					rcv_flag = true;
-					while(rcv_flag){
-						int n = lst.sock_vec[i].receive(rptr,5000);
-						//syslog(LOG_NOTICE,"SUB_TASK: is_connected [%s]",lst.sock_vec[i].is_connected()?"true":"false");
-						//syslog(LOG_NOTICE,"SUB_TASK: get_port [%d]",lst.sock_vec[i].get_port());
-						if(n < 0){
-							//syslog(LOG_NOTICE,"SUB_TASK: No data");
-						}else{
-							if(init_flag){
-								msg_size = (int)rbuf[0] + (int)rbuf[1]*256 + rbuf[2]*65536 + rbuf[3]*16777216;
-								data_size = (int)rbuf[4] + (int)rbuf[5]*256 + rbuf[6]*65536 + rbuf[7]*16777216;
-								init_flag = false;
-							}
-							len += n;
-							if(len == msg_size +4){
-								//correct data received
-								rbuf[len] = '\0';
-								//syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
-								void (*fp)(string);
-								fp = lst.func_vec[i];
-								fp(&rbuf[8]);
-								rptr = &rbuf[0];
-								rcv_flag = false;
-								init_flag = true;
-								len = 0;
-							}else if(len > msg_size + 4){
-								//data overflow
-								//syslog(LOG_NOTICE,"invalid header[%d][%d] [%d]",msg_size,len,n);
-								rptr = &rbuf[0];
-								rcv_flag = false;
-								init_flag = true;
-								len = 0;
+			//end initialize
+	    }else{
+	    //subscribe and callback loop
+	    	if(init){
+	    		for(unsigned int i=0;i < lst.id_vec.size();i++){
+					rptr = &rbuf[0];
+					if(lst.stat_vec[i]){
+						rcv_flag = true;
+						while(rcv_flag){
+							int n = lst.sock_vec[i].receive(rptr,5000);
+							//syslog(LOG_NOTICE,"SUB_TASK: is_connected [%s]",lst.sock_vec[i].is_connected()?"true":"false");
+							//syslog(LOG_NOTICE,"SUB_TASK: get_port [%d]",lst.sock_vec[i].get_port());
+							if(n < 0){
+								//syslog(LOG_NOTICE,"SUB_TASK: No data");
+							}else{
+								if(init_flag){
+									msg_size = (int)rbuf[0] + (int)rbuf[1]*256 + rbuf[2]*65536 + rbuf[3]*16777216;
+									data_size = (int)rbuf[4] + (int)rbuf[5]*256 + rbuf[6]*65536 + rbuf[7]*16777216;
+									init_flag = false;
+								}
+								len += n;
+								if(len == msg_size +4){
+									//correct data received
+									rbuf[len] = '\0';
+									//syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
+									void (*fp)(string);
+									fp = lst.func_vec[i];
+									fp(&rbuf[8]);
+									rptr = &rbuf[0];
+									rcv_flag = false;
+									init_flag = true;
+									len = 0;
+								}else if(len > msg_size + 4){
+									//data overflow
+									//syslog(LOG_NOTICE,"invalid header[%d][%d] [%d]",msg_size,len,n);
+									rptr = &rbuf[0];
+									rcv_flag = false;
+									init_flag = true;
+									len = 0;
 								}else{
-							//data receiving
-								rptr = &rbuf[n];
+									//data receiving
+									rptr = &rbuf[n];
+								}
 						}
 					}
 				}
 			}
-		}
-	}
+	    }
+	    	//syslog(LOG_NOTICE,"SUB_TASK: subscriber task sleep");
+	    }
 	}
 }
 
@@ -393,7 +411,6 @@ void xml_slv_task(){
 	string str,meth;
 	intptr_t *dqp;
 	bool connect_status = false;
-	//rbuf = (char *)malloc(sizeof(char)*512);
 	if(xml_slv_srv.bind(port) == -1){
 			syslog(LOG_NOTICE,"Failed bind");
 			exit(1);
@@ -402,52 +419,58 @@ void xml_slv_task(){
 
 	while(1){
 		//syslog(LOG_NOTICE,"XML_SLV_TASK:enter loop");
-		slp_tsk();
-		xml_slv_srv.listen();
-		//syslog(LOG_NOTICE,"XML_SLV_TASK: Listening...");
-		//syslog(LOG_NOTICE,"XML_SLV_TASK: Waiting...");
-		if(xml_slv_srv.accept(xml_slv_sock) == 0){
-			connect_status = true;
-			syslog(LOG_NOTICE,"XML_SLV_TASK: Connected");
-			while(connect_status){
-			int stat = xml_slv_sock.receive(rbuf,512);
-			switch(stat){
-			case 0:
-			case -1:
-				connect_status = false;
-				//syslog(LOG_NOTICE,"XML_SLV_TASK:disconnected");
-				break;
-			default:
-				str = rbuf;
-				int mh,mt;
-				//get method
-				mh = (int)str.find("<methodName>");
-				mt = (int)str.find("</methodName>");
-				for(int i = mh + sizeof("<methodName>") -1;i < mt ; i++){
-					meth = meth + str[i];
-				}
-				if(meth == "requestTopic"){
-					syslog(LOG_NOTICE,"XML_SLV_TASK:request Topic method");
-					string topic_name = req_topic_name(str);
-					//syslog(LOG_NOTICE,"XML_SLV_TASK:topic name[%s]",topic_name.c_str());
-					int num = find_node(node_lst,topic_name);
-					if(num == -1){
-						syslog(LOG_NOTICE,"XML_SLV_TASK:No Existing node!");
-						//to Do:send fault response
-					}else{
-						data[2] = 0;
-						data[3] = 0;
-						data[1] = 0;
-						data[0] = node_lst[num].ID;
-						dqp = (intptr_t) &data;
-						string tmp;
-						tmp = network.getIPAddress();
-						str = test_requestResponse(tmp);				//test function
-						xml_slv_sock.send(str.c_str(),str.size());
-						connect_status = false;
-						snd_dtq(PUB_DTQ,*dqp);
+		//wait_ms(100);
+		if(state != 2){
+			slp_tsk();
+		}else{
+			syslog(LOG_NOTICE,"XML_SLV_TASK: wake up");
+			xml_slv_srv.listen();
+			if(xml_slv_srv.accept(xml_slv_sock) == 0){
+				connect_status = true;
+				syslog(LOG_NOTICE,"XML_SLV_TASK: Connected");
+				while(connect_status){
+				int stat = xml_slv_sock.receive(rbuf,512);
+				switch(stat){
+				case 0:
+				case -1:
+					connect_status = false;
+					//syslog(LOG_NOTICE,"XML_SLV_TASK:disconnected");
+					break;
+				default:
+					str = rbuf;
+					int mh,mt;
+					//get method
+					mh = (int)str.find("<methodName>");
+					mt = (int)str.find("</methodName>");
+					for(int i = mh + sizeof("<methodName>") -1;i < mt ; i++){
+						meth = meth + str[i];
 					}
-					xml_slv_sock.close();
+					syslog(LOG_NOTICE,"XML_SLV_TASK: methodName [%s]",meth.c_str());
+					if(meth == "requestTopic"){
+						//syslog(LOG_NOTICE,"XML_SLV_TASK:request Topic method");
+						string topic_name = req_topic_name(str);
+						//syslog(LOG_NOTICE,"XML_SLV_TASK:topic name[%s]",topic_name.c_str());
+						int num = find_node(node_lst,topic_name);
+						if(num == -1){
+							syslog(LOG_NOTICE,"XML_SLV_TASK:No Existing node!");
+							//to Do:send fault response
+						}else{
+							data[2] = 0;
+							data[3] = 0;
+							data[1] = 0;
+							data[0] = node_lst[num].ID;
+							dqp = (intptr_t) &data;
+							string tmp;
+							tmp = network.getIPAddress();
+							str = test_requestResponse(tmp);				//test function
+							xml_slv_sock.send(str.c_str(),str.size());
+							connect_status = false;
+							snd_dtq(PUB_DTQ,*dqp);
+						}
+						xml_slv_sock.close();
+						state = 4;
+						syslog(LOG_NOTICE,"Change state [%d]",state);
+						}
 					}
 				}
 			}
@@ -487,7 +510,6 @@ void xml_mas_task(){
 	while(1){
 		syslog(LOG_NOTICE,"XML_MAS_TASK:enter loop");
 		TCPSocketConnection xml_mas_sock;	
-		xml_mas_sock.connect(m_ip,m_port);
 		rcv_dtq(XML_DTQ,dq);
 		syslog(LOG_NOTICE,"XML_MAS_TASK:receive dtq");
 		xdq = (char *)dq;
@@ -505,7 +527,8 @@ void xml_mas_task(){
 		}
 //===registerSubscriber=========================================================================================================================
 		if(meth == "registerSubscriber"){
-			//sus_all();
+			xml_mas_sock.connect(m_ip,m_port);
+			sus_all();
 			node sub;
 			string xml;
 			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Subscriber");
@@ -519,7 +542,7 @@ void xml_mas_task(){
 			xml = rbuf;
 			sub.set_port(get_port(xml));	
 			node_lst.push_back(sub);
-			xml = registerSubtask(sub.fptr,sub.port);
+			xml = registerSubtask(sub.fptr);
 			int size = xml.size();
 			memcpy(&mem[SUB_ADDR],xml.c_str(),size);
 			mem[SUB_ADDR+size+1] = '\0';
@@ -532,8 +555,11 @@ void xml_mas_task(){
 			snd_dtq(SUB_DTQ,*sdata);
 //===registerPublisher===========================================================================================================================
 		}else if(meth == "registerPublisher"){
-			//sus_all();
+			xml_mas_sock.connect(m_ip,m_port);
 			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Publisher");
+			sus_tsk(SUB_TASK);
+			syslog(LOG_NOTICE,"XML_MAS_TASK:Sleep SUB_TASK");
+			wup_tsk(XML_SLV_TASK);
 			node pub;
 			std::string xml;
 			pub.ID = xdq[0];
@@ -554,15 +580,15 @@ void xml_mas_task(){
 				int num = find_id(node_lst,xdq[0]);
 				//syslog(LOG_NOTICE,"XML_MAS_TASK: node num [%d]",num);
 				if(num != -1){
-				//syslog(LOG_NOTICE,"XML_MAS_TASK:request node ID [%x]",node_lst[num].ID);
+				syslog(LOG_NOTICE,"XML_MAS_TASK:request node ID [%x]",node_lst[num].ID);
 				string body = requestTopic(node_lst[num].callerid,node_lst[num].topic_name);
-				TCPSocketConnection tmpsock;
-				if(tmpsock.connect(m_ip,atoi(node_lst[num].port.c_str())) == -1){
-					exit(1);
+				if(xml_mas_sock.connect(m_ip,node_lst[num].port) == -1){
+					syslog(LOG_NOTICE,"XML_MAS_TASK:ip[%s],port[%d]",m_ip,node_lst[num].port);
+					syslog(LOG_NOTICE,"XML_MAS_TASK: cannnot connect pub node");
+					return;
 				}
-				tmpsock.send(body.c_str(),body.size());
-				tmpsock.receive(rbuf,sizeof(char)*512);
-				tmpsock.close();
+				xml_mas_sock.send(body.c_str(),body.size());
+				xml_mas_sock.receive(rbuf,sizeof(char)*512);
 				int size = strlen(rbuf);
 				memcpy(&mem[SUB_ADDR],&rbuf,size);
 				data[0] = node_lst[num].ID;
@@ -585,8 +611,16 @@ void xml_mas_task(){
 //cyclic handler
 void cyclic_handler(intptr_t exinf){
 	//iwup_tsk():wake up tasks -> wup_tsk() causes context error
-	iwup_tsk(SUB_TASK);
-	iwup_tsk(XML_SLV_TASK);
+	switch(state){
+	case 2:	iwup_tsk(XML_SLV_TASK);
+			break;
+	default: iwup_tsk(SUB_TASK);
+/*
+	if(tran){
+		iwup_tsk(SUB_TASK);
+		//iwup_tsk(XML_SLV_TASK);	//XML_SLV_TASK is implemented as non cyclic task
+	}*/
+	}
 }
 
 

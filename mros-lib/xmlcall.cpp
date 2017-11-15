@@ -159,13 +159,10 @@ string test_requestResponse(string ip){
 }
 
 
-string registerSubtask(string func,string port){
+string registerSubtask(string func){
 	string body;
 	body += "<fptr>";
 	body += func;
 	body += "</fptr>";
-	body += "<port>";
-	body += port;
-	body += "</port>";
 	return body;
 }

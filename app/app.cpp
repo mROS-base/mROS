@@ -54,35 +54,18 @@ void LED_switch(string *msg){
 
 void Callback(string *msg){	
 	LED_switch(msg);
-	ros_info("I heard [%s]",msg->c_str());
+	syslog(LOG_NOTICE,"I heard [%s]",msg->c_str());
 }
 
 
 void usr_task1(){
-
-#ifndef _USR_TASK_
-#define _USR_TASK_
+#ifndef _USR_TASK_1_
+#define _USR_TASK_1_
 
 	syslog(LOG_NOTICE,"========Activate user task1========");
-	led_init();
 	int argc = 0;
 	char *argv = NULL;
 	ros::init(argc,argv,"mros_node");
-	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscriber("test_string",1,Callback);
-	ros::spin();
-#endif
-}
-
-
-void usr_task2(){
-#ifndef _USR_TASK_2_
-#define _USR_TASK_2_
-
-	syslog(LOG_NOTICE,"========Activate user task2========");
-	int argc = 0;
-	char *argv = NULL;
-	ros::init(argc,argv,"mros_node2");
 	ros::NodeHandle n;			
 	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);
 	ros::Rate loop_rate(5);
@@ -90,6 +73,7 @@ void usr_task2(){
 
 	char str[100];
 	int count=0;
+	syslog(LOG_NOTICE,"Data Publish Start");
 	while(1){
 		sprintf(str,"mROS Hello!! [%d]",count);
 		chatter_pub.publish(str);
@@ -97,4 +81,20 @@ void usr_task2(){
 		loop_rate.sleep();
 	}
 
+}
+
+void usr_task2(){
+
+#ifndef _USR_TASK_2_
+#define _USR_TASK_2_
+
+	syslog(LOG_NOTICE,"========Activate user task2========");
+	led_init();
+	int argc = 0;
+	char *argv = NULL;
+	ros::init(argc,argv,"mros_node2");
+	ros::NodeHandle n;
+	ros::Subscriber sub = n.subscriber("test_string",1,Callback);
+	ros::spin();
+#endif
 }

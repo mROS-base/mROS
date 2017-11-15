@@ -275,14 +275,14 @@ int ParseReceiveMessage(string http,xmlNode *node){
     return err_status;
 }
 
-string get_port(string http){
+int get_port(string http){
 	string val;
 	int head = (int)http.find(":",http.find("http:")+6);
 	int tail = (int)http.find("/",head);
 	for(int i = head + 1; i < tail ; i++){
         val = val + http[i];
     }
-    return val;
+    return atoi(val.c_str());
 }
 
 string get_port2(string http){

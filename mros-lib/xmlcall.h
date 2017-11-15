@@ -45,6 +45,6 @@ string	addHttpOK(string xml);
 string  makexmlcall(string name,vector<string> params,int pnum); 
 
 //for TASK
-string registerSubtask(string func,string port);
+string registerSubtask(string func);
 
 #endif
