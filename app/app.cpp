@@ -1,146 +1,296 @@
 #include "app.h"
 #include "../mros-lib/ros.h"
+#
 
 //mbed library 
 #include "mbed.h"
-#include "EthernetInterface.h"
+#include "DisplayBace.h"
+#include "JPEG_Converter.h"
 #include "SoftPWM.h"
-//pin assign
-static DigitalOut ledu(P6_12);                                  // LED-User
-static SoftPWM ledr(P6_13);                                     // LED-Red
-static SoftPWM ledg(P6_14);                                     // LED-Green
-static SoftPWM ledb(P6_15);                                     // LED-Blue
+#include "EthernetInterface.h"
+#include "i2c_setting.h"
 
-//超音波センサHC-SR04の関数
-//参考（https://developer.mbed.org/users/haru36rr/notebook/hcsr04_operation_check/）
-static DigitalOut USSTriger (P2_14);         //P11 :超音波センサ トリガ出力
-Timer ActiveTime;
-/* 割り込み処理宣言 */
-Ticker TrigerTiming;                //Trigerピン :インターバルタイマ
-static InterruptIn USSEcho (P2_15);          //p12 :超音波センサ  エコー入力
-unsigned short USSDistance;         //USSDistance:超音波センサ測定距離
-static DigitalIn Button (P6_0);		//ユーザボタン
+#define VIDEO_CVBS             (0)                 /* Analog  Video Signal */
+#define VIDEO_CMOS_CAMERA      (1)                 /* Digital Video Signal */
+#define VIDEO_YCBCR422         (0)
+#define VIDEO_RGB888           (1)
+#define VIDEO_RGB565           (2)
 
-void Triger (){
-    USSTriger = 1;
-    wait_us(10);
-    USSTriger = 0;
-}
+/** Camera setting **/
+#define VIDEO_INPUT_METHOD     (VIDEO_CMOS_CAMERA) /* Select  VIDEO_CVBS or VIDEO_CMOS_CAMERA                       */
+#define VIDEO_INPUT_FORMAT     (VIDEO_YCBCR422)    /* Select  VIDEO_YCBCR422 or VIDEO_RGB888 or VIDEO_RGB565        */
+#define USE_VIDEO_CH           (0)                 /* Select  0 or 1            If selecting VIDEO_CMOS_CAMERA, should be 0.)               */
+#define VIDEO_PAL              (0)                 /* Select  0(NTSC) or 1(PAL) If selecting VIDEO_CVBS, this parameter is not referenced.) */
+/*****************************/
 
-void RiseEcho(){
-    ActiveTime.start();
-}
-
-void FallEcho(){
-    unsigned long ActiveWidth;
-    ActiveTime.stop();
-    ActiveWidth = ActiveTime.read_us();
-    USSDistance = ActiveWidth * 0.0170;
-    ActiveTime.reset();
-}
-
-void init(void){
-    TrigerTiming.attach( Triger , 0.060 );      //USSTriger周期 60ms
-    USSEcho.rise( RiseEcho );                   //USSEcho立ち上がり時割り込み
-    USSEcho.fall( FallEcho );                   //USSEcho立ち下がり時割り込み
-}
-
-/*****mROS user task code*******/
-void usr_task1(){
-#ifndef _USR_TASK_1_
-#define _USR_TASK_1_
-
-	syslog(LOG_NOTICE,"========Activate user task1========");
-	int argc = 0;
-	char *argv = NULL;
-	ros::init(argc,argv,"mros_node");
-	ros::NodeHandle n;
-	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);
-	ros::Rate loop_rate(5);
+#if USE_VIDEO_CH == (0)
+#define VIDEO_INPUT_CH         (DisplayBase::VIDEO_INPUT_CHANNEL_0)
+#define VIDEO_INT_TYPE         (DisplayBase::INT_TYPE_S0_VFIELD)
+#else
+#define VIDEO_INPUT_CH         (DisplayBase::VIDEO_INPUT_CHANNEL_1)
+#define VIDEO_INT_TYPE         (DisplayBase::INT_TYPE_S1_VFIELD)
 #endif
 
-	char msg[100];
-	int count=0;
-	init();
-	bool b = false;
-	bool bb = true;
-	syslog(LOG_NOTICE,"Data Publish Start");
-	while(1){
-		if(Button.read() == 0 && bb){
-			b = !b;
-			bb = false;
-		}else if(Button.read() == 1){
-			bb = true;
-		}
-		if(b){
-			wait_ms(1000);
-			sprintf(msg,"Distance[%d]cm\0",USSDistance);
-			chatter_pub.publish(msg);
-			loop_rate.sleep();
-		}
-	}
+#if ( VIDEO_INPUT_FORMAT == VIDEO_YCBCR422 || VIDEO_INPUT_FORMAT == VIDEO_RGB565 )
+#define DATA_SIZE_PER_PIC      (2u)
+#else
+#define DATA_SIZE_PER_PIC      (4u)
+#endif
+
+/*! Frame buffer stride: Frame buffer stride should be set to a multiple of 32 or 128
+    in accordance with the frame buffer burst transfer mode. */
+#define PIXEL_HW               (320u)  /* QVGA */
+#define PIXEL_VW               (240u)  /* QVGA */
+
+#define VIDEO_BUFFER_STRIDE    (((PIXEL_HW * DATA_SIZE_PER_PIC) + 31u) & ~31u)
+#define VIDEO_BUFFER_HEIGHT    (PIXEL_VW)
+
+#if defined(__ICCARM__)
+#pragma data_alignment=16
+static uint8_t FrameBuffer_Video[VIDEO_BUFFER_STRIDE * VIDEO_BUFFER_HEIGHT]@ ".mirrorram";  //16 bytes aligned!;
+#pragma data_alignment=4
+#else
+static uint8_t FrameBuffer_Video[VIDEO_BUFFER_STRIDE * VIDEO_BUFFER_HEIGHT]__attribute((section("NC_BSS"),aligned(16)));  //16 bytes aligned!;
+#endif
+static volatile int32_t vsync_count = 0;
+static volatile int32_t vfield_count = 1;
+
+#if defined(__ICCARM__)
+#pragma data_alignment=8
+static uint8_t JpegBuffer[2][1024 * 50]@ ".mirrorram";  //8 bytes aligned!;
+#pragma data_alignment=4
+#else
+static uint8_t JpegBuffer[2][1024 * 50]__attribute((section("NC_BSS"),aligned(8)));  //8 bytes aligned!;
+#endif
+static size_t jcu_encode_size[2];
+static int image_change = 0;
+JPEG_Converter Jcu;
+static int jcu_buf_index_write = 0;
+static int jcu_buf_index_write_done = 0;
+static int jcu_buf_index_read = 0;
+static int jcu_encoding = 0;
+static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
+
+static void JcuEncodeCallBackFunc(JPEG_Converter::jpeg_conv_error_t err_code) {
+
+    syslog(LOG_NOTICE,"Jcucallback");
+    jcu_buf_index_write_done = jcu_buf_index_write;
+    image_change = 1;
+    jcu_encoding = 0;
 }
 
+static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
+    //Interrupt callback function
 
-/******* LED for mbed library　*******/
-void led_init(){
-	ledu = 0;
-	ledr.period_ms(10);
-	ledr = 0.0f;
-	ledg.period_ms(10);
-	ledg = 0.0f;
-	ledb.period_ms(10);
-	ledb = 0.0f;
+    syslog(LOG_NOTICE,"Intcallback");
+    if (vfield_count != 0) {
+        vfield_count = 0;
+    } else {
+        vfield_count = 1;
+
+        JPEG_Converter::bitmap_buff_info_t bitmap_buff_info;
+        JPEG_Converter::encode_options_t   encode_options;
+
+        bitmap_buff_info.width          = PIXEL_HW;
+        bitmap_buff_info.height         = PIXEL_VW;
+        bitmap_buff_info.format         = JPEG_Converter::WR_RD_YCbCr422;
+        bitmap_buff_info.buffer_address = (void *)FrameBuffer_Video;
+
+        encode_options.encode_buff_size = sizeof(JpegBuffer[0]);
+        encode_options.p_EncodeCallBackFunc = &JcuEncodeCallBackFunc;
+
+        jcu_encoding = 1;
+        if (jcu_buf_index_read == jcu_buf_index_write) {
+            if (jcu_buf_index_write != 0) {
+                jcu_buf_index_write = 0;
+            } else {
+                jcu_buf_index_write = 1;
+            }
+        }
+        jcu_encode_size[jcu_buf_index_write] = 0;
+        if (Jcu.encode(&bitmap_buff_info, JpegBuffer[jcu_buf_index_write], &jcu_encode_size[jcu_buf_index_write], &encode_options) != JPEG_Converter::JPEG_CONV_OK) {
+            jcu_encode_size[jcu_buf_index_write] = 0;
+            jcu_encoding = 0;
+        }
+    }
 }
 
-void LED_switch(string *msg){
-	if(msg->find("red") != -1){
-		if(ledr == 0){
-			ledr = (float)100/128;//LED RED
-		}else{
-			ledr = 0;
-		}
-	}else if(msg->find("blue") != -1){
-		if(ledb == 0){
-			ledb = (float)100/128;		//LED BLUE
-		}else{
-			ledb = 0;
-		}
-	}else if(msg->find("green") != -1){
-		if(ledg == 0){
-			ledg = (float)100/128;		//LED GREEN
-		}else{
-			ledg = 0;
-		}
-	}else if(msg->find("reset") != -1){
-		ledr = 0;
-		ledg = 0;
-		ledb = 0;
-	}else if(msg->find("end") != -1){
-		syslog(LOG_NOTICE,"GOOD BYE !!");
-		exit(1);
-	}
+static void IntCallbackFunc_Vsync(DisplayBase::int_type_t int_type) {
+    //Interrupt callback function for Vsync interruption
+    if (vsync_count > 0) {
+        vsync_count--;
+    }
 }
 
-/*******  callback **********/
-void Callback(string *msg){	
-	LED_switch(msg);
-	syslog(LOG_NOTICE,"I heard [%s]",msg->c_str());
+#if 1 /* WaitVsync(const int32_t wait_count) */
+static void WaitVsync(const int32_t wait_count) {
+    //Wait for the specified number of times Vsync occurs
+    vsync_count = wait_count;
+    while (vsync_count > 0) {
+        /* Do nothing */
+    }
 }
+#endif /* WaitVsync */
 
-/*****mROS user task code*******/
+#if 1 /* camera_start(void) */
+static void camera_start(void) {
+    DisplayBase::graphics_error_t error;
+
+#if VIDEO_INPUT_METHOD == VIDEO_CMOS_CAMERA
+    DisplayBase::video_ext_in_config_t ext_in_config;
+    PinName cmos_camera_pin[11] = {
+        /* data pin */
+        P2_7, P2_6, P2_5, P2_4, P2_3, P2_2, P2_1, P2_0,
+        /* control pin */
+        P10_0,      /* DV0_CLK   */
+        P1_0,       /* DV0_Vsync */
+        P1_1        /* DV0_Hsync */
+    };
+#endif 
+
+    /* Create DisplayBase object */
+    DisplayBase Display;
+
+    /* Graphics initialization process */
+    error = Display.Graphics_init(NULL);
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+
+#if VIDEO_INPUT_METHOD == VIDEO_CVBS
+    error = Display.Graphics_Video_init( DisplayBase::INPUT_SEL_VDEC, NULL);
+    if( error != DisplayBase::GRAPHICS_OK ) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while(1);
+    }
+
+#elif VIDEO_INPUT_METHOD == VIDEO_CMOS_CAMERA
+    /* MT9V111 camera input config */
+    ext_in_config.inp_format     = DisplayBase::VIDEO_EXTIN_FORMAT_BT601; /* BT601 8bit YCbCr format */
+    ext_in_config.inp_pxd_edge   = DisplayBase::EDGE_RISING;              /* Clock edge select for capturing data          */
+    ext_in_config.inp_vs_edge    = DisplayBase::EDGE_RISING;              /* Clock edge select for capturing Vsync signals */
+    ext_in_config.inp_hs_edge    = DisplayBase::EDGE_RISING;              /* Clock edge select for capturing Hsync signals */
+    ext_in_config.inp_endian_on  = DisplayBase::OFF;                      /* External input bit endian change on/off       */
+    ext_in_config.inp_swap_on    = DisplayBase::OFF;                      /* External input B/R signal swap on/off         */
+    ext_in_config.inp_vs_inv     = DisplayBase::SIG_POL_NOT_INVERTED;     /* External input DV_VSYNC inversion control     */
+    ext_in_config.inp_hs_inv     = DisplayBase::SIG_POL_INVERTED;         /* External input DV_HSYNC inversion control     */
+    ext_in_config.inp_f525_625   = DisplayBase::EXTIN_LINE_525;           /* Number of lines for BT.656 external input */
+    ext_in_config.inp_h_pos      = DisplayBase::EXTIN_H_POS_CRYCBY;       /* Y/Cb/Y/Cr data string start timing to Hsync reference */
+    ext_in_config.cap_vs_pos     = 6;                                     /* Capture start position from Vsync */
+    ext_in_config.cap_hs_pos     = 150;                                   /* Capture start position form Hsync */
+    ext_in_config.cap_width      = 640;                                   /* Capture width  */
+    ext_in_config.cap_height     = 468u;                                  /* Capture height Max 468[line]
+                                                                             Due to CMOS(MT9V111) output signal timing and VDC5 specification */
+    error = Display.Graphics_Video_init( DisplayBase::INPUT_SEL_EXT, &ext_in_config);
+    if( error != DisplayBase::GRAPHICS_OK ) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while(1);
+    }
+
+    /* MT9V111 camera input port setting */
+    error = Display.Graphics_Dvinput_Port_Init(cmos_camera_pin, 11);
+    if( error != DisplayBase::GRAPHICS_OK ) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+#endif
+
+    /* Interrupt callback function setting (Vsync signal input to scaler 0) */
+    error = Display.Graphics_Irq_Handler_Set(DisplayBase::INT_TYPE_S0_VI_VSYNC, 0, IntCallbackFunc_Vsync);
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+    /* Video capture setting (progressive form fixed) */
+    error = Display.Video_Write_Setting(
+                VIDEO_INPUT_CH,
+#if VIDEO_PAL == 0
+                DisplayBase::COL_SYS_NTSC_358,
+#else
+                DisplayBase::COL_SYS_PAL_443,
+#endif
+                FrameBuffer_Video,
+                VIDEO_BUFFER_STRIDE,
+#if VIDEO_INPUT_FORMAT == VIDEO_YCBCR422
+                DisplayBase::VIDEO_FORMAT_YCBCR422,
+                DisplayBase::WR_RD_WRSWA_NON,
+#elif VIDEO_INPUT_FORMAT == VIDEO_RGB565
+                DisplayBase::VIDEO_FORMAT_RGB565,
+                DisplayBase::WR_RD_WRSWA_32_16BIT,
+#else
+                DisplayBase::VIDEO_FORMAT_RGB888,
+                DisplayBase::WR_RD_WRSWA_32BIT,
+#endif
+                PIXEL_VW,
+                PIXEL_HW
+            );
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+
+    /* Interrupt callback function setting (Field end signal for recording function in scaler 0) */
+    error = Display.Graphics_Irq_Handler_Set(VIDEO_INT_TYPE, 0, IntCallbackFunc_Vfield);
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+
+    /* Video write process start */
+    syslog(LOG_NOTICE,"Video start");
+    error = Display.Video_Start (VIDEO_INPUT_CH);
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+
+    /* Video write process stop */
+    syslog(LOG_NOTICE,"Video stop");
+    error = Display.Video_Stop (VIDEO_INPUT_CH);
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+
+    /* Video write process start */
+    error = Display.Video_Start (VIDEO_INPUT_CH);
+    if (error != DisplayBase::GRAPHICS_OK) {
+        printf("Line %d, error %d\n", __LINE__, error);
+        while (1);
+    }
+
+    /* Wait vsync to update resister */
+    WaitVsync(1);
+}
+#endif /* camera_start(void) */
+
+/*
+static int snapshot_req(const char ** pp_data) {
+    int encode_size = 0;
+#if 1
+    while ((jcu_encoding == 1) || (image_change == 0)) {
+        //Thread::wait(1);
+    	dly_tsk(1);
+    }
+    jcu_buf_index_read = jcu_buf_index_write_done;
+    image_change = 0;
+
+    *pp_data = (const char *)JpegBuffer[jcu_buf_index_read];
+    encode_size = (int)jcu_encode_size[jcu_buf_index_read];
+#endif
+    return encode_size;
+}
+*/
+
 void usr_task2(){
 
 #ifndef _USR_TASK_2_
 #define _USR_TASK_2_
 
 	syslog(LOG_NOTICE,"========Activate user task2========");
-	led_init();
-	int argc = 0;
-	char *argv = NULL;
-	ros::init(argc,argv,"mros_node2");
-	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscriber("test_string",1,Callback);
-	ros::spin();
 #endif
+	camera_start();
+
 }
+
