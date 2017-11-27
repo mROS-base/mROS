@@ -1,6 +1,9 @@
 #include "app.h"
 #include "../mros-lib/ros.h"
-#
+
+//YUV422形式でのイメージデータをROSにパブリッシュする
+//RGB形式に変換して投げないときれいにしてくれないかも
+//ROS compressed image streamでJPEGデータを送ればきれいに処理できそう
 
 //mbed library 
 #include "mbed.h"
@@ -8,7 +11,6 @@
 #include "JPEG_Converter.h"
 #include "SoftPWM.h"
 #include "EthernetInterface.h"
-#include "i2c_setting.h"
 
 #define VIDEO_CVBS             (0)                 /* Analog  Video Signal */
 #define VIDEO_CMOS_CAMERA      (1)                 /* Digital Video Signal */
@@ -69,11 +71,15 @@ static int jcu_buf_index_write = 0;
 static int jcu_buf_index_write_done = 0;
 static int jcu_buf_index_read = 0;
 static int jcu_encoding = 0;
-static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
+
+ros::NodeHandle n;
+ros::Publisher pub;
+ros_Image img;
+bool pub_flag = false;
 
 static void JcuEncodeCallBackFunc(JPEG_Converter::jpeg_conv_error_t err_code) {
 
-    syslog(LOG_NOTICE,"Jcucallback");
+    //syslog(LOG_NOTICE,"Jcucallback");
     jcu_buf_index_write_done = jcu_buf_index_write;
     image_change = 1;
     jcu_encoding = 0;
@@ -81,8 +87,14 @@ static void JcuEncodeCallBackFunc(JPEG_Converter::jpeg_conv_error_t err_code) {
 
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
     //Interrupt callback function
+	//mROSCallback　function pub
+	memcpy(img.data,FrameBuffer_Video,sizeof(FrameBuffer_Video));
+	pub_flag = true;
+	//ROS_INFO("size [%d][%d], [%d][%d][%d],100:[%d][%d]",strlen(img.data),strlen(FrameBuffer_Video),img.data[99],img.data[100],img.data[101],img.data[100],FrameBuffer_Video[100]);
+	//pub.imgpublish(&img);
 
-    syslog(LOG_NOTICE,"Intcallback");
+	/*もともとのサンプルコード
+    syslog(LOG_NOTICE,"Jcu_buf_index :%d",jcu_buf_index_write);
     if (vfield_count != 0) {
         vfield_count = 0;
     } else {
@@ -113,6 +125,7 @@ static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
             jcu_encoding = 0;
         }
     }
+    */
 }
 
 static void IntCallbackFunc_Vsync(DisplayBase::int_type_t int_type) {
@@ -133,11 +146,11 @@ static void WaitVsync(const int32_t wait_count) {
 #endif /* WaitVsync */
 
 #if 1 /* camera_start(void) */
+DisplayBase::video_ext_in_config_t ext_in_config;
 static void camera_start(void) {
     DisplayBase::graphics_error_t error;
 
 #if VIDEO_INPUT_METHOD == VIDEO_CMOS_CAMERA
-    DisplayBase::video_ext_in_config_t ext_in_config;
     PinName cmos_camera_pin[11] = {
         /* data pin */
         P2_7, P2_6, P2_5, P2_4, P2_3, P2_2, P2_1, P2_0,
@@ -252,8 +265,8 @@ static void camera_start(void) {
         printf("Line %d, error %d\n", __LINE__, error);
         while (1);
     }
-
     /* Video write process start */
+    syslog(LOG_NOTICE,"Video start");
     error = Display.Video_Start (VIDEO_INPUT_CH);
     if (error != DisplayBase::GRAPHICS_OK) {
         printf("Line %d, error %d\n", __LINE__, error);
@@ -265,32 +278,46 @@ static void camera_start(void) {
 }
 #endif /* camera_start(void) */
 
-/*
-static int snapshot_req(const char ** pp_data) {
-    int encode_size = 0;
-#if 1
-    while ((jcu_encoding == 1) || (image_change == 0)) {
-        //Thread::wait(1);
-    	dly_tsk(1);
-    }
-    jcu_buf_index_read = jcu_buf_index_write_done;
-    image_change = 0;
+void usr_task1(){
+#ifndef _USR_TASK_1_
+#define _USR_TASK_1_
 
-    *pp_data = (const char *)JpegBuffer[jcu_buf_index_read];
-    encode_size = (int)jcu_encode_size[jcu_buf_index_read];
+	syslog(LOG_NOTICE,"========Activate user task1========");
 #endif
-    return encode_size;
+
+	//mROS configuration
+	pub = n.advertise("image_raw",1);
+	img.encoding="yuv422";
+	img.is_bigendian = 0;
+	img.width = 320;
+	img.height = 240;
+	img.step = 640;
+	Header head;
+	head.seq = 0;
+	head.sec = 0;
+	head.nsec = 0;
+	head.frame_id = "mROScam";
+	img.header = head;
+
+	//camera start and publish loop
+	camera_start();
+	while(1){
+		if(pub_flag){
+			//ROS_INFO("[%x][%x][%x]",img.data[0],img.data[1],img.data[2]);
+			pub.imgpublish(&img);
+			pub_flag = false;
+		}
+	}
 }
-*/
+
+void Callback(){
+
+}
 
 void usr_task2(){
-
-#ifndef _USR_TASK_2_
-#define _USR_TASK_2_
-
-	syslog(LOG_NOTICE,"========Activate user task2========");
-#endif
-	camera_start();
+	ros::NodeHandle n;
+	ros::Subscriber sub = n.subscriber("image_raw",1,Callback);
+	ros::spin();
 
 }
 

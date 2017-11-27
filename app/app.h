@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 void usr_task1();
-void usr_task2();
+//void usr_task2();
 #ifdef __cplusplus
 }
 #endif

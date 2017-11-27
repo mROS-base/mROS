@@ -50,6 +50,8 @@ include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/SoftPWM/Makefile.pwm
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
+include $(MBED_LIB_DIR)/GR-PEACH_video/Makefile.gpv
+include $(MBED_LIB_DIR)/GraphicsFramework/Makefile.gfw
 include ../Makefile.mbd
 
 #
