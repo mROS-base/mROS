@@ -1,4 +1,4 @@
-#include "mros.h"
+#include "ros.h"
 
 std::vector<ID> IDv;
 
@@ -37,7 +37,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sstr += "<topic_name>/";
 	sstr += topic;
 	sstr += "</topic_name>\n";
-	sstr += "<topic_type>std_msgs/String</topic_type>\n";
+	sstr += "<topic_type>sensor_msgs/Image</topic_type>\n";
 	sstr += "<caller_id>/mros_node2</caller_id>\n";
 	sstr += "<message_definition>std_msgs/String</message_definition>\n";
 	sstr += "<fptr>";
@@ -77,7 +77,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += "<topic_name>/";
 	pstr += topic;
 	pstr += "</topic_name>\n";
-	pstr += "<topic_type>std_msgs/String</topic_type>\n";
+	pstr += "<topic_type>sensor_msgs/Image</topic_type>\n";
 	pstr += "<caller_id>/mros_node</caller_id>\n";
 	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
@@ -111,25 +111,115 @@ void ros::Publisher::publish(char* data){
 	snd_dtq(PUB_DTQ,*pdq);
 }
 
+void ros::Publisher::imgpublish(ros_Image *img){
+	if(ros_sem != 0){
+		slp_tsk();
+	}
+	//とりあえずまずは共有メモリにぶち込んでいく方法でやる?
+	//絶対時間やばい
+	//ros_Image構造体のポインタを渡す？
+	int size=0;
+	char data[1000000];
+	//Header
+	//sprintf(&data[size],"%u",img->header.seq);
+	data[size] = img->header.seq;
+	data[size+1] = img->header.seq/256;
+	data[size+2] = img->header.seq/65536;
+	data[size+3] = 0;
+	size += sizeof(img->header.seq);
+	//sprintf(&data[size],"%c",img->header.sec);
+	data[size] = img->header.sec;
+	data[size+1] = img->header.sec/256;
+	data[size+2] = img->header.sec/65536;
+	data[size+3] = 0;
+	size += sizeof(img->header.sec);
+	//sprintf(&data[size],"%c",img->header.nsec);
+	data[size] = img->header.nsec;
+	data[size+1] = img->header.nsec/256;
+	data[size+2] = img->header.nsec/65536;
+	data[size+3] = 0;
+	size += sizeof(img->header.nsec);
+	//frame_id
+	data[size] = strlen(img->header.frame_id.c_str());
+	data[size+1] = strlen(img->header.frame_id.c_str())/256;
+	data[size+2] = strlen(img->header.frame_id.c_str())/65536;
+	data[size+3] = 0;
+	size += 4;
+	sprintf(&data[size],"%s",img->header.frame_id.c_str());
+	size += strlen(img->header.frame_id.c_str());
+	//rosImage
+	//height
+	//sprintf(&data[size],"%x",img->height);
+	data[size] = img->height;
+	data[size+1] = img->height/256;
+	data[size+2] = img->height/65536;
+	data[size+3] = 0;
+	size += sizeof(img->height);
+	//width
+	//sprintf(&data[size],"%u",img->width);
+	data[size] = img->width;
+	data[size+1] = img->width/256;
+	data[size+2] = img->width/65536;
+	data[size+3] = 0;
+	size += sizeof(img->width);
+	//encoding
+	data[size] = strlen(img->encoding.c_str());
+	data[size+1] = strlen(img->encoding.c_str())/256;
+	data[size+2] = strlen(img->encoding.c_str())/65536;
+	data[size+3] = 0;
+	size += 4;
+	sprintf(&data[size],"%s",img->encoding.c_str());
+	size += strlen(img->encoding.c_str());
+	//endian
+	sprintf(&data[size],"%c",img->is_bigendian);
+	size += sizeof(img->is_bigendian);
+	//step
+	//sprintf(&data[size],"%u",img->step);
+	data[size] = img->step;
+	data[size+1] = img->step/256;
+	data[size+2] = img->step/65536;
+	data[size+3] = 0;
+	size += sizeof(img->step);
+	//data
+	data[size] = img->step*img->height;
+	data[size+1] = img->step*img->height/256;
+	data[size+2] = img->step*img->height/65536;
+	data[size+3] = 0;
+	size += 4; 	//length space
+	memcpy(&data[size],img->data,sizeof(img->data));
+	size += sizeof(img->data);
+	//ROS_INFO("img publish function [%d]",img->data[100]);
+	//syslog(LOG_NOTICE,"size [%d]",size);
+	memcpy(&mem[PUB_ADDR],data,size);
+	char pbuf[4];
+	intptr_t *pdq;
+	pbuf[0] = this->ID;
+	pbuf[1] = size;
+	pbuf[2] = size/256;
+	pbuf[3] = size/65536;
+	pdq = (intptr_t) &pbuf;
+	snd_dtq(PUB_DTQ,*pdq);
+}
+
+void ros::Publisher::publish_dummy(){
+	if(ros_sem != 0){
+		slp_tsk();
+	}
+	int size = 50;
+	char pbuf[4];
+	intptr_t *pdq;
+	pbuf[0] = this->ID;
+	pbuf[1] = size;
+	pbuf[2] = size/256;
+	pbuf[3] = size/65536;
+	pdq = (intptr_t) &pbuf;
+	snd_dtq(PUB_DTQ,*pdq);
+}
+
 void ros::Rate::sleep(){
 	wait_ms(1000/this->rate);
 }
 
 void ros::spin(){
 	slp_tsk();
-}
-
-/*
-bool ros::ok(){
-	return true;
-}
-
-
-void ros::spinOnce(){
-
-}
-*/
-
-void ros_info(const char c,char cc){
-	syslog(LOG_NOTICE,"%s,%s",c,cc);
 }
