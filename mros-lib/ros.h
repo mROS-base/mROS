@@ -20,7 +20,7 @@ public:
 	std::string encoding;
 	unsigned char is_bigendian;
 	unsigned int step;
-	unsigned char data[153600];
+	unsigned char data[320*4*240];
 };
 
 namespace ros{

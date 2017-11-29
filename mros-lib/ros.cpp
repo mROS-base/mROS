@@ -119,7 +119,7 @@ void ros::Publisher::imgpublish(ros_Image *img){
 	//絶対時間やばい
 	//ros_Image構造体のポインタを渡す？
 	int size=0;
-	char data[160000];
+	char data[1000000];
 	//Header
 	//sprintf(&data[size],"%u",img->header.seq);
 	data[size] = img->header.seq;
@@ -181,9 +181,9 @@ void ros::Publisher::imgpublish(ros_Image *img){
 	data[size+3] = 0;
 	size += sizeof(img->step);
 	//data
-	data[size] = 640*240;
-	data[size+1] = 640*240/256;
-	data[size+2] = 640*240/65536;
+	data[size] = img->step*img->height;
+	data[size+1] = img->step*img->height/256;
+	data[size+2] = img->step*img->height/65536;
 	data[size+3] = 0;
 	size += 4; 	//length space
 	memcpy(&data[size],img->data,sizeof(img->data));
