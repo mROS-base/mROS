@@ -9,10 +9,11 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
+#include "md5.h"
 
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.0.39";	//ros master IP
+const char *m_ip = "192.168.11.4";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
@@ -135,7 +136,7 @@ void main_task(){
 	act_tsk(XML_SLV_TASK);
 	act_tsk(XML_MAS_TASK);
 	act_tsk(USR_TASK1);
-	//act_tsk(USR_TASK2);
+	act_tsk(USR_TASK2);
 
 	//	syslog(LOG_NOTICE,"**********mROS Main task finish**********");
 }
@@ -177,7 +178,6 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 	while(1){
 		//syslog(LOG_NOTICE,"PUB_TASK:enter loop");
 		if(state == 1){
-			syslog(LOG_NOTICE,"PUB_TASK:sleep task");
 			slp_tsk();
 		}
 		rcv_dtq(PUB_DTQ,dqp);
@@ -219,7 +219,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 							break;
 						default:
 							//if(check_head(rbuf)){
-							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
+							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
 							//int len = pub_gen_header(snd_buf,"mros_node","string data\n","mros_msg","std_msgs/String","992ce8a1687cec8c8bd883ec73ca41d1");	//test function
 							//syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection header[%s]",snd_buf[8]);
 							lst.sock_vec[num].send(snd_buf,len);
@@ -236,16 +236,11 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 			}
 		}else{
 		//publish phase
-		//ROS_INFO("data publish phase");
 		memcpy(rbuf,mem,size);
 		rbuf[size] = '\0';	//cutting data end
-		//int l = pub_gen_msg(buf,rbuf);
-		//int l = pub_gen_dummy(buf);
-		int l = pub_gen_img_msg(buf,rbuf,size);
+		int l = pub_gen_msg(buf,rbuf);
 		//publish
-		//ROS_INFO("data publish");
-		int err = lst.sock_vec[num].send(buf,l);
-		 //ROS_INFO("error code [%d]",err);
+		lst.sock_vec[num].send(buf,l);
 		}
 	}
 }
@@ -279,8 +274,8 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	intptr_t *dqp,*snd_dqp;
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
 	char *sdq,*ip,*rptr; //data queue pointer,IP address,temporary buffer,receive buffer,memory address
-	char tmp[5000];
-	char rbuf[1024];
+	char tmp[512];
+	char rbuf[1024*512];
 	int port;	//port number
 	bool init = false;
 	bool rcv_flag = true;
@@ -333,20 +328,13 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				ip = m_ip;
 				//syslog(LOG_NOTICE,"SUB_TASK:port [%d],IP [%s]",port,ip);
 				//send TCPROS connection header
-				size = sub_gen_header(tmp,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");
-				//size = sub_gen_header(tmp,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");
+				size = sub_gen_header(tmp,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");
 				tmp[size]  = '0';
 				lst.sock_vec[idx].connect(ip,port);
 				//syslog(LOG_NOTICE,"SUB_TASK: is_connected [%s]",lst.sock_vec[idx].is_connected()?"true":"false");
 				lst.sock_vec[idx].send(tmp,size);
 				wait_ms(10);
-				lst.sock_vec[idx].receive(tmp,5000);
-				/*
-				for(int i = 0;i<2200;i++){
-					wait_ms(1);
-					ROS_INFO("%c",tmp[i]);
-				}
-				*/
+				lst.sock_vec[idx].receive(tmp,512);
 				lst.set_stat(true,idx);
 				init = true;
 				syslog(LOG_NOTICE,"SUB_TASK: subscriber connected");
@@ -356,58 +344,42 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	    }else{
 	    //subscribe and callback loop
 	    	if(init){
-	    		syslog(LOG_NOTICE,"SUB_TASK: subscribing");
 	    		for(unsigned int i=0;i < lst.id_vec.size();i++){
 					rptr = &rbuf[0];
 					if(lst.stat_vec[i]){
 						rcv_flag = true;
 						while(rcv_flag){
-							int n = lst.sock_vec[i].receive(rptr,512);
+							int n = lst.sock_vec[i].receive(rptr,5000);
 							//syslog(LOG_NOTICE,"SUB_TASK: is_connected [%s]",lst.sock_vec[i].is_connected()?"true":"false");
 							//syslog(LOG_NOTICE,"SUB_TASK: get_port [%d]",lst.sock_vec[i].get_port());
 							if(n < 0){
-								syslog(LOG_NOTICE,"SUB_TASK: No data");
+								//syslog(LOG_NOTICE,"SUB_TASK: No data");
 							}else{
 								if(init_flag){
-									msg_size = (int)rbuf[0] + (int)rbuf[1]*256;// + rbuf[2]*65536 + rbuf[3]*16777216;
-									data_size = (int)rbuf[4] + (int)rbuf[5]*256;// + rbuf[6]*65536 + rbuf[7]*16777216;
+									msg_size = (int)rbuf[0] + (int)rbuf[1]*256 + rbuf[2]*65536 + rbuf[3]*16777216;
+									data_size = (int)rbuf[4] + (int)rbuf[5]*256 + rbuf[6]*65536 + rbuf[7]*16777216;
 									init_flag = false;
 								}
-
-								for(int i = 0;i<n;i++){
-									wait_ms(1);
-									ROS_INFO("%x",rbuf[i]);
-								}
-
 								len += n;
-								///syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",msg_size);
 								if(len == msg_size +4){
 									//correct data received
 									rbuf[len] = '\0';
-									syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
-									/*
+									//syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
 									void (*fp)(string);
 									fp = lst.func_vec[i];
 									fp(&rbuf[8]);
-									*/
-									for(int i = 0;i<len;i++){
-										wait_ms(1);
-										ROS_INFO("%c",rbuf[i]);
-									}
 									rptr = &rbuf[0];
 									rcv_flag = false;
 									init_flag = true;
 									len = 0;
-									return;
 								}else if(len > msg_size + 4){
 									//data overflow
-									syslog(LOG_NOTICE,"invalid header[%d][%d] [%d]",msg_size,len,n);
+									//syslog(LOG_NOTICE,"invalid header[%d][%d] [%d]",msg_size,len,n);
 									rptr = &rbuf[0];
 									rcv_flag = false;
 									init_flag = true;
 									len = 0;
 								}else{
-									//syslog(LOG_NOTICE,"SUB_TASK: data long");
 									//data receiving
 									rptr = &rbuf[n];
 								}
@@ -628,8 +600,8 @@ void xml_mas_task(){
 			}else{
 				//syslog(LOG_NOTICE,"XML_MAS: Can't find node! [request topic]");
 			}
+
 //===else========================================================================================================================================
-		/*機能追加はここ*/
 		}else{	
 		}
 		xml_mas_sock.close();

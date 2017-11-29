@@ -1,27 +1,8 @@
 #ifndef _ROS_HEADER_
-#define _ROS_HEADER_
+#define _ROS_DEADER_
 
 #include <string>
-#include "mros.h"
-
-class Header{
-public:
-	unsigned int  seq;
-	unsigned int sec;
-	unsigned int nsec;
-	std::string frame_id;
-};
-
-class ros_Image{
-public:
-	Header header;
-	unsigned int height;
-	unsigned int width;
-	std::string encoding;
-	unsigned char is_bigendian;
-	unsigned int step;
-	unsigned char data[320*4*240];
-};
+//ROSの関数をmROSにマッピングする
 
 namespace ros{
 
@@ -30,8 +11,6 @@ public:
 	char topic;
 	char node;
 	void publish(char *data);
-	void imgpublish(ros_Image *data);
-	void publish_dummy();
 	char ID;
 }Publisher;
 
@@ -78,8 +57,6 @@ public:
 	};
 };
 */
-
-
-#define ROS_INFO(...) syslog(LOG_NOTICE,__VA_ARGS__)
+void ros_info(const char c,char cc);
 
 #endif

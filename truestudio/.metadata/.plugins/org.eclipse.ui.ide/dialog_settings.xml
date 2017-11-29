@@ -5,7 +5,6 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="C:\Users\mori\Dropbox\mROS\mROS\truestudio\camera_app"/>
 			<item value="C:\Users\mori\Dropbox\mROS\mROS\truestudio"/>
 			<item value="C:\Users\mori\Dropbox\mROS\mROS\truestudio\app"/>
 		</list>
