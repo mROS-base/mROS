@@ -10,6 +10,11 @@
 #include "tcp_ros.h"
 #endif
 
+#define MODE1
+#define MODE2
+#define MODE3
+#define MODE4
+
 #ifndef MROS_USR_TASK_PRI
 #define MAIN_TASK_PRI 7
 #define MROS_USR_TASK_PRI  8
@@ -48,10 +53,12 @@
 
 #ifndef MEM_ADD				/* base address of shared memory in mROS */
 #define MEM_ADD
-#define PUB_ADDR 0
-#define SUB_ADDR 1024*1024
-#define XML_ADDR 1024*1024 + 1024*2
+#define PUB_ADDR (0)
+#define SUB_ADDR (1024*1024)
+#define XML_ADDR (1024*1024 + 1024*2)
+#define INT_ADDR (1024*1024 + 1024*4)
 #endif	/*MEM_ADD*/
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,7 +76,6 @@ extern void xml_slv_task();
 extern void xml_mas_task();
 extern void usr_task1();
 extern void usr_task2();
-
 
 extern void sus_all();
 extern void rsm_all();

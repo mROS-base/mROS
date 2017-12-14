@@ -296,6 +296,18 @@ string get_port2(string http){
     return val;
 }
 
+string get_ip(string xml){
+	int head,tail;
+			string body;
+			head = (int)xml.find("<string>http://");
+			tail = (int)xml.find(":",head+sizeof("<string>http://"));
+			for(int i = head + sizeof("<string>http://")-1;i < tail; i++){
+				body = body + xml[i];
+			}
+			return body;
+}
+
+
 string get_ttype(string xml){
 	int head,tail;
 	string body;
@@ -349,16 +361,6 @@ string get_fptr(string xml){
 			body = body + xml[i];
 		}
 		return body;
-}
-string get_ip(string xml){
-	int head,tail;
-			string body;
-			head = (int)xml.find("<IP>");
-			tail = (int)xml.find("</IP>");
-			for(int i = head + sizeof("<IP>")-1;i < tail; i++){
-				body = body + xml[i];
-			}
-			return body;
 }
 
 string req_topic_name(string xml){

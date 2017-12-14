@@ -37,7 +37,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sstr += "<topic_name>/";
 	sstr += topic;
 	sstr += "</topic_name>\n";
-	sstr += "<topic_type>sensor_msgs/Image</topic_type>\n";
+	sstr += "<topic_type>std_msgs/String</topic_type>\n";
 	sstr += "<caller_id>/mros_node2</caller_id>\n";
 	sstr += "<message_definition>std_msgs/String</message_definition>\n";
 	sstr += "<fptr>";
@@ -77,7 +77,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += "<topic_name>/";
 	pstr += topic;
 	pstr += "</topic_name>\n";
-	pstr += "<topic_type>sensor_msgs/Image</topic_type>\n";
+	pstr += "<topic_type>std_msgs/String</topic_type>\n";
 	pstr += "<caller_id>/mros_node</caller_id>\n";
 	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
@@ -108,9 +108,20 @@ void ros::Publisher::publish(char* data){
 	pbuf[2] = size/256;
 	pbuf[3] = size/65536;
 	pdq = (intptr_t) &pbuf;
+	/*
+	if(find_sub(node_lst,node_lst[find_id(node_lst,this->id)].topic_name) != -1){
+		snd_dtq(SUB_DTQ,*pdq);
+	}else{
+		snd_dtq(PUB_DTQ,*pdq);
+	}
+	*/
 	snd_dtq(PUB_DTQ,*pdq);
 }
 
+
+
+
+/**image data用関数なんかアレ**/
 void ros::Publisher::imgpublish(ros_Image *img){
 	if(ros_sem != 0){
 		slp_tsk();
@@ -201,6 +212,7 @@ void ros::Publisher::imgpublish(ros_Image *img){
 	snd_dtq(PUB_DTQ,*pdq);
 }
 
+/**検証用ダミー関数**/
 void ros::Publisher::publish_dummy(){
 	if(ros_sem != 0){
 		slp_tsk();

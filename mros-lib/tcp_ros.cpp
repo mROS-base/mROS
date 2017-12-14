@@ -77,30 +77,6 @@ int pub_gen_msg(char *buf,char *msg){
     return len+8;
 }
 
-
-bool check_head(char *buf){
-	int len,l;
-	if(buf[0] == '0'){
-		syslog(LOG_NOTICE,"Not header!");
-		return false;
-	}
-	len = buf[0] + buf[1]*256 + buf[2]*65536 + buf[3]*16777216;
-	for(int p=4;p < len;){
-		if(buf[p] == '0'){
-			syslog(LOG_NOTICE,"Not header!");
-			return false;
-		}
-		l = buf[p] + buf[p+1]*256 + buf[p+2]*65536 + buf[p+3]*16777216;
-		//syslog(LOG_NOTICE,"TCPROS HEADER: [%s]",&buf[p+4]);
-		char *c = &buf[p+4];
-		char *i = strstr(c,"callerid");
-		if(i != NULL){
-			return true;
-		}
-		p = p + l + 4;
-	}
-	return false;
-}
 bool first = true;
 int ind;
 //rgb8用ダミー関数
