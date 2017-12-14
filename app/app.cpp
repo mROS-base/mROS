@@ -55,7 +55,7 @@ void usr_task1(){
 	char *argv = NULL;
 	ros::init(argc,argv,"mros_node");
 	ros::NodeHandle n;
-	ros::Publisher chatter_pub = n.advertise("mros_msg", 1);
+	ros::Publisher chatter_pub = n.advertise("mros_msg","std_msgs/String",1);
 	ros::Rate loop_rate(5);
 #endif
 
@@ -140,7 +140,7 @@ void usr_task2(){
 	char *argv = NULL;
 	ros::init(argc,argv,"mros_node2");
 	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscriber("test_string",1,Callback);
+	ros::Subscriber sub = n.subscriber("test_string","std_msgs/String",1,Callback);
 	ros::spin();
 #endif
 }

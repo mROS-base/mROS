@@ -72,6 +72,7 @@ static int jcu_buf_index_write_done = 0;
 static int jcu_buf_index_read = 0;
 static int jcu_encoding = 0;
 
+/** mROS structure variables **/
 ros::NodeHandle n;
 ros::Publisher pub;
 ros_Image img;
@@ -90,9 +91,7 @@ static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
 	//mROSCallback　function pub
 	memcpy(img.data,FrameBuffer_Video,sizeof(FrameBuffer_Video));
 	pub_flag = true;
-	//ROS_INFO("size [%d][%d], [%d][%d][%d],100:[%d][%d]",strlen(img.data),strlen(FrameBuffer_Video),img.data[99],img.data[100],img.data[101],img.data[100],FrameBuffer_Video[100]);
-	//pub.imgpublish(&img);
-
+	
 	/*もともとのサンプルコード
     syslog(LOG_NOTICE,"Jcu_buf_index :%d",jcu_buf_index_write);
     if (vfield_count != 0) {
@@ -286,8 +285,8 @@ void usr_task1(){
 #endif
 
 	//mROS configuration
-	pub = n.advertise("image_raw",1);
-	img.encoding="rgba8";
+	pub = n.advertise("image_raw","sensor_msgs/Image",1);
+	img.encoding="bgra8";
 	img.is_bigendian = 0;
 	img.width = 320;
 	img.height = 240;
@@ -303,21 +302,74 @@ void usr_task1(){
 	camera_start();
 	while(1){
 		if(pub_flag){
-			//ROS_INFO("[%x][%x][%x]",img.data[0],img.data[1],img.data[2]);
 			pub.imgpublish(&img);
 			pub_flag = false;
 		}
 	}
 }
 
-void Callback(){
+/******* LED for mbed library　*******/
+//pin assign
+static DigitalOut ledu(P6_12);                                  // LED-User
+static SoftPWM ledr(P6_13);                                     // LED-Red
+static SoftPWM ledg(P6_14);                                     // LED-Green
+static SoftPWM ledb(P6_15);                                     // LED-Blue
 
+
+void led_init(){
+	ledu = 0;
+	ledr.period_ms(10);
+	ledr = 0.0f;
+	ledg.period_ms(10);
+	ledg = 0.0f;
+	ledb.period_ms(10);
+	ledb = 0.0f;
+}
+
+void LED_switch(string *msg){
+	if(msg->find("red") != -1){
+		if(ledr == 0){
+			ledr = (float)100/128;//LED RED
+            ROS_INFO("ON RED");
+		}else{
+			ledr = 0;
+            ROS_INFO("OFF RED");
+		}
+	}else if(msg->find("blue") != -1){
+		if(ledb == 0){
+			ledb = (float)100/128;		//LED BLUE
+            ROS_INFO("ON BLUE");
+		}else{
+			ledb = 0;
+            ROS_INFO("OFF BLUE");
+		}
+	}else if(msg->find("green") != -1){
+		if(ledg == 0){
+			ledg = (float)100/128;		//LED GREEN
+            ROS_INFO("ON GREEN");
+        }else{
+			ledg = 0;
+            ROS_INFO("OFF GREEN");
+		}
+	}else if(msg->find("reset") != -1){
+		ledr = 0;
+		ledg = 0;
+		ledb = 0;
+        ROS_INFO("LED RESET");
+	}else if(msg->find("end") != -1){
+		syslog(LOG_NOTICE,"TERMINATING mROS ...");
+        syslog(LOG_NOTICE,"SEE YOU AGANIN ノシ");
+	}
+}
+
+void Callback(string *msg){
+    LED_switch(msg);
+    ROS_INFO("I heard [%s]",msg->c_str());
 }
 
 void usr_task2(){
 	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscriber("image_raw",1,Callback);
+	ros::Subscriber sub = n.subscriber("test_string","std_msgs/String",1,Callback);
 	ros::spin();
-
 }
 

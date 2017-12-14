@@ -15,7 +15,7 @@ template<class M> ros::Subscriber ros::NodeHandle::subscriber(std::string topic,
 	return sub;
 }
 */
-ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,void (*fp)(std::string)){
+ros::Subscriber ros::NodeHandle::subscriber(std::string topic,std::string type,int queue_size,void (*fp)(std::string)){
 	ID id;
 	get_tid(&id);
 	IDv.push_back(id);
@@ -37,7 +37,9 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sstr += "<topic_name>/";
 	sstr += topic;
 	sstr += "</topic_name>\n";
-	sstr += "<topic_type>sensor_msgs/Image</topic_type>\n";
+	sstr += "<topic_type>";
+	sstr += type;
+	sstr += "</topic_type>\n";
 	sstr += "<caller_id>/mros_node2</caller_id>\n";
 	sstr += "<message_definition>std_msgs/String</message_definition>\n";
 	sstr += "<fptr>";
@@ -56,14 +58,13 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	return sub;
 }
 
-ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
+ros::Publisher ros::NodeHandle::advertise(string topic,string type,int queue_size){
 	ID id;
 	get_tid(&id);
 	IDv.push_back(id);
 	syslog(LOG_NOTICE,"usr task ID [%d]",id);
 	//セマフォの確認
 	while(ros_sem != 0){
-
 	}
 	ros_sem++;
 	state = 2;
@@ -77,7 +78,9 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += "<topic_name>/";
 	pstr += topic;
 	pstr += "</topic_name>\n";
-	pstr += "<topic_type>sensor_msgs/Image</topic_type>\n";
+	pstr += "<topic_type>";
+	pstr += type;
+	pstr += "</topic_type>\n";
 	pstr += "<caller_id>/mros_node</caller_id>\n";
 	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
@@ -111,13 +114,12 @@ void ros::Publisher::publish(char* data){
 	snd_dtq(PUB_DTQ,*pdq);
 }
 
+//とりあえずのimageデータ出版関数
+//ここでTCPROSのデータに変換している方式
 void ros::Publisher::imgpublish(ros_Image *img){
 	if(ros_sem != 0){
 		slp_tsk();
 	}
-	//とりあえずまずは共有メモリにぶち込んでいく方法でやる?
-	//絶対時間やばい
-	//ros_Image構造体のポインタを渡す？
 	int size=0;
 	char data[1000000];
 	//Header
@@ -201,6 +203,7 @@ void ros::Publisher::imgpublish(ros_Image *img){
 	snd_dtq(PUB_DTQ,*pdq);
 }
 
+//開発用のダミー関数
 void ros::Publisher::publish_dummy(){
 	if(ros_sem != 0){
 		slp_tsk();

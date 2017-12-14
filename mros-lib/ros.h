@@ -50,8 +50,8 @@ class NodeHandle{
 	Subscriber sub;
 	Publisher pub;
 public:
-	Subscriber subscriber(std::string topic,int queue_size,void(*fp)(std::string));
-	Publisher advertise(std::string topic,int queue_size);
+	Subscriber subscriber(std::string topic,std::string type,int queue_size,void(*fp)(std::string));
+	Publisher advertise(std::string topic,std::string type,int queue_size);
 };
 
 class Rate{
