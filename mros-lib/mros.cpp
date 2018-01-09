@@ -12,7 +12,7 @@
 
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.0.39";	//ros master IP
+const char *m_ip = "192.168.11.4";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
@@ -22,7 +22,7 @@ extern std::vector<ID> IDv;
 int ros_sem =0;	//mROS resource semapho
 int count=1;	//for assign node ID
 
-/**state
+/**state->意味を成してないかも
  * 0: initial state
  * 1: register subscriber state ::XML_MAS_TASK,SUB_TASK,XML_SLV_TASK
  * 2: register publisher state ::XML_MAS_TASK,PUB_TASK,XML_SLV_TASK
@@ -49,59 +49,17 @@ void wup_all(){
 	syslog(LOG_NOTICE,"Change state [%d]",state);
 }
 
-/******************************************************
- * Node information structure for XML-MAS TASK        *
- * ****************************************************/
-typedef struct node{
-		bool node_type;						//true->subscriber false->publisher
-		bool stat = true;
-		char ID;							//for mROS ID>1
-		std::string topic_name;				//ROS
-		std::string topic_type;				//ROS
-		std::string callerid;				//ROS
-		std::string message_definition;		//ROS
-		std::string uri;					//ROS	自ノードのURI
-		int port;							//for sub　通信相手となるノードのXML-RPC受付ポート
-		std::string fptr;					//for sub コールバック関数のポインタ
-		std::string ip;						//for sub 通信相手となるノードのIP
 
-public:
-		void set_node_type(bool type){this->node_type=type;};
-		void init(){this->stat = false;};
-		void set_ID(char c){this->ID = c;};
-		void set_topic_name(string t){this->topic_name=t;};
-		void set_topic_type(string t){this->topic_type=t;};
-		void set_callerid(string t){this->callerid=t;};
-		void set_message_definition(string t){this->message_definition=t;};
-		void set_uri(string t){this->uri=t;};
-		void set_port(int t){this->port=t;};
-		void set_fptr(string t){this->fptr=t;};
-		void set_ip(string t){this->ip = t;};
-}node;
-
-/******mROS node list***********/
+/*** mROS node vector ***/
 std::vector<node> node_lst;
 
-int find_node(vector<node> list,string topic){for(unsigned int i=0;i < list.size();i++){if(list[i].topic_name == topic){return i;}}return -1;}
-int find_id(vector<node> list,char ID){for(unsigned int i=0;i < list.size();i++){if(list[i].ID == ID){return i;}}return -1;}
-//同一デバイス通信用
-char find_sub(vector<node> list,string topic){
-	for(unsigned int i=0;i < list.size();i++){
-		if(list[i].topic_name == topic && list[i].node_type){
-			return list[i].ID;
-		}
-	}
-	return -1;
-}
-
 /***variables for evaluation***/
-SYSUTM time1;
-SYSUTM time2;
+
 
 /* Initialize Network Configuration */
 #define USE_DHCP (1)
 #if(USE_DHCP == 0)
-	#define IP_ADDRESS  	("192.168.0.10")	/*IP address */
+	#define IP_ADDRESS  	("192.168.11.1")	/*IP address */
 	#define SUBNET_MASK		("255.0.0.0")	/*Subset mask */
 	#define DEFAULT_GATEWAY	("")	/*Default gateway */
 #endif
@@ -141,14 +99,15 @@ void main_task(){
 	syslog(LOG_NOTICE, "**********Activate Main task**********");
 
 //activate mROS communication library 
+
 	act_tsk(PUB_TASK);
 	act_tsk(SUB_TASK);
 	act_tsk(XML_SLV_TASK);
 	act_tsk(XML_MAS_TASK);
-	act_tsk(USR_TASK1);
-	//act_tsk(USR_TASK2);
 
-	//	syslog(LOG_NOTICE,"**********mROS Main task finish**********");
+	act_tsk(USR_TASK1);
+	act_tsk(USR_TASK2);
+	syslog(LOG_NOTICE,"**********mROS Main task finish**********");
 }
 
 
@@ -211,11 +170,14 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 			//initialization
 			syslog(LOG_NOTICE,"PUB_TASK:publisher initialization");
 			static TCPSocketConnection sock;
+			// set socket option NoDelay
+			//int l = sock.set_option(IPPROTO_TCP,TCP_NODELAY,0,1);
+			//ROS_INFO("PUB_TASK: SOCKET option [%d]",l);
 			lst.add(sock,pdqp[0]);
 			wup_all();
 			rsm_tsk(SUB_TASK);
 			state = 3;
-			syslog(LOG_NOTICE,"Change state [%d]\nstopic[%s]",state,node_lst[node_num].topic_name.c_str());
+			syslog(LOG_NOTICE,"Change state [%d]\ntopic[%s]",state,node_lst[node_num].topic_name.c_str());
 		}else if((num != -1) && (size == 0)){
 			//receive request topic
 			bool connect_status = false;
@@ -243,7 +205,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 							/** for image data **/
 							//int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
 							/**for string data**/
-							int len = pub_gen_header(snd_buf,"mros_node","string data\n","mros_msg","std_msgs/String","992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
 							lst.sock_vec[num].send(snd_buf,len);
 							connect_status = false;
 						}
@@ -263,7 +225,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 			ROS_INFO("PUB_TASK: topic:[%s]",str.c_str());
 			int i = find_node(node_lst,str);
 			int ii = lst.find(node_lst[i].ID);
-			lst.stat_vec[ii] = 1;
+			lst.stat_vec[ii] = 0;
 			ROS_INFO("PUB_TASK:accept internal request [%d][%d]",i,ii);
 		}else{
 			//publish phase
@@ -295,17 +257,19 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 
 				/**方式3専用**/
 				//ID検索
-				char id = find_sub(node_lst,node_lst[node_num].topic_name);
-				if(id == -1){
+				/*
+				int i = find_sub(node_lst,node_lst[node_num].topic_name);
+				if(i == -1){
 					syslog(LOG_NOTICE,"PUB_TASK: Cannot find sub node");
 				}else{
 					//データフォーマット生成
-					pdqp[0] = id;
+					pdqp[0] = node_lst[i].ID;
 					sub_dqp = (intptr_t *)pdqp;
 					//データキュー送信
-					syslog(LOG_NOTICE,"PUB_TASK: push SUB_DTQ :id[%d]",id);
+					syslog(LOG_NOTICE,"PUB_TASK: push SUB_DTQ :id[%d]",node_lst[i].ID);
 					snd_dtq(SUB_DTQ,*sub_dqp);
 				}
+				*/
 
 			}
 		}
@@ -342,7 +306,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
 	char *sdq,*ip,*rptr; //data queue pointer,IP address,temporary buffer,receive buffer,memory address
 	char tmp[5000];
-	char rbuf[1024];
+	char rbuf[1024*512];
 	int port;	//port number
 	bool rcv_flag = true;
 	bool init_flag = true;
@@ -356,7 +320,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	    if(t == 0){
 	    	sdq = (char *)dqp;
 			int num = lst.find(sdq[0]);
-			syslog(LOG_NOTICE,"SUB_TASK: node id [%d]",sdq[0]);
+			//syslog(LOG_NOTICE,"SUB_TASK: node id [%d]",sdq[0]);
 			if(num == -1){
 				int node_num = find_id(node_lst,sdq[0]);
 	    		int idx = lst.id_vec.size();
@@ -423,8 +387,8 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				wup_all();
 				//end initialize
 			}else if(num != -1 && lst.stat_vec[num] == 2){
-				//方式3専用
-				syslog(LOG_NOTICE,"SUB_TASK: subscribe internal topic data");
+				//方式3,4専用
+				//syslog(LOG_NOTICE,"SUB_TASK: subscribe internal topic data");
 				int size = sdq[1];
 				size += sdq[2]*256;
 				size += sdq[3]*65536;
@@ -445,7 +409,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 						//syslog(LOG_NOTICE,"SUB_TASK: is_connected [%s]",lst.sock_vec[i].is_connected()?"true":"false");
 						//syslog(LOG_NOTICE,"SUB_TASK: get_port [%d]",lst.sock_vec[i].get_port());
 						if(n < 0){
-							syslog(LOG_NOTICE,"SUB_TASK: No data");
+							//syslog(LOG_NOTICE,"SUB_TASK: No data");
 						}else{
 							if(init_flag){
 								msg_size = (int)rbuf[0] + (int)rbuf[1]*256;// + rbuf[2]*65536 + rbuf[3]*16777216;
@@ -506,20 +470,22 @@ void xml_slv_task(){
 #ifndef _XML_SLAVE_
 #define _XML_SLAVE_
 	syslog(LOG_NOTICE,"========Activate mROS XML-RPC Slave========");
+	int port = 11411;
 	TCPSocketConnection xml_slv_sock;
 	TCPSocketServer xml_slv_srv;
+	if(xml_slv_srv.bind(port) == -1){
+		syslog(LOG_NOTICE,"Failed bind");
+		exit(1);
+	}
 	xml_slv_srv.set_blocking(true,1500);	//blockingじゃないと周期的に取れない
-	int port = 11411;
+
 	char rbuf[512];
 	char data[3];
 	string str,meth;
 	intptr_t *dqp;
 	bool connect_status = false;
-	if(xml_slv_srv.bind(port) == -1){
-		syslog(LOG_NOTICE,"Failed bind");
-		exit(1);
-	}
 #endif
+	int er = xml_slv_srv.listen();
 	while(1){
 		//syslog(LOG_NOTICE,"XML_SLV_TASK:enter loop");
 		//wait_ms(100);
@@ -527,7 +493,6 @@ void xml_slv_task(){
 			slp_tsk();
 		//}else{
 			//syslog(LOG_NOTICE,"XML_SLV_TASK: wake up");
-			xml_slv_srv.listen();
 			if(xml_slv_srv.accept(xml_slv_sock) == 0){
 				connect_status = true;
 				syslog(LOG_NOTICE,"XML_SLV_TASK: Connected");
@@ -554,9 +519,7 @@ void xml_slv_task(){
 							sus_tsk(SUB_TASK);
 							state = 2;
 							syslog(LOG_NOTICE,"Change state [%d]",state);
-							//syslog(LOG_NOTICE,"XML_SLV_TASK:request Topic method");
 							string topic_name = req_topic_name(str);
-							//syslog(LOG_NOTICE,"XML_SLV_TASK:topic name[%s]",topic_name.c_str());
 							int num = find_node(node_lst,topic_name);
 							if(num == -1){
 								syslog(LOG_NOTICE,"XML_SLV_TASK:No Existing node!");
@@ -574,15 +537,19 @@ void xml_slv_task(){
 								connect_status = false;
 								snd_dtq(PUB_DTQ,*dqp);
 							}
-							xml_slv_sock.close();
 							state = 4;
 							syslog(LOG_NOTICE,"Change state [%d]",state);
 						}else{
 							syslog(LOG_NOTICE,"XML_SLV_TASK: unknown method\n%s",str.c_str());
+							connect_status = false;
 						}
 					}
 				}
+			}else{
+				ROS_INFO("XML_SLV_TASK accept");
 			}
+			xml_slv_sock.close();
+			//xml_slv_srv.close();
 		}
 	}
 //}
@@ -641,20 +608,22 @@ void xml_mas_task(){
 			sus_all();
 			node sub;
 			string xml;
-			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Subscriber ID:[%d]",xdq[0]);
+			syslog(LOG_NOTICE,"XML_MAS_TASK: regiester Subscriber ID:[%d]",xdq[0]);
 			sub.ID = xdq[0];
 			get_node(&sub,&str,true);														
 			xml = registerSubscriber(sub.callerid,sub.topic_name,sub.topic_type,sub.uri);
 			xml_mas_sock.send(xml.c_str(),xml.size());
 			xml_mas_sock.receive(rbuf,sizeof(char)*512);
 			xml = rbuf;
+
+			//怪しい
 			if(get_ip(xml) != network.getIPAddress()){
-				sub.set_ip(m_ip);
+				sub.set_ip(get_ip(xml));
 			}else{
 				sub.set_ip(get_ip(xml));
 			}
 			sub.set_port(get_port(xml));
-			ROS_INFO("ip[%s],port[%d]",sub.ip.c_str(),sub.port);
+			ROS_INFO("XML_MAS_TASK: ip[%s],port[%d]",sub.ip.c_str(),sub.port);
 			node_lst.push_back(sub);
 			xml = registerSubtask(sub.fptr);
 			int size = xml.size();
@@ -671,11 +640,11 @@ void xml_mas_task(){
 		}else if(meth == "registerPublisher"){
 			xml_mas_sock.connect(m_ip,m_port);
 			sus_tsk(SUB_TASK);
-			syslog(LOG_NOTICE,"XML_MAS_TASK:Sleep SUB_TASK");
+			syslog(LOG_NOTICE,"XML_MAS_TASK: Sleep SUB_TASK");
 			wup_tsk(XML_SLV_TASK);
 			node pub;
 			std::string xml;
-			syslog(LOG_NOTICE,"XML_MAS_TASK:regiester Publisher ID:[%d]",xdq[0]);
+			syslog(LOG_NOTICE,"XML_MAS_TASK: regiester Publisher ID:[%d]",xdq[0]);
 			pub.ID = xdq[0];
 			get_node(&pub,&str,false);														
 			node_lst.push_back(pub);
@@ -690,18 +659,19 @@ void xml_mas_task(){
 			snd_dtq(PUB_DTQ,*sdata);	
 //===requestTopic================================================================================================================================
 		}else if(meth == "requestTopic"){	
-			syslog(LOG_NOTICE,"XML_MAS_TASK:send request topic");
+			syslog(LOG_NOTICE,"XML_MAS_TASK: send request topic");
 				int num = find_id(node_lst,xdq[0]);
 				//syslog(LOG_NOTICE,"XML_MAS_TASK: node num [%d]",num);
 				if(num != -1){
-				syslog(LOG_NOTICE,"XML_MAS_TASK:request node ID [%x]",node_lst[num].ID);
-				//if(node_lst[num].ip.c_str() != network.getIPAddress()){
+				syslog(LOG_NOTICE,"XML_MAS_TASK: request node [ID:%x, topic:%s]",node_lst[num].ID,node_lst[num].topic_name.c_str());
 				string body = requestTopic(node_lst[num].callerid,node_lst[num].topic_name);
-				if(xml_mas_sock.connect(node_lst[num].ip.c_str(),node_lst[num].port) == -1){
-					syslog(LOG_NOTICE,"XML_MAS_TASK:ip[%s],port[%d]",node_lst[num].ip.c_str(),node_lst[num].port);
+				int le = xml_mas_sock.connect(node_lst[num].ip.c_str(),node_lst[num].port);
+				if(le < 0){
+					syslog(LOG_NOTICE,"XML_MAS_TASK: ip[%s],port[%d]:: err [%d]",node_lst[num].ip.c_str(),node_lst[num].port,le);
 					syslog(LOG_NOTICE,"XML_MAS_TASK: cannot connect pub node");
 					syslog(LOG_NOTICE,"XML_MAS_TASK: Terminated TASK");
-					return;
+					//エラーシグナルをサブタスクに送るようにする
+					break;
 				}
 				xml_mas_sock.send(body.c_str(),body.size());
 				xml_mas_sock.receive(rbuf,sizeof(char)*512);
@@ -714,14 +684,13 @@ void xml_mas_task(){
 				sdata = (intptr_t) &data;
 				snd_dtq(SUB_DTQ,*sdata);
 			}else{
-				//syslog(LOG_NOTICE,"XML_MAS: Can't find node! [request topic]");
+				syslog(LOG_NOTICE,"XML_MAS: Can't find node! [request topic]");
 			}
 //===else========================================================================================================================================
 		/*機能追加はここ*/
 		}else if(meth == "requestTopic_INT"){
 			syslog(LOG_NOTICE,"XML_MAS_TASK:internal request topic");
 		}else{
-
 		}
 		xml_mas_sock.close();
 	} //end while loop
@@ -729,17 +698,8 @@ void xml_mas_task(){
 
 //cyclic handler
 void cyclic_handler(intptr_t exinf){
-	int err;
-	//iwup_tsk():wake up tasks -> wup_tsk() causes context error
-	switch(state){
-	//case 2:	err = iwup_tsk(XML_SLV_TASK);
-	//		break;
-	default: err = iwup_tsk(SUB_TASK);
-			 err = iwup_tsk(XML_SLV_TASK);
-	}
-	if(err != 0){
-		//syslog(LOG_NOTICE,"CYC HANDLER: err code [%d]",err);
-	}
+	iwup_tsk(SUB_TASK);
+	iwup_tsk(XML_SLV_TASK);
 }
 
 

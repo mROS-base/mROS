@@ -1,9 +1,32 @@
 #include "ros.h"
 
 std::vector<ID> IDv;
+int ID_find(std::vector<ID> IDv,ID id){for(unsigned int i=0;i < IDv.size();i++){if(IDv[i] == id){return i;}}return -1;}
 
-void ros::init(int argc,char *argv,const char *node_name){
+std::vector<std::string> node_nv;
 
+extern std::vector<node> node_lst;
+int find_node(std::vector<node> list,std::string topic){for(unsigned int i=0;i < list.size();i++){if(list[i].topic_name == topic){return i;}}return -1;}
+int find_id(std::vector<node> list,char ID){for(unsigned int i=0;i < list.size();i++){if(list[i].ID == ID){return i;}}return -1;}
+//同一デバイス通信用
+int find_sub(std::vector<node> list,std::string topic){
+	for(unsigned int i=0;i < list.size();i++){
+		if(list[i].topic_name == topic && list[i].node_type){
+			return i; 	//現状一つだけに対応
+		}
+	}
+	return -1;
+}
+
+
+
+
+void ros::init(int argc,char *argv,std::string node_name){
+	ID id;
+	get_tid(&id);
+	IDv.push_back(id);
+	syslog(LOG_NOTICE,"usr task ID [%d]",id);
+	node_nv.push_back(node_name);
 }
 /*
 template<class M,class T> ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,void (T::*fp)(M)){
@@ -15,18 +38,19 @@ template<class M> ros::Subscriber ros::NodeHandle::subscriber(std::string topic,
 	return sub;
 }
 */
+
+
 ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,void (*fp)(std::string)){
-	ID id;
-	get_tid(&id);
-	IDv.push_back(id);
-	syslog(LOG_NOTICE,"usr task ID [%d]",id);
 	while(ros_sem != 0){
 
 	}
 	state = 1;
 	syslog(LOG_NOTICE,"Change state [%d]",state);
 	ros_sem++;
+	ID id;
+	get_tid(&id);
 	Subscriber sub;
+	sub.node = node_nv[ID_find(IDv,id)].c_str();
 	sub.topic = topic.c_str();
 	sub.ID = (char) count;
 	count++;
@@ -38,7 +62,9 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 	sstr += topic;
 	sstr += "</topic_name>\n";
 	sstr += "<topic_type>std_msgs/String</topic_type>\n";
-	sstr += "<caller_id>/mros_node2</caller_id>\n";
+	sstr += "<caller_id>/";
+	sstr +=  node_nv[ID_find(IDv,id)].c_str();
+	sstr+=	"</caller_id>\n";
 	sstr += "<message_definition>std_msgs/String</message_definition>\n";
 	sstr += "<fptr>";
 	sstr += tmp;
@@ -57,10 +83,6 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,voi
 }
 
 ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
-	ID id;
-	get_tid(&id);
-	IDv.push_back(id);
-	syslog(LOG_NOTICE,"usr task ID [%d]",id);
 	//セマフォの確認
 	while(ros_sem != 0){
 
@@ -68,7 +90,10 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	ros_sem++;
 	state = 2;
 	syslog(LOG_NOTICE,"Change state [%d]",state);
+	ID id;
+	get_tid(&id);
 	Publisher pub;
+	pub.node = node_nv[ID_find(IDv,id)].c_str();
 	pub.topic = topic.c_str();
 	pub.ID = count;
 	count++;
@@ -78,7 +103,9 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += topic;
 	pstr += "</topic_name>\n";
 	pstr += "<topic_type>std_msgs/String</topic_type>\n";
-	pstr += "<caller_id>/mros_node</caller_id>\n";
+	pstr += "<caller_id>/";
+	pstr +=	node_nv[ID_find(IDv,id)].c_str();
+	pstr += "</caller_id>\n";
 	pstr += "<message_definition>string data</message_definition>\n";
 	pstr += "<fptr>12345671</fptr>\n";
 	intptr_t *pdq;
@@ -100,6 +127,20 @@ void ros::Publisher::publish(char* data){
 		slp_tsk();
 	}
 	int size = strlen(data);
+	int i = find_sub(node_lst,node_lst[find_id(node_lst,this->ID)].topic_name);
+
+	if(i != -1){
+		char sbuf[4];
+		memcpy(&mem[PUB_ADDR],data,size);
+		intptr_t *pdq;
+		sbuf[0] = node_lst[i].ID;
+		sbuf[1] = size;
+		sbuf[2] = size/256;
+		sbuf[3] = size/65536;
+		pdq = (intptr_t) &sbuf;
+		snd_dtq(SUB_DTQ,*pdq);
+	}
+	/*
 	char pbuf[4];
 	memcpy(&mem[PUB_ADDR],data,size);
 	intptr_t *pdq;
@@ -108,14 +149,8 @@ void ros::Publisher::publish(char* data){
 	pbuf[2] = size/256;
 	pbuf[3] = size/65536;
 	pdq = (intptr_t) &pbuf;
-	/*
-	if(find_sub(node_lst,node_lst[find_id(node_lst,this->id)].topic_name) != -1){
-		snd_dtq(SUB_DTQ,*pdq);
-	}else{
-		snd_dtq(PUB_DTQ,*pdq);
-	}
-	*/
 	snd_dtq(PUB_DTQ,*pdq);
+*/
 }
 
 

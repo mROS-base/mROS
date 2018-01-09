@@ -310,14 +310,21 @@ void usr_task1(){
 	}
 }
 
-void Callback(){
-
+void Callback(string *msg){
+	ROS_INFO("I heared [%s]",msg->c_str());
 }
-
+int evl_count;
 void usr_task2(){
+#ifndef _USR_TASK_2_
+#define _USR_TASK_2_
+	syslog(LOG_NOTICE,"========Activate user task2========");
+	evl_count = 0;
+	int argc = 0;
+	char *argv = NULL;
+	ros::init(argc,argv,"mros_node2");
 	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscriber("image_raw",1,Callback);
-	ros::spin();
+	ros::Subscriber sub = n.subscriber("mros_msg", 1,Callback);
 
+#endif
 }
 

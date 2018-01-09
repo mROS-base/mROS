@@ -5,39 +5,42 @@
     <link>http://blog.atollic.com</link>
     <description>The TruePERSPECTIVES blog discusses topics relevant to embedded developers and their managers: best practices for embedded development, industry observations, and tips and techniques for using Atollic TrueSTUDIO development tools, ARM Cortex-M development, and more.</description>
     <language>en-us</language>
-    <pubDate>Thu, 23 Nov 2017 15:31:57 GMT</pubDate>
-    <dc:date>2017-11-23T15:31:57Z</dc:date>
+    <pubDate>Thu, 21 Dec 2017 12:48:03 GMT</pubDate>
+    <dc:date>2017-12-21T12:48:03Z</dc:date>
     <dc:language>en-us</dc:language>
     <item>
-      <title>Webinar: Secure bootloader design techniques for MCUs</title>
-      <link>http://blog.atollic.com/webinar-secure-bootloader-design-techniques-for-mcu</link>
+      <title>TrueSTUDIO Developers using STM32 devices get an early holiday gift from STMicroelectronics</title>
+      <link>http://blog.atollic.com/early-holiday-gift-from-stmicroelectronics</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/webinar-secure-bootloader-design-techniques-for-mcu" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/bootloader-webiner-2.png?t=1510577506048" alt="bootloader-webiner-2.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
-&lt;/div&gt;    
-&lt;p&gt;Our friend Jacob Beningo is a well-known lecturer in the embedded space. This month he will host a webinar sharing his experiences on designing secure bootloaders for MCUs. He will use an Cortex-M MCU and Atollic TrueSTUDIO develoment tools.&lt;/p&gt;</description>
+ &lt;a href="http://blog.atollic.com/early-holiday-gift-from-stmicroelectronics" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/st_atollic_present.png?t=1513786981499" alt="st_atollic_present.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;     
+&lt;h3&gt;If you have not yet heard, STMicroelectronics has acquired Atollic!&lt;/h3&gt; 
+&lt;p&gt;If you are an STM32 developer and an Atollic TrueSTUDIO user, think of it as an early holiday present. What was the paid Pro version of TrueSTUDIO will soon be made available to STM32 developers &lt;u&gt;at no charge&lt;/u&gt;.&lt;/p&gt; 
+&lt;p&gt;STâ€™s and Atollicâ€™s engineers are already at work on building a fully integrated software solution. The next-gen version of TrueSTUDIO will feature even tighter integration with the STM32 ecosystem&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/webinar-secure-bootloader-design-techniques-for-mcu" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/bootloader-webiner-2.png?t=1510577506048" alt="bootloader-webiner-2.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
-&lt;/div&gt;    
-&lt;p&gt;Our friend Jacob Beningo is a well-known lecturer in the embedded space. This month he will host a webinar sharing his experiences on designing secure bootloaders for MCUs. He will use an Cortex-M MCU and Atollic TrueSTUDIO develoment tools.&lt;/p&gt;    
-&lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fwebinar-secure-bootloader-design-techniques-for-mcu&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
-      <category>ARM Cortex</category>
+ &lt;a href="http://blog.atollic.com/early-holiday-gift-from-stmicroelectronics" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/st_atollic_present.png?t=1513786981499" alt="st_atollic_present.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+&lt;/div&gt;     
+&lt;h3&gt;If you have not yet heard, STMicroelectronics has acquired Atollic!&lt;/h3&gt; 
+&lt;p&gt;If you are an STM32 developer and an Atollic TrueSTUDIO user, think of it as an early holiday present. What was the paid Pro version of TrueSTUDIO will soon be made available to STM32 developers &lt;u&gt;at no charge&lt;/u&gt;.&lt;/p&gt; 
+&lt;p&gt;STâ€™s and Atollicâ€™s engineers are already at work on building a fully integrated software solution. The next-gen version of TrueSTUDIO will feature even tighter integration with the STM32 ecosystem&lt;/p&gt;    
+&lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fearly-holiday-gift-from-stmicroelectronics&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
       <category>Atollic TrueSTUDIO</category>
-      <category>boot loader</category>
-      <pubDate>Mon, 13 Nov 2017 13:00:08 GMT</pubDate>
-      <author>mattias.norlander@atollic.com (Mattias Norlander)</author>
-      <guid>http://blog.atollic.com/webinar-secure-bootloader-design-techniques-for-mcu</guid>
-      <dc:date>2017-11-13T13:00:08Z</dc:date>
+      <category>STM32</category>
+      <pubDate>Mon, 18 Dec 2017 15:13:22 GMT</pubDate>
+      <author>stephen.martin@atollic.com (Stephen Martin)</author>
+      <guid>http://blog.atollic.com/early-holiday-gift-from-stmicroelectronics</guid>
+      <dc:date>2017-12-18T15:13:22Z</dc:date>
     </item>
     <item>
       <title>Visualizing run-time statistics using FreeRTOS and Atollic TrueSTUDIO Pro</title>
       <link>http://blog.atollic.com/visualizing-run-time-statistics-using-freertos</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/visualizing-run-time-statistics-using-freertos" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/freeRTOS%20statistics.png?t=1510577506048" alt="Visualizing run-time statistics using FreeRTOS and Atollic TrueSTUDIO Pro" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/visualizing-run-time-statistics-using-freertos" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/freeRTOS%20statistics.png?t=1513786981499" alt="Visualizing run-time statistics using FreeRTOS and Atollic TrueSTUDIO Pro" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Atollic TrueSTUDIO Pro (v.8.1.0 and later version) have extended kernel-aware debugging support by allowing to visualise FreeRTOS run-time statistics. FreeRTOS can optionally be configured to collect information about each tasks execution time. In Atollic TrueSTUDIO the execution time for each task can be visualised as the percentage of the total execution time for the application using the kernel-aware debug views for FreeRTOS.&lt;/p&gt; 
 &lt;p&gt;In this article we describe how to make the run-time statistics work in Atollic TrueSTUDIO Pro 8.1.0.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/visualizing-run-time-statistics-using-freertos" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/freeRTOS%20statistics.png?t=1510577506048" alt="Visualizing run-time statistics using FreeRTOS and Atollic TrueSTUDIO Pro" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/visualizing-run-time-statistics-using-freertos" title="" class="hs-featured-image-link"&gt; &lt;img src="https://blog.atollic.com/hubfs/Blog/freeRTOS%20statistics.png?t=1513786981499" alt="Visualizing run-time statistics using FreeRTOS and Atollic TrueSTUDIO Pro" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Atollic TrueSTUDIO Pro (v.8.1.0 and later version) have extended kernel-aware debugging support by allowing to visualise FreeRTOS run-time statistics. FreeRTOS can optionally be configured to collect information about each tasks execution time. In Atollic TrueSTUDIO the execution time for each task can be visualised as the percentage of the total execution time for the application using the kernel-aware debug views for FreeRTOS.&lt;/p&gt; 
 &lt;p&gt;In this article we describe how to make the run-time statistics work in Atollic TrueSTUDIO Pro 8.1.0.&lt;/p&gt;    
@@ -55,12 +58,12 @@
       <title>Eclipse/GNU/Cortex-M 3-day hands-on training in Eindhoven</title>
       <link>http://blog.atollic.com/hands-on-eclipse-gnu-arm_cortex_m-training-2017</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/hands-on-eclipse-gnu-arm_cortex_m-training-2017" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ARM-Eclipse-GNU-Training.png?t=1510577506048" alt="ARM-Eclipse-GNU-Training.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/hands-on-eclipse-gnu-arm_cortex_m-training-2017" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ARM-Eclipse-GNU-Training.png?t=1513786981499" alt="ARM-Eclipse-GNU-Training.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;     
 &lt;p&gt;Join us from 13-15 September 2017 in Eindhoven to learn the skills you need to be a professional embedded developer. We are offering an intensive 3-day, hands-on training course in ARM Cortex-M development. This training will teach you everything worth knowing about the Cortex-M cores and the GNU compiler and debugger tool chain. You will also learn the ins- and outs- of the ECLIPSEÂ® IDE, and how to use it for advanced Cortex-M development and debugging.&lt;/p&gt; 
 &lt;p&gt;Learn the essential skills you need to be a professional embedded developer with this hands-on training course.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/hands-on-eclipse-gnu-arm_cortex_m-training-2017" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ARM-Eclipse-GNU-Training.png?t=1510577506048" alt="ARM-Eclipse-GNU-Training.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/hands-on-eclipse-gnu-arm_cortex_m-training-2017" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/ARM-Eclipse-GNU-Training.png?t=1513786981499" alt="ARM-Eclipse-GNU-Training.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;     
 &lt;p&gt;Join us from 13-15 September 2017 in Eindhoven to learn the skills you need to be a professional embedded developer. We are offering an intensive 3-day, hands-on training course in ARM Cortex-M development. This training will teach you everything worth knowing about the Cortex-M cores and the GNU compiler and debugger tool chain. You will also learn the ins- and outs- of the ECLIPSEÂ® IDE, and how to use it for advanced Cortex-M development and debugging.&lt;/p&gt; 
 &lt;p&gt;Learn the essential skills you need to be a professional embedded developer with this hands-on training course.&lt;/p&gt;    
@@ -75,11 +78,11 @@
       <title>How "LIVE" do you want to be?</title>
       <link>http://blog.atollic.com/how-live-do-you-want-to-be</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/how-live-do-you-want-to-be" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/live%20expressions%20view%20in%20TrueSTUDIO%20Pro.jpg?t=1510577506048" alt="live expressions view in TrueSTUDIO Pro.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/how-live-do-you-want-to-be" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/live%20expressions%20view%20in%20TrueSTUDIO%20Pro.jpg?t=1513786981499" alt="live expressions view in TrueSTUDIO Pro.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;     
 &lt;p&gt;Many embedded developers new to ARM Cortex-M devices are unaware of the powerful debug capabilities these devices enable in their silicon design. Professional IDEs, like Atollic TrueSTUDIO Pro, leverage these and provide debugging power any professional embedded developer should be aware of.&lt;br&gt;&lt;br&gt;In this blog post, I will explain how Cortex-M cores enable highly useful debugger features for â€œliveâ€� visualization of variable values in real-time.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/how-live-do-you-want-to-be" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/live%20expressions%20view%20in%20TrueSTUDIO%20Pro.jpg?t=1510577506048" alt="live expressions view in TrueSTUDIO Pro.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/how-live-do-you-want-to-be" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/live%20expressions%20view%20in%20TrueSTUDIO%20Pro.jpg?t=1513786981499" alt="live expressions view in TrueSTUDIO Pro.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;     
 &lt;p&gt;Many embedded developers new to ARM Cortex-M devices are unaware of the powerful debug capabilities these devices enable in their silicon design. Professional IDEs, like Atollic TrueSTUDIO Pro, leverage these and provide debugging power any professional embedded developer should be aware of.&lt;br&gt;&lt;br&gt;In this blog post, I will explain how Cortex-M cores enable highly useful debugger features for â€œliveâ€� visualization of variable values in real-time.&lt;/p&gt;    
 &lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fhow-live-do-you-want-to-be&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -92,11 +95,11 @@
       <title>The Embedded Developer is Dead â€“ Long Live the Embedded Developer!</title>
       <link>http://blog.atollic.com/the-embedded-developer-is-dead-long-live-the-embedded-developer</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/the-embedded-developer-is-dead-long-live-the-embedded-developer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/developers.jpg?t=1510577506048" alt="embedded developers" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/the-embedded-developer-is-dead-long-live-the-embedded-developer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/developers.jpg?t=1513786981499" alt="embedded developers" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;&lt;span style="background-color: transparent; font-weight: 300; color: #727272; font-size: 14px;"&gt;Most industries change over time, and some are even significantly disrupted. I would argue the embedded industry is quite conservative and resistant to change. For example, in spite of all the hardware and connectivity changes over the last 20 years the tasks of an embedded developer havenâ€™t changed much.&lt;/span&gt;&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/the-embedded-developer-is-dead-long-live-the-embedded-developer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/developers.jpg?t=1510577506048" alt="embedded developers" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/the-embedded-developer-is-dead-long-live-the-embedded-developer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/developers.jpg?t=1513786981499" alt="embedded developers" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;&lt;span style="background-color: transparent; font-weight: 300; color: #727272; font-size: 14px;"&gt;Most industries change over time, and some are even significantly disrupted. I would argue the embedded industry is quite conservative and resistant to change. For example, in spite of all the hardware and connectivity changes over the last 20 years the tasks of an embedded developer havenâ€™t changed much.&lt;/span&gt;&lt;/p&gt;    
 &lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fthe-embedded-developer-is-dead-long-live-the-embedded-developer&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -110,11 +113,11 @@
       <title>Code quiz: Test your coding skills! [do you measure up?]</title>
       <link>http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/coding_quiz.png?t=1510577506048" alt="coding_quiz.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/coding_quiz.png?t=1513786981499" alt="coding_quiz.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;In this blog post, I will give you a difficult coding task to crack. One of my colleagues presented it to the Atollic development team over a coffee break a few days ago, and I thought this could be an interesting problem for other developers to discuss over the coffee break as well! Are you up for a challenge to prove you are an expert developer?&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/coding_quiz.png?t=1510577506048" alt="coding_quiz.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/code-quiz-test-your-coding-skills-do-you-measure-up" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/coding_quiz.png?t=1513786981499" alt="coding_quiz.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;In this blog post, I will give you a difficult coding task to crack. One of my colleagues presented it to the Atollic development team over a coffee break a few days ago, and I thought this could be an interesting problem for other developers to discuss over the coffee break as well! Are you up for a challenge to prove you are an expert developer?&lt;/p&gt;    
 &lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fcode-quiz-test-your-coding-skills-do-you-measure-up&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -127,11 +130,11 @@
       <title>"It Was a Disaster," a new entry in our video series on the struggles of embedded developers</title>
       <link>http://blog.atollic.com/it-was-a-disaster_videoseries</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1510577506048" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1513786981499" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    Previous episodes in our video series focused on a problem-solution approach to telling the story of the challenges of embedded development. This installment takes a "post mortem" view of a project that began more than a year ago and lets you draw your own conclusions about what could have been done differently. 
 &lt;br&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1510577506048" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/it-was-a-disaster_videoseries" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/It%20was%20a%20disaster%20splash%20screen.png?t=1513786981499" alt="A project post-mortem" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    Previous episodes in our video series focused on a problem-solution approach to telling the story of the challenges of embedded development. This installment takes a "post mortem" view of a project that began more than a year ago and lets you draw your own conclusions about what could have been done differently. 
 &lt;br&gt;    
 &lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fit-was-a-disaster_videoseries&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -145,11 +148,11 @@
       <title>Webinar: How to configure a reliable file system on Cortex-M</title>
       <link>http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1510577506048" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1513786981499" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Iot devices are being trusted to handle more critical data all the time, making it vital for the data not to become corrupted. This has increased the need for reliable file systems that protect data in the case of unexpected power loss, which is common in these devices.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1510577506048" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-datalight-reliance-edge-webinar" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Ecosystem/DataLight/reliance_edge.png?t=1513786981499" alt="reliance_edge.png" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Iot devices are being trusted to handle more critical data all the time, making it vital for the data not to become corrupted. This has increased the need for reliable file systems that protect data in the case of unexpected power loss, which is common in these devices.&lt;/p&gt;    
 &lt;img src="https://track.hubspot.com/__ptq.gif?a=460400&amp;amp;k=14&amp;amp;r=http%3A%2F%2Fblog.atollic.com%2Fjoin-our-free-datalight-reliance-edge-webinar&amp;amp;bu=http%253A%252F%252Fblog.atollic.com&amp;amp;bvt=rss" alt="" width="1" height="1" style="min-height:1px!important;width:1px!important;border-width:0!important;margin-top:0!important;margin-bottom:0!important;margin-right:0!important;margin-left:0!important;padding-top:0!important;padding-bottom:0!important;padding-right:0!important;padding-left:0!important; "&gt;</content:encoded>
@@ -165,12 +168,12 @@
       <title>Meet Frederic - his boss is giving him memory problems! [embedded development video]</title>
       <link>http://blog.atollic.com/embedded_movie_memory_stack_analyzer</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1510577506048" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1513786981499" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;&amp;nbsp;In this episode of our embedded development movie series, Frederic's boss sets an unreasonable deadline for Frederic.&lt;/p&gt; 
 &lt;p&gt;Watch the video below and follow Frederic's efforts as an embedded developer and the struggles of meeting management expectations.&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1510577506048" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/embedded_movie_memory_stack_analyzer" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hubfs/Blog/frederic_movie.png?t=1513786981499" alt="Meet Frederic - his boss is giving him memory problems! [embedded development video]" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;&amp;nbsp;In this episode of our embedded development movie series, Frederic's boss sets an unreasonable deadline for Frederic.&lt;/p&gt; 
 &lt;p&gt;Watch the video below and follow Frederic's efforts as an embedded developer and the struggles of meeting management expectations.&lt;/p&gt;    
@@ -184,12 +187,12 @@
       <title>Join The FREE Webinar: RTOS Fundamentals Using FreeRTOS on STM32F7</title>
       <link>http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32</link>
       <description>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1510577506048" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1513786981499" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Embedded system complexity has reached the point where many systems require a real-time operating system. In this free webinar, attendees will become familiar with the design methodologies necessary to properly schedule tasks in addition to understanding when and where to use mutexes, semaphores and message queues.&lt;/p&gt; 
 &lt;p&gt;Important concepts such as preventing priority inversions, deadlock and thread starvation will be examined. The webinar will provide hands-on demonstrations using the STMicrolectronics STM32F7 Nucleo Board which uses an ARM Cortex-M7 processor with the Atollic TrueSTUDIO&amp;nbsp;toolchain. Learn more!&lt;/p&gt;</description>
       <content:encoded>&lt;div class="hs-featured-image-wrapper"&gt; 
- &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1510577506048" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
+ &lt;a href="http://blog.atollic.com/join-our-free-webinar-rtos-fundamentals-using-freertos-stm32" title="" class="hs-featured-image-link"&gt; &lt;img src="http://blog.atollic.com/hs-fs/hub/460400/file-2658671026-jpg/Mailshots/free_webinar.jpg?t=1513786981499" alt="free_webinar.jpg" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"&gt; &lt;/a&gt; 
 &lt;/div&gt;    
 &lt;p&gt;Embedded system complexity has reached the point where many systems require a real-time operating system. In this free webinar, attendees will become familiar with the design methodologies necessary to properly schedule tasks in addition to understanding when and where to use mutexes, semaphores and message queues.&lt;/p&gt; 
 &lt;p&gt;Important concepts such as preventing priority inversions, deadlock and thread starvation will be examined. The webinar will provide hands-on demonstrations using the STMicrolectronics STM32F7 Nucleo Board which uses an ARM Cortex-M7 processor with the Atollic TrueSTUDIO&amp;nbsp;toolchain. Learn more!&lt;/p&gt;    
