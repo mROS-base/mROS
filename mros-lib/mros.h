@@ -26,9 +26,9 @@
 #endif /* TASK_PORTID */
 
 #ifndef MROS_TASK_STACK_SIZE
-#define MROS_SUB_STACK_SIZE 1024 * 16		//for subscribe/user task
-#define MROS_PUB_STACK_SIZE 1024 * 1024	//for publish/user task
-#define MROS_TASK_STACK_SIZE 1024 * 5	//for mros task
+#define MROS_SUB_STACK_SIZE 1024 * 512		//for subscribe/user task
+#define MROS_PUB_STACK_SIZE 1024 * 600	//for publish/user task
+#define MROS_TASK_STACK_SIZE 1024 * 8	//for mros task
 #endif	/*MROS_TASK_STACK_SIZE*/
 
 #ifndef KMM_SIZE
@@ -48,12 +48,14 @@
 
 #ifndef CYC
 #define CYC_HDR 1
+#define MROS_LOOP_RATE 100
 #define CYC
 #endif	/*CYC*/
 
 #ifndef MEM_ADD				/* base address of shared memory in mROS */
 #define MEM_ADD
 #define PUB_ADDR (0)
+#define PUB_ADDR2 (1024*512)
 #define SUB_ADDR (1024*1024)
 #define XML_ADDR (1024*1024 + 1024*2)
 #define INT_ADDR (1024*1024 + 1024*4)

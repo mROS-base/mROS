@@ -1,6 +1,6 @@
 #include "mros.h"
 
-
+/* XMLパーサ 使ってないので作ってください
 #define SUCCESS_PARSING 1
 #define HTTP_OK 2
 #define NON_POST_METHOD -2
@@ -274,6 +274,7 @@ int ParseReceiveMessage(string http,xmlNode *node){
     cout << "ERROR_STATUS: " << err_status << endl;
     return err_status;
 }
+*/
 
 int get_port(string http){
 	string val;

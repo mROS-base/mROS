@@ -2,29 +2,33 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Server" key="selection"/>
+		<item value="send" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="server"/>
-			<item value="node_type"/>
-			<item value="find_sub"/>
-			<item value="ID"/>
-			<item value="rsm"/>
-			<item value="mros_node"/>
-			<item value="connect"/>
-			<item value="SUB_TASK"/>
+			<item value="send"/>
+			<item value="wup_all"/>
+			<item value="data"/>
+			<item value="is_connected"/>
+			<item value="ros_Image"/>
+			<item value="resize"/>
+			<item value="-&gt;"/>
+			<item value="memcpy"/>
 		</list>
 		<list key="replacehistory">
+			<item value="mem"/>
+			<item value="sensor_msgs::Image"/>
+			<item value="."/>
+			<item value="-&gt;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="330" key="DIALOG_WIDTH"/>
 		<item value="1|Yu Gothic UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Yu Gothic UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="1031" key="DIALOG_X_ORIGIN"/>
-		<item value="194" key="DIALOG_Y_ORIGIN"/>
+		<item value="1289" key="DIALOG_X_ORIGIN"/>
+		<item value="284" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -5,13 +5,18 @@
 #include <vector>
 #include "mros.h"
 
+
+
+//========================================================================================================================================================
+//========================================================================================================================================================
+//========================================================================================================================================================
 /******************************************************
  * Node information structure for XML-MAS TASK        *
  * ****************************************************/
 typedef struct node{
 		std::string node_name;				//Node_Name
 		bool node_type;						//true->subscriber false->publisher
-		bool stat = true;
+		bool pub_stat;				//publishing state
 		char ID;							//for mROS ID>1
 		std::string topic_name;				//ROS
 		std::string topic_type;				//ROS
@@ -21,10 +26,10 @@ typedef struct node{
 		int port;							//for sub　通信相手となるノードのXML-RPC受付ポート
 		std::string fptr;					//for sub コールバック関数のポインタ
 		std::string ip;						//for sub 通信相手となるノードのIP
-
 public:
+		node(){ this->pub_stat = false;};
 		void set_node_type(bool type){this->node_type=type;};
-		void init(){this->stat = false;};
+		void set_pub(){this->pub_stat = true;};
 		void set_ID(char c){this->ID = c;};
 		void set_topic_name(std::string t){this->topic_name=t;};
 		void set_topic_type(std::string t){this->topic_type=t;};
@@ -42,6 +47,10 @@ extern int find_id(std::vector<node> list,char ID);
 //同一デバイス通信用
 extern int find_sub(std::vector<node> list,std::string topic);
 
+//========================================================================================================================================================
+//========================================================================================================================================================
+//========================================================================================================================================================
+//========================================================================================================================================================
 
 
 class Header{
@@ -52,7 +61,15 @@ public:
 	std::string frame_id;
 };
 
-class ros_Image{
+namespace std_msgs{
+class String{
+public:
+	std::string data;
+};
+}
+
+namespace sensor_msgs{
+class Image{
 public:
 	Header header;
 	unsigned int height;
@@ -60,8 +77,13 @@ public:
 	std::string encoding;
 	unsigned char is_bigendian;
 	unsigned int step;
-	unsigned char data[320*4*240];
+	unsigned char *data;
 };
+}
+//========================================================================================================================================================
+//========================================================================================================================================================
+//========================================================================================================================================================
+
 
 namespace ros{
 
@@ -69,9 +91,8 @@ typedef class Publisher{
 public:
 	char topic;
 	char node;
-	void publish(char *data);
-	void imgpublish(ros_Image *data);
-	void publish_dummy();
+	void publish(std_msgs::String& data);
+	void publish(sensor_msgs::Image& data);
 	char ID;
 }Publisher;
 
@@ -90,7 +111,7 @@ class NodeHandle{
 	Subscriber sub;
 	Publisher pub;
 public:
-	Subscriber subscriber(std::string topic,int queue_size,void(*fp)(std::string));
+	Subscriber subscriber(std::string topic,int queue_size,void(*fp)());
 	Publisher advertise(std::string topic,int queue_size);
 };
 

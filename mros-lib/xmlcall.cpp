@@ -47,7 +47,7 @@ string  makexmlcall(string name,vector<string> params,int pnum){
         m += "</value>\n</param>\n";
     }
     m += "</params>";
-    m += "</methodCall>";
+    m += "</methodCall>\n\0";
     return m;
 }
 
@@ -152,7 +152,7 @@ string test_requestResponse(string ip){
     xml += "</data></array></value>";
     xml += "</param>\n";
     xml += "</params>\n";
-    xml += "</methodResponse>\n";
+    xml += "</methodResponse>\n\0";
     res = addHttpOK(xml);
     //syslog(LOG_NOTICE,"LOG_INFO: xml [%s]",xml.c_str());
     return res;

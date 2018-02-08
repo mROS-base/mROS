@@ -1,4 +1,4 @@
-#include "mros.h"
+#include "tcp_ros.h"
 
 
 void add_len(char *buf,int len){
@@ -66,8 +66,13 @@ int sub_gen_header(char *buf,string id,string nodelay,string topic,string type,s
     add_len(&buf[it],md5.size());
     memcpy(&buf[it +4],md5.c_str(),md5.size());
     it = it + 4 + md5.size();
+    add_len(&buf[it],strlen("tcp_nodely=1"));
+    memcpy(&buf[it +4],"tcp_nodely=1",strlen("tcp_nodely=1"));
+    it = it + 4 + strlen("tcp_nodely=1");
     return len;
 }
+
+
 
 //only for std_msgs/String 
 int pub_gen_msg(char *buf,char *msg){
@@ -77,126 +82,9 @@ int pub_gen_msg(char *buf,char *msg){
     return len+8;
 }
 
-bool first = true;
-int ind;
-//rgb8用ダミー関数
-int pub_gen_dummy(char *buf){
-	int p=4;
-	if(first){
-    //Header -> sequence
-	for(int j= 0;j<4;j++){
-		buf[j+p] = 0x00;
-	}
-	p=p+4;
-	//header -> timestamp [sec]
-    for(int j= 0;j<4;j++){
-    	buf[j+p] = 0x00;
-    }
-    p = p+4;
-	//header -> timestamp [nsec]
-    for(int j= 0;j<4;j++){
-		buf[j+p] = 0x00;
-	}
-    p = p+4;
-    //header -> frame_id
-    add_len(&buf[p],sizeof("mROScam"));
-    p = p + 4;
-    memcpy(&buf[p],"mROScam",sizeof("mROScam"));
-    p = p+ sizeof("mROScam");
-    //height
-    buf[p] = 0x04;
-    buf[p+1] = 0x0;
-    buf[p+2] = 0x00;
-    buf[p+3] = 0x00;
-    p = p+4;
-    //width
-    buf[p] = 0x02;
-	buf[p+1] = 0x00;
-	buf[p+2] = 0x00;
-	buf[p+3] = 0x00;
-	p = p+4;
-    //encode
-	add_len(&buf[p],4);
-	p = p+4;
-	buf[p] = 0x72;
-	buf[p+1] = 0x67;
-	buf[p+2] = 0x62;
-	buf[p+3] = 0x38;
-	p=p+4;
-	//endian,step
-	buf[p] = 0x00;
-	buf[p+1] = 0x06;
-	buf[p+2] = 0x00;
-	buf[p+3] = 0x00;
-	buf[p+4] = 0x00;
-	p=p+5;
-	//data
-	add_len(&buf[p],24);
-	p=p+4;
-	ind = p;
-	//1-1
-	buf[p] = 0x00;
-	buf[p+1] = 0x00;
-	buf[p+2] = 0xff;
-	p=p+3;
-	//1-2
-	buf[p] = 0x00;
-	buf[p+1] = 0xff;
-	buf[p+2] = 0x00;
-	p=p+3;
-	//2-1
-	buf[p] = 0xff;
-	buf[p+1] = 0x00;
-	buf[p+2] = 0x00;
-	p=p+3;
-	//2-2
-	buf[p] = 0x00;
-	buf[p+1] = 0x00;
-	buf[p+2] = 0x00;
-	p=p+3;
-	//3-1
-	buf[p] = 0xff;
-	buf[p+1] = 0xff;
-	buf[p+2] = 0xff;
-	p=p+3;
-	//3-2
-	buf[p] = 0x88;
-	buf[p+1] = 0x88;
-	buf[p+2] = 0x88;
-	p=p+3;
-	//fixed
-	//4-1
-	buf[p] = 0x88;
-	buf[p+1] = 0x88;
-	buf[p+2] = 0x88;
-	p=p+3;
-	//4-2
-	buf[p] = 0x88;
-	buf[p+1] = 0x88;
-	buf[p+2] = 0x88;
-	p=p+3;
-	//add length
-	add_len(buf,p-4);
-	first = false;
-	}else{
-	pibot(&buf[ind],6);
-	p = ind + 24;
-	}
-    return p;
-}
-
-void pibot(char *data,int n){
-	char tmp[3];
-	memcpy(tmp,&data[0],3);
-	for(int i=0;i<5;i++){
-		memcpy(&data[i*3],&data[(i+1)*3],3);
-	}
-	memcpy(&data[(n-1)*3],tmp,3);
-}
 
 int pub_gen_img_msg(char *buf,char *msg,int size){
-    int len = 4;
-    memcpy(&buf[len],msg,size);
+    memcpy(&buf[4],msg,size);
     add_len(buf,size);
     /*
     //seq

@@ -17,7 +17,7 @@
 		</list>
 	</section>
 	<section name="ImportExportAction">
-		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<item value="org.eclipse.ui.wizards.import.FileSystem" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
 			<item value="org.eclipse.ui.Basic"/>
 		</list>
@@ -30,6 +30,7 @@
 		<item value="true" key="WizardFileSystemResourceImportPage1.STORE_CREATE_LINKS_IN_WORKSPACE_ID"/>
 		<item value="true" key="WizardFileSystemResourceImportPage1.STORE_PATH_VARIABLE_SELECTED_ID"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\mori\Dropbox\mROS\mROS\opencv-lib"/>
 			<item value="C:\Users\mori\Dropbox\mROS\mROS\camera_app"/>
 			<item value="C:\Users\mori\Dropbox\mROS\asp-gr_peach_gcc-mbed\mbed-lib"/>
 			<item value="C:\Users\mori\Dropbox\mROS\asp-gr_peach_gcc-mbed\mbed-lib\GR-PEACH_video"/>

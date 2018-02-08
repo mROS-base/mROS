@@ -11,6 +11,8 @@
 #include "JPEG_Converter.h"
 #include "SoftPWM.h"
 #include "EthernetInterface.h"
+#include "opencv2/opencv.hpp"
+
 
 #define VIDEO_CVBS             (0)                 /* Analog  Video Signal */
 #define VIDEO_CMOS_CAMERA      (1)                 /* Digital Video Signal */
@@ -61,71 +63,20 @@ static volatile int32_t vfield_count = 1;
 #pragma data_alignment=8
 static uint8_t JpegBuffer[2][1024 * 50]@ ".mirrorram";  //8 bytes aligned!;
 #pragma data_alignment=4
-#else
-static uint8_t JpegBuffer[2][1024 * 50]__attribute((section("NC_BSS"),aligned(8)));  //8 bytes aligned!;
 #endif
-static size_t jcu_encode_size[2];
-static int image_change = 0;
 JPEG_Converter Jcu;
-static int jcu_buf_index_write = 0;
-static int jcu_buf_index_write_done = 0;
-static int jcu_buf_index_read = 0;
-static int jcu_encoding = 0;
+
 
 ros::NodeHandle n;
 ros::Publisher pub;
-ros_Image img;
-bool pub_flag = false;
-
-static void JcuEncodeCallBackFunc(JPEG_Converter::jpeg_conv_error_t err_code) {
-
-    //syslog(LOG_NOTICE,"Jcucallback");
-    jcu_buf_index_write_done = jcu_buf_index_write;
-    image_change = 1;
-    jcu_encoding = 0;
-}
+sensor_msgs::Image img;
+ros::Rate loop_rate(FREQ);
 
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
     //Interrupt callback function
 	//mROSCallback　function pub
 	memcpy(img.data,FrameBuffer_Video,sizeof(FrameBuffer_Video));
-	pub_flag = true;
-	//ROS_INFO("size [%d][%d], [%d][%d][%d],100:[%d][%d]",strlen(img.data),strlen(FrameBuffer_Video),img.data[99],img.data[100],img.data[101],img.data[100],FrameBuffer_Video[100]);
-	//pub.imgpublish(&img);
 
-	/*もともとのサンプルコード
-    syslog(LOG_NOTICE,"Jcu_buf_index :%d",jcu_buf_index_write);
-    if (vfield_count != 0) {
-        vfield_count = 0;
-    } else {
-        vfield_count = 1;
-
-        JPEG_Converter::bitmap_buff_info_t bitmap_buff_info;
-        JPEG_Converter::encode_options_t   encode_options;
-
-        bitmap_buff_info.width          = PIXEL_HW;
-        bitmap_buff_info.height         = PIXEL_VW;
-        bitmap_buff_info.format         = JPEG_Converter::WR_RD_YCbCr422;
-        bitmap_buff_info.buffer_address = (void *)FrameBuffer_Video;
-
-        encode_options.encode_buff_size = sizeof(JpegBuffer[0]);
-        encode_options.p_EncodeCallBackFunc = &JcuEncodeCallBackFunc;
-
-        jcu_encoding = 1;
-        if (jcu_buf_index_read == jcu_buf_index_write) {
-            if (jcu_buf_index_write != 0) {
-                jcu_buf_index_write = 0;
-            } else {
-                jcu_buf_index_write = 1;
-            }
-        }
-        jcu_encode_size[jcu_buf_index_write] = 0;
-        if (Jcu.encode(&bitmap_buff_info, JpegBuffer[jcu_buf_index_write], &jcu_encode_size[jcu_buf_index_write], &encode_options) != JPEG_Converter::JPEG_CONV_OK) {
-            jcu_encode_size[jcu_buf_index_write] = 0;
-            jcu_encoding = 0;
-        }
-    }
-    */
 }
 
 static void IntCallbackFunc_Vsync(DisplayBase::int_type_t int_type) {
@@ -277,7 +228,7 @@ static void camera_start(void) {
     WaitVsync(1);
 }
 #endif /* camera_start(void) */
-
+unsigned char ibuf[320*4*240];
 void usr_task1(){
 #ifndef _USR_TASK_1_
 #define _USR_TASK_1_
@@ -286,45 +237,79 @@ void usr_task1(){
 #endif
 
 	//mROS configuration
+	int argc = 0;
+	char *argv = NULL;
+	ros::init(argc,argv,"mros_camera");
 	pub = n.advertise("image_raw",1);
-	img.encoding="rgba8";
+	img.encoding="bgra8";
 	img.is_bigendian = 0;
 	img.width = 320;
 	img.height = 240;
-	img.step = 320*4;
+	img.step = img.width*4;
 	Header head;
 	head.seq = 0;
 	head.sec = 0;
 	head.nsec = 0;
 	head.frame_id = "mROScam";
 	img.header = head;
-
+	img.data = &ibuf[0];
 	//camera start and publish loop
+
 	camera_start();
+	dly_tsk(1000);	//pubノードの起動が間に合わない？
+	ROS_INFO("USER TASK1: start data publish");
 	while(1){
-		if(pub_flag){
-			//ROS_INFO("[%x][%x][%x]",img.data[0],img.data[1],img.data[2]);
-			pub.imgpublish(&img);
-			pub_flag = false;
-		}
+		pub.publish(img);
+		loop_rate.sleep();
 	}
 }
 
-void Callback(string *msg){
-	ROS_INFO("I heared [%s]",msg->c_str());
+
+
+/*==============================================================================*/
+/*preprocess node*/
+//width = 160,height = 120 に変換して画像投げる
+
+ros::NodeHandle nh;
+ros::Subscriber sub;
+ros::Publisher pub2;
+sensor_msgs::Image img2;
+cv::Mat resizedImg;
+unsigned char img2_buf[160*120*4];
+
+void Callback(sensor_msgs::Image& msg){
+	cv::Mat mat(msg.height,msg.width,CV_8UC4,msg.data,msg.step);
+	cv::resize(mat,resizedImg,cv::Size(160,120));
+	memcpy(img2.data,resizedImg.data,img2.step*img2.height);
+	pub2.publish(img2);
 }
-int evl_count;
+
+
 void usr_task2(){
 #ifndef _USR_TASK_2_
 #define _USR_TASK_2_
 	syslog(LOG_NOTICE,"========Activate user task2========");
-	evl_count = 0;
+
 	int argc = 0;
 	char *argv = NULL;
-	ros::init(argc,argv,"mros_node2");
-	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscriber("mros_msg", 1,Callback);
+	ros::init(argc,argv,"mros_image_converter");
+	ROS_INFO("ADVERTISE PUB2");
+	pub2 = nh.advertise("input_data",1000);
+	img2.width = 160;
+	img2.height = 120;
+	img2.encoding="bgra8";
+	img2.is_bigendian = 0;
+	img2.step = 160*4;
+	img2.data = &img2_buf[0];
+	Header head;
+	head.seq = 0;
+	head.sec = 0;
+	head.nsec = 0;
+	head.frame_id = "mROScam2";
+	img2.header = head;
+	sub = nh.subscriber("image_raw",1,Callback);
+	ros::spin();
 
 #endif
-}
 
+}
