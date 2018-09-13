@@ -1,3 +1,6 @@
 [submodule "opencv-lib"]
 	path = opencv-lib
 	url = https://github.com/d-kato/opencv-lib.git
+[submodule "asp_mbed/asp-gr_peach_gcc-mbed"]
+	path = asp_mbed/asp-gr_peach_gcc-mbed
+	url = https://github.com/tlk-emb/asp-gr_peach_gcc-mbed.git

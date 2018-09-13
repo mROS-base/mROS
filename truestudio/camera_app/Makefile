@@ -45,7 +45,7 @@ OPENCV_DIR = ../../opencv-lib
 #
 #  ASPソースファイルのディレクトリの定義
 #
-SRCDIR = ../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
+SRCDIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
 
 #
 #  MBEDライブラリのビルド
