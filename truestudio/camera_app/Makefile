@@ -66,7 +66,7 @@ include ../Makefile.mros
 #
 #  OpenCVライブラリのビルド
 #
-include Makefile.cv
+include ../Makefile.cv
 
 #
 #  ASPカーネルライブラリ
