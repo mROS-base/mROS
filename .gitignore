@@ -3,5 +3,3 @@
 *.a
 *.bin
 *.history
-/opencv-lib/include
-/opencv-lib/lib
