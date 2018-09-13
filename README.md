@@ -31,6 +31,6 @@ truestudio\app\Makefile 60行目にオプションを付与している．
 
 ## 参考情報
 
-TOPPERSコンフィギュレータは以下からRelease 1.9.6（Windows用バイナリ）を入手した  
+TOPPERSコンフィギュレータは以下からRelease 1.9.6を入手した  
 https://www.toppers.jp/cfg-download.html
 
