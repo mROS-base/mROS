@@ -105,7 +105,7 @@ ENABLE_TRACE =
 #  ユーティリティプログラムの名称
 #
 PERL = /usr/bin/perl
-CFG = ../../cfg-mingw-static-1_9_6/cfg
+CFG = $(SRCDIR)/cfg/cfg/cfg
 
 #
 #  オブジェクトファイル名の定義
@@ -319,8 +319,9 @@ kernel_cfg.timestamp: $(APPL_CFG) \
 ifneq ($(USE_TRUESTUDIO),true)
 	touch -r kernel_cfg.c kernel_cfg.timestamp
 else
-	cmd /c copy /B kernel_cfg.c +,,
-	cmd /c echo  -n > kernel_cfg.timestamp
+	#cmd /c copy /B kernel_cfg.c +,,
+	#cmd /c echo  -n > kernel_cfg.timestamp
+	touch -r kernel_cfg.c kernel_cfg.timestamp
 endif
 
 #
