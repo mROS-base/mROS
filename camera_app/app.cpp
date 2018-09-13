@@ -239,6 +239,7 @@ void usr_task1(){
 	//mROS configuration
 	int argc = 0;
 	char *argv = NULL;
+	int count = 0;
 	ros::init(argc,argv,"mros_camera");
 	pub = n.advertise("image_raw",1);
 	img.encoding="bgra8";
@@ -259,8 +260,10 @@ void usr_task1(){
 	dly_tsk(1000);	//pubノードの起動が間に合わない？
 	ROS_INFO("USER TASK1: start data publish");
 	while(1){
+		ROS_INFO("USER TASK1: publishing image %d", count++);
 		pub.publish(img);
 		loop_rate.sleep();
+		dly_tsk(200);
 	}
 }
 
