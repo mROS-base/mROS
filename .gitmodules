@@ -1,0 +1,3 @@
+[submodule "opencv-lib"]
+	path = opencv-lib
+	url = https://github.com/d-kato/opencv-lib.git
