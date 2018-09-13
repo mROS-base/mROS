@@ -33,7 +33,7 @@ APPL_CXXFLAGS := $(APPL_CXXFLAGS) -fpermissive
 #
 #  MBEDライブラリのディレクトリの定義
 #
-MBED_LIB_DIR = ../../../asp-gr_peach_gcc-mbed/mbed-lib
+MBED_LIB_DIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/mbed-lib
 #
 #  mROSライブラリのディレクトリの定義
 #

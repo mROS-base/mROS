@@ -105,7 +105,7 @@ ENABLE_TRACE =
 #  ユーティリティプログラムの名称
 #
 PERL = /usr/bin/perl
-CFG = $(SRCDIR)/cfg/cfg/cfg
+CFG = $(SRCDIR)/../../cfg_binary/cfg
 
 #
 #  オブジェクトファイル名の定義
