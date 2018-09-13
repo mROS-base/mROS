@@ -105,7 +105,7 @@ ENABLE_TRACE =
 #  ユーティリティプログラムの名称
 #
 PERL = /usr/bin/perl
-CFG = ../../cfg-mingw-static-1_9_6/cfg
+CFG = $(SRCDIR)/cfg/cfg/cfg
 
 #
 #  オブジェクトファイル名の定義
@@ -176,8 +176,8 @@ APPL_COBJS := $(APPL_COBJS) log_output.o vasyslog.o t_perror.o strerror.o
 # APPL_CFLAGS =
 # APPL_LIBS =
 ifdef APPLDIR
-  INCLUDES := $(INCLUDES) $(foreach dir,$(APPLDIR),-I$(dir))
-  INCLUDE_PATHS :=  $(INCLUDE_PATHS)  $(foreach dir,$(APPLDIR),-I$(dir))
+  INCLUDES := $(INCLUDES) $(foreach dir,$(APPLDIR),-I$(dir)) $(OPENCV_INCLUDE_PATHS)
+  INCLUDE_PATHS :=  $(INCLUDE_PATHS) $(foreach dir,$(APPLDIR),-I$(dir))
 endif
 
 #
@@ -266,7 +266,7 @@ ALL_OBJS = $(START_OBJS) $(APPL_OBJS) $(SYSSVC_OBJS) $(CFG_OBJS) \
 											$(END_OBJS) $(HIDDEN_OBJS)
 ifdef KERNEL_LIB
 #libmros.a libmbed.aの順番で書く $(APPL_LIBS)で記述
-  ALL_LIBS = libmros.a libmbed.a $(SYSSVC_LIBS) -lkernel $(LIBS)
+  ALL_LIBS = libmros.a libmbed.a $(SYSSVC_LIBS) -lkernel $(LIBS) 
   LIBS_DEP = $(filter %.a,$(ALL_LIBS)) $(KERNEL_LIB)/libkernel.a
   LDFLAGS := $(LDFLAGS) -L$(KERNEL_LIB)
   REALCLEAN_FILES := libkernel.a $(REALCLEAN_FILES)
@@ -319,8 +319,9 @@ kernel_cfg.timestamp: $(APPL_CFG) \
 ifneq ($(USE_TRUESTUDIO),true)
 	touch -r kernel_cfg.c kernel_cfg.timestamp
 else
-	cmd /c copy /B kernel_cfg.c +,,
-	cmd /c echo  -n > kernel_cfg.timestamp
+	#cmd /c copy /B kernel_cfg.c +,,
+	#cmd /c echo  -n > kernel_cfg.timestamp
+	touch -r kernel_cfg.c kernel_cfg.timestamp
 endif
 
 #
@@ -339,9 +340,10 @@ banner.o: kernel_cfg.timestamp $(filter-out banner.o,$(ALL_OBJS)) $(LIBS_DEP)
 #
 #  全体のリンク
 #	$(APPL_OBJS)の位置が変？デフォルト\のあと
+#   OpenCVのリンクが必要
 $(OBJFILE): $(APPL_CFG) kernel_cfg.timestamp $(ALL_OBJS) $(LIBS_DEP)
 	$(LINK) $(CFLAGS) $(LDFLAGS) -o $(OBJFILE) $(START_OBJS) \
-			$(APPL_OBJS) $(SYSSVC_OBJS) $(CFG_OBJS) $(ALL_LIBS) $(END_OBJS)
+			$(APPL_OBJS) $(SYSSVC_OBJS) $(CFG_OBJS) $(ALL_LIBS) $(OPENCV_LIBS) $(END_OBJS) 
 	$(NM) -n $(OBJFILE) > $(OBJNAME).syms
 	$(OBJCOPY) -O srec -S $(OBJFILE) $(OBJNAME).srec
 	$(CFG) --pass 3 --kernel asp $(INCLUDES) \

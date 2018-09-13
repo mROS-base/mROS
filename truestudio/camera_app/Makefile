@@ -39,6 +39,10 @@ MBED_LIB_DIR = ../../../asp-gr_peach_gcc-mbed/mbed-lib
 #
 MROS_DIR = ../../mros-lib
 #
+#  opencvライブラリのディレクトリ定義
+#
+OPENCV_DIR = ../../opencv-lib
+#
 #  ASPソースファイルのディレクトリの定義
 #
 SRCDIR = ../../../asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
@@ -59,6 +63,10 @@ include ../Makefile.mbd
 #
 include $(MROS_DIR)/Makefile.m
 include ../Makefile.mros
+#
+#  OpenCVライブラリのビルド
+#
+include $(OPENCV_DIR)/Makefile.cv
 
 #
 #  ASPカーネルライブラリ

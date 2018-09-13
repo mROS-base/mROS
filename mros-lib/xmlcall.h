@@ -38,7 +38,11 @@ string  registerPublisher(string id,string topic,string type,string c_uri);
             TCP?[[str,!XMLRPCLeagalValue*]]
 */
 string  requestTopic(string id,string topic,string prt="TCPROS");
+
+//requerst topic用返信文字列生成関数
+//完全テスト用 要：一般化
 string  test_requestResponse(string ip);
+
 //local function
 string	addHttpPost(string xml);
 string	addHttpOK(string xml);

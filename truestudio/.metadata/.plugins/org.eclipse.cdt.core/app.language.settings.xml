@@ -4,13 +4,13 @@
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider id="com.atollic.truestudio.mbs.provider">
 				<language id="org.eclipse.cdt.core.gcc">
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/lib/gcc/arm-atollic-eabi/5.3.1/include">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/lib/gcc/arm-atollic-eabi/6.3.1/include">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/lib/gcc/arm-atollic-eabi/5.3.1/include-fixed">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/lib/gcc/arm-atollic-eabi/6.3.1/include-fixed">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/arm-atollic-eabi/include">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/arm-atollic-eabi/include">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__ACCUM_EPSILON__" value="0x1P-15K">
@@ -340,10 +340,10 @@
 					<entry kind="macro" name="__GNUC_STDC_INLINE__" value="1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GNUC__" value="5">
+					<entry kind="macro" name="__GNUC__" value="6">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GXX_ABI_VERSION" value="1009">
+					<entry kind="macro" name="__GXX_ABI_VERSION" value="1010">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__GXX_TYPEINFO_EQUALITY_INLINE" value="0">
@@ -1009,7 +1009,7 @@
 					<entry kind="macro" name="__UTQ_IBIT__" value="0">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__VERSION__" value="&quot;5.3.1 20160307 (release) [ARM/embedded-5-branch revision 234589]&quot;">
+					<entry kind="macro" name="__VERSION__" value="&quot;6.3.1 20170215 (release) [ARM/embedded-6-branch revision 245512]&quot;">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__VFP_FP__" value="1">
@@ -1044,22 +1044,22 @@
 					</entry>
 				</language>
 				<language id="org.eclipse.cdt.core.g++">
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/arm-atollic-eabi/include/c++/5.3.1">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/arm-atollic-eabi/include/c++/6.3.1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/arm-atollic-eabi/include/c++/5.3.1/arm-atollic-eabi">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/arm-atollic-eabi/include/c++/6.3.1/arm-atollic-eabi">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/arm-atollic-eabi/include/c++/5.3.1/backward">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/arm-atollic-eabi/include/c++/6.3.1/backward">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/lib/gcc/arm-atollic-eabi/5.3.1/include">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/lib/gcc/arm-atollic-eabi/6.3.1/include">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/lib/gcc/arm-atollic-eabi/5.3.1/include-fixed">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/lib/gcc/arm-atollic-eabi/6.3.1/include-fixed">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="C:/Program Files (x86)/Atollic/TrueSTUDIO for ARM 7.1.2/ARMTools/arm-atollic-eabi/include">
+					<entry kind="includePath" name="/opt/Atollic_TrueSTUDIO_for_ARM_x86_64_8.0.0/ARMTools/arm-atollic-eabi/include">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__ACCUM_EPSILON__" value="0x1P-15K">
@@ -1395,13 +1395,13 @@
 					<entry kind="macro" name="__GNUC_PATCHLEVEL__" value="1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GNUC__" value="5">
+					<entry kind="macro" name="__GNUC__" value="6">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GNUG__" value="5">
+					<entry kind="macro" name="__GNUG__" value="6">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GXX_ABI_VERSION" value="1009">
+					<entry kind="macro" name="__GXX_ABI_VERSION" value="1010">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__GXX_RTTI" value="1">
@@ -2064,7 +2064,7 @@
 					<entry kind="macro" name="__UTQ_IBIT__" value="0">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__VERSION__" value="&quot;5.3.1 20160307 (release) [ARM/embedded-5-branch revision 234589]&quot;">
+					<entry kind="macro" name="__VERSION__" value="&quot;6.3.1 20170215 (release) [ARM/embedded-6-branch revision 245512]&quot;">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__VFP_FP__" value="1">
@@ -2101,6 +2101,9 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__cpp_exceptions" value="199711">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__cpp_hex_float" value="201603">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__cpp_rtti" value="199711">

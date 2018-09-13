@@ -46,6 +46,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/mros-lib</locationURI>
 		</link>
 		<link>
+			<name>opencv-lib</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/opencv-lib</locationURI>
+		</link>
+		<link>
 			<name>asp-1.9.2-utf8/MANIFEST</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/asp-1.9.2-utf8/MANIFEST</locationURI>
