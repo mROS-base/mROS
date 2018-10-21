@@ -9,6 +9,9 @@ A lightweight runtime environment of ROS1 nodes onto embedded systems
 ## Environment & Build
 
 - IDE: TrueSTUDIO v.8.0.0
+
+- $ git clone --recursive https://github.com/tlk-emb/mROS
+
 - Build
   - Open TrueSTUDIO and specify the workspace to `<git_clone_dir>/mROS/truestudio`
   - Select `camera_app` to target project and build it

@@ -3,3 +3,5 @@
 *.a
 *.bin
 *.history
+
+.metadata/
