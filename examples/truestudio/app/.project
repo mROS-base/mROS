@@ -28,7 +28,7 @@
 		<link>
 			<name>app</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/app</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8</name>
@@ -43,7 +43,22 @@
 		<link>
 			<name>mros-lib</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/mros-lib</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>app/app.cfg</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/app/app.cfg</locationURI>
+		</link>
+		<link>
+			<name>app/app.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/app/app.cpp</locationURI>
+		</link>
+		<link>
+			<name>app/app.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/app/app.h</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8/MANIFEST</name>
@@ -159,6 +174,66 @@
 			<name>mbed-lib/mbed-src</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/Makefile.m</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/Makefile.m</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/mros.cfg</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/mros.cfg</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/mros.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/mros.cpp</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/mros.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/mros.h</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/ros.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/ros.cpp</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/ros.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/ros.h</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/tcp_ros.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/tcp_ros.cpp</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/tcp_ros.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/tcp_ros.h</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/xmlcall.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/xmlcall.cpp</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/xmlcall.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/xmlcall.h</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/xmlparser.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/xmlparser.cpp</locationURI>
+		</link>
+		<link>
+			<name>mros-lib/xmlparser.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mros-lib/xmlparser.h</locationURI>
 		</link>
 		<link>
 			<name>asp-1.9.2-utf8/arch/arm_gcc</name>

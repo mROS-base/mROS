@@ -33,19 +33,19 @@ APPL_CXXFLAGS := $(APPL_CXXFLAGS) -fpermissive
 #
 #  MBEDライブラリのディレクトリの定義
 #
-MBED_LIB_DIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/mbed-lib
+MBED_LIB_DIR = ../../../asp_mbed/asp-gr_peach_gcc-mbed/mbed-lib
 #
 #  mROSライブラリのディレクトリの定義
 #
-MROS_DIR = ../../mros-lib
+MROS_DIR = ../../../mros-lib
 #
 #  opencvライブラリのディレクトリ定義
 #
-OPENCV_DIR = ../../opencv-lib
+OPENCV_DIR = ../../../opencv-lib
 #
 #  ASPソースファイルのディレクトリの定義
 #
-SRCDIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
+SRCDIR = ../../../asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
 
 #
 #  MBEDライブラリのビルド

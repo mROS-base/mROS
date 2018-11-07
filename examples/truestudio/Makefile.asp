@@ -319,8 +319,8 @@ kernel_cfg.timestamp: $(APPL_CFG) \
 ifneq ($(USE_TRUESTUDIO),true)
 	touch -r kernel_cfg.c kernel_cfg.timestamp
 else
-	#cmd /c copy /B kernel_cfg.c +,,
-	#cmd /c echo  -n > kernel_cfg.timestamp
+#	cmd /c copy /B kernel_cfg.c +,,
+#	cmd /c echo  -n > kernel_cfg.timestamp
 	touch -r kernel_cfg.c kernel_cfg.timestamp
 endif
 
