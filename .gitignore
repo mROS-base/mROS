@@ -4,4 +4,17 @@
 *.bin
 *.history
 
-.metadata/
+# for TrueSTUDIO
+examples/truestudio/.metadata/
+examples/truestudio/*/.metadata/
+examples/truestudio/*/.settings/language.settings.xml
+
+# for ASP
+asp.*
+cfg1_out.*
+kernel_cfg.*
+offset.h
+
+# etc.,,,
+*.swp
+.DS_Store

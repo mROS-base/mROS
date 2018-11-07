@@ -13,7 +13,8 @@ A lightweight runtime environment of ROS1 nodes onto embedded systems
 - $ git clone --recursive https://github.com/tlk-emb/mROS
 
 - Build
-  - Open TrueSTUDIO and specify the workspace to `<git_clone_dir>/mROS/truestudio`
+  - Open TrueSTUDIO and specify the workspace to `<git_clone_dir>/examples/truestudio`
+  - Import `<git_clone_dir>/examples/camera_app` to target project and build it
   - Select `camera_app` to target project and build it
 
 
