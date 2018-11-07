@@ -26,8 +26,7 @@ $(MROS_LIB).a: $(ALL_MROS_OBJ)
 CLEAN_FILES += $(MROS_DIR)/*.o
 DEPS += $(ALL_MROS_OBJ:.o=.d)
 
-
-APPL_LIBS += $(MROS_LIB).a
+APPL_LIBS = $(MROS_LIB).a libmbed.a
 
 INCLUDES += $(MROS_INCLUDE_PATHS) # MROSライブラリのヘッダファイルをアプリで使う
 

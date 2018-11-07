@@ -10,9 +10,10 @@ examples/truestudio/*/.metadata/
 examples/truestudio/*/.settings/language.settings.xml
 
 # for ASP
+asp
 asp.*
-cfg1_out.*
-kernel_cfg.*
+cfg1_out*
+kernel_cfg*
 offset.h
 GR-PEACH_mbed.map
 
