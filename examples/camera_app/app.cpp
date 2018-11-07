@@ -1,5 +1,7 @@
 #include "app.h"
-#include "../mros-lib/ros.h"
+//#include "../mros-lib/ros.h"
+//TODO: catkin統合時におそらく名前衝突するのでなにかしら考える
+#include "ros.h"
 
 //RGB888形式でのイメージデータをROSにパブリッシュする
 //ROS compressed image streamでJPEGデータを送ればきれいに処理できそう

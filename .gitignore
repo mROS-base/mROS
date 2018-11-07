@@ -14,6 +14,7 @@ asp.*
 cfg1_out.*
 kernel_cfg.*
 offset.h
+GR-PEACH_mbed.map
 
 # etc.,,,
 *.swp

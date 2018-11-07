@@ -29,4 +29,5 @@ DEPS += $(ALL_MROS_OBJ:.o=.d)
 
 APPL_LIBS += $(MROS_LIB).a
 
+INCLUDES += $(MROS_INCLUDE_PATHS) # MROSライブラリのヘッダファイルをアプリで使う
 
