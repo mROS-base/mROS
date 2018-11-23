@@ -391,7 +391,7 @@ $(OBJNAME).srec: $(OBJFILE)
 clean:
 ifneq ($(USE_TRUESTUDIO),true)
 	rm -f $(LIB).a $(ALL_OBJ) $(DEPS)
-	rm -f \#* *~ *.o $(CLEAN_FILES)
+	rm -f \#* *~ *.o *.a $(CLEAN_FILES)
 	rm -f $(OBJFILE) $(OBJNAME).syms $(OBJNAME).srec $(OBJNAME).bin
 	rm -f kernel_cfg.timestamp $(CFG2_OUT_SRCS)
 	rm -f cfg1_out.c $(CFG1_OUT) cfg1_out.syms cfg1_out.srec
