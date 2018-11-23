@@ -5,6 +5,9 @@
 *.history
 
 # for TrueSTUDIO
+examples/.metadata/
+examples/*/.metadata/
+examples/*/.settings/language.settings.xml
 examples/truestudio/.metadata/
 examples/truestudio/*/.metadata/
 examples/truestudio/*/.settings/language.settings.xml

@@ -10,19 +10,49 @@ A lightweight runtime environment of ROS1 nodes onto embedded systems
 
 - $ git clone --recursive https://github.com/tlk-emb/mROS
 
-## Environment & Build
+## Development Platform and Tools for Host PC
 
-- Build on TrueSTUDIO (we tested v.8.0.0)
-  - Open TrueSTUDIO and specify the workspace to `<git_clone_dir>/examples/truestudio`
-  - Import `<git_clone_dir>/examples/truestudio/camera_app` to target project and build it
-  - Select `camera_app` as target project and build it
+- IDE: [Atollic TrueSTUDIO](https://atollic.com/truestudio/)
+  - (under review) Windows 10 Pro
+  - Ubuntu 16.04.5
+    - Currently we tested v.8.0.0 and v.9.0.1
+- CUI
+  - macOS High Sierra 10.13.6 / arm-none-eabi version 5.4.1 20160609
+  - Ubuntu 16.04.5 / gcc-arm-none-eabi version 4.9.3 20150529
 
-- Build on Terminal (we tested on Mac terminal and arm-none-eabi 5.4.1 20160609)
-  - Move to `<git_clone_dir>/examples/camera_app`
-  - Build with `$ make depend && make`
-    - locate `cfg` to `<git_clone_dir>/asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8/cfg/cfg/`
+Please let us know if you could develop build anothoer host OS.
+
+## SW Components
+
+- [asp-gr_peach_gcc-mbed](https://github.com/tlk-emb/asp-gr_peach_gcc-mbed)
+  - Open-source Software Platform Based on TOPPERS/ASP Kernel, mbed and Arduino Library for Renesas GR-PEACH.
+  - located at `asp_mbed/asp-gr_peach_gcc-mbed` as gitsubmodule
+- [opencv-lib](https://github.com/d-kato/opencv-lib.git)
+  - located at `opencv-lib` as gitsubmodule
+- [TOPPERS configurator](http://toppers.jp/cfg-download.html)
+  - located at `asp_mbed/cfg_binary`
+  - (for Win) cfg-mingw-static-1_9_6.zip
+  - (for Linux) cfg-linux-static-1_9_6.gz
+    - $ sudo apt install libstdc++6 lib32stdc++6
+  - (for macOS) cfg-osx-static-1_9_5.gz
+
+## Build
+
+- For TrueSTUDIO
+  - Specify and open `workspace` as workspace
+  - Import `workspace/*` such as `camera_app/`
+    - Currently `app/` cannot be built
+  - Describe `USE_TRUESTUDIO = true` on Makefile
+  - You can bulid and debug the project
+- For CUI (terminal)
+  - cd to project dir such as `workspace/asp_sample1/`
+  - Comment-out such as `#USE_TRUESTUDIO = true` or describe `USE_TRUESTUDIO = false` on Makefile
+  - `$ make` or `$ make depend && make`
 
 ## TODO
+
+- Testing `make` on Windows
+- Build `examples/app/`
 
 
 ## References
