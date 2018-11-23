@@ -46,7 +46,7 @@ Please let us know if you could develop build anothoer host OS.
   - You can bulid and debug the project
 - For CUI (terminal)
   - cd to project dir such as `workspace/asp_sample1/`
-  - Comment-out such as `#USE_TRUESTUDIO = true` or describe `USE_TRUESTUDIO = false` on Makefile
+  - Describe `USE_TRUESTUDIO = false` or comment-out such as `#USE_TRUESTUDIO = true` on Makefile
   - `$ make` or `$ make depend && make`
 
 ## TODO
