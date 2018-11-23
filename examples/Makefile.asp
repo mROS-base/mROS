@@ -46,6 +46,20 @@
 all:
 
 #
+#  OSの判定
+#
+ifeq ($(OS),Windows_NT)
+  UNAME := Windows
+else
+ifeq ($(shell uname),Linux)
+  UNAME := Linux
+endif
+ifeq ($(shell uname),Darwin)
+  UNAME := Darwin
+endif
+endif
+
+#
 #  ターゲット略称の定義
 #
 TARGET = gr_peach_gcc
@@ -71,11 +85,7 @@ endif
 #
 #  オブジェクトファイル名の拡張子の設定
 #
-ifneq ($(USE_TRUESTUDIO),true)
-OBJEXT = 
-else
 OBJEXT = elf
-endif
 
 #
 #  実行環境の定義（ターゲット依存に上書きされる場合がある）
@@ -105,7 +115,18 @@ ENABLE_TRACE =
 #  ユーティリティプログラムの名称
 #
 PERL = /usr/bin/perl
-CFG = $(SRCDIR)/../../cfg_binary/cfg
+ifeq ($(UNAME),Windows)
+  CFG = $(SRCDIR)/../../cfg_binary/cfg-mingw-static-1_9_6.exe
+else
+ifeq ($(UNAME),Linux)
+  CFG = $(SRCDIR)/../../cfg_binary/cfg-linux-static-1_9_6
+else
+ifeq ($(UNAME),Darwin)
+  CFG = $(SRCDIR)/../../cfg_binary/cfg-osx-static-1_9_5
+else
+endif
+endif
+endif
 
 #
 #  オブジェクトファイル名の定義
@@ -316,12 +337,12 @@ kernel_cfg.timestamp: $(APPL_CFG) \
 	$(OBJCOPY) -O srec -S $(CFG1_OUT) cfg1_out.srec
 	$(CFG) --pass 2 --kernel asp $(INCLUDES) \
 				-T $(TARGETDIR)/target.tf $(CFG_TABS) $<
-ifneq ($(USE_TRUESTUDIO),true)
+ifneq ($(UNAME),Windows)
 	touch -r kernel_cfg.c kernel_cfg.timestamp
 else
 	cmd /c copy /B kernel_cfg.c +,,
 	cmd /c echo  -n > kernel_cfg.timestamp
-	touch -r kernel_cfg.c kernel_cfg.timestamp
+#	touch -r kernel_cfg.c kernel_cfg.timestamp
 endif
 
 #
