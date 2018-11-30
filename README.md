@@ -13,7 +13,7 @@ A lightweight runtime environment of ROS1 nodes onto embedded systems
 ## Development Platform and Tools for Host PC
 
 - IDE: [Atollic TrueSTUDIO](https://atollic.com/truestudio/)
-  - (under review) Windows 10 Pro
+  - Windows 10 Pro
   - Ubuntu 16.04.5
     - Currently we tested v.8.0.0 and v.9.0.1
 - CUI
@@ -51,7 +51,6 @@ Please let us know if you could develop build anothoer host OS.
 
 ## TODO
 
-- Testing `make` on Windows
 - Build `examples/app/`
 
 
