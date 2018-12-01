@@ -57,11 +57,12 @@ void usr_task1(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
-  ros::Publisher chatter_pub = n.advertise("mros_msg","std_msgs/String",1);
+  ros::Publisher chatter_pub = n.advertise("mros_msg",1);
   ros::Rate loop_rate(5);
 #endif
 
-  char msg[100];
+  //char msg[100];
+  std_msgs::String msg;
   int count=0;
   init();
   bool b = false;
@@ -76,7 +77,10 @@ void usr_task1(){
     }
     if(b){
       wait_ms(1000);
-      sprintf(msg,"Distance[%d]cm\0",USSDistance);
+      //sprintf(msg,"Distance[%d]cm\0",USSDistance);
+      std::ostringstream s;
+      s << "Distance[" << USSDistance << "]cm\0";
+      msg.data = s.str();
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }
@@ -142,7 +146,7 @@ void usr_task2(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscriber("test_string","std_msgs/String",1,Callback);
+  ros::Subscriber sub = n.subscriber("test_string",1,Callback);
   ros::spin();
 #endif
 }
