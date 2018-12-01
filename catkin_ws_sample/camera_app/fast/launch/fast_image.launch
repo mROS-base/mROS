@@ -1,0 +1,10 @@
+<launch>
+
+
+  <node pkg="image_view" name="img_pcf" type="image_view" args="image:=/input_data"/>
+
+
+
+<node pkg="mask" name="mask_pc"   type="mask" args="/output_pc /image_fast_pc $(arg mask) $(arg ch)" />
+</launch>
+
