@@ -59,7 +59,6 @@ void usr_task1(){
   ros::NodeHandle n;
   ros::Publisher chatter_pub = n.advertise("mros_msg",1);
   ros::Rate loop_rate(5);
-#endif
 
   //char msg[100];
   std_msgs::String msg;
@@ -79,12 +78,14 @@ void usr_task1(){
       wait_ms(1000);
       //sprintf(msg,"Distance[%d]cm\0",USSDistance);
       std::ostringstream s;
-      s << "Distance[" << USSDistance << "]cm\0";
+      s << "Distance[" << USSDistance << "]cm\0" << std::flush;
       msg.data = s.str();
+      syslog(LOG_NOTICE, "%s", msg.data.c_str());
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }
   }
+#endif
 }
 
 
