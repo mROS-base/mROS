@@ -28,5 +28,5 @@ DEPS += $(ALL_MROS_OBJ:.o=.d)
 
 APPL_LIBS = $(MROS_LIB).a libmbed.a
 
-INCLUDES += $(MROS_INCLUDE_PATHS) # MROSライブラリのヘッダファイルをアプリで使う
+INCLUDES += $(MROS_INCLUDE_PATHS) # MROS繝ｩ繧､繝悶Λ繝ｪ縺ｮ繝倥ャ繝繝輔ぃ繧､繝ｫ繧偵い繝励Μ縺ｧ菴ｿ縺�
 
