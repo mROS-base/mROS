@@ -261,7 +261,8 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 							//syslog(LOG_NOTICE,"PUB_TASK: TCPROS connection header[%s]",snd_buf[8]);
 =======
 #endif
-							/** for image data **/
+							// TODO: check last arg
+              /** for image data **/
 							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
 							/**for string data**/
 							//int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function

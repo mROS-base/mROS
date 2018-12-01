@@ -53,7 +53,7 @@ Please let us know if you could develop and build anothoer host OS.
 
 ## TODO
 
-
+- Support `app` example
 
 ## References
 
