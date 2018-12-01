@@ -7,17 +7,17 @@ using namespace ros;
 
 
 void mrosCallback(const std_msgs::String::ConstPtr& msg){
-      ROS_INFO("I heard [%s]",msg->data.c_str());
+  ROS_INFO("I heard [%s]",msg->data.c_str());
 }
 
 int main(int argc,char **argv){
-    init(argc,argv,"mros_listener");
-    
-    NodeHandle n;
+  init(argc,argv,"mros_listener");
 
-    Subscriber sub = n.subscribe("mros_msg",1000,mrosCallback);
+  NodeHandle n;
 
-    spin();
+  Subscriber sub = n.subscribe("mros_msg",1000,mrosCallback);
 
-    return 0;
+  spin();
+
+  return 0;
 }
