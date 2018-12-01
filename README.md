@@ -15,12 +15,15 @@ A lightweight runtime environment of ROS1 nodes onto embedded systems
 - IDE: [Atollic TrueSTUDIO](https://atollic.com/truestudio/)
   - Windows 10 Pro
   - Ubuntu 16.04.5
-    - Currently we tested v.8.0.0 and v.9.0.1
+    - Currently we tested v.8.0.0, v.9.0.1 and v.9.1.0
 - CUI
   - macOS High Sierra 10.13.6 / arm-none-eabi version 5.4.1 20160609
-  - Ubuntu 16.04.5 / gcc-arm-none-eabi version 4.9.3 20150529
+  - Ubuntu 16.04 LTS / gcc-arm-none-eabi version 4.9.3 20150529 (apt package)
+    - $ sudo apt install gcc-arm-none-eabi
+  - Ubuntu 14.04.5 LTS / gcc-arm-none-eabi version 4.9.3 20150529 (Launchpad distribution)
+    - Download and installer cross-compiler from [here](https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update) and set $PATH
 
-Please let us know if you could develop build anothoer host OS.
+Please let us know if you could develop and build anothoer host OS.
 
 ## SW Components
 
