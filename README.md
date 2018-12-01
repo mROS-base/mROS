@@ -52,6 +52,8 @@ Please let us know if you could develop build anothoer host OS.
 ## TODO
 
 - Build `examples/app/`
+- We added following line to line 60 of `workspace/*/Makefile` for eliminating the compile error of `mros.cpp`  
+  - `APPL_CXXFLAGS := $(APPL_CXXFLGS) -fpermissive`
 
 
 ## References
