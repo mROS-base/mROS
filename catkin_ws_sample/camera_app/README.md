@@ -1,7 +1,7 @@
 mROSで実装した特徴点抽出パッケージ群です
 
 使い方
-    1.fast,mask,preprocessをcatkinワークススペースの/srcいかにコピーしてcatkin_make
+    1.fast,mask,preprocessをcatkinワークススペースのsrc/以下にコピーしてcatkin_make
     2.ホストデバイスのIPを192.168.11.4に設定する
     3.ROSのマスタURIを設定 
         $export ROS_MASTER_URI=http://192.168.11.4:11311
