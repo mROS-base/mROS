@@ -66,3 +66,6 @@ include ../Makefile.asp
 
 $(ALL_OBJ): kernel_cfg.h
 
+.PHONY: yugen
+yugen: all
+	cp asp.bin /media/yugen/MBED

@@ -1,7 +1,7 @@
 #
 #  ターゲットの指定（Makefile.targetで上書きされるのを防ぐため）
 #
-all:
+all: 
 
 #
 #  アプリケーションファイル
@@ -10,7 +10,7 @@ APPLDIR = camera_app
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
-USE_TRUESTUDIO = true
+USE_TRUESTUDIO = false 
 
 DEBUG = true
 OMIT_OPTIMIZATION = true
@@ -22,7 +22,6 @@ OMIT_OPTIMIZATION = true
 APPL_ASMOBJS = 
 APPL_CXXOBJS =  
 APPL_COBJS = 
-
 
 #
 #  mros.cpp のコンパイル時にエラーとなる不具合を解消するため
@@ -76,3 +75,6 @@ include ../Makefile.asp
 
 $(ALL_OBJ): kernel_cfg.h
 
+.PHONY: yugen
+yugen: all
+	cp asp.bin /media/yugen/MBED

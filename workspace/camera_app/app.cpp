@@ -1,7 +1,11 @@
 #include "app.h"
 //TODO: catkin統合時におそらく名前衝突するのでなにかしら考える
 //#include "../mros-lib/ros.h"
+#include "mros.h"
 #include "ros.h"
+
+//try to include String header
+//#include "std_msgs/String.h"
 
 //RGB888形式でのイメージデータをROSにパブリッシュする
 //ROS compressed image streamでJPEGデータを送ればきれいに処理できそう
@@ -73,6 +77,7 @@ JPEG_Converter Jcu;
 ros::NodeHandle n;
 ros::Publisher pub;
 sensor_msgs::Image img;
+std_msgs::String str;
 ros::Rate loop_rate(FREQ);
 
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
@@ -204,6 +209,7 @@ static void camera_start(void) {
     while (1);
   }
 
+
   /* Video write process start */
   syslog(LOG_NOTICE,"Video start");
   error = Display.Video_Start (VIDEO_INPUT_CH);
@@ -229,6 +235,8 @@ static void camera_start(void) {
 
   /* Wait vsync to update resister */
   WaitVsync(1);
+
+  syslog(LOG_NOTICE, "Hello from Yugen!");
 }
 #endif /* camera_start(void) */
 unsigned char ibuf[320*4*240];
@@ -262,11 +270,13 @@ void usr_task1(){
   camera_start();
   dly_tsk(1000);	//pubノードの起動が間に合わない？
   ROS_INFO("USER TASK1: start data publish");
+  int count_i = 0;
   while(1){
     ROS_INFO("USER TASK1: publishing image %d", count++);
     pub.publish(img);
     loop_rate.sleep();
     dly_tsk(200);
+    count_i ++;
   }
 }
 

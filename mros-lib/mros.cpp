@@ -14,7 +14,7 @@
 char evl_flag = 0;
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.11.4";	//ros master IP
+const char *m_ip = "192.168.0.20";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
@@ -61,7 +61,7 @@ std::vector<node> node_lst;
 /* Initialize Network Configuration */
 #define USE_DHCP (1)
 #if(USE_DHCP == 0)
-	#define IP_ADDRESS  	("192.168.11.1")	/*IP address */
+	#define IP_ADDRESS  	("192.168.0.30")	/*IP address */
 	#define SUBNET_MASK		("255.0.0.0")	/*Subset mask */
 	#define DEFAULT_GATEWAY	("")	/*Default gateway */
 #endif
@@ -324,8 +324,9 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				//ROS_INFO("PUB_TASK: generate TCPROS[%d]",l);
 				//publish
 				int err = lst.sock_vec[num].send(buf,l);
+				int number = errno;
 				//ROS_INFO("PUB_TASK: send[%d]",err);
-				if(err < 0)  ROS_INFO("PUB_TASK: PUBLISHING ERROR ! [%d]",err);
+				if(err < 0)  ROS_INFO("PUB_TASK: PUBLISHING ERROR ! [%d] errno=%d %s",err,number,strerror(number));
 			}else if(lst.stat_vec[num] == 1){
 				syslog(LOG_NOTICE,"PUB_TASK: internal data publish");
 			}
@@ -662,6 +663,7 @@ void xml_slv_task(){
 						//get method
 						mh = (int)str.find("<methodName>");
 						mt = (int)str.find("</methodName>");
+						meth = "";
 						for(int i = mh + sizeof("<methodName>") -1;i < mt ; i++){
 							meth = meth + str[i];
 						}
@@ -865,6 +867,5 @@ void cyclic_handler(intptr_t exinf){
 	iwup_tsk(SUB_TASK);
 	iwup_tsk(XML_SLV_TASK);
 }
-
 
 

@@ -29,4 +29,5 @@ DEPS += $(ALL_MROS_OBJ:.o=.d)
 APPL_LIBS = $(MROS_LIB).a libmbed.a
 
 INCLUDES += $(MROS_INCLUDE_PATHS) # MROSライブラリのヘッダファイルをアプリで使う
+# INCLUDES += -I/opt/ros/kinetic/include -I/usr/include -I/usr/include/x86_64-linux-gnu -I/usr/include/i386-linux-gnu
 
