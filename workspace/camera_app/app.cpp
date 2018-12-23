@@ -252,7 +252,7 @@ void usr_task1(){
   char *argv = NULL;
   int count = 0;
   ros::init(argc,argv,"mros_camera");
-  pub = n.advertise("image_raw",1);
+  pub = n.advertise<std_msgs::String>("image_raw",1);
   img.encoding="bgra8";
   img.is_bigendian = 0;
   img.width = 320;
@@ -310,7 +310,7 @@ void usr_task2(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_image_converter");
   ROS_INFO("ADVERTISE PUB2");
-  pub2 = nh.advertise("input_data",1000);
+  pub2 = nh.advertise<std_msgs::String>("input_data",1000);
   img2.width = 160;
   img2.height = 120;
   img2.encoding="bgra8";
