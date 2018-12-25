@@ -318,14 +318,15 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				//ROS_INFO("PUB_TASK: memcpy");
 				rbuf[size] = '\0';	//cutting data end
 				/**for string data**/
-				//int l = pub_gen_msg(buf,rbuf);
+				int l = pub_gen_msg(buf,rbuf);	
 				/**for image data**/
-				int l = pub_gen_img_msg(buf,rbuf,size);
+				//int la = pub_gen_img_msg(buf,rbuf,size);
 				//ROS_INFO("PUB_TASK: generate TCPROS[%d]",l);
 				//publish
 				int err = lst.sock_vec[num].send(buf,l);
 				int number = errno;
 				//ROS_INFO("PUB_TASK: send[%d]",err);
+				ROS_INFO(buf);
 				if(err < 0)  ROS_INFO("PUB_TASK: PUBLISHING ERROR ! [%d] errno=%d %s",err,number,strerror(number));
 			}else if(lst.stat_vec[num] == 1){
 				syslog(LOG_NOTICE,"PUB_TASK: internal data publish");
@@ -386,6 +387,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	    		int idx = lst.id_vec.size();
 	    		//initialize
 				syslog(LOG_NOTICE,"SUB_TASK: subscriber initialization　node ID:[%d] index:[%d]",sdq[0],idx);
+				ROS_INFO("SUB_TASK: subscriber initialization　node ID:[%d] index:[%d]",sdq[0],idx);
 				static TCPSocketConnection sock;
 				static intptr_t funcp;
 				int size = sdq[1];
@@ -433,6 +435,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 =======
 #endif
 				syslog(LOG_NOTICE,"SUB_TASK:IP [%s][%s]",node_lst[node_num].ip.c_str(),network.getIPAddress());
+				ROS_INFO("SUB_TASK:IP [%s][%s]",node_lst[node_num].ip.c_str(),network.getIPAddress());
 				if(strcmp(node_lst[node_num].ip.c_str(),network.getIPAddress()) != 0){
 //				if(strcmp(node_lst[node_num].ip.c_str(),network.getIPAddress()) == 0){
 					//send requestTopic
@@ -822,6 +825,7 @@ void xml_mas_task(){
 				if(num != -1){
 				syslog(LOG_NOTICE,"XML_MAS_TASK: request node [ID:%x, topic:%s]",node_lst[num].ID,node_lst[num].topic_name.c_str());
 				string body = requestTopic(node_lst[num].callerid,node_lst[num].topic_name);
+				node_lst[num].ip = "192.168.0.20";
 				syslog(LOG_NOTICE,"XML_MAS_TASK: ip[%s],port[%d]",node_lst[num].ip.c_str(),node_lst[num].port);
 				//syslog(LOG_NOTICE,"XML_MAS_TASK: %s",body.c_str());
 				int le = xml_mas_sock.connect(node_lst[num].ip.c_str(),node_lst[num].port);

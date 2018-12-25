@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "mros.h"
+#include "std_msgs/String.h"
 
 
 
@@ -63,12 +64,7 @@ public:
 	std::string frame_id;
 };
 
-namespace std_msgs{
-class String{
-public:
-	std::string data;
-};
-}
+
 
 namespace sensor_msgs{
 class Image{
@@ -88,15 +84,14 @@ public:
 
 
 namespace ros{
-
-typedef class Publisher{
+class Publisher{
 public:
 	char topic;
 	char node;
 	void publish(std_msgs::String& data);
 	void publish(sensor_msgs::Image& data);
 	char ID;
-}Publisher;
+};
 
 typedef class Subscriber{
 public:
@@ -120,6 +115,7 @@ public:
 =======
 #endif
 	Subscriber subscriber(std::string topic,int queue_size,void(*fp)());
+	template <class T>
 	Publisher advertise(std::string topic,int queue_size);
 //>>>>>>> mori_ws
 };

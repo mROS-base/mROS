@@ -114,6 +114,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,string type,int queue_siz
 	syslog(LOG_NOTICE,"usr task ID [%d]",id);
 =======
 #endif
+template <class T>
 ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 //>>>>>>> mori_ws
 	//セマフォの確認
@@ -143,12 +144,16 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	pstr += "<caller_id>/mros_node</caller_id>\n";
 =======
 #endif
-	pstr += "<topic_type>std_msgs/String</topic_type>\n";
+	//pstr += "<topic_type>std_msgs/String</topic_type>\n";
+	pstr += "<topic_type>";
+	pstr += message_traits::DataType<std_msgs::String>().value();
+	pstr += "</topic_type>\n";
 	pstr += "<caller_id>/";
 	pstr +=	node_nv[ID_find(IDv,id)].c_str();
 	pstr += "</caller_id>\n";
 //>>>>>>> mori_ws
 	pstr += "<message_definition>string data</message_definition>\n";
+	syslog(LOG_NOTICE,message_traits::DataType<std_msgs::String>().value());
 	pstr += "<fptr>12345671</fptr>\n";
 	intptr_t *pdq;
 	memcpy(&mem[XML_ADDR],pstr.c_str(),pstr.size());
@@ -163,12 +168,15 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	slp_tsk();
 	return pub;
 }
+template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
 
 void ros::Publisher::publish(std_msgs::String& data){
 	ROS_INFO("PUBLISH STRING");
 	while(ros_sem != 0){
 
 	}
+	ROS_INFO("%d",data.data.size());
+	ROS_INFO(data.data.c_str());
 	int size = data.data.size();
 	int i = find_sub(node_lst,node_lst[find_id(node_lst,this->ID)].topic_name);
 
@@ -193,7 +201,6 @@ void ros::Publisher::publish(std_msgs::String& data){
 	pbuf[3] = size/65536;
 	pdq = (intptr_t) &pbuf;
 	snd_dtq(PUB_DTQ,*pdq);
-
 }
 
 #if 0
@@ -209,8 +216,8 @@ void ros::Publisher::imgpublish(ros_Image *img){
 =======
 #endif
 
-
 /**image data用関数なんかアレ**/
+
 void ros::Publisher::publish(sensor_msgs::Image& img){
 
 	while(ros_sem != 0){

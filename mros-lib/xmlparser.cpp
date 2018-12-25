@@ -367,10 +367,10 @@ string get_fptr(string xml){
 string req_topic_name(string xml){
 	int ini,head,tail;
 				string body;
-				ini = (int)xml.find("<value><string>");
-				head = (int)xml.find("<value><string>",ini + sizeof("<value><string>"));
-				tail = (int)xml.find("</string></value>",head);
-				for(int i = head + sizeof("<value><string>")-1;i < tail; i++){
+				ini = (int)xml.find("<value>");
+				head = (int)xml.find("<value>",ini + sizeof("<value><string>"));
+				tail = (int)xml.find("</value>",head);
+				for(int i = head + sizeof("<value>")-1;i < tail; i++){
 					body = body + xml[i];
 				}
 				return body;
