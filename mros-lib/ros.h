@@ -84,12 +84,13 @@ public:
 
 
 namespace ros{
+
 class Publisher{
 public:
 	char topic;
 	char node;
-	void publish(std_msgs::String& data);
-	void publish(sensor_msgs::Image& data);
+	template <class T>
+	void publish(T& data);
 	char ID;
 };
 
@@ -105,8 +106,8 @@ void init(int argc,char *argv,std::string node_name);
 
 //現状キューサイズは機能していない
 class NodeHandle{
-	Subscriber sub;
-	Publisher pub;
+	//Subscriber sub;
+	//Publisher pub;
 public:
 #if 0
 <<<<<<< HEAD
