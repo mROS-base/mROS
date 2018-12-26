@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include "mros.h"
-#include "std_msgs/String.h"
 
 
 
@@ -77,6 +76,18 @@ public:
 	unsigned int step;
 	unsigned char *data;
 };
+}
+
+namespace message_traits
+{
+	template <class T>
+	struct MD5Sum{};
+
+	template <class T>
+	struct DataType{};
+
+	template <class T>
+	struct Definition{};
 }
 //========================================================================================================================================================
 //========================================================================================================================================================

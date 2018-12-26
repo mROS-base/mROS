@@ -170,48 +170,13 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 }
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
 
-template <class T>
-void ros::Publisher::publish(T& data){
-	ROS_INFO("PUBLISH STRING");
-	while(ros_sem != 0){
+void ros::Publisher::publish(std_msgs::String)
 
-	}
-	ROS_INFO("%d",data.data.size());
-	ROS_INFO(data.data.c_str());
-	int size = data.data.size();
-	int i = find_sub(node_lst,node_lst[find_id(node_lst,this->ID)].topic_name);
-
-	if(i != -1){
-		char sbuf[4];
-		memcpy(&mem[PUB_ADDR2],data.data.c_str(),size);
-		intptr_t *pdq;
-		sbuf[0] = node_lst[i].ID;
-		sbuf[1] = size;
-		sbuf[2] = size/256;
-		sbuf[3] = size/65536;
-		pdq = (intptr_t) &sbuf;
-		snd_dtq(SUB_DTQ,*pdq);
-	}
-
-	char pbuf[4];
-	memcpy(&mem[PUB_ADDR],data.data.c_str(),size);
-	intptr_t *pdq;
-	pbuf[0] = this->ID;
-	pbuf[1] = size;
-	pbuf[2] = size/256;
-	pbuf[3] = size/65536;
-	pdq = (intptr_t) &pbuf;
-	snd_dtq(PUB_DTQ,*pdq);
-}
-template void ros::Publisher::publish(std_msgs::String&);
-/*
 void ros::Publisher::publish(std_msgs::String& data){
 	ROS_INFO("PUBLISH STRING");
 	while(ros_sem != 0){
 
 	}
-	ROS_INFO("%d",data.data.size());
-	ROS_INFO(data.data.c_str());
 	int size = data.data.size();
 	int i = find_sub(node_lst,node_lst[find_id(node_lst,this->ID)].topic_name);
 
@@ -236,8 +201,9 @@ void ros::Publisher::publish(std_msgs::String& data){
 	pbuf[3] = size/65536;
 	pdq = (intptr_t) &pbuf;
 	snd_dtq(PUB_DTQ,*pdq);
+
 }
-*/
+
 #if 0
 <<<<<<< HEAD
 //とりあえずのimageデータ出版関数
@@ -251,8 +217,8 @@ void ros::Publisher::imgpublish(ros_Image *img){
 =======
 #endif
 
+
 /**image data用関数なんかアレ**/
-/*
 void ros::Publisher::publish(sensor_msgs::Image& img){
 
 	while(ros_sem != 0){
@@ -378,7 +344,7 @@ void ros::Publisher::publish_dummy(){
 	}
 
 }
-*/
+
 void ros::Rate::sleep(){
 	wait_ms(1000/this->rate);
 }
