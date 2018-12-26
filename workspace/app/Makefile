@@ -10,7 +10,7 @@ APPLDIR = app
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
-USE_TRUESTUDIO = true
+USE_TRUESTUDIO = false
 
 DEBUG = true
 OMIT_OPTIMIZATION = true

@@ -84,7 +84,7 @@ ros::Rate loop_rate(FREQ);
 
 void Callback(string *msg){ 
   ROS_INFO("hellooo from ROS master!");
-  //syslog(LOG_NOTICE,"I heard [%s]",msg->c_str());
+  syslog(LOG_NOTICE,"I heard [%s]",msg);
 }
 
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {

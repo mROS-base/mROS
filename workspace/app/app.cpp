@@ -48,6 +48,7 @@ void init(void){
 }
 
 /*****mROS user task code*******/
+/*
 void usr_task1(){
 #ifndef _USR_TASK_1_
 #define _USR_TASK_1_
@@ -87,7 +88,7 @@ void usr_task1(){
   }
 #endif
 }
-
+*/
 
 /******* LED for mbed library　*******/
 void led_init(){
@@ -131,8 +132,8 @@ void LED_switch(string *msg){
 
 /*******  callback **********/
 void Callback(string *msg){	
-  LED_switch(msg);
-  syslog(LOG_NOTICE,"I heard [%s]",msg->c_str());
+  //LED_switch(msg);
+  syslog(LOG_NOTICE,"I heard [%s]",msg);
 }
 
 /*****mROS user task code*******/

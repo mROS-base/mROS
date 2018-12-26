@@ -149,12 +149,12 @@ void main_task(){
 
 //activate mROS communication library 
 
-	act_tsk(PUB_TASK);
+	//act_tsk(PUB_TASK);
 	act_tsk(SUB_TASK);
 	act_tsk(XML_SLV_TASK);
 	act_tsk(XML_MAS_TASK);
 
-	act_tsk(USR_TASK1);
+	//act_tsk(USR_TASK1);
 	act_tsk(USR_TASK2);
 	syslog(LOG_NOTICE,"**********mROS Main task finish**********");
 }
@@ -569,29 +569,30 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 					while(rcv_flag){
 						int n=0;
 						if(init_flag){
-							n = lst.sock_vec[i].receive(rptr,1024*16);
+							n = lst.sock_vec[i].receive(rptr,512);
 							left = 0;
 						}else{
 							n = lst.sock_vec[i].receive(rptr,left);
 						}
 						if(n < 0){
-							//syslog(LOG_NOTICE,"SUB_TASK: No data");
+							syslog(LOG_NOTICE,"SUB_TASK: No data");
 						}else{
 							if(init_flag){
-								//ROS_INFO("SUB_TASK: %x %x %x %x",rbuf[0],rbuf[1],rbuf[2],rbuf[3]);
+								ROS_INFO("SUB_TASK: %x %x %x %x",rbuf[0],rbuf[1],rbuf[2],rbuf[3]);
 								msg_size = (unsigned int)rbuf[0];
 								msg_size += (unsigned int)rbuf[1]*256;
 								msg_size += (unsigned int)rbuf[2]*65536;// + rbuf[3]*16777216;
-								//ROS_INFO("SUB_TASK: msg size [%d]B",msg_size);
+								ROS_INFO("SUB_TASK: msg size [%d]B",msg_size);
 								init_flag = false;
 							}
 							len += n;
 							if(len >= msg_size +4){
 				//data received
 								rbuf[msg_size + 4] = '\0';
-								//syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
+								syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
 								void (*fp)(intptr_t);		//stringのみ対応
 								fp = lst.func_vec[i];
+								ROS_INFO("rbuf: %s",&rbuf[8]);
 								fp(&rbuf[8]);
 								rptr = &rbuf[0];
 								rcv_flag = false;
@@ -599,11 +600,11 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 								evl_flag = 0;
 								len = 0;
 							}else{
-								//syslog(LOG_NOTICE,"SUB_TASK: data long");
+								syslog(LOG_NOTICE,"SUB_TASK: data long");
 				//data receiving
 								rptr = &rbuf[n];
 								left = msg_size + 4 - len;
-								//ROS_INFO("SUB_TASK: left length [%d]",left);
+								ROS_INFO("SUB_TASK: left length [%d]",left);
 								evl_flag = 1;
 							}
 //>>>>>>> mori_ws
