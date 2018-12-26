@@ -19,7 +19,7 @@
 #include "EthernetInterface.h"
 #include "opencv2/opencv.hpp"
 
-//#include "std_msgs/String.h"
+#include "std_msgs/String.h"
 
 
 #define VIDEO_CVBS             (0)                 /* Analog  Video Signal */

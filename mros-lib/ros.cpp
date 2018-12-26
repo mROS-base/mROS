@@ -1,5 +1,6 @@
 //ros.cpp below
 #include "ros.h"
+#include "std_msgs/String.h"
 
 std::vector<ID> IDv;
 int ID_find(std::vector<ID> IDv,ID id){for(unsigned int i=0;i < IDv.size();i++){if(IDv[i] == id){return i;}}return -1;}
@@ -170,9 +171,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 }
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
 
-void ros::Publisher::publish(std_msgs::String)
-
-void ros::Publisher::publish(std_msgs::String& data){
+/*void ros::Publisher::publish(std_msgs::String& data){
 	ROS_INFO("PUBLISH STRING");
 	while(ros_sem != 0){
 
@@ -217,8 +216,10 @@ void ros::Publisher::imgpublish(ros_Image *img){
 =======
 #endif
 
+*/
 
 /**image data用関数なんかアレ**/
+/*
 void ros::Publisher::publish(sensor_msgs::Image& img){
 
 	while(ros_sem != 0){
@@ -343,7 +344,7 @@ void ros::Publisher::publish_dummy(){
 //>>>>>>> mori_ws
 	}
 
-}
+}*/
 
 void ros::Rate::sleep(){
 	wait_ms(1000/this->rate);
