@@ -241,7 +241,7 @@ static void camera_start(void) {
   }
 
   /* Wait vsync to update resister */
-  WaitVsync(1);
+  //WaitVsync(1);//for publishing strings
 
   syslog(LOG_NOTICE, "Hello from Yugen!");
 }
@@ -274,7 +274,7 @@ void usr_task1(){
   str.data = "hello from mROS!";
   //camera start and publish loop
 
-  camera_start();
+  //camera_start(); //for publishing strings
   dly_tsk(1000);	//pubノードの起動が間に合わない？
   ROS_INFO("USER TASK1: start data publish");
   int count_i = 0;

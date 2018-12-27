@@ -178,7 +178,8 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 }
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
 
-/*void ros::Publisher::publish(std_msgs::String& data){
+template<class T>
+void ros::Publisher::publish(T& data){
 	ROS_INFO("PUBLISH STRING");
 	while(ros_sem != 0){
 
@@ -209,6 +210,7 @@ template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int
 	snd_dtq(PUB_DTQ,*pdq);
 
 }
+template void ros::Publisher::publish(std_msgs::String&);
 
 #if 0
 <<<<<<< HEAD
@@ -223,7 +225,7 @@ void ros::Publisher::imgpublish(ros_Image *img){
 =======
 #endif
 
-*/
+
 
 /**image data用関数なんかアレ**/
 /*
