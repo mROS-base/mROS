@@ -10,7 +10,7 @@ public:
 namespace message_traits
 {
 template<>
-struct MD5Sum<std_msgs::String>
+struct MD5Sum<std_msgs::String*>
 {
   static const char* value()
   {
@@ -20,7 +20,7 @@ struct MD5Sum<std_msgs::String>
 };
 
 template<>
-struct DataType<std_msgs::String>
+struct DataType<std_msgs::String*>
 {
   static const char* value()
   {
@@ -30,7 +30,7 @@ struct DataType<std_msgs::String>
 };
 
 template<>
-struct Definition<std_msgs::String>
+struct Definition<std_msgs::String*>
 {
 	static const char* value()
 	{

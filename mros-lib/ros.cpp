@@ -55,8 +55,8 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,std::string type,i
 >>>>>>> mori_ws
 #endif
 
-
-ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void (*fp)()){
+template<class T>
+ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void (*fp)(T)){
 	while(ros_sem != 0){
 	}
 	state = 1;
@@ -84,15 +84,21 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	sstr += "<caller_id>/mros_node2</caller_id>\n";
 =======
 #endif
-	sstr += "<topic_type>std_msgs/String</topic_type>\n";
+	sstr += "<topic_type>";
+	sstr += message_traits::DataType<T>().value();
+	sstr += "</topic_type>\n";
 	sstr += "<caller_id>/";
 	sstr +=  node_nv[ID_find(IDv,id)].c_str();
 	sstr+=	"</caller_id>\n";
 //>>>>>>> mori_ws
-	sstr += "<message_definition>std_msgs/String</message_definition>\n";
+	sstr += "<message_definition>";
+	sstr += message_traits::Definition<T>().value();
+	sstr += "</message_definition>\n";
 	sstr += "<fptr>";
 	sstr += tmp;
 	sstr += "</fptr>\n";
+	syslog(LOG_NOTICE,"hoge");
+	syslog(LOG_NOTICE,sstr.c_str());
 	intptr_t *sdq;
 	int size = strlen(sstr.c_str());
 	memcpy(&mem[XML_ADDR],sstr.c_str(),size);
@@ -105,6 +111,7 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	snd_dtq(XML_DTQ,*sdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
 	return sub;
 }
+template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::String*));
 
 #if 0
 <<<<<<< HEAD
@@ -147,14 +154,14 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 #endif
 	//pstr += "<topic_type>std_msgs/String</topic_type>\n";
 	pstr += "<topic_type>";
-	pstr += message_traits::DataType<std_msgs::String>().value();
+	pstr += message_traits::DataType<std_msgs::String*>().value();
 	pstr += "</topic_type>\n";
 	pstr += "<caller_id>/";
 	pstr +=	node_nv[ID_find(IDv,id)].c_str();
 	pstr += "</caller_id>\n";
 //>>>>>>> mori_ws
 	pstr += "<message_definition>string data</message_definition>\n";
-	syslog(LOG_NOTICE,message_traits::DataType<std_msgs::String>().value());
+	syslog(LOG_NOTICE,message_traits::DataType<std_msgs::String*>().value());
 	pstr += "<fptr>12345671</fptr>\n";
 	intptr_t *pdq;
 	memcpy(&mem[XML_ADDR],pstr.c_str(),pstr.size());

@@ -82,7 +82,7 @@ sensor_msgs::Image img;
 std_msgs::String str;
 ros::Rate loop_rate(FREQ);
 
-void Callback(string *msg){ 
+void Callback(std_msgs::String *msg){ 
   ROS_INFO("hellooo from ROS master!");
   syslog(LOG_NOTICE,"I heard [%s]",msg);
 }
