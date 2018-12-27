@@ -81,14 +81,15 @@ public:
 namespace message_traits
 {
 	template <class T>
-	struct MD5Sum{};
+	struct MD5Sum{static const char* value();};
 
 	template <class T>
-	struct DataType{};
+	struct DataType{static const char* value();};
 
 	template <class T>
-	struct Definition{};
+	struct Definition{static const char* value();};
 }
+
 //========================================================================================================================================================
 //========================================================================================================================================================
 //========================================================================================================================================================
@@ -126,7 +127,8 @@ public:
 	Publisher advertise(std::string topic,std::string type,int queue_size);
 =======
 #endif
-	Subscriber subscribe(std::string topic,int queue_size,void(*fp)());
+	template<class T>
+	Subscriber subscribe(std::string topic,int queue_size,void(*fp)(T));
 	template <class T>
 	Publisher advertise(std::string topic,int queue_size);
 //>>>>>>> mori_ws
