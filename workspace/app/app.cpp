@@ -7,6 +7,7 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "SoftPWM.h"
+#include "std_msgs/String.h"
 //pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
 static SoftPWM ledr(P6_13);                                     // LED-Red
@@ -48,7 +49,7 @@ void init(void){
 }
 
 /*****mROS user task code*******/
-/*
+
 void usr_task1(){
 #ifndef _USR_TASK_1_
 #define _USR_TASK_1_
@@ -58,8 +59,10 @@ void usr_task1(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
-  ros::Publisher chatter_pub = n.advertise("mros_msg",1);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
   ros::Rate loop_rate(5);
+  std_msgs::String str;
+  str.data = "hello from mROS!";
 
   //char msg[100];
   std_msgs::String msg;
@@ -69,6 +72,7 @@ void usr_task1(){
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
   while(1){
+    /*
     if(Button.read() == 0 && bb){
       b = !b;
       bb = false;
@@ -84,11 +88,14 @@ void usr_task1(){
       syslog(LOG_NOTICE, "%s", msg.data.c_str());
       chatter_pub.publish(msg);
       loop_rate.sleep();
-    }
+    }*/
+    wait_ms(1000);
+    ROS_INFO("USER TASK1: publishing string");
+    chatter_pub.publish(str);
   }
 #endif
 }
-*/
+
 
 /******* LED for mbed library　*******/
 void led_init(){
@@ -131,7 +138,7 @@ void LED_switch(string *msg){
 }
 
 /*******  callback **********/
-void Callback(string *msg){	
+void Callback(std_msgs::String *msg){	
   //LED_switch(msg);
   syslog(LOG_NOTICE,"I heard [%s]",msg);
 }
@@ -148,7 +155,7 @@ void usr_task2(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscriber("test_string",1,Callback);
-  ros::spin();
+  //ros::Subscriber sub = n.subscribe("test_string",1,Callback);
+  //ros::spin();
 #endif
 }
