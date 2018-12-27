@@ -462,7 +462,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				/**for image data**/
 					//size = sub_gen_header(tmp,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");
 				/**for string data**/
-					size = sub_gen_header(rbuf,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");
+					size = sub_gen_header(rbuf,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"1df79edf208b629fe6b81923a544552d");
 					rbuf[size]  = '0';
 					int err = lst.sock_vec[idx].connect(node_lst[node_num].ip.c_str(),port);
 					if(err != 0){
@@ -592,8 +592,10 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 								syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
 								void (*fp)(intptr_t);		//stringのみ対応
 								fp = lst.func_vec[i];
-								ROS_INFO("rbuf: %s",&rbuf[8]);
-								fp(&rbuf[8]);
+								int hoge = (int)rbuf[4] + (int)rbuf[5]*256;
+								fp(&hoge);
+								syslog(LOG_NOTICE,"SUB_TASK:data recieved [%d]",hoge);
+								//fp(&rbuf[8]);
 								rptr = &rbuf[0];
 								rcv_flag = false;
 								init_flag = true;

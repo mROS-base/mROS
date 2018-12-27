@@ -1,6 +1,7 @@
 //ros.cpp below
 #include "ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/UInt16.h"
 
 std::vector<ID> IDv;
 int ID_find(std::vector<ID> IDv,ID id){for(unsigned int i=0;i < IDv.size();i++){if(IDv[i] == id){return i;}}return -1;}
@@ -112,6 +113,7 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	return sub;
 }
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::String*));
+template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt16*));
 
 #if 0
 <<<<<<< HEAD
@@ -154,14 +156,16 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 #endif
 	//pstr += "<topic_type>std_msgs/String</topic_type>\n";
 	pstr += "<topic_type>";
-	pstr += message_traits::DataType<std_msgs::String*>().value();
+	pstr += message_traits::DataType<T*>().value();
 	pstr += "</topic_type>\n";
 	pstr += "<caller_id>/";
 	pstr +=	node_nv[ID_find(IDv,id)].c_str();
 	pstr += "</caller_id>\n";
 //>>>>>>> mori_ws
-	pstr += "<message_definition>string data</message_definition>\n";
-	syslog(LOG_NOTICE,message_traits::DataType<std_msgs::String*>().value());
+	pstr += "<message_definition>";
+	pstr += message_traits::DataType<T*>().value();
+	pstr += "</message_definition>\n";
+	syslog(LOG_NOTICE,message_traits::DataType<T*>().value());
 	pstr += "<fptr>12345671</fptr>\n";
 	intptr_t *pdq;
 	memcpy(&mem[XML_ADDR],pstr.c_str(),pstr.size());
@@ -177,6 +181,7 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	return pub;
 }
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
+template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt16>(string, int);
 
 template<class T>
 void ros::Publisher::publish(T& data){
