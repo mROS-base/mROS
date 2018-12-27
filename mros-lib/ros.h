@@ -126,7 +126,7 @@ public:
 	Publisher advertise(std::string topic,std::string type,int queue_size);
 =======
 #endif
-	Subscriber subscriber(std::string topic,int queue_size,void(*fp)());
+	Subscriber subscribe(std::string topic,int queue_size,void(*fp)());
 	template <class T>
 	Publisher advertise(std::string topic,int queue_size);
 //>>>>>>> mori_ws

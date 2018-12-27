@@ -336,7 +336,7 @@ void usr_task2(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscriber("test_string",1,Callback);
+  ros::Subscriber sub = n.subscribe("test_string",1,Callback);
   ros::spin();
 
 #endif

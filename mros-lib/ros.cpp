@@ -56,7 +56,7 @@ ros::Subscriber ros::NodeHandle::subscriber(std::string topic,std::string type,i
 #endif
 
 
-ros::Subscriber ros::NodeHandle::subscriber(std::string topic,int queue_size,void (*fp)()){
+ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void (*fp)()){
 	while(ros_sem != 0){
 	}
 	state = 1;
