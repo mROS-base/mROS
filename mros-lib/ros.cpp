@@ -88,6 +88,11 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	sstr += "<topic_type>";
 	sstr += message_traits::DataType<T>().value();
 	sstr += "</topic_type>\n";
+	std::stringstream ss;
+	ss <<  message_traits::DataTypeId<T>().value();
+	sstr += "<topic_type_id>";
+	sstr += ss.str();
+	sstr += "</topic_type_id>\n";
 	sstr += "<caller_id>/";
 	sstr +=  node_nv[ID_find(IDv,id)].c_str();
 	sstr+=	"</caller_id>\n";

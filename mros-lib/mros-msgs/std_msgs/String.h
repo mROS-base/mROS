@@ -1,4 +1,8 @@
-#include "ros.h"
+#ifndef _STD_MSGS_STRING_
+#define _STD_MSGS_STRING_
+
+
+static const int STRING_MSG_ID = 1;
 
 namespace std_msgs{
 class String{
@@ -10,7 +14,7 @@ public:
 namespace message_traits
 {
 template<>
-struct MD5Sum<std_msgs::String*>
+struct MD5Sum<STRING_MSG_ID>
 {
   static const char* value()
   {
@@ -30,6 +34,16 @@ struct DataType<std_msgs::String*>
 };
 
 template<>
+struct DataTypeId<std_msgs::String*>
+{
+  static const int value()
+  {
+    return STRING_MSG_ID;
+  }
+
+};
+
+template<>
 struct Definition<std_msgs::String*>
 {
 	static const char* value()
@@ -39,3 +53,18 @@ struct Definition<std_msgs::String*>
 	}
 };
 }
+
+namespace subtask_methods
+{
+  template<>
+  struct CallCallbackFuncs<STRING_MSG_ID>{
+    static void call(void (*fp)(intptr_t), char *rbuf)
+    {
+      std_msgs::String msg;
+      msg.data = &rbuf[8];
+      fp(&msg);
+    }
+  };
+}
+
+#endif

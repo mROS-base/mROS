@@ -9,6 +9,7 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
+#include "std_msgs/String.h"
 #include "std_msgs/UInt16.h"
 
 //extern int rcv_count;
@@ -59,11 +60,33 @@ void wup_all(){
 std::vector<node> node_lst;
 
 /***variables for evaluation***/
-
-template<class T>
-void getTypeFromFP(void (*fp)(T), char *rbuf){
-	subtask_methods::CallCallbackFuncs<T>().call(fp,rbuf);
+template<int V>
+void getTypeFromFP(void (*fp)(intptr_t), char *rbuf){
+	subtask_methods::CallCallbackFuncs<V>().call(fp,rbuf);
 }
+
+std::string getMD5Sum(int id){
+	switch(id){
+		case 1:
+			return message_traits::MD5Sum<1>().value();
+			break;
+		case 10:
+			return message_traits::MD5Sum<10>().value();
+			break;
+	}
+}
+
+void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
+	switch(id){
+		case 1:
+			subtask_methods::CallCallbackFuncs<1>().call(fp,rbuf);
+			break;
+		case 10:
+			subtask_methods::CallCallbackFuncs<10>().call(fp,rbuf);
+			break;
+	}
+}
+
 
 /* Initialize Network Configuration */
 #define USE_DHCP (1)
@@ -357,6 +380,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 		std::vector<char> id_vec; 					//mROSID
 		std::vector<intptr_t> func_vec; 			//callback function pointer
 		std::vector<char> stat_vec;					//state vector 0:unregister state 1:prepared subscribe from external node 2:prepared subscribe internal node
+		std::vector<int> msg_type_id_vec;
 		int find(char c){
 					for(unsigned int i=0;i < this->id_vec.size();i++){
 						if(c == this->id_vec[i]){
@@ -365,7 +389,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 					}
 					return -1;
 				}
-		void add(TCPSocketConnection sock,char ID,intptr_t func){this->sock_vec.push_back(sock);this->id_vec.push_back(ID);this->func_vec.push_back(func);this->stat_vec.push_back(0);}
+		void add(TCPSocketConnection sock,char ID,intptr_t func, int msg_type_id){this->sock_vec.push_back(sock);this->id_vec.push_back(ID);this->func_vec.push_back(func);this->msg_type_id_vec.push_back(msg_type_id);this->stat_vec.push_back(0);}
 		void set_stat(int stat,int idx){this->stat_vec[idx] = stat;}
 	};
 	sub_list lst;
@@ -404,7 +428,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				//get function pointer address
 				string str = rbuf;
 				funcp = (intptr_t)atoi(get_fptr(str).c_str());
-				lst.add(sock,sdq[0],funcp);
+				lst.add(sock,sdq[0],funcp,node_lst[node_num].topic_type_id);
 #if 0
 <<<<<<< HEAD
 				//send requestTopic
@@ -469,7 +493,13 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				/**for image data**/
 					//size = sub_gen_header(tmp,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");
 				/**for string data**/
-					size = sub_gen_header(rbuf,node_lst[node_num].callerid,"0",node_lst[node_num].topic_name,node_lst[node_num].topic_type,"1df79edf208b629fe6b81923a544552d");
+					size = sub_gen_header(
+						rbuf,
+						node_lst[node_num].callerid,
+						"0",
+						node_lst[node_num].topic_name,
+						node_lst[node_num].topic_type,
+						getMD5Sum(node_lst[node_num].topic_type_id));
 					rbuf[size]  = '0';
 					int err = lst.sock_vec[idx].connect(node_lst[node_num].ip.c_str(),port);
 					if(err != 0){
@@ -597,9 +627,10 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				//data received
 								rbuf[msg_size + 4] = '\0';
 								syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
-								void (*fp)(std_msgs::UInt16&);		//stringのみ対応
+								void (*fp)(intptr_t);		//stringのみ対応
 								fp = lst.func_vec[i];
-								getTypeFromFP(fp,rbuf);
+								//getTypeFromFP<1>(fp,rbuf);
+								callCallback(lst.msg_type_id_vec[i],fp,rbuf);
 								int hoge = (int)rbuf[4] + (int)rbuf[5]*256;
 								//fp(&hoge);
 								syslog(LOG_NOTICE,"SUB_TASK:data recieved [%d]",hoge);
@@ -728,6 +759,7 @@ void get_node(node *node,std::string *xml,bool type){
 	string c;
 	node->set_node_type(type);
 	node->set_topic_type(get_ttype(*xml));
+	node->set_topic_type_id(get_ttypeid(*xml));
 	node->set_topic_name(get_tname(*xml));
 	node->set_callerid(get_cid(*xml));
 	node->set_message_definition(get_msgdef(*xml));
@@ -779,7 +811,8 @@ void xml_mas_task(){
 			string xml;
 			syslog(LOG_NOTICE,"XML_MAS_TASK: regiester Subscriber ID:[%d]",xdq[0]);
 			sub.ID = xdq[0];
-			get_node(&sub,&str,true);														
+			get_node(&sub,&str,true);
+			//syslog(LOG_NOTICE,"topic type id: %d",sub.topic_type_id );												
 			xml = registerSubscriber(sub.callerid,sub.topic_name,sub.topic_type,sub.uri);
 			xml_mas_sock.send(xml.c_str(),xml.size());
 			xml_mas_sock.receive(rbuf,sizeof(char)*512);
@@ -816,7 +849,7 @@ void xml_mas_task(){
 			std::string xml;
 			syslog(LOG_NOTICE,"XML_MAS_TASK: regiester Publisher ID:[%d]",xdq[0]);
 			pub.ID = xdq[0];
-			get_node(&pub,&str,false);														
+			get_node(&pub,&str,false);										
 			node_lst.push_back(pub);
 			xml = registerPublisher(pub.callerid,pub.topic_name,pub.topic_type,pub.uri);
 			//ROS_INFO("%s",xml.c_str());

@@ -320,6 +320,17 @@ string get_ttype(string xml){
 	return body;
 }
 
+string get_ttypeid(string xml){
+    int head,tail;
+    string body;
+    head = (int)xml.find("<topic_type_id>");
+    tail = (int)xml.find("</topic_type_id>");
+    for(int i = head + sizeof("<topic_type_id>") -1;i < tail; i++){
+        body = body + xml[i];
+    }
+    return body;
+}
+
 string get_tname(string xml){
 	int head,tail;
 		string body;
