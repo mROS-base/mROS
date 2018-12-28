@@ -39,3 +39,27 @@ struct Definition<std_msgs::UInt16*>
 	}
 };
 }
+
+namespace subtask_methods
+{
+  template<>
+  struct CallCallbackFuncs<std_msgs::UInt16&>{
+    static void call(void (*fp)(), char *rbuf)
+    {
+      std_msgs::UInt16 msg;
+      msg.data = (int)rbuf[4] + (int)rbuf[5]*256;
+    }
+  };
+}
+/*
+namespace subtask_methods
+{
+  template<>
+  struct CallCallbackFuncs<"std_msgs/UInt16">{
+    static void call(void (*fp)(), char *rbuf)
+    {
+      std_msgs::UInt16 msg;
+      msg.data = (int)rbuf[4] + (int)rbuf[5]*256;
+    }
+  };
+}*/

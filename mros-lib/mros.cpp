@@ -9,6 +9,7 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "syssvc/logtask.h"
+#include "std_msgs/UInt16.h"
 
 //extern int rcv_count;
 char evl_flag = 0;
@@ -24,6 +25,7 @@ extern std::vector<ID> IDv;
 int ros_sem =0;	//mROS resource semapho
 int count=1;	//for assign node ID
 
+
 /**state->意味を成してないかも
  * 0: initial state
  * 1: register subscriber state ::XML_MAS_TASK,SUB_TASK,XML_SLV_TASK
@@ -31,6 +33,7 @@ int count=1;	//for assign node ID
  * 3: machine running state ::PUB_TASK,SUB_TASK,XML_SLV_TASK
  */
 int state = 0;
+
 
 /******* function to operate user task  ******/
 void sus_all(){
@@ -57,6 +60,10 @@ std::vector<node> node_lst;
 
 /***variables for evaluation***/
 
+template<class T>
+void getTypeFromFP(void (*fp)(T), char *rbuf){
+	subtask_methods::CallCallbackFuncs<T>().call(fp,rbuf);
+}
 
 /* Initialize Network Configuration */
 #define USE_DHCP (1)
@@ -590,10 +597,11 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				//data received
 								rbuf[msg_size + 4] = '\0';
 								syslog(LOG_NOTICE,"SUB_TASK:data length [%d]",len);
-								void (*fp)(intptr_t);		//stringのみ対応
+								void (*fp)(std_msgs::UInt16&);		//stringのみ対応
 								fp = lst.func_vec[i];
+								getTypeFromFP(fp,rbuf);
 								int hoge = (int)rbuf[4] + (int)rbuf[5]*256;
-								fp(&hoge);
+								//fp(&hoge);
 								syslog(LOG_NOTICE,"SUB_TASK:data recieved [%d]",hoge);
 								//fp(&rbuf[8]);
 								rptr = &rbuf[0];
@@ -874,5 +882,3 @@ void cyclic_handler(intptr_t exinf){
 	iwup_tsk(SUB_TASK);
 	iwup_tsk(XML_SLV_TASK);
 }
-
-

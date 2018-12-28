@@ -63,6 +63,8 @@
 #endif	/*MEM_ADD*/
 
 
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -83,7 +85,8 @@ extern void usr_task2();
 extern void sus_all();
 extern void rsm_all();
 
-extern void cyclic_handler(intptr_t exinf);
+extern void cyclic_handler(intptr_t exinf); 
+
 #ifdef __cplusplus
 }
 #endif
