@@ -1,6 +1,8 @@
 
 #include "ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/UInt32.h"
+#include "std_msgs/UInt8.h"
 #include "std_msgs/UInt16.h"
 
 std::vector<ID> IDv;
@@ -118,7 +120,9 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	return sub;
 }
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::String*));
+template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt32*));
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt16*));
+template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt8*));
 
 #if 0
 <<<<<<< HEAD
@@ -186,7 +190,9 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	return pub;
 }
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
+template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt32>(string, int);
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt16>(string, int);
+template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt8>(string, int);
 
 template<class T>
 void ros::Publisher::publish(T& data){

@@ -8,7 +8,9 @@
 #include "EthernetInterface.h"
 #include "SoftPWM.h"
 #include "std_msgs/String.h"
+#include "std_msgs/UInt32.h"
 #include "std_msgs/UInt16.h"
+#include "std_msgs/UInt8.h"
 //pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
 static SoftPWM ledr(P6_13);                                     // LED-Red
@@ -74,7 +76,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  while(1){
+  //while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -92,11 +94,11 @@ void usr_task1(){
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }*/
-    wait_ms(1000);
-    ROS_INFO("USER TASK1: publishing string,%d",str.data);
-    chatter_pub.publish(str);
-    str.data = str.data + 1;
-  }
+  //  wait_ms(1000);
+  //  ROS_INFO("USER TASK1: publishing string,%d",str.data);
+    //chatter_pub.publish(str);
+  //  str.data = str.data + 1;
+  //}
 #endif
 }
 
@@ -142,9 +144,10 @@ void LED_switch(string *msg){
 }
 
 /*******  callback **********/
-void Callback(std_msgs::UInt16 *msg){	
+void Callback(std_msgs::UInt32 *msg){	
   //LED_switch(msg);
-  syslog(LOG_NOTICE,"I heard [%d]",msg->data);
+  int hoge = msg->data;
+  syslog(LOG_NOTICE,"I heard [%u]",hoge);
 }
 
 /*****mROS user task code*******/

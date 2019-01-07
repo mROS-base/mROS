@@ -612,7 +612,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 								callCallback(lst.msg_type_id_vec[i],fp,rbuf);
 								int hoge = (int)rbuf[4] + (int)rbuf[5]*256;
 								//fp(&hoge);
-								syslog(LOG_NOTICE,"SUB_TASK:data recieved [%d]",hoge);
+								//syslog(LOG_NOTICE,"SUB_TASK:data recieved [%d]",hoge);
 								//fp(&rbuf[8]);
 								rptr = &rbuf[0];
 								rcv_flag = false;
