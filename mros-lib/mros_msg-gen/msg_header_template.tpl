@@ -61,7 +61,10 @@ namespace subtask_methods
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
       {{msg.pkg}}::{{msg.name}} msg;
-      msg.data = &rbuf[8];
+      int ptr = 8;
+      {% for def_str in msg.def %}msg.{{ def_str[1]}} = &rbuf[ptr];
+      ptr += msg.{{ def_str[1] }}.size() + 3;
+      {% endfor %}
       fp(&msg);
     }
   };

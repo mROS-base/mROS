@@ -9,6 +9,9 @@ std_msgs ={
 	"std_msgs/UInt32.h": 6
 }
 
+fileDir = os.path.dirname(__file__) 
+os.chdir(fileDir)
+
 included_std_msgs = []
 
 msgs = []
@@ -37,7 +40,7 @@ with open('including_msgs.json','r') as f:
 							if arr[def_i + 1].strip() == "}":
 								break
 							else:
-								msg_def_str = arr[def_i].strip().lstrip('	return "').rstrip('";').rstrip("\\n\\")
+								msg_def_str = arr[def_i].strip().lstrip('	return "').rstrip('";')[:-3]
 								msg_def.append(msg_def_str.split(' '))
 								def_i = def_i + 1
 					if 'DataType' in h_line:

@@ -67,5 +67,10 @@ include ../Makefile.asp
 $(ALL_OBJ): kernel_cfg.h
 
 .PHONY: yugen
-yugen: all
+yugen: genmsg all
 	cp asp.bin /media/yugen/MBED
+
+.PHONY: genmsg
+genmsg:
+	python ../../mros-lib/mros_msg-gen/mros_msg-gen.py
+	echo "message generated"

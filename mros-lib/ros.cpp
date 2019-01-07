@@ -4,6 +4,7 @@
 #include "std_msgs/UInt32.h"
 #include "std_msgs/UInt8.h"
 #include "std_msgs/UInt16.h"
+#include "mros_test/StrMsg.h"
 
 std::vector<ID> IDv;
 int ID_find(std::vector<ID> IDv,ID id){for(unsigned int i=0;i < IDv.size();i++){if(IDv[i] == id){return i;}}return -1;}
@@ -123,7 +124,7 @@ template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(s
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt32*));
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt16*));
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt8*));
-
+template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(mros_test::StrMsg*));
 #if 0
 <<<<<<< HEAD
 ros::Publisher ros::NodeHandle::advertise(string topic,string type,int queue_size){
