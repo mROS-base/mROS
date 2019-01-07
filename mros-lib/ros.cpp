@@ -230,6 +230,7 @@ void ros::Publisher::publish(T& data){
 }
 template void ros::Publisher::publish(std_msgs::String&);
 template void ros::Publisher::publish(std_msgs::UInt16&);
+template void ros::Publisher::publish(std_msgs::UInt32&);
 
 #if 0
 <<<<<<< HEAD
