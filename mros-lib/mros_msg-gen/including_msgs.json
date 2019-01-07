@@ -1,0 +1,6 @@
+{
+	"catkin_ws_dir": "../../../catkin_ws",
+	"including_msgs": [
+		"mros_test/StrMsg.h"
+	]
+}

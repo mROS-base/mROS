@@ -140,9 +140,9 @@ void LED_switch(string *msg){
 }
 
 /*******  callback **********/
-void Callback(std_msgs::String *msg){	
+void Callback(std_msgs::UInt16 *msg){	
   //LED_switch(msg);
-  syslog(LOG_NOTICE,"I heard [%s]",msg->data.c_str());
+  syslog(LOG_NOTICE,"I heard [%d]",msg->data);
 }
 
 /*****mROS user task code*******/
@@ -157,7 +157,7 @@ void usr_task2(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("test_msg",1,Callback);
+  ros::Subscriber sub = n.subscribe("test_int",1,Callback);
   ros::spin();
 #endif
 }
