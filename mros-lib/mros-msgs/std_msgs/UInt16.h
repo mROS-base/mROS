@@ -8,6 +8,7 @@ class UInt16{
 public:
 	int data;
   static const int id = UINT16_MSG_ID;
+  int dataSize(){return 4;}
 };
 }
 
