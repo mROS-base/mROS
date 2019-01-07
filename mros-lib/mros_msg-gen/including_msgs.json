@@ -1,6 +1,10 @@
 {
 	"catkin_ws_dir": "../../../catkin_ws",
 	"including_msgs": [
+		"std_msgs/UInt32.h",
+		"std_msgs/UInt16.h",
+		"std_msgs/UInt8.h",
+		"std_msgs/String.h",
 		"mros_test/StrMsg.h"
 	]
 }

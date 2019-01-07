@@ -2,6 +2,15 @@ import os
 import json
 from jinja2 import Template, Environment, FileSystemLoader
 
+std_msgs ={
+	"std_msgs/String.h": 1,
+	"std_msgs/UInt16.h": 10,
+	"std_msgs/UInt8.h" : 3,
+	"std_msgs/UInt32.h": 6
+}
+
+included_std_msgs = []
+
 msgs = []
 
 i_id = 100
@@ -10,8 +19,11 @@ with open('including_msgs.json','r') as f:
 	catkin_include_path = json_data['catkin_ws_dir'] + "/devel/include/"
 	for line in json_data['including_msgs']:
 		line = line.strip()
-		print(catkin_include_path +line)
-		if os.path.isfile(catkin_include_path + line):
+		print(line)
+		if line in std_msgs:
+			included_std_msgs.append({'name':line, 'id':std_msgs[line]})
+			print std_msgs[line]
+		elif os.path.isfile(catkin_include_path + line):
 			with open(catkin_include_path +line,'r') as h_f:
 				arr = h_f.readlines()
 				for i,h_line in enumerate(arr):
@@ -54,7 +66,7 @@ for msg in msgs:
 	env = Environment(loader=FileSystemLoader('.'))
 	template = env.get_template('msg_header_template.tpl')
 	datatext = template.render({"msg":msg})
-	pkgPath = './'+msg['pkg']
+	pkgPath = '../mros-msgs/'+msg['pkg']
 	if not(os.path.isdir(pkgPath)):
 		os.mkdir(pkgPath)
 	with open(os.path.join(pkgPath,msg['name']+".h"),"wb") as f:
@@ -63,7 +75,7 @@ for msg in msgs:
 # header_includer generator
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('msg_headers_includer.tpl')
-datatext = template.render({"msgs":msgs})
+datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
 
-with open("message_headers.h","wb") as f:
+with open("../mros-msgs/message_headers.h","wb") as f:
 	f.write(datatext)
