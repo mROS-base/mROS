@@ -204,7 +204,8 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
 	char buf[1024*512];
 	char snd_buf[512];
-	rbuf = &buf[4];
+	//rbuf = &buf[4];
+	rbuf = &buf[8];
 #endif 	//_PUB_
 	while(1){
 		//syslog(LOG_NOTICE,"PUB_TASK:enter loop");
