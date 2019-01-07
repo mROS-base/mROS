@@ -1,4 +1,4 @@
-//ros.cpp below
+
 #include "ros.h"
 #include "std_msgs/String.h"
 #include "std_msgs/UInt16.h"
@@ -194,12 +194,13 @@ void ros::Publisher::publish(T& data){
 	while(ros_sem != 0){
 
 	}
-	int size = data.data.size();
+	int size = data.dataSize();
 	int i = find_sub(node_lst,node_lst[find_id(node_lst,this->ID)].topic_name);
 
 	if(i != -1){
 		char sbuf[4];
-		memcpy(&mem[PUB_ADDR2],data.data.c_str(),size);
+		memcpy(&mem[PUB_ADDR2],&data.data,size);
+		//memcpy(&mem[PUB_ADDR2],data.data.c_str(),size);
 		intptr_t *pdq;
 		sbuf[0] = node_lst[i].ID;
 		sbuf[1] = size;
@@ -210,7 +211,8 @@ void ros::Publisher::publish(T& data){
 	}
 
 	char pbuf[4];
-	memcpy(&mem[PUB_ADDR],data.data.c_str(),size);
+	memcpy(&mem[PUB_ADDR],&data.data,size);
+	//memcpy(&mem[PUB_ADDR],data.data.c_str(),size);
 	intptr_t *pdq;
 	pbuf[0] = this->ID;
 	pbuf[1] = size;
@@ -221,6 +223,7 @@ void ros::Publisher::publish(T& data){
 
 }
 template void ros::Publisher::publish(std_msgs::String&);
+template void ros::Publisher::publish(std_msgs::UInt16&);
 
 #if 0
 <<<<<<< HEAD

@@ -76,8 +76,8 @@ int sub_gen_header(char *buf,string id,string nodelay,string topic,string type,s
 
 //only for std_msgs/String 
 int pub_gen_msg(char *buf,char *msg){
-    int len = strlen(msg);
-    add_len(&buf[4],len);
+    int len = 6;//strlen(msg);
+    //add_len(&buf[4],len);
     add_len(buf,len+4);
     return len+8;
 }

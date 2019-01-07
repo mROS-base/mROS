@@ -204,7 +204,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
 	char buf[1024*512];
 	char snd_buf[512];
-	rbuf = &buf[8];
+	rbuf = &buf[4];
 #endif 	//_PUB_
 	while(1){
 		//syslog(LOG_NOTICE,"PUB_TASK:enter loop");
@@ -321,11 +321,12 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 			//publish phase
 			if(lst.stat_vec[num] == 0){
 			//	if(lst.sock_vec[num].is_connected()){
-				//ROS_INFO("PUB_TASK: TOPIC send size[%d]",size);
+				ROS_INFO("PUB_TASK: TOPIC send size[%d]",size);
 				memcpy(rbuf,&mem[PUB_ADDR],size);
 				//ROS_INFO("PUB_TASK: memcpy");
 				rbuf[size] = '\0';	//cutting data end
 				/**for string data**/
+				
 				int l = pub_gen_msg(buf,rbuf);	
 				/**for image data**/
 				//int la = pub_gen_img_msg(buf,rbuf,size);

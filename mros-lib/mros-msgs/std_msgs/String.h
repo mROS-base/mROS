@@ -8,6 +8,7 @@ namespace std_msgs{
 class String{
 public:
 	std::string data;
+  int dataSize(){return data.size();}
 };
 }
 
@@ -52,6 +53,7 @@ struct Definition<std_msgs::String*>
 ";
 	}
 };
+
 }
 
 namespace subtask_methods
