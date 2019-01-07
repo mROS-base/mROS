@@ -77,7 +77,7 @@ namespace subtask_methods
     {
       std_msgs::UInt16 msg;
       msg.data = (int)rbuf[4] + (int)rbuf[5]*256;
-      fp(&msg.data);
+      fp(&msg);
     }
   };
 }
