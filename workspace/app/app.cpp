@@ -72,9 +72,9 @@ void usr_task1(){
 
   //char msg[100];
   mros_test::StrMsg msg;
-  msg.baker = "abc";
-  msg.parker = "def";
-  msg.coltrane = "ghi";
+  msg.baker = "unchi";
+  msg.parker = "kongutte";
+  msg.coltrane = "shitteru????";
   int count=0;
   init();
   bool b = false;

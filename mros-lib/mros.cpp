@@ -204,8 +204,8 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 	dqp = (intptr_t *)malloc(sizeof(char)*4);
 	char buf[1024*512];
 	char snd_buf[512];
-	//rbuf = &buf[4];
-	rbuf = &buf[8];
+	rbuf = &buf[4];
+	//rbuf = &buf[8];
 #endif 	//_PUB_
 	while(1){
 		//syslog(LOG_NOTICE,"PUB_TASK:enter loop");
@@ -328,15 +328,16 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				//rbuf[size] = '\0';	//cutting data end
 				/**for string data**/
 				
-				int l = pub_gen_msg(buf,rbuf);	
+				//int l = pub_gen_msg(buf,rbuf);	
 				/**for image data**/
 				//int la = pub_gen_img_msg(buf,rbuf,size);
 				//ROS_INFO("PUB_TASK: generate TCPROS[%d]",l);
 				//publish
-				int err = lst.sock_vec[num].send(buf,l);
-				int number = errno;
+				int bodySize = size;
+				memcpy(buf,&bodySize,4);
+				int err = lst.sock_vec[num].send(buf,bodySize+4);
 				//ROS_INFO("PUB_TASK: send[%d]",err);
-				ROS_INFO(buf);
+				int number = errno;
 				if(err < 0)  ROS_INFO("PUB_TASK: PUBLISHING ERROR ! [%d] errno=%d %s",err,number,strerror(number));
 			}else if(lst.stat_vec[num] == 1){
 				syslog(LOG_NOTICE,"PUB_TASK: internal data publish");

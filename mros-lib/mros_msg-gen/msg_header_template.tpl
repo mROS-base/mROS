@@ -10,7 +10,17 @@ public:
 {%for def_data in msg.def %}  {{def_data[0]}} {{def_data[1]}};
 {% endfor %}
   int dataSize(){
-    return {%for def_data in msg.def %} {{def_data[1]}}.size() + {%endfor%} 4*{{defSize-1}};
+    return {%for def_data in msg.def %} {{def_data[1]}}.size() + {%endfor%} 4*{{defSize}};
+  }
+
+  void memCopy(char *addrPtr){
+    int size; {%for def_data in msg.def %}
+    size = {{def_data[1]}}.size();
+    memcpy(addrPtr,&size,4);
+    addrPtr += 4;
+    memcpy(addrPtr, {{def_data[1]}}.c_str(),size);
+    addrPtr += size;
+    {% endfor %}
   }
 };
 
