@@ -61,7 +61,7 @@ with open('including_msgs.json','r') as f:
 			'type': msg_type})
 			i_id = i_id + 1
 		else:
-			raise Exception('Error: no such header file')
+			raise Exception('msg header file "' + line + '" not found.')
 
 print msgs
 #header generator
