@@ -199,6 +199,7 @@ template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt32>(string, int
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt16>(string, int);
 template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt8>(string, int);
 template ros::Publisher ros::NodeHandle::advertise<mros_test::StrMsg>(string, int);
+template ros::Publisher ros::NodeHandle::advertise<mros_test::PersonalData>(string, int);
 
 template<class T>
 void ros::Publisher::publish(T& data){
@@ -239,6 +240,7 @@ void ros::Publisher::publish(T& data){
 template void ros::Publisher::publish(std_msgs::String&);
 template void ros::Publisher::publish(std_msgs::UInt16&);
 template void ros::Publisher::publish(mros_test::StrMsg&);
+template void ros::Publisher::publish(mros_test::PersonalData&);
 
 #if 0
 <<<<<<< HEAD
