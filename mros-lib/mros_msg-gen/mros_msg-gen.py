@@ -9,6 +9,22 @@ std_msgs ={
 	"std_msgs/UInt32.h": 6
 }
 
+msg_sizes = {
+	"string":0,
+	"int8": 1,"uint8": 1,
+	"int16": 2,"uint16": 2,
+	"int32": 4,"uint32": 4,
+	"int64": 8,"uint64": 8
+}
+
+msg_cpp_types = {
+	"string":"string",
+	"int8": "int8_t","uint8": "uint8_t",
+	"int16": "int16_t","uint16": "uint16_t",
+	"int32": "int32_t","uint32": "uint32_t",
+	"int64": "int64_t","uint64": "uint64_t"
+}
+
 fileDir = os.path.dirname(__file__) 
 os.chdir(fileDir)
 
@@ -22,11 +38,10 @@ with open('including_msgs.json','r') as f:
 	catkin_include_path = json_data['catkin_ws_dir'] + "/devel/include/"
 	for line in json_data['including_msgs']:
 		line = line.strip()
-		print(line)
 		if line in std_msgs:
 			included_std_msgs.append({'name':line, 'id':std_msgs[line]})
-			print std_msgs[line]
 		elif os.path.isfile(catkin_include_path + line):
+			strNum = 0
 			with open(catkin_include_path +line,'r') as h_f:
 				arr = h_f.readlines()
 				for i,h_line in enumerate(arr):
@@ -36,20 +51,27 @@ with open('including_msgs.json','r') as f:
 						def_i = i+4
 						msg_def = []
 						while True:
-							print(arr[def_i])
 							if arr[def_i + 1].strip() == "}":
 								break
 							else:
-								msg_def_str = arr[def_i].strip().lstrip('	return "').rstrip('";')[:-3]
-								msg_def.append(msg_def_str.split(' '))
+								msg_def_str = arr[def_i].strip().replace('return "','')[:-3]
+								msg_def_arr = msg_def_str.split(' ')
+								if msg_def_arr[0] == "string":
+									cppType = "string"
+									strNum= strNum + 1
+								else:
+									cppType = msg_cpp_types[msg_def_arr[0]]
+								msg_def.append({
+									'rosType':msg_def_arr[0],
+									'cppType':cppType,
+									'typeName':msg_def_arr[1],
+									'size':msg_sizes[msg_def_arr[0]]
+									})
 								def_i = def_i + 1
 					if 'DataType' in h_line:
 						msg_type = arr[i+4].strip().lstrip('	return "').rstrip('";')
 			line_arr = line.strip().split('/')
 			line_arr[1] = line_arr[1].rstrip('.h')
-			print('start msg_def')
-			print(msg_def)
-			print('end msg_def')
 			msgs.append({
 			'name':line_arr[1],
 			'pkg':line_arr[0],
@@ -58,17 +80,17 @@ with open('including_msgs.json','r') as f:
 			'id':i_id,
 			'md5': md5,
 			'def': msg_def,
-			'type': msg_type})
+			'type': msg_type,
+			'strNum': strNum})
 			i_id = i_id + 1
 		else:
 			raise Exception('msg header file "' + line + '" not found.')
 
-print msgs
 #header generator
 for msg in msgs:
 	env = Environment(loader=FileSystemLoader('.'))
 	template = env.get_template('msg_header_template.tpl')
-	datatext = template.render({"msg":msg, "defSize":len(msg['def'])})
+	datatext = template.render({"msg":msg, "strNum":strNum})
 	pkgPath = '../mros-msgs/'+msg['pkg']
 	if not(os.path.isdir(pkgPath)):
 		os.mkdir(pkgPath)

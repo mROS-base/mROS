@@ -5,6 +5,8 @@
 		"std_msgs/UInt16.h",
 		"std_msgs/UInt8.h",
 		"std_msgs/String.h",
-		"mros_test/StrMsg.h"
+		"mros_test/StrMsg.h",
+		"mros_test/LightSensorValues.h",
+		"mros_test/PersonalData.h"
 	]
 }

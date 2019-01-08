@@ -7,20 +7,24 @@ static const int {{id_name}} = {{msg.id}};
 namespace {{msg.pkg}}{
 class {{msg.name}}{
 public:
-{%for def_data in msg.def %}  {{def_data[0]}} {{def_data[1]}};
+{%for def_data in msg.def %}  {{def_data.cppType}} {{def_data.typeName}};
 {% endfor %}
   int dataSize(){
-    return {%for def_data in msg.def %} {{def_data[1]}}.size() + {%endfor%} 4*{{defSize}};
+    return {%for def_data in msg.def %} {%if def_data.rosType == 'string'%}{{def_data.typeName}}.size(){% else %}{{def_data.size}}{%endif%} + {%endfor%} 4*{{msg.strNum}};
   }
 
   void memCopy(char *addrPtr){
-    int size; {%for def_data in msg.def %}
-    size = {{def_data[1]}}.size();
+    int size; 
+    {%for def_data in msg.def %}{% if def_data.rosType == 'string' %}
+    size = {{def_data.typeName}}.size();
     memcpy(addrPtr,&size,4);
     addrPtr += 4;
-    memcpy(addrPtr, {{def_data[1]}}.c_str(),size);
+    memcpy(addrPtr, {{def_data.typeName}}.c_str(),size);
     addrPtr += size;
-    {% endfor %}
+    {% else %}
+    memcpy(addrPtr,&{{def_data.typeName}},{{def_data.size}});
+    addrPtr += {{def_data.size}};
+    {% endif %}{% endfor %}
   }
 };
 
@@ -63,7 +67,7 @@ struct Definition<{{msg.pkg}}::{{msg.name}}*>
 {
 	static const char* value()
 	{
-		return "{% for def_str in msg.def %}{{ def_str[0] }} {{def_str[1]}}\n\
+		return "{% for def_str in msg.def %}{{ def_str.rosType }} {{def_str.typeName}}\n\
 {% endfor %}";
 	}
 };
@@ -76,10 +80,20 @@ namespace subtask_methods
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
       {{msg.pkg}}::{{msg.name}} msg;
-      int ptr = 8;
-      {% for def_str in msg.def %}msg.{{ def_str[1]}} = &rbuf[ptr];
-      ptr += msg.{{ def_str[1] }}.size() + 3;
-      {% endfor %}
+      int size;
+      rbuf += 4;
+      {% for def_str in msg.def %}{% if def_str.rosType == 'string' %}{
+        memcpy(&size,rbuf,4);
+        rbuf += 4;
+        char buf_char[size+1];
+        memcpy(&buf_char,rbuf,size);
+        buf_char[size] = '\0';
+        msg.{{def_str.typeName}} = buf_char;
+        rbuf += size;
+      }
+      {% else %}memcpy(&msg.{{def_str.typeName}},rbuf,{{def_str.size}});
+      rbuf += {{def_str.size}};
+      {% endif %}{% endfor %}
       fp(&msg);
     }
   };

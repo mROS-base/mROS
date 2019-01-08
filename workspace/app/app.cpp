@@ -12,6 +12,8 @@
 #include "std_msgs/UInt16.h"
 #include "std_msgs/UInt8.h"
 #include "mros_test/StrMsg.h"
+#include "mros_test/LightSensorValues.h"
+#include "mros_test/PersonalData.h"
 //pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
 static SoftPWM ledr(P6_13);                                     // LED-Red
@@ -84,7 +86,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  while(1){
+  //while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -102,11 +104,11 @@ void usr_task1(){
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }*/
-    wait_ms(1000);
+    //wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
-    chatter_pub.publish(msg);
-    msg.data ++;
-  }
+    //chatter_pub.publish(msg);
+    //msg.data ++;
+  //}
 #endif
 }
 
@@ -152,12 +154,13 @@ void LED_switch(string *msg){
 }
 
 /*******  callback **********/
-void Callback(mros_test::StrMsg *msg){	
+void Callback(mros_test::PersonalData *msg){	
   //LED_switch(msg);
   syslog(LOG_NOTICE, "I hear msgs from ros host");
-  syslog(LOG_NOTICE, "msg'baker': %s",msg->baker.c_str());
-  syslog(LOG_NOTICE, "msg'parker': %s",msg->parker.c_str());
-  syslog(LOG_NOTICE, "msg'coltrane': %s",msg->coltrane.c_str());
+  string name = msg->first_name + " " + msg->last_name;
+  syslog(LOG_NOTICE, "name:%s",name.c_str());
+  syslog(LOG_NOTICE, "age:%u",msg->age);
+  syslog(LOG_NOTICE, "score:%u",msg->score);
   //int hoge = msg->data;
   //syslog(LOG_NOTICE,"I heard [%u]",hoge);
 }
