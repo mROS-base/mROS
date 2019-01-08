@@ -8,7 +8,15 @@ namespace std_msgs{
 class String{
 public:
 	std::string data;
-  int dataSize(){return data.size();}
+  int dataSize(){return data.size() + 4;}
+
+  void memCopy(char *addrPtr){
+    int size;
+    size = data.size();
+    memcpy(addrPtr, &size, 4);
+    addrPtr += 4;
+    memcpy(addrPtr, data.c_str(), size);
+  }
 };
 }
 

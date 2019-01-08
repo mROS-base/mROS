@@ -8,7 +8,10 @@ namespace std_msgs{
 class UInt8{
 public:
 	int data;
-  int dataSize(){return 2;}
+  int dataSize(){return 1;}
+  void memCopy(char *addrPtr){
+    memcpy(addrPtr,&data,1);
+  }
 };
 }
 

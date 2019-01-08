@@ -64,17 +64,21 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<mros_test::StrMsg>("mros_int",1);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_str",1);
   ros::Rate loop_rate(5);
   //std_msgs::String str;
   //std_msgs::UInt32 str;
   //str.data = 4294967200;
 
   //char msg[100];
+  /*
   mros_test::StrMsg msg;
   msg.baker = "unchi";
   msg.parker = "kongutte";
   msg.coltrane = "shitteru????";
+  */
+  std_msgs::UInt16 msg;
+  msg.data = 1;
   int count=0;
   init();
   bool b = false;
@@ -101,7 +105,7 @@ void usr_task1(){
     wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
     chatter_pub.publish(msg);
-    //str.data = str.data + 1;
+    msg.data ++;
   }
 #endif
 }

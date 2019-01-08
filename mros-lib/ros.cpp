@@ -209,12 +209,6 @@ void ros::Publisher::publish(T& data){
 		char sbuf[4];
 		//memcpy(&mem[PUB_ADDR2],&data.data,size); //for int
 		//memcpy(&mem[PUB_ADDR2],data.data.c_str(),size); //for string
-		/*
-		memcpy(&mem[PUB_ADDR2],data.baker.c_str(),3);
-		mem[PUB_ADDR2+3] = 3;
-		memcpy(&mem[PUB_ADDR2+7],data.parker.c_str(),3);
-		mem[PUB_ADDR2+10] = 3;
-		memcpy(&mem[PUB_ADDR2+14],data.coltrane.c_str(),3);*/
 		data.memCopy(&mem[PUB_ADDR2]);
 		intptr_t *pdq;
 		sbuf[0] = node_lst[i].ID;
@@ -228,12 +222,6 @@ void ros::Publisher::publish(T& data){
 	char pbuf[4];
 	//memcpy(&mem[PUB_ADDR],&data.data,size); //for int
 	//memcpy(&mem[PUB_ADDR],data.data.c_str(),size); //for string
-	/*
-	memcpy(&mem[PUB_ADDR],data.baker.c_str(),3);
-	mem[PUB_ADDR+3] = 3;
-	memcpy(&mem[PUB_ADDR+7],data.parker.c_str(),3);
-	mem[PUB_ADDR+10] = 3;
-	memcpy(&mem[PUB_ADDR+14],data.coltrane.c_str(),3);*/
 	data.memCopy(&mem[PUB_ADDR]);
 	intptr_t *pdq;
 	pbuf[0] = this->ID;
@@ -244,6 +232,8 @@ void ros::Publisher::publish(T& data){
 	snd_dtq(PUB_DTQ,*pdq);
 
 }
+template void ros::Publisher::publish(std_msgs::String&);
+template void ros::Publisher::publish(std_msgs::UInt16&);
 template void ros::Publisher::publish(mros_test::StrMsg&);
 
 #if 0

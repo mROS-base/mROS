@@ -9,6 +9,9 @@ class UInt32{
 public:
 	uint32_t data;
   int dataSize(){return 4;}
+  void memCopy(char *addrPtr){
+    memcpy(addrPtr,&data,1);
+  }
 };
 }
 

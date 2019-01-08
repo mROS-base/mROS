@@ -9,6 +9,10 @@ public:
 	int data;
   static const int id = UINT16_MSG_ID;
   int dataSize(){return 2;}
+
+  void memCopy(char *addrPtr){
+    memcpy(addrPtr,&data,2);
+  }
 };
 }
 
