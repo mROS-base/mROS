@@ -91,7 +91,7 @@ for msg in msgs:
 	env = Environment(loader=FileSystemLoader('.'))
 	template = env.get_template('msg_header_template.tpl')
 	datatext = template.render({"msg":msg, "strNum":strNum})
-	pkgPath = '../mros-msgs/'+msg['pkg']
+	pkgPath = '../../mros-msgs/'+msg['pkg']
 	if not(os.path.isdir(pkgPath)):
 		os.mkdir(pkgPath)
 	with open(os.path.join(pkgPath,msg['name']+".h"),"wb") as f:
@@ -102,5 +102,5 @@ env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('msg_headers_includer.tpl')
 datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
 
-with open("../mros-msgs/message_headers.h","wb") as f:
+with open("../../mros-msgs/message_headers.h","wb") as f:
 	f.write(datatext)
