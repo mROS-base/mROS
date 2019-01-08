@@ -325,7 +325,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				ROS_INFO("PUB_TASK: TOPIC send size[%d]",size);
 				memcpy(rbuf,&mem[PUB_ADDR],size);
 				//ROS_INFO("PUB_TASK: memcpy");
-				rbuf[size] = '\0';	//cutting data end
+				//rbuf[size] = '\0';	//cutting data end
 				/**for string data**/
 				
 				int l = pub_gen_msg(buf,rbuf);	

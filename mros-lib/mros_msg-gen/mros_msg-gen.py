@@ -68,7 +68,7 @@ print msgs
 for msg in msgs:
 	env = Environment(loader=FileSystemLoader('.'))
 	template = env.get_template('msg_header_template.tpl')
-	datatext = template.render({"msg":msg})
+	datatext = template.render({"msg":msg, "defSize":len(msg['def'])})
 	pkgPath = '../mros-msgs/'+msg['pkg']
 	if not(os.path.isdir(pkgPath)):
 		os.mkdir(pkgPath)

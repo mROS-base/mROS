@@ -8,7 +8,12 @@ namespace {{msg.pkg}}{
 class {{msg.name}}{
 public:
 {%for def_data in msg.def %}  {{def_data[0]}} {{def_data[1]}};
-{% endfor %}};
+{% endfor %}
+  int dataSize(){
+    return {%for def_data in msg.def %} {{def_data[1]}}.size() + {%endfor%} 4*{{defSize-1}};
+  }
+};
+
 }
 
 namespace message_traits
