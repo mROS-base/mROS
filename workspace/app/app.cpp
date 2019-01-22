@@ -63,8 +63,15 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  //ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_str",1);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::UInt32MultiArray>("mros_array",1);
   ros::Rate loop_rate(5);
+  std_msgs::UInt32MultiArray array;
+    
+  array.data.clear();
+  for (int i = 1 ; i <= 10 ; i ++)
+  {
+      array.data.push_back(i);
+  }
   //std_msgs::String str;
   //std_msgs::UInt32 str;
   //str.data = 4294967200;
@@ -86,7 +93,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  //while(1){
+  while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -104,11 +111,11 @@ void usr_task1(){
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }*/
-    //wait_ms(1000);
+    wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
-    //chatter_pub.publish(msg);
+    chatter_pub.publish(array);
     //msg.score ++;
-  //}
+  }
 #endif
 }
 
@@ -159,6 +166,7 @@ void Callback(std_msgs::UInt32MultiArray *msg){
   syslog(LOG_NOTICE, "I hear msgs from ros host");
   int arr_size = msg->data.size();
   syslog(LOG_NOTICE, "array size is %d",arr_size);
+  char buf[20];
   for(std::vector<uint32_t>::const_iterator it = msg->data.begin(); it != msg->data.end(); ++it)
     {
         syslog(LOG_NOTICE, "%d", *it);
@@ -174,6 +182,7 @@ void usr_task2(){
 
   syslog(LOG_NOTICE,"========Activate user task2========");
   led_init();
+  ledg = (float)100/128;
   int argc = 0;
   char *argv = NULL;
   ros::init(argc,argv,"mros_node2");

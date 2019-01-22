@@ -6,9 +6,19 @@ namespace std_msgs{
 class UInt32MultiArray{
 public:
 	std::vector<uint32_t> data;
-  int dataSize(){return data.size() * 4 + 8;}
+  int dataSize(){return data.size() * 4 + 12;}
   void memCopy(char *addrPtr){
-    memcpy(addrPtr,&data,1);
+    addrPtr += 8;
+    uint32_t size = data.size();
+    memcpy(addrPtr,&size,4);
+    addrPtr += 4;
+    for(std::vector<uint32_t>::const_iterator it = data.begin(); it != data.end(); ++it)
+    {
+      uint32_t buf;
+      buf = *it;
+      memcpy(addrPtr,&buf,4);
+      addrPtr += 4;
+    }
   }
 };
 }
