@@ -498,6 +498,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 					}
 					ROS_INFO("SUB_TASK: SEND TCPROS HEADER");
 					lst.sock_vec[idx].receive(rbuf,1024);
+					lst.sock_vec[idx].receive(rbuf,1024);//for flushing tcp socket(?)
 					lst.set_stat(1,idx);
 				}else{
 					//Internal request topic
@@ -587,9 +588,12 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 					while(rcv_flag){
 						int n=0;
 						if(init_flag){
+							syslog(LOG_NOTICE,"recieved all");
+							ROS_INFO("INITIAL STATE: %x %x %x %x",rbuf[0],rbuf[1],rbuf[2],rbuf[3]);
 							n = lst.sock_vec[i].receive(rptr,512);
 							left = 0;
 						}else{
+							syslog(LOG_NOTICE,"recieved some");
 							n = lst.sock_vec[i].receive(rptr,left);
 						}
 						if(n < 0){
@@ -604,6 +608,9 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 								init_flag = false;
 							}
 							len += n;
+							ROS_INFO("SUB_TASK: %x %x %x %x",rbuf[0],rbuf[1],rbuf[2],rbuf[3]);
+							syslog(LOG_NOTICE,"INFO: len[%d]",len);
+							syslog(LOG_NOTICE,"INFO: msg_size[%d]",msg_size);
 							if(len >= msg_size +4){
 				//data received
 								rbuf[msg_size + 4] = '\0';
@@ -623,10 +630,11 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 							}else{
 								syslog(LOG_NOTICE,"SUB_TASK: data long");
 				//data receiving
-								rptr = &rbuf[n];
+								//rptr = &rbuf[n];
 								left = msg_size + 4 - len;
 								ROS_INFO("SUB_TASK: left length [%d]",left);
 								evl_flag = 1;
+								len = 0;
 							}
 //>>>>>>> mori_ws
 						}

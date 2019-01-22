@@ -2,7 +2,7 @@
 #define _MROS_TEST_LIGHTSENSORVALUES_H
 
 
-static const int LIGHTSENSORVALUES_MSG_ID = 101;
+static const int LIGHTSENSORVALUES_MSG_ID = 100;
 
 namespace mros_test{
 class LightSensorValues{

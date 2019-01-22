@@ -8,10 +8,9 @@
 #include "EthernetInterface.h"
 #include "SoftPWM.h"
 #include "std_msgs/String.h"
+#include "std_msgs/UInt32.h"
 #include "std_msgs/UInt32MultiArray.h"
-#include "mros_test/StrMsg.h"
-#include "mros_test/LightSensorValues.h"
-#include "mros_test/PersonalData.h"
+
 //pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
 static SoftPWM ledr(P6_13);                                     // LED-Red
@@ -64,7 +63,7 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_str",1);
+  //ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_str",1);
   ros::Rate loop_rate(5);
   //std_msgs::String str;
   //std_msgs::UInt32 str;
@@ -77,11 +76,11 @@ void usr_task1(){
   msg.parker = "kongutte";
   msg.coltrane = "shitteru????";
   */
-  mros_test::PersonalData msg;
-  msg.first_name = "Phil";
-  msg.last_name = "Woods";
-  msg.age = 83;
-  msg.score = 100000;
+  //mros_test::PersonalData msg;
+  //msg.first_name = "Phil";
+  //msg.last_name = "Woods";
+  //msg.age = 83;
+  //msg.score = 100000;
   int count=0;
   init();
   bool b = false;
@@ -158,8 +157,13 @@ void LED_switch(string *msg){
 void Callback(std_msgs::UInt32MultiArray *msg){	
   //LED_switch(msg);
   syslog(LOG_NOTICE, "I hear msgs from ros host");
-  //int hoge = msg->data;
-  //syslog(LOG_NOTICE,"I heard [%u]",hoge);
+  int arr_size = msg->data.size();
+  syslog(LOG_NOTICE, "array size is %d",arr_size);
+  for(std::vector<uint32_t>::const_iterator it = msg->data.begin(); it != msg->data.end(); ++it)
+    {
+        syslog(LOG_NOTICE, "%d", *it);
+    }
+
 }
 
 /*****mROS user task code*******/
@@ -174,7 +178,7 @@ void usr_task2(){
   char *argv = NULL;
   ros::init(argc,argv,"mros_node2");
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("test_array",1,Callback);
+  ros::Subscriber sub = n.subscribe("test_array1",1,Callback);
   ros::spin();
 #endif
 }

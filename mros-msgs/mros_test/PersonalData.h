@@ -2,7 +2,7 @@
 #define _MROS_TEST_PERSONALDATA_H
 
 
-static const int PERSONALDATA_MSG_ID = 102;
+static const int PERSONALDATA_MSG_ID = 100;
 
 namespace mros_test{
 class PersonalData{
