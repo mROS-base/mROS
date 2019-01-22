@@ -3,11 +3,16 @@ import json
 from jinja2 import Template, Environment, FileSystemLoader
 
 std_msgs ={
-	"std_msgs/String.h": 1,
-	"std_msgs/UInt16.h": 10,
-	"std_msgs/UInt8.h" : 3,
-	"std_msgs/UInt32.h": 6,
-	"std_msgs/UInt32MultiArray.h": 4
+	"std_msgs/Int8.h" : 1,
+	"std_msgs/Int16.h": 2,
+	"std_msgs/Int32.h": 3,
+	"std_msgs/Int64.h": 4,
+	"std_msgs/UInt8.h" : 5,
+	"std_msgs/UInt16.h": 6,
+	"std_msgs/UInt32.h": 7,
+	"std_msgs/UInt64.h": 8,
+	"std_msgs/String.h": 9,
+	"std_msgs/UInt32MultiArray.h": 16
 }
 
 msg_sizes = {
@@ -15,7 +20,8 @@ msg_sizes = {
 	"int8": 1,"uint8": 1,
 	"int16": 2,"uint16": 2,
 	"int32": 4,"uint32": 4,
-	"int64": 8,"uint64": 8
+	"uint32[]":4,
+	"int64": 8,"uint64": 8,
 }
 
 msg_cpp_types = {
@@ -23,7 +29,8 @@ msg_cpp_types = {
 	"int8": "int8_t","uint8": "uint8_t",
 	"int16": "int16_t","uint16": "uint16_t",
 	"int32": "int32_t","uint32": "uint32_t",
-	"int64": "int64_t","uint64": "uint64_t"
+	"uint32[]": "std::vector<uint32_t>",
+	"int64": "int64_t","uint64": "uint64_t",
 }
 
 fileDir = os.path.dirname(__file__) 

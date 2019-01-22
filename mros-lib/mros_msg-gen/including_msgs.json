@@ -3,6 +3,7 @@
 	"including_msgs": [
 		"std_msgs/UInt32MultiArray.h",
 		"std_msgs/UInt32.h",
-		"std_msgs/String.h"
+		"std_msgs/String.h",
+		"mros_test/LightSensorValues.h"
 	]
 }

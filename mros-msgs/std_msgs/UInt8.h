@@ -2,7 +2,7 @@
 #define _STD_MSGS_UINT8_H
 
 
-static const int UINT8_MSG_ID = 3;
+static const int UINT8_MSG_ID = 5;
 
 namespace std_msgs{
 class UInt8{
@@ -65,7 +65,9 @@ namespace subtask_methods
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
       std_msgs::UInt8 msg;
-      msg.data = (int)rbuf[4];
+      rbuf += 4;
+      memcpy(&msg.data,rbuf,1);
+      //msg.data = (int)rbuf[4];
       fp(&msg);
     }
   };

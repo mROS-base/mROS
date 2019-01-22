@@ -2,7 +2,7 @@
 #define _STD_MSGS_UINT32_H
 
 
-static const int UINT32_MSG_ID = 6;
+static const int UINT32_MSG_ID = 7;
 
 namespace std_msgs{
 class UInt32{
@@ -10,7 +10,7 @@ public:
 	uint32_t data;
   int dataSize(){return 4;}
   void memCopy(char *addrPtr){
-    memcpy(addrPtr,&data,1);
+    memcpy(addrPtr,&data,4);
   }
 };
 }

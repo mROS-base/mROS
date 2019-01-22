@@ -2,7 +2,7 @@
 #define _STD_MSGS_STRING_
 
 
-static const int STRING_MSG_ID = 1;
+static const int STRING_MSG_ID = 9;
 
 namespace std_msgs{
 class String{

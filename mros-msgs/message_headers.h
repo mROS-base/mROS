@@ -3,36 +3,43 @@
 #include "std_msgs/UInt32.h"
 #include "std_msgs/String.h"
 
+#include "mros_test/LightSensorValues.h"
 
 
 void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
 	switch(id){
-		case 4:
-			subtask_methods::CallCallbackFuncs<4>().call(fp,rbuf);
+		case 16:
+			subtask_methods::CallCallbackFuncs<16>().call(fp,rbuf);
 			break;
-		case 6:
-			subtask_methods::CallCallbackFuncs<6>().call(fp,rbuf);
+		case 7:
+			subtask_methods::CallCallbackFuncs<7>().call(fp,rbuf);
 			break;
-		case 1:
-			subtask_methods::CallCallbackFuncs<1>().call(fp,rbuf);
+		case 9:
+			subtask_methods::CallCallbackFuncs<9>().call(fp,rbuf);
 			break;
 	
+		case 100:
+			subtask_methods::CallCallbackFuncs<100>().call(fp,rbuf);
+			break;
 	
 	}
 }
 
 std::string getMD5Sum(int id){
 	switch(id){
-		case 4:
-			return message_traits::MD5Sum<4>().value();
+		case 16:
+			return message_traits::MD5Sum<16>().value();
 			break;
-		case 6:
-			return message_traits::MD5Sum<6>().value();
+		case 7:
+			return message_traits::MD5Sum<7>().value();
 			break;
-		case 1:
-			return message_traits::MD5Sum<1>().value();
+		case 9:
+			return message_traits::MD5Sum<9>().value();
 			break;
 	
+		case 100:
+			return message_traits::MD5Sum<100>().value();
+			break;
 	
 	}
 }

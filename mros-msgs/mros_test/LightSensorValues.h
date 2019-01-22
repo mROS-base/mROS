@@ -7,21 +7,21 @@ static const int LIGHTSENSORVALUES_MSG_ID = 100;
 namespace mros_test{
 class LightSensorValues{
 public:
-  uint16_t person1;
-  uint16_t person2;
+  uint32_t person1;
+  std::vector<uint32_t> person2;
 
   int dataSize(){
-    return  2 +  2 +  4*0;
+    return  4 +  4 +  4*0;
   }
 
   void memCopy(char *addrPtr){
     int size; 
     
-    memcpy(addrPtr,&person1,2);
-    addrPtr += 2;
+    memcpy(addrPtr,&person1,4);
+    addrPtr += 4;
     
-    memcpy(addrPtr,&person2,2);
-    addrPtr += 2;
+    memcpy(addrPtr,&person2,4);
+    addrPtr += 4;
     
   }
 };
@@ -35,7 +35,7 @@ struct MD5Sum<LIGHTSENSORVALUES_MSG_ID>
 {
   static const char* value()
   {
-    return "33ab5201cf78cba520b2a7b66f884ee2";
+    return "72eab09f844ca0e296c9e9f0f0d1dddf";
   }
 
 };
@@ -65,8 +65,8 @@ struct Definition<mros_test::LightSensorValues*>
 {
 	static const char* value()
 	{
-		return "uint16 person1\n\
-uint16 person2\n\
+		return "uint32 person1\n\
+uint32[] person2\n\
 ";
 	}
 };
@@ -81,10 +81,21 @@ namespace subtask_methods
       mros_test::LightSensorValues msg;
       int size;
       rbuf += 4;
-      memcpy(&msg.person1,rbuf,2);
-      rbuf += 2;
-      memcpy(&msg.person2,rbuf,2);
-      rbuf += 2;
+      memcpy(&msg.person1,rbuf,4);
+      rbuf += 4;
+      {
+        uint32_t size;
+        memcpy(&size,rbuf,4);
+        rbuf += 4;
+        msg.person2.reserve(size);
+        for(int i=0;i<size;i++){
+          int buf;
+          memcpy(&buf,rbuf,4);
+          msg.person2.push_back(buf);
+          rbuf += 4;
+        }
+
+      }
       
       fp(&msg);
     }

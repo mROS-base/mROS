@@ -7,7 +7,11 @@ static const int UINT64_MSG_ID = 8;
 namespace std_msgs{
 class UInt64{
 public:
-	std::string data;
+  uint64_t data;
+  int dataSize(){return 8;}
+  void memCopy(char *addrPtr){
+    memcpy(addrPtr,&data,8);
+  }
 };
 }
 
@@ -60,8 +64,10 @@ namespace subtask_methods
   struct CallCallbackFuncs<UINT64_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      std_msgs::String msg;
-      msg.data = &rbuf[8];
+      std_msgs::UInt64 msg;
+      rbuf += 4;
+      memcpy(&msg.data,rbuf,8);
+      //msg.data = &rbuf[8];
       fp(&msg);
     }
   };

@@ -1,7 +1,7 @@
 #ifndef _STD_MSGS_UINT16_
 #define _STD_MSGS_UINT16_
 
-static const int UINT16_MSG_ID = 10;
+static const int UINT16_MSG_ID = 6;
 
 namespace std_msgs{
 class UInt16{
@@ -80,7 +80,9 @@ namespace subtask_methods
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
       std_msgs::UInt16 msg;
-      msg.data = (int)rbuf[4] + (int)rbuf[5]*256;
+      rbuf += 4;
+      memcpy(&msg.data,rbuf,2);
+      //msg.data = (int)rbuf[4] + (int)rbuf[5]*256;
       fp(&msg);
     }
   };

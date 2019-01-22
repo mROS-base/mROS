@@ -91,6 +91,19 @@ namespace subtask_methods
         msg.{{def_str.typeName}} = buf_char;
         rbuf += size;
       }
+      {% elif  def_str.rosType[-2:] == "[]"%}{
+        {{def_str.rosType[:-2]}}_t size;
+        memcpy(&size,rbuf,4);
+        rbuf += 4;
+        msg.person2.reserve(size);
+        for(int i=0;i<size;i++){
+          int buf;
+          memcpy(&buf,rbuf,{{def_str.size}});
+          msg.{{def_str.typeName}}.push_back(buf);
+          rbuf += {{def_str.size}};
+        }
+
+      }
       {% else %}memcpy(&msg.{{def_str.typeName}},rbuf,{{def_str.size}});
       rbuf += {{def_str.size}};
       {% endif %}{% endfor %}
