@@ -6,7 +6,8 @@ std_msgs ={
 	"std_msgs/String.h": 1,
 	"std_msgs/UInt16.h": 10,
 	"std_msgs/UInt8.h" : 3,
-	"std_msgs/UInt32.h": 6
+	"std_msgs/UInt32.h": 6,
+	"std_msgs/UInt32MultiArray.h": 4
 }
 
 msg_sizes = {
@@ -39,7 +40,8 @@ with open('including_msgs.json','r') as f:
 	for line in json_data['including_msgs']:
 		line = line.strip()
 		if line in std_msgs:
-			included_std_msgs.append({'name':line, 'id':std_msgs[line]})
+			linestr = line.split('/')
+			included_std_msgs.append({'pkg': linestr[0],'name':linestr[1].rstrip('.h'), 'id':std_msgs[line]})
 		elif os.path.isfile(catkin_include_path + line):
 			strNum = 0
 			with open(catkin_include_path +line,'r') as h_f:
@@ -101,6 +103,11 @@ for msg in msgs:
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('msg_headers_includer.tpl')
 datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
-
 with open("../../mros-msgs/message_headers.h","wb") as f:
+	f.write(datatext)
+# header_specializer generator
+env = Environment(loader=FileSystemLoader('.'))
+template = env.get_template('msg_headers_spetializer.tpl')
+datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
+with open("../../mros-msgs/message_class_specialization.h","wb") as f:
 	f.write(datatext)

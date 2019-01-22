@@ -1,5 +1,5 @@
 {% for msg in std_msgs %}
-#include "{{msg.name}}"{% endfor %}
+#include "{{msg.pkg}}/{{msg.name}}.h"{% endfor %}
 {% for msg in msgs %}
 #include "{{msg.pkg}}/{{msg.name}}.h"{% endfor %}
 

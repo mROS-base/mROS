@@ -1,12 +1,5 @@
 
 #include "ros.h"
-#include "std_msgs/String.h"
-#include "std_msgs/UInt32.h"
-#include "std_msgs/UInt8.h"
-#include "std_msgs/UInt16.h"
-#include "mros_test/StrMsg.h"
-#include "mros_test/LightSensorValues.h"
-#include "mros_test/PersonalData.h"
 
 std::vector<ID> IDv;
 int ID_find(std::vector<ID> IDv,ID id){for(unsigned int i=0;i < IDv.size();i++){if(IDv[i] == id){return i;}}return -1;}
@@ -122,13 +115,6 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	snd_dtq(XML_DTQ,*sdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
 	return sub;
 }
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::String*));
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt32*));
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt16*));
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::UInt8*));
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(mros_test::StrMsg*));
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(mros_test::LightSensorValues*));
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(mros_test::PersonalData*));
 #if 0
 <<<<<<< HEAD
 ros::Publisher ros::NodeHandle::advertise(string topic,string type,int queue_size){
@@ -194,12 +180,6 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 	slp_tsk();
 	return pub;
 }
-template ros::Publisher ros::NodeHandle::advertise<std_msgs::String>(string, int);
-template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt32>(string, int);
-template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt16>(string, int);
-template ros::Publisher ros::NodeHandle::advertise<std_msgs::UInt8>(string, int);
-template ros::Publisher ros::NodeHandle::advertise<mros_test::StrMsg>(string, int);
-template ros::Publisher ros::NodeHandle::advertise<mros_test::PersonalData>(string, int);
 
 template<class T>
 void ros::Publisher::publish(T& data){
@@ -237,10 +217,6 @@ void ros::Publisher::publish(T& data){
 	snd_dtq(PUB_DTQ,*pdq);
 
 }
-template void ros::Publisher::publish(std_msgs::String&);
-template void ros::Publisher::publish(std_msgs::UInt16&);
-template void ros::Publisher::publish(mros_test::StrMsg&);
-template void ros::Publisher::publish(mros_test::PersonalData&);
 
 #if 0
 <<<<<<< HEAD
@@ -392,3 +368,5 @@ void ros::Rate::sleep(){
 void ros::spin(){
 	slp_tsk();
 }
+
+#include "message_class_specialization.h"
