@@ -65,7 +65,9 @@ namespace subtask_methods
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
       std_msgs::UInt32 msg;
-      msg.data = (unsigned int)rbuf[4] + (unsigned int)rbuf[5]*256 + (unsigned int)rbuf[6]*65536 + (int)rbuf[7]*16777216;
+      rbuf += 4;
+      memcpy(&msg.data,rbuf,4);
+      //msg.data = (unsigned int)rbuf[4] + (unsigned int)rbuf[5]*256 + (unsigned int)rbuf[6]*65536 + (int)rbuf[7]*16777216;
       fp(&msg);
     }
   };
