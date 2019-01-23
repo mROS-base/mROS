@@ -8,8 +8,8 @@
 
 void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
 	switch(id){
-		case 16:
-			subtask_methods::CallCallbackFuncs<16>().call(fp,rbuf);
+		case 17:
+			subtask_methods::CallCallbackFuncs<17>().call(fp,rbuf);
 			break;
 		case 7:
 			subtask_methods::CallCallbackFuncs<7>().call(fp,rbuf);
@@ -27,8 +27,8 @@ void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
 
 std::string getMD5Sum(int id){
 	switch(id){
-		case 16:
-			return message_traits::MD5Sum<16>().value();
+		case 17:
+			return message_traits::MD5Sum<17>().value();
 			break;
 		case 7:
 			return message_traits::MD5Sum<7>().value();

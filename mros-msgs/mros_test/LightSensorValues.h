@@ -25,7 +25,7 @@ public:
       addrPtr += 4;
       const uint32_t* ptr = person2.data();
       for(int i=0; i<size ; i++){
-        memcpy(addrPtr, ptr[i],4);
+        memcpy(addrPtr, &(ptr[i]),4);
         addrPtr += 4;
       }
     }
