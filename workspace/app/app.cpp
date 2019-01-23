@@ -64,7 +64,7 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<std_msgs::UInt32MultiArray>("mros_array",1);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::UInt32MultiArray>("mros_msg",1);
   ros::Rate loop_rate(5);
   std_msgs::UInt32MultiArray array;
     
@@ -90,7 +90,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  while(0){
+  while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -159,20 +159,16 @@ void LED_switch(string *msg){
 }
 
 /*******  callback **********/
-void Callback(mros_test::LightSensorValues *msg){	
+void Callback(std_msgs::String *msg){	
   //LED_switch(msg);
   syslog(LOG_NOTICE, "I hear msgs from ros host");
-  syslog(LOG_NOTICE, "person1:%d",msg->person1);
-
   /*
-  int arr_size = msg->data.size();
-  syslog(LOG_NOTICE, "array size is %d",arr_size);
-  char buf[20];
-  */
+  syslog(LOG_NOTICE, "person1:%d",msg->person1);
   for(std::vector<uint32_t>::const_iterator it = msg->person2.begin(); it != msg->person2.end(); ++it)
     {
         syslog(LOG_NOTICE, "%d", *it);
     }
+    */
 
 }
 

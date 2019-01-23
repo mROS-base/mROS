@@ -11,7 +11,7 @@ public:
   std::vector<uint32_t> person2;
 
   int dataSize(){
-    return  4 +  4 +  4*0;
+    return  4 +  person2.size()*4 + 4  +  4*0;
   }
 
   void memCopy(char *addrPtr){
@@ -19,9 +19,16 @@ public:
     
     memcpy(addrPtr,&person1,4);
     addrPtr += 4;
-    
-    memcpy(addrPtr,&person2,4);
-    addrPtr += 4;
+    {
+      size = person2.size();
+      memcpy(addrPtr,&size,4);
+      addrPtr += 4;
+      const uint32_t* ptr = person2.data();
+      for(int i=0; i<size ; i++){
+        memcpy(addrPtr, ptr[i],4);
+        addrPtr += 4;
+      }
+    }
     
   }
 };

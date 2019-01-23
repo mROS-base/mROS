@@ -10,7 +10,7 @@ public:
 {%for def_data in msg.def %}  {{def_data.cppType}} {{def_data.typeName}};
 {% endfor %}
   int dataSize(){
-    return {%for def_data in msg.def %} {%if def_data.rosType == 'string'%}{{def_data.typeName}}.size(){% else %}{{def_data.size}}{%endif%} + {%endfor%} 4*{{msg.strNum}};
+    return {%for def_data in msg.def %} {%if def_data.rosType == 'string'%}{{def_data.typeName}}.size(){%elif def_data.rosType[-2:] == "[]" %}{{def_data.typeName}}.size()*{{def_data.size}} + 4 {% else %}{{def_data.size}}{%endif%} + {%endfor%} 4*{{msg.strNum}};
   }
 
   void memCopy(char *addrPtr){
@@ -21,6 +21,16 @@ public:
     addrPtr += 4;
     memcpy(addrPtr, {{def_data.typeName}}.c_str(),size);
     addrPtr += size;
+    {% elif  def_data.rosType[-2:] == "[]"%}{
+      size = {{def_data.typeName}}.size();
+      memcpy(addrPtr,&size,4);
+      addrPtr += 4;
+      const {{def_data.rosType[:-2]}}_t* ptr = {{def_data.typeName}}.data();
+      for(int i=0; i<size ; i++){
+        memcpy(addrPtr, ptr[i],{{def_data.size}});
+        addrPtr += {{def_data.size}};
+      }
+    }
     {% else %}
     memcpy(addrPtr,&{{def_data.typeName}},{{def_data.size}});
     addrPtr += {{def_data.size}};
