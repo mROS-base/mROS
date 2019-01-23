@@ -1,13 +1,13 @@
-#ifndef _STD_MSGS_UINT8_H
-#define _STD_MSGS_UINT8_H
+#ifndef _STD_MSGS_INT8_H
+#define _STD_MSGS_INT8_H
 
 
-static const int UINT8_MSG_ID = 5;
+static const int INT8_MSG_ID = 1;
 
 namespace std_msgs{
-class UInt8{
+class Int8{
 public:
-	uint8_t data;
+	int8_t data;
   int dataSize(){return 1;}
   void memCopy(char *addrPtr){
     memcpy(addrPtr,&data,1);
@@ -18,17 +18,17 @@ public:
 namespace message_traits
 {
 template<>
-struct MD5Sum<UINT8_MSG_ID>
+struct MD5Sum<INT8_MSG_ID>
 {
   static const char* value()
   {
-    return "7c8164229e7d2c17eb95e9231617fdee";
+    return "27ffa0c9c4b8fb8492252bcad9e5c57b";
   }
 
 };
 
 template<>
-struct DataType<std_msgs::UInt8*>
+struct DataType<std_msgs::Int8*>
 {
   static const char* value()
   {
@@ -38,17 +38,17 @@ struct DataType<std_msgs::UInt8*>
 };
 
 template<>
-struct DataTypeId<std_msgs::UInt8*>
+struct DataTypeId<std_msgs::Int8*>
 {
   static const int value()
   {
-    return UINT8_MSG_ID;
+    return INT8_MSG_ID;
   }
 
 };
 
 template<>
-struct Definition<std_msgs::UInt8*>
+struct Definition<std_msgs::Int8*>
 {
 	static const char* value()
 	{
@@ -61,10 +61,10 @@ struct Definition<std_msgs::UInt8*>
 namespace subtask_methods
 {
   template<>
-  struct CallCallbackFuncs<UINT8_MSG_ID>{
+  struct CallCallbackFuncs<INT8_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      std_msgs::UInt8 msg;
+      std_msgs::Int8 msg;
       rbuf += 4;
       memcpy(&msg.data,rbuf,1);
       //msg.data = (int)rbuf[4];

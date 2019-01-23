@@ -1,13 +1,13 @@
-#ifndef _STD_MSGS_UINT16_
-#define _STD_MSGS_UINT16_
+#ifndef _STD_MSGS_INT16_
+#define _STD_MSGS_INT16_
 
-static const int UINT16_MSG_ID = 6;
+static const int INT16_MSG_ID = 6;
 
 namespace std_msgs{
-class UInt16{
+class Int16{
 public:
-	uint16_t data;
-  static const int id = UINT16_MSG_ID;
+	int16_t data;
+  static const int id = INT16_MSG_ID;
   int dataSize(){return 2;}
 
   void memCopy(char *addrPtr){
@@ -20,11 +20,11 @@ namespace message_traits
 {
 
 template<>
-struct MD5Sum<UINT16_MSG_ID>
+struct MD5Sum<INT16_MSG_ID>
 {
   static const char* value()
   {
-    return "1df79edf208b629fe6b81923a544552d";
+    return "8524586e34fbd7cb1c08c5f5f1ca0e57";
   }
 
 };
@@ -40,21 +40,21 @@ struct DataType<std_msgs::UInt16*>
 };
 
 template<>
-struct DataTypeId<std_msgs::UInt16*>
+struct DataTypeId<std_msgs::Int16*>
 {
   static const int value()
   {
-    return UINT16_MSG_ID;
+    return INT16_MSG_ID;
   }
 
 };
 
 template<>
-struct Definition<std_msgs::UInt16*>
+struct Definition<std_msgs::Int16*>
 {
 	static const char* value()
 	{
-		return "uint16 data\n\
+		return "int16 data\n\
 ";
 	}
 };
@@ -76,10 +76,10 @@ namespace subtask_methods
 namespace subtask_methods
 {
   template<>
-  struct CallCallbackFuncs<UINT16_MSG_ID>{
+  struct CallCallbackFuncs<INT16_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      std_msgs::UInt16 msg;
+      std_msgs::Int16 msg;
       rbuf += 4;
       memcpy(&msg.data,rbuf,2);
       //msg.data = (int)rbuf[4] + (int)rbuf[5]*256;

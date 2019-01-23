@@ -64,10 +64,10 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<mros_test::LightSensorValues>("mros_msg",1);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::UInt32MultiArray>("mros_msg",1);
   ros::Rate loop_rate(5);
   mros_test::LightSensorValues value;
-    
+  std_msgs::UInt32MultiArray array;
   value.person1 = 10;
   //std_msgs::String str;
   //std_msgs::UInt32 str;
@@ -110,9 +110,8 @@ void usr_task1(){
     }*/
     wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
-    chatter_pub.publish(value);
-    value.person1 ++;
-    value.person2.push_back(count);
+    chatter_pub.publish(array);
+    array.data.push_back(count);
     count ++;
   }
 #endif

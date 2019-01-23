@@ -1,21 +1,21 @@
 #include <vector>
 
-static const int UINT32MULTIARRAY_MSG_ID = 17;
+static const int UINT16MULTIARRAY_MSG_ID = 16;
 
 namespace std_msgs{
-class UInt32MultiArray{
+class UInt16MultiArray{
 public:
-	std::vector<uint32_t> data;
-  int dataSize(){return data.size() * 4 + 12;}
+	std::vector<uint16_t> data;
+  int dataSize(){return data.size() * 2+ 12;}
   void memCopy(char *addrPtr){
     addrPtr += 8;
     uint32_t size = data.size();
     memcpy(addrPtr,&size,4);
     addrPtr += 4;
-    const uint32_t* ptr = data.data();
+    const uint16_t* ptr = data.data();
     for(int i=0; i<size ; i++){
-      memcpy(addrPtr, &(ptr[i]),4);
-      addrPtr += 4;
+      memcpy(addrPtr, &(ptr[i]),2);
+      addrPtr += 2;
     }
   }
 };
@@ -24,41 +24,41 @@ public:
 namespace message_traits
 {
 template<>
-struct MD5Sum<UINT32MULTIARRAY_MSG_ID>
+struct MD5Sum<UINT16MULTIARRAY_MSG_ID>
 {
   static const char* value()
   {
-    return "4d6a180abc9be191b96a7eda6c8a233d";
+    return "52f264f1c973c4b73790d384c6cb4484";
   }
 
 };
 
 template<>
-struct DataType<std_msgs::UInt32MultiArray*>
+struct DataType<std_msgs::UInt16MultiArray*>
 {
   static const char* value()
   {
-    return "std_msgs/UInt32MultiArray";
+    return "std_msgs/UInt16MultiArray";
   }
 
 };
 
 template<>
-struct DataTypeId<std_msgs::UInt32MultiArray*>
+struct DataTypeId<std_msgs::UInt16MultiArray*>
 {
   static const int value()
   {
-    return UINT32MULTIARRAY_MSG_ID;
+    return UINT16MULTIARRAY_MSG_ID;
   }
 
 };
 
 template<>
-struct Definition<std_msgs::UInt32MultiArray*>
+struct Definition<std_msgs::UInt16MultiArray*>
 {
 	static const char* value()
 	{
-		return "int32 data\n\\n\
+		return "uint16[] data\n\\n\
 ";
 	}
 };
@@ -67,21 +67,21 @@ struct Definition<std_msgs::UInt32MultiArray*>
 namespace subtask_methods
 {
   template<>
-  struct CallCallbackFuncs<UINT32MULTIARRAY_MSG_ID>{
+  struct CallCallbackFuncs<UINT16MULTIARRAY_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      std_msgs::UInt32MultiArray msg;
+      std_msgs::UInt16MultiArray msg;
       rbuf += 4;
       rbuf += 8;
-      uint32_t buf_int;
+      uint16_t buf_int;
       uint32_t arr_size;
       memcpy(&arr_size,rbuf,4 );
       rbuf += 4;
       msg.data.reserve(arr_size);
       for(int i=0 ; i < arr_size ; i++){
-        memcpy(&buf_int,rbuf, 4);
+        memcpy(&buf_int,rbuf, 2);
         msg.data.push_back(buf_int);
-        rbuf += 4;
+        rbuf += 2;
       }
       fp(&msg);
     }
