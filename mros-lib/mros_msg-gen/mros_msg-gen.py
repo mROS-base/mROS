@@ -12,25 +12,42 @@ std_msgs ={
 	"std_msgs/UInt32.h": 7,
 	"std_msgs/UInt64.h": 8,
 	"std_msgs/String.h": 9,
-	"std_msgs/UInt32MultiArray.h": 16
+	"std_msgs/Int8MultiArray.h" : 11,
+	"std_msgs/Int16MultiArray.h": 12,
+	"std_msgs/Int32MultiArray.h": 13,
+	"std_msgs/Int64MultiArray.h": 14,
+	"std_msgs/UInt8MultiArray.h" : 15,
+	"std_msgs/UInt16MultiArray.h": 16,
+	"std_msgs/UInt32MultiArray.h": 17,
+	"std_msgs/UInt64MultiArray.h": 18,
 }
 
 msg_sizes = {
 	"string":0,
 	"int8": 1,"uint8": 1,
+	"int8[]": 1,"uint8[]": 1,
 	"int16": 2,"uint16": 2,
+	"int16[]": 2,"uint16[]": 2,
 	"int32": 4,"uint32": 4,
-	"uint32[]":4,
+	"int32[]":4,"uint32[]":4,
 	"int64": 8,"uint64": 8,
+	"int64[]":8,"uint64[]":8,
 }
 
 msg_cpp_types = {
 	"string":"string",
 	"int8": "int8_t","uint8": "uint8_t",
+	"int8[]": "std::vector<int8_t>",
+	"uint8[]": "std::vector<uint8_t>",
 	"int16": "int16_t","uint16": "uint16_t",
+	"int16[]": "std::vector<int16_t>",
+	"uint16[]": "std::vector<uint16_t>",
 	"int32": "int32_t","uint32": "uint32_t",
+	"int32[]": "std::vector<int32_t>",
 	"uint32[]": "std::vector<uint32_t>",
 	"int64": "int64_t","uint64": "uint64_t",
+	"int64[]": "std::vector<int64_t>",
+	"uint64[]": "std::vector<uint64_t>"
 }
 
 fileDir = os.path.dirname(__file__) 

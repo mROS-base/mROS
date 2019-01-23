@@ -1,6 +1,6 @@
 #include <vector>
 
-static const int UINT32MULTIARRAY_MSG_ID = 16;
+static const int UINT32MULTIARRAY_MSG_ID = 17;
 
 namespace std_msgs{
 class UInt32MultiArray{
