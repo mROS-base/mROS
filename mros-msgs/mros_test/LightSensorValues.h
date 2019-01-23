@@ -31,6 +31,23 @@ public:
     }
     
   }
+
+  void deserialize(char *rbuf){
+      memcpy(&person1,rbuf,4);
+      rbuf += 4;
+      {
+        uint32_t size;
+        memcpy(&size,rbuf,4);
+        rbuf += 4;
+        person2.reserve(size);
+        for(int i=0;i<size;i++){
+          int buf;
+          memcpy(&buf,rbuf,4);
+          person2.push_back(buf);
+          rbuf += 4;
+        }
+      }
+  }
 };
 
 }

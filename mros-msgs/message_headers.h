@@ -4,6 +4,7 @@
 #include "std_msgs/String.h"
 
 #include "mros_test/LightSensorValues.h"
+#include "mros_test/PersonalData.h"
 
 
 void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
@@ -20,6 +21,9 @@ void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
 	
 		case 100:
 			subtask_methods::CallCallbackFuncs<100>().call(fp,rbuf);
+			break;
+		case 101:
+			subtask_methods::CallCallbackFuncs<101>().call(fp,rbuf);
 			break;
 	
 	}
@@ -39,6 +43,9 @@ std::string getMD5Sum(int id){
 	
 		case 100:
 			return message_traits::MD5Sum<100>().value();
+			break;
+		case 101:
+			return message_traits::MD5Sum<101>().value();
 			break;
 	
 	}

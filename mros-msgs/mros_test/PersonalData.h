@@ -1,8 +1,10 @@
 #ifndef _MROS_TEST_PERSONALDATA_H
 #define _MROS_TEST_PERSONALDATA_H
 
+#include <mros_test/LightSensorValues.h>
 
-static const int PERSONALDATA_MSG_ID = 100;
+
+static const int PERSONALDATA_MSG_ID = 101;
 
 namespace mros_test{
 class PersonalData{
@@ -10,10 +12,10 @@ public:
   string first_name;
   string last_name;
   uint8_t age;
-  uint32_t score;
+  mros_test::LightSensorValues score;
 
   int dataSize(){
-    return  first_name.size() +  last_name.size() +  1 +  4 +  4*2;
+    return  first_name.size() +  last_name.size() +  1 +  4*2;
   }
 
   void memCopy(char *addrPtr){
@@ -34,9 +36,6 @@ public:
     memcpy(addrPtr,&age,1);
     addrPtr += 1;
     
-    memcpy(addrPtr,&score,4);
-    addrPtr += 4;
-    
   }
 };
 
@@ -49,7 +48,7 @@ struct MD5Sum<PERSONALDATA_MSG_ID>
 {
   static const char* value()
   {
-    return "f8bfa80ae3c7a93455596d9622ad33a9";
+    return "e14b6aceb189db5b36c3622ba0793936";
   }
 
 };
@@ -82,7 +81,6 @@ struct Definition<mros_test::PersonalData*>
 		return "string first_name\n\
 string last_name\n\
 uint8 age\n\
-uint32 score\n\
 ";
 	}
 };
@@ -117,9 +115,7 @@ namespace subtask_methods
       }
       memcpy(&msg.age,rbuf,1);
       rbuf += 1;
-      memcpy(&msg.score,rbuf,4);
-      rbuf += 4;
-      
+      msg.score.deserialize(rbuf);
       fp(&msg);
     }
   };

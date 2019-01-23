@@ -4,6 +4,7 @@
 		"std_msgs/UInt32MultiArray.h",
 		"std_msgs/UInt32.h",
 		"std_msgs/String.h",
-		"mros_test/LightSensorValues.h"
+		"mros_test/LightSensorValues.h",
+		"mros_test/PersonalData.h"
 	]
 }
