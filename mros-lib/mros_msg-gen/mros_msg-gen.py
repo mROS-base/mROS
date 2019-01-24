@@ -47,15 +47,47 @@ msg_cpp_types = {
 	"uint32[]": "std::vector<uint32_t>",
 	"int64": "int64_t","uint64": "uint64_t",
 	"int64[]": "std::vector<int64_t>",
-	"uint64[]": "std::vector<uint64_t>"
+	"uint64[]": "std::vector<uint64_t>",
+	"string" : "string"
 }
+
+msgs = []
+strNum = 0
+
+def typeInterpreter(msg_def_str):
+	global strNum
+	msg_def_arr = msg_def_str.split(' ')
+	print(msg_def_arr)
+	msgType = msg_def_arr[0]
+	msgName = msg_def_arr[1]
+	isArray = False
+	if msgType[-2:] == "[]":
+		# the type is array
+		msgType = msgType[:-2]
+		isArray = True
+	if msgType in msg_cpp_types: 
+		# the type is primitive type
+		if msgType == "string":
+			strNum += 1
+		return {
+			'rosType':msgType,
+			'cppType':msg_cpp_types[msgType],
+			'typeName':msgName,
+			'size':msg_sizes[msgType],
+			'isArray': isArray
+		}
+	elif msgType in json_data['including_msgs']:
+		# the type is defined message type
+		if isArray:
+			raise Exception('the arrays of user-defined types are not supported, sorry.')
+		return {}
+
 
 fileDir = os.path.dirname(__file__) 
 os.chdir(fileDir)
 
 included_std_msgs = []
 
-msgs = []
 
 i_id = 100
 with open('including_msgs.json','r') as f:
@@ -67,32 +99,20 @@ with open('including_msgs.json','r') as f:
 			linestr = line.split('/')
 			included_std_msgs.append({'pkg': linestr[0],'name':linestr[1].rstrip('.h'), 'id':std_msgs[line]})
 		elif os.path.isfile(catkin_include_path + line):
-			strNum = 0
 			with open(catkin_include_path +line,'r') as h_f:
 				arr = h_f.readlines()
 				for i,h_line in enumerate(arr):
 					if 'MD5Sum' in h_line:
 						md5 = arr[i+4].strip().lstrip('	return "').rstrip('";')
-					if 'Definition' in h_line:
+					if 'Definition' in h_line: #getting message definition
 						def_i = i+4
 						msg_def = []
 						while True:
 							if arr[def_i + 1].strip() == "}":
-								break
+								break #end of message definition
 							else:
 								msg_def_str = arr[def_i].strip().replace('return "','')[:-3]
-								msg_def_arr = msg_def_str.split(' ')
-								if msg_def_arr[0] == "string":
-									cppType = "string"
-									strNum= strNum + 1
-								else:
-									cppType = msg_cpp_types[msg_def_arr[0]]
-								msg_def.append({
-									'rosType':msg_def_arr[0],
-									'cppType':cppType,
-									'typeName':msg_def_arr[1],
-									'size':msg_sizes[msg_def_arr[0]]
-									})
+								msg_def.append(typeInterpreter(msg_def_str))
 								def_i = def_i + 1
 					if 'DataType' in h_line:
 						msg_type = arr[i+4].strip().lstrip('	return "').rstrip('";')
@@ -135,3 +155,4 @@ template = env.get_template('msg_headers_spetializer.tpl')
 datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
 with open("../../mros-msgs/message_class_specialization.h","wb") as f:
 	f.write(datatext)
+

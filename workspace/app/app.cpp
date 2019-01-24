@@ -65,11 +65,16 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<std_msgs::UInt32MultiArray>("mros_msg",1);
+  ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_msg",1);
   ros::Rate loop_rate(5);
-  mros_test::LightSensorValues value;
-  std_msgs::UInt32MultiArray array;
-  value.person1 = 10;
+  mros_test::PersonalData msg;
+  msg.first_name = "Charlie";
+  msg.last_name = "Parker";
+  msg.age = 32;
+  for (int i = 1 ; i <= 10 ; i ++)
+  {
+      msg.score.push_back(i);
+  }
   //std_msgs::String str;
   //std_msgs::UInt32 str;
   //str.data = 4294967200;
@@ -91,7 +96,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  //while(1){
+  while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -109,12 +114,12 @@ void usr_task1(){
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }*/
-  //  wait_ms(1000);
+    wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
-  //  chatter_pub.publish(array);
-  //  array.data.push_back(count);
+    chatter_pub.publish(msg);
+    msg.age ++;
   //  count ++;
-  //}
+  }
 #endif
 }
 
@@ -165,8 +170,7 @@ void Callback(mros_test::PersonalData *msg){
   syslog(LOG_NOTICE, "I hear msgs from ros host");
   syslog(LOG_NOTICE, "name: %s", (msg->first_name + " " + msg->last_name).c_str() );
   syslog(LOG_NOTICE, "age: %u", msg->age);
-  syslog(LOG_NOTICE, "score.person1: %u", msg->score.person1);
-  for(std::vector<uint32_t>::const_iterator it = msg->score.person2.begin(); it != msg->score.person2.end(); ++it)
+  for(std::vector<uint32_t>::const_iterator it = msg->score.begin(); it != msg->score.end(); ++it)
   {
       ROS_INFO("%d", *it);
   }

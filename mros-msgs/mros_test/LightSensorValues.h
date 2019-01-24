@@ -23,7 +23,7 @@ public:
       size = person2.size();
       memcpy(addrPtr,&size,4);
       addrPtr += 4;
-      const uint32_t* ptr = person2.data();
+      const uint_t* ptr = person2.data();
       for(int i=0; i<size ; i++){
         memcpy(addrPtr, &(ptr[i]),4);
         addrPtr += 4;
@@ -32,21 +32,25 @@ public:
     
   }
 
-  void deserialize(char *rbuf){
-      memcpy(&person1,rbuf,4);
+  void deseriarize(char *rbuf){
+    uint32_t size;
+    memcpy(&person1,rbuf,4);
+    rbuf += 4;
+    
+    {
+      uint32_t size;
+      memcpy(&size,rbuf,4);
       rbuf += 4;
-      {
-        uint32_t size;
-        memcpy(&size,rbuf,4);
+      person2.reserve(size);
+      for(int i=0;i<size;i++){
+        uint32_t buf;
+        memcpy(&buf,rbuf,4);
+        person2.push_back(buf);
         rbuf += 4;
-        person2.reserve(size);
-        for(int i=0;i<size;i++){
-          int buf;
-          memcpy(&buf,rbuf,4);
-          person2.push_back(buf);
-          rbuf += 4;
-        }
       }
+    }
+    
+    
   }
 };
 
@@ -103,24 +107,8 @@ namespace subtask_methods
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
       mros_test::LightSensorValues msg;
-      int size;
       rbuf += 4;
-      memcpy(&msg.person1,rbuf,4);
-      rbuf += 4;
-      {
-        uint32_t size;
-        memcpy(&size,rbuf,4);
-        rbuf += 4;
-        msg.person2.reserve(size);
-        for(int i=0;i<size;i++){
-          int buf;
-          memcpy(&buf,rbuf,4);
-          msg.person2.push_back(buf);
-          rbuf += 4;
-        }
-
-      }
-      
+      msg.deseriarize(rbuf);
       fp(&msg);
     }
   };
