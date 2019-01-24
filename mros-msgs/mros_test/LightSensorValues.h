@@ -2,6 +2,8 @@
 #define _MROS_TEST_LIGHTSENSORVALUES_H
 
 
+
+
 static const int LIGHTSENSORVALUES_MSG_ID = 100;
 
 namespace mros_test{
@@ -9,12 +11,13 @@ class LightSensorValues{
 public:
   uint32_t person1;
   std::vector<uint32_t> person2;
+  string name;
 
   int dataSize(){
-    return  4 +  person2.size()*4 + 4  +  4*0;
+    return  4 +  person2.size()*4 + 4  +  name.size() +  4*1;
   }
 
-  void memCopy(char *addrPtr){
+  void memCopy(char*& addrPtr){
     int size; 
     
     memcpy(addrPtr,&person1,4);
@@ -30,9 +33,15 @@ public:
       }
     }
     
+    size = name.size();
+    memcpy(addrPtr,&size,4);
+    addrPtr += 4;
+    memcpy(addrPtr, name.c_str(),size);
+    addrPtr += size;
+    
   }
 
-  void deseriarize(char *rbuf){
+  void deserialize(char*& rbuf){
     uint32_t size;
     memcpy(&person1,rbuf,4);
     rbuf += 4;
@@ -50,6 +59,16 @@ public:
       }
     }
     
+    {
+      memcpy(&size,rbuf,4);
+      rbuf += 4;
+      char buf_char[size+1];
+      memcpy(&buf_char,rbuf,size);
+      buf_char[size] = '\0';
+      name = buf_char;
+      rbuf += size;
+    }
+    
     
   }
 };
@@ -63,7 +82,7 @@ struct MD5Sum<LIGHTSENSORVALUES_MSG_ID>
 {
   static const char* value()
   {
-    return "72eab09f844ca0e296c9e9f0f0d1dddf";
+    return "e2d6cfcf50f98a5a24d82739e108711f";
   }
 
 };
@@ -95,6 +114,7 @@ struct Definition<mros_test::LightSensorValues*>
 	{
 		return "uint32 person1\n\
 uint32[] person2\n\
+string name\n\
 ";
 	}
 };
@@ -108,7 +128,7 @@ namespace subtask_methods
     {
       mros_test::LightSensorValues msg;
       rbuf += 4;
-      msg.deseriarize(rbuf);
+      msg.deserialize(rbuf);
       fp(&msg);
     }
   };

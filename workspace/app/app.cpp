@@ -71,6 +71,9 @@ void usr_task1(){
   msg.first_name = "Charlie";
   msg.last_name = "Parker";
   msg.age = 32;
+  msg.lsValue.person1 = 0;
+  msg.lsValue.person2.push_back(10);
+  msg.lsValue.name = "hoge";
   for (int i = 1 ; i <= 10 ; i ++)
   {
       msg.score.push_back(i);
@@ -117,6 +120,7 @@ void usr_task1(){
     wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
     chatter_pub.publish(msg);
+    msg.lsValue.person1 += 2;
     msg.age ++;
   //  count ++;
   }
@@ -167,9 +171,17 @@ void LED_switch(string *msg){
 /*******  callback **********/
 void Callback(mros_test::PersonalData *msg){	
   //LED_switch(msg);
-  syslog(LOG_NOTICE, "I hear msgs from ros host");
-  syslog(LOG_NOTICE, "name: %s", (msg->first_name + " " + msg->last_name).c_str() );
-  syslog(LOG_NOTICE, "age: %u", msg->age);
+  ROS_INFO("I hear msgs from ros host");
+  ROS_INFO("name: %s", (msg->first_name + " " + msg->last_name).c_str() );
+  ROS_INFO("age: %u", msg->age);
+  ROS_INFO("lsValue.person1: %u", msg->lsValue.person1);
+  ROS_INFO("lsValue.person2:");
+  for(std::vector<uint32_t>::const_iterator it = msg->lsValue.person2.begin(); it != msg->lsValue.person2.end(); ++it)
+  {
+      ROS_INFO("%d", *it);
+  }
+  ROS_INFO("lsValue.name: %s", msg->lsValue.name.c_str());
+  ROS_INFO("score:");
   for(std::vector<uint32_t>::const_iterator it = msg->score.begin(); it != msg->score.end(); ++it)
   {
       ROS_INFO("%d", *it);

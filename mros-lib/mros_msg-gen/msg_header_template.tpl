@@ -1,6 +1,8 @@
 #ifndef _{{msg.PKG}}_{{msg.NAME}}_H
 #define _{{msg.PKG}}_{{msg.NAME}}_H
 
+{%for dep in msg.dependences %}#include "{{dep}}"{%endfor%}
+
 {% set id_name = msg.NAME + '_MSG_ID'%}
 static const int {{id_name}} = {{msg.id}};
 
@@ -10,10 +12,10 @@ public:
 {%for def_data in msg.def %}  {%if def_data.isArray %}std::vector<{{def_data.cppType}}>{% else %}{{def_data.cppType}}{% endif %} {{def_data.typeName}};
 {% endfor %}
   int dataSize(){
-    return {%for def_data in msg.def %} {%if def_data.rosType == 'string'%}{{def_data.typeName}}.size(){%elif def_data.isArray%}{{def_data.typeName}}.size()*{{def_data.size}} + 4 {% else %}{{def_data.size}}{%endif%} + {%endfor%} 4*{{msg.strNum}};
+    return {%for def_data in msg.def %} {%if def_data.rosType == 'string'%}{{def_data.typeName}}.size(){%elif def_data.isArray%}{{def_data.typeName}}.size()*{{def_data.size}} + 4 {%elif def_data.isCustomType %}{{def_data.typeName}}.dataSize(){% else %}{{def_data.size}}{%endif%} + {%endfor%} 4*{{msg.strNum}};
   }
 
-  void memCopy(char *addrPtr){
+  void memCopy(char*& addrPtr){
     int size; 
     {%for def_data in msg.def %}{% if def_data.rosType == 'string' %}
     size = {{def_data.typeName}}.size();
@@ -31,13 +33,15 @@ public:
         addrPtr += {{def_data.size}};
       }
     }
+    {% elif def_data.isCustomType %}
+    {{def_data.typeName}}.memCopy(addrPtr);
     {% else %}
     memcpy(addrPtr,&{{def_data.typeName}},{{def_data.size}});
     addrPtr += {{def_data.size}};
     {% endif %}{% endfor %}
   }
 
-  void deseriarize(char *rbuf){
+  void deserialize(char*& rbuf){
     uint32_t size;
     {% for def_str in msg.def %}{% if def_str.rosType == 'string' %}{
       memcpy(&size,rbuf,4);
@@ -60,6 +64,8 @@ public:
         rbuf += {{def_str.size}};
       }
     }
+    {% elif def_str.isCustomType %}
+    {{def_str.typeName}}.deserialize(rbuf);
     {% else %}memcpy(&{{def_str.typeName}},rbuf,{{def_str.size}});
     rbuf += {{def_str.size}};
     {% endif %}
@@ -120,7 +126,7 @@ namespace subtask_methods
     {
       {{msg.pkg}}::{{msg.name}} msg;
       rbuf += 4;
-      msg.deseriarize(rbuf);
+      msg.deserialize(rbuf);
       fp(&msg);
     }
   };

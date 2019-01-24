@@ -25,36 +25,24 @@ std_msgs ={
 msg_sizes = {
 	"string":0,
 	"int8": 1,"uint8": 1,
-	"int8[]": 1,"uint8[]": 1,
 	"int16": 2,"uint16": 2,
-	"int16[]": 2,"uint16[]": 2,
 	"int32": 4,"uint32": 4,
-	"int32[]":4,"uint32[]":4,
 	"int64": 8,"uint64": 8,
-	"int64[]":8,"uint64[]":8,
 }
 
 msg_cpp_types = {
 	"string":"string",
 	"int8": "int8_t","uint8": "uint8_t",
-	"int8[]": "std::vector<int8_t>",
-	"uint8[]": "std::vector<uint8_t>",
 	"int16": "int16_t","uint16": "uint16_t",
-	"int16[]": "std::vector<int16_t>",
-	"uint16[]": "std::vector<uint16_t>",
 	"int32": "int32_t","uint32": "uint32_t",
-	"int32[]": "std::vector<int32_t>",
-	"uint32[]": "std::vector<uint32_t>",
 	"int64": "int64_t","uint64": "uint64_t",
-	"int64[]": "std::vector<int64_t>",
-	"uint64[]": "std::vector<uint64_t>",
 	"string" : "string"
 }
 
 msgs = []
 strNum = 0
 
-def typeInterpreter(msg_def_str):
+def typeInterpreter(msg_def_str, msgDependences):
 	global strNum
 	msg_def_arr = msg_def_str.split(' ')
 	print(msg_def_arr)
@@ -74,13 +62,30 @@ def typeInterpreter(msg_def_str):
 			'cppType':msg_cpp_types[msgType],
 			'typeName':msgName,
 			'size':msg_sizes[msgType],
-			'isArray': isArray
+			'isArray': isArray,
+			'isCustomType': False
 		}
-	elif msgType in json_data['including_msgs']:
-		# the type is defined message type
-		if isArray:
-			raise Exception('the arrays of user-defined types are not supported, sorry.')
-		return {}
+	else:
+		#search type from list in .json 
+		notFound = True
+		for item in json_data['including_msgs']:
+			if msgType in item:
+				# the type is defined message type
+				msgDependences.append(item)
+				msgTypeArray = item[:-2].split("/")
+				notFound = False
+				if isArray:
+					raise Exception('the arrays of user-defined types are not supported, sorry.')
+				return {
+					'rosType':msgType,
+					'cppType':msgTypeArray[0]+"::"+msgTypeArray[1],
+					'typeName':msgName,
+					'size':0,
+					'isArray': isArray,
+					'isCustomType': True
+				}
+		if notFound:
+			raise Exception("the type "+msgType+" not found: is it written in including_msgs.json?")
 
 
 fileDir = os.path.dirname(__file__) 
@@ -99,20 +104,21 @@ with open('including_msgs.json','r') as f:
 			linestr = line.split('/')
 			included_std_msgs.append({'pkg': linestr[0],'name':linestr[1].rstrip('.h'), 'id':std_msgs[line]})
 		elif os.path.isfile(catkin_include_path + line):
+			msgDependences = []
 			with open(catkin_include_path +line,'r') as h_f:
 				arr = h_f.readlines()
 				for i,h_line in enumerate(arr):
 					if 'MD5Sum' in h_line:
-						md5 = arr[i+4].strip().lstrip('	return "').rstrip('";')
+						md5 = arr[i+4].strip().replace('return "','').rstrip('";')
 					if 'Definition' in h_line: #getting message definition
 						def_i = i+4
 						msg_def = []
 						while True:
-							if arr[def_i + 1].strip() == "}":
+							if (arr[def_i + 1].strip() == "}") or (arr[def_i].strip() == "================================================================================\\n\\"):
 								break #end of message definition
 							else:
 								msg_def_str = arr[def_i].strip().replace('return "','')[:-3]
-								msg_def.append(typeInterpreter(msg_def_str))
+								msg_def.append(typeInterpreter(msg_def_str, msgDependences))
 								def_i = def_i + 1
 					if 'DataType' in h_line:
 						msg_type = arr[i+4].strip().lstrip('	return "').rstrip('";')
@@ -127,7 +133,8 @@ with open('including_msgs.json','r') as f:
 			'md5': md5,
 			'def': msg_def,
 			'type': msg_type,
-			'strNum': strNum})
+			'strNum': strNum,
+			'dependences': msgDependences})
 			i_id = i_id + 1
 		else:
 			raise Exception('msg header file "' + line + '" not found.')

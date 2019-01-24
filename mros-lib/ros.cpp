@@ -194,7 +194,8 @@ void ros::Publisher::publish(T& data){
 		char sbuf[4];
 		//memcpy(&mem[PUB_ADDR2],&data.data,size); //for int
 		//memcpy(&mem[PUB_ADDR2],data.data.c_str(),size); //for string
-		data.memCopy(&mem[PUB_ADDR2]);
+		char *memPtr = &mem[PUB_ADDR2];
+		data.memCopy(memPtr);
 		intptr_t *pdq;
 		sbuf[0] = node_lst[i].ID;
 		sbuf[1] = size;
@@ -207,7 +208,8 @@ void ros::Publisher::publish(T& data){
 	char pbuf[4];
 	//memcpy(&mem[PUB_ADDR],&data.data,size); //for int
 	//memcpy(&mem[PUB_ADDR],data.data.c_str(),size); //for string
-	data.memCopy(&mem[PUB_ADDR]);
+	char *memPtr = &mem[PUB_ADDR];
+	data.memCopy(memPtr);
 	intptr_t *pdq;
 	pbuf[0] = this->ID;
 	pbuf[1] = size;
