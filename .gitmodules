@@ -1,8 +1,8 @@
 [submodule "opencv-lib"]
-	path = opencv-lib
+	path = mros_src/opencv-lib
 	url = https://github.com/d-kato/opencv-lib.git
   ignore = dirty
 [submodule "asp_mbed/asp-gr_peach_gcc-mbed"]
-	path = asp_mbed/asp-gr_peach_gcc-mbed
+	path = mros_src/asp_mbed/asp-gr_peach_gcc-mbed
 	url = https://github.com/tlk-emb/asp-gr_peach_gcc-mbed.git
   ignore = dirty
