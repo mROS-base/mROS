@@ -1,6 +1,0 @@
-22:08:00 **** Incremental Build of configuration SPI-FLASH BOOT for project camera_app ****
-make asp.bin EXECUTE_ON=ROM 
-make: 'asp.bin' is up to date.
-
-22:08:01 Build Finished (took 732ms)
-

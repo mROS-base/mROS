@@ -1,0 +1,4 @@
+<launch>
+<node pkg="measure" name="mes" type="rcv_data" args="/output_data" />
+<node pkg="mask"    name="mas" type="mask"     args="/image_data /image_fast_fpga" />
+</launch>

@@ -1,0 +1,54 @@
+組込みマイコン向けROSノード軽量実行環境
+作成者：京都大学　森　智也
+作成日時：2017/8/29
+
+概要：
+TOPPERS/ASPカーネルとmbedライブラリを使用してROSノード軽量実行環境を実現する．
+
+ディレクトリ構成：
+   mROS 
+    |-.git
+    |-cfg-mingw-static-1_9_6
+    |-doc   //ドキュメント
+    |-mros_test     //サンプル用ROSソースコード
+    |-ros_emb       //mROSソースコード
+    |-truestudio    //truestudioワークスペース
+
+サンプル実行手順：
+    超音波センサ(HC-SR04)を使用したサンプル
+    ピン接続は/doc/mROS.pdf 7p
+
+    ホストPC上の作業
+        １，mros_testディレクトリをROSのcatkinワークスペースのsrcディレクトリにコピー
+        ２，catkin_makeでmros_listenerとmros_talkerを実行可能にする
+
+    mROS上の作業
+        １，ROSマスタIPの設定
+            ros_emb.cpp:19　m_ipにIPを設定
+        ２，truestudioで再ビルド
+        ３，asp.binをgr-peachに書き込む
+
+    ホストPC上のターミナルを3画面開き，それぞれ
+        $roscore
+        $rosrun mros_test mros_listener
+        $rosrun mros_test mros_talker
+        を実行のち，mROSノードを実行
+    
+    usr_tsk1がサブスクライバ，usr_tsk2がパブリッシャを記述したユーザタスクとなっている
+    両者とも使用するメッセージ型はstd_msg/String
+
+To Do：
+    ・sub_task内におけるサブスクライブループの実装
+        周期ハンドラで回転させた際に，初期化のループを抜けてsocketが接続できていない
+        初期化でパブリッシャとの接続を確立させ，一定周期でサブスクライブの実行が行えるようにする．
+    ・tcp_rosでTCPROSコネクションヘッダに引数としてノード情報等を渡せるようにする
+        現在決め打ちでやってるからあんまりよくない
+    ・ユーザタスクの初期化(ノード情報登録)に原子性を持たせる
+        registerpublisherなどが同時に行われるとrequesttopicなどの受付がうまくいかない
+        セマフォでxml-masタスクやxml-slvタスクを資源として管理して接続が完了しなければ次のユーザタスクが動けないようにする
+    ・メッセージタイプの追加
+        対応するメッセージタイプの追加
+        標準メッセージくらいはサポートしたい　
+    ・ROSAPIの対応
+        templateを使ったsubscriberやadvertiseがうまくできていない
+    ・

@@ -198,7 +198,7 @@ include_directories(
 ## mROS setting ##
 ##################
 
-set(mros_ws_dir ../../src/${PROJECT_NAME}/mros_src/workspace/)
+set(mros_ws_dir ../../src/${PROJECT_NAME}/mros_src/)
 set(mros_app_name app)
 set(mros_app_dir ${mros_ws_dir}/${mros_app_name})
 
