@@ -99,7 +99,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  while(1){
+  //while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -117,13 +117,13 @@ void usr_task1(){
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }*/
-    wait_ms(1000);
+  //  wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
-    chatter_pub.publish(msg);
-    msg.lsValue.person1 += 2;
-    msg.age ++;
-  //  count ++;
-  }
+  //  chatter_pub.publish(msg);
+  //  msg.lsValue.person1 += 2;
+  //  msg.age ++;
+  ////  count ++;
+  //}
 #endif
 }
 

@@ -4,7 +4,7 @@
 #include "mros_test/LightSensorValues.h"
 
 
-static const int PERSONALDATA_MSG_ID = 101;
+static const int PERSONALDATA_MSG_ID = 102;
 
 namespace mros_test{
 class PersonalData{

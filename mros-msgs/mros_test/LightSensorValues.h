@@ -4,7 +4,7 @@
 
 
 
-static const int LIGHTSENSORVALUES_MSG_ID = 100;
+static const int LIGHTSENSORVALUES_MSG_ID = 101;
 
 namespace mros_test{
 class LightSensorValues{
@@ -14,7 +14,7 @@ public:
   string name;
 
   int dataSize(){
-    return  4 +  person2.size()*4 + 4  +  name.size() +  4*1;
+    return  4 +  person2.size()*4 + 4  +  name.size() +  4*3;
   }
 
   void memCopy(char*& addrPtr){
