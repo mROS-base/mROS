@@ -23,20 +23,21 @@ std_msgs ={
 }
 
 msg_sizes = {
-	"string":0,
+	"string":0,"bool":1,
 	"int8": 1,"uint8": 1,
 	"int16": 2,"uint16": 2,
 	"int32": 4,"uint32": 4,
 	"int64": 8,"uint64": 8,
+	"float32":4, "float64":8
 }
 
 msg_cpp_types = {
-	"string":"string",
 	"int8": "int8_t","uint8": "uint8_t",
 	"int16": "int16_t","uint16": "uint16_t",
 	"int32": "int32_t","uint32": "uint32_t",
 	"int64": "int64_t","uint64": "uint64_t",
-	"string" : "string"
+	"float32": "float", "float64": "double",
+	"string" : "string","bool":"uint8_t"
 }
 
 msgs = []

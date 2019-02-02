@@ -10,7 +10,6 @@
 #include "std_msgs/String.h"
 #include "std_msgs/UInt32.h"
 #include "std_msgs/UInt32MultiArray.h"
-#include "mros_test/LightSensorValues.h"
 #include "mros_test/PersonalData.h"
 
 //pin assign
@@ -68,16 +67,23 @@ void usr_task1(){
   ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_msg",1);
   ros::Rate loop_rate(5);
   mros_test::PersonalData msg;
+  msg.floatVal = 1.919;
+  msg.doubleVal = 11.4514;
+  msg.boolVal = true;
+  /*
+  mros_test::PersonalData msg;
   msg.first_name = "Charlie";
   msg.last_name = "Parker";
   msg.age = 32;
   msg.lsValue.person1 = 0;
   msg.lsValue.person2.push_back(10);
   msg.lsValue.name = "hoge";
+
   for (int i = 1 ; i <= 10 ; i ++)
   {
       msg.score.push_back(i);
   }
+  */
   //std_msgs::String str;
   //std_msgs::UInt32 str;
   //str.data = 4294967200;
@@ -117,9 +123,12 @@ void usr_task1(){
       chatter_pub.publish(msg);
       loop_rate.sleep();
     }*/
-  //  wait_ms(1000);
+    wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
-  //  chatter_pub.publish(msg);
+    chatter_pub.publish(msg);
+    msg.floatVal += 0.1;
+    msg.doubleVal += 0.01;
+    msg.boolVal = !msg.boolVal;
   //  msg.lsValue.person1 += 2;
   //  msg.age ++;
   ////  count ++;
@@ -172,6 +181,14 @@ void LED_switch(string *msg){
 void Callback(mros_test::PersonalData *msg){	
   //LED_switch(msg);
   ROS_INFO("I hear msgs from ros host");
+  ROS_INFO("age: %1.4f", msg->floatVal);
+  ROS_INFO("age: %2.5lf", msg->doubleVal);
+  if(msg->boolVal){
+    ROS_INFO("bool val is true");
+  } else {
+    ROS_INFO("bool val is false");
+  }
+  /*
   ROS_INFO("name: %s", (msg->first_name + " " + msg->last_name).c_str() );
   ROS_INFO("age: %u", msg->age);
   ROS_INFO("lsValue.person1: %u", msg->lsValue.person1);
@@ -186,6 +203,7 @@ void Callback(mros_test::PersonalData *msg){
   {
       ROS_INFO("%d", *it);
   }
+  */
 }
 
 /*****mROS user task code*******/

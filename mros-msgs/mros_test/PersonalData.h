@@ -1,96 +1,46 @@
 #ifndef _MROS_TEST_PERSONALDATA_H
 #define _MROS_TEST_PERSONALDATA_H
 
-#include "mros_test/LightSensorValues.h"
 
 
-static const int PERSONALDATA_MSG_ID = 102;
+
+static const int PERSONALDATA_MSG_ID = 101;
 
 namespace mros_test{
 class PersonalData{
 public:
-  string first_name;
-  string last_name;
-  uint8_t age;
-  mros_test::LightSensorValues lsValue;
-  std::vector<uint32_t> score;
+  float floatVal;
+  double doubleVal;
+  uint8_t boolVal;
 
   int dataSize(){
-    return  first_name.size() +  last_name.size() +  1 +  lsValue.dataSize() +  score.size()*4 + 4  +  4*3;
+    return  4 +  8 +  1 +  4*0;
   }
 
   void memCopy(char*& addrPtr){
     int size; 
     
-    size = first_name.size();
-    memcpy(addrPtr,&size,4);
+    memcpy(addrPtr,&floatVal,4);
     addrPtr += 4;
-    memcpy(addrPtr, first_name.c_str(),size);
-    addrPtr += size;
     
-    size = last_name.size();
-    memcpy(addrPtr,&size,4);
-    addrPtr += 4;
-    memcpy(addrPtr, last_name.c_str(),size);
-    addrPtr += size;
+    memcpy(addrPtr,&doubleVal,8);
+    addrPtr += 8;
     
-    memcpy(addrPtr,&age,1);
+    memcpy(addrPtr,&boolVal,1);
     addrPtr += 1;
-    
-    lsValue.memCopy(addrPtr);
-    {
-      size = score.size();
-      memcpy(addrPtr,&size,4);
-      addrPtr += 4;
-      const uint_t* ptr = score.data();
-      for(int i=0; i<size ; i++){
-        memcpy(addrPtr, &(ptr[i]),4);
-        addrPtr += 4;
-      }
-    }
     
   }
 
   void deserialize(char*& rbuf){
     uint32_t size;
-    {
-      memcpy(&size,rbuf,4);
-      rbuf += 4;
-      char buf_char[size+1];
-      memcpy(&buf_char,rbuf,size);
-      buf_char[size] = '\0';
-      first_name = buf_char;
-      rbuf += size;
-    }
+    memcpy(&floatVal,rbuf,4);
+    rbuf += 4;
     
-    {
-      memcpy(&size,rbuf,4);
-      rbuf += 4;
-      char buf_char[size+1];
-      memcpy(&buf_char,rbuf,size);
-      buf_char[size] = '\0';
-      last_name = buf_char;
-      rbuf += size;
-    }
+    memcpy(&doubleVal,rbuf,8);
+    rbuf += 8;
     
-    memcpy(&age,rbuf,1);
+    memcpy(&boolVal,rbuf,1);
     rbuf += 1;
-    
-    
-    lsValue.deserialize(rbuf);
-    
-    {
-      uint32_t size;
-      memcpy(&size,rbuf,4);
-      rbuf += 4;
-      score.reserve(size);
-      for(int i=0;i<size;i++){
-        uint32_t buf;
-        memcpy(&buf,rbuf,4);
-        score.push_back(buf);
-        rbuf += 4;
-      }
-    }
     
     
   }
@@ -105,7 +55,7 @@ struct MD5Sum<PERSONALDATA_MSG_ID>
 {
   static const char* value()
   {
-    return "e4ff7d235751e125e4834bb3cf7fcead";
+    return "e786a9d71f124a2deaedd6ee32a2af2a";
   }
 
 };
@@ -135,11 +85,9 @@ struct Definition<mros_test::PersonalData*>
 {
 	static const char* value()
 	{
-		return "string first_name\n\
-string last_name\n\
-uint8 age\n\
-LightSensorValues lsValue\n\
-uint32[] score\n\
+		return "float32 floatVal\n\
+float64 doubleVal\n\
+bool boolVal\n\
 ";
 	}
 };
