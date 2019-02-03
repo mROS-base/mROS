@@ -49,7 +49,6 @@ i_id = 100
 def typeInterpreter(msg_def_str, msgDependences):
 	global strNum
 	msg_def_arr = msg_def_str.split(' ')
-	print(msg_def_arr)
 	msgType = msg_def_arr[0]
 	msgName = msg_def_arr[1]
 	isArray = False
@@ -138,15 +137,40 @@ def msgDataGenerator(line):
 			'def': msg_def,
 			'type': msg_type,
 			'strNum': strNum,
-			'dependences': msgDependences
+			'dependences': msgDependences,
+			'originalName': line
 		}
 	else:
 		raise Exception('msg header file "' + line + '" not found.')
 
+def computeMsgTypeSize(msg):
+	msgSize = 0
+	for typeArr in msg['def']:
+		if typeArr['isCustomType']:
+			fullName = [hoge for hoge in msg['dependences'] if typeArr['rosType'] in hoge]
+			if len(fullName) == 1:
+				print(fullName[0])
+				foundMsgs = [hoge for hoge in msgs if hoge["originalName"] == fullName[0]]
+				if len(foundMsgs) != 0:
+					msgSize = msgSize + computeMsgTypeSize(hoge)
+					continue
+				foundMsgs = [hoge for hoge in depMsgs if hoge["originalName"] == fullName[0]]
+				if len(foundMsgs) != 0:
+					msgSize = msgSize + computeMsgTypeSize(hoge)
+					continue
+		elif typeArr['isArray']:
+			msgSize = 1024*512
+			break
+		elif typeArr['typeName'] == "string":
+			msgSize = 1024*512
+			break
+		else:
+			msgSize = msgSize + typeArr['size']
+	return msgSize
+
 fileDir = os.path.dirname(__file__) 
 os.chdir(fileDir)
 included_std_msgs = []
-
 
 with open('including_msgs.json','r') as f:
 	json_data = json.load(f)
@@ -180,6 +204,21 @@ for msg in depMsgs:
 		os.mkdir(pkgPath)
 	with open(os.path.join(pkgPath,msg['name']+".h"),"wb") as f:
 		f.write(datatext)
+
+#get max size of included msg type
+maxSize = 0
+for msg in msgs:
+	msgSize = computeMsgTypeSize(msg)
+	if msgSize > maxSize:
+		maxSize = msgSize
+print(maxSize)
+# header_specializer generator
+env = Environment(loader=FileSystemLoader('.'))
+template = env.get_template('msg_max_size.tpl')
+datatext = template.render({"size":maxSize})
+with open("../../mros-msgs/msg_max_size.h","wb") as f:
+	f.write(datatext)
+
 
 # header_includer generator
 env = Environment(loader=FileSystemLoader('.'))

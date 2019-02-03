@@ -105,7 +105,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  //while(1){
+  while(1){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -132,7 +132,7 @@ void usr_task1(){
   //  msg.lsValue.person1 += 2;
   //  msg.age ++;
   ////  count ++;
-  //}
+  }
 #endif
 }
 

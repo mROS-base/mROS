@@ -21,7 +21,7 @@ const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
 /***** shared memory *****/
-char mem[1024*1024*2];
+char mem[INT_ADDR + 1024*1020];
 extern std::vector<ID> IDv;
 int ros_sem =0;	//mROS resource semapho
 int count=1;	//for assign node ID

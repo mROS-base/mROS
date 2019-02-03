@@ -10,11 +10,10 @@ namespace mros_test{
 class LightSensorValues{
 public:
   uint32_t person1;
-  std::vector<uint32_t> person2;
-  string name;
+  uint64_t person2;
 
   int dataSize(){
-    return  4 +  person2.size()*4 + 4  +  name.size() +  4*3;
+    return  4 +  8 +  4*0;
   }
 
   void memCopy(char*& addrPtr){
@@ -22,22 +21,9 @@ public:
     
     memcpy(addrPtr,&person1,4);
     addrPtr += 4;
-    {
-      size = person2.size();
-      memcpy(addrPtr,&size,4);
-      addrPtr += 4;
-      const uint_t* ptr = person2.data();
-      for(int i=0; i<size ; i++){
-        memcpy(addrPtr, &(ptr[i]),4);
-        addrPtr += 4;
-      }
-    }
     
-    size = name.size();
-    memcpy(addrPtr,&size,4);
-    addrPtr += 4;
-    memcpy(addrPtr, name.c_str(),size);
-    addrPtr += size;
+    memcpy(addrPtr,&person2,8);
+    addrPtr += 8;
     
   }
 
@@ -46,28 +32,8 @@ public:
     memcpy(&person1,rbuf,4);
     rbuf += 4;
     
-    {
-      uint32_t size;
-      memcpy(&size,rbuf,4);
-      rbuf += 4;
-      person2.reserve(size);
-      for(int i=0;i<size;i++){
-        uint32_t buf;
-        memcpy(&buf,rbuf,4);
-        person2.push_back(buf);
-        rbuf += 4;
-      }
-    }
-    
-    {
-      memcpy(&size,rbuf,4);
-      rbuf += 4;
-      char buf_char[size+1];
-      memcpy(&buf_char,rbuf,size);
-      buf_char[size] = '\0';
-      name = buf_char;
-      rbuf += size;
-    }
+    memcpy(&person2,rbuf,8);
+    rbuf += 8;
     
     
   }
@@ -82,7 +48,7 @@ struct MD5Sum<LIGHTSENSORVALUES_MSG_ID>
 {
   static const char* value()
   {
-    return "e2d6cfcf50f98a5a24d82739e108711f";
+    return "802a3122c4dd54ea81ad83498f147724";
   }
 
 };
@@ -113,8 +79,7 @@ struct Definition<mros_test::LightSensorValues*>
 	static const char* value()
 	{
 		return "uint32 person1\n\
-uint32[] person2\n\
-string name\n\
+uint64 person2\n\
 ";
 	}
 };

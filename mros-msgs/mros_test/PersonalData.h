@@ -1,10 +1,10 @@
 #ifndef _MROS_TEST_PERSONALDATA_H
 #define _MROS_TEST_PERSONALDATA_H
 
+#include "mros_test/LightSensorValues.h"
 
 
-
-static const int PERSONALDATA_MSG_ID = 101;
+static const int PERSONALDATA_MSG_ID = 102;
 
 namespace mros_test{
 class PersonalData{
@@ -12,9 +12,10 @@ public:
   float floatVal;
   double doubleVal;
   uint8_t boolVal;
+  mros_test::LightSensorValues lsVal;
 
   int dataSize(){
-    return  4 +  8 +  1 +  4*0;
+    return  4 +  8 +  1 +  lsVal.dataSize() +  4*0;
   }
 
   void memCopy(char*& addrPtr){
@@ -28,6 +29,8 @@ public:
     
     memcpy(addrPtr,&boolVal,1);
     addrPtr += 1;
+    
+    lsVal.memCopy(addrPtr);
     
   }
 
@@ -43,6 +46,9 @@ public:
     rbuf += 1;
     
     
+    lsVal.deserialize(rbuf);
+    
+    
   }
 };
 
@@ -55,7 +61,7 @@ struct MD5Sum<PERSONALDATA_MSG_ID>
 {
   static const char* value()
   {
-    return "e786a9d71f124a2deaedd6ee32a2af2a";
+    return "6b671d7cfacf9c831e0b4dde2f3fc4bf";
   }
 
 };
@@ -88,6 +94,7 @@ struct Definition<mros_test::PersonalData*>
 		return "float32 floatVal\n\
 float64 doubleVal\n\
 bool boolVal\n\
+LightSensorValues lsVal\n\
 ";
 	}
 };
