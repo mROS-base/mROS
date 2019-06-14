@@ -49,6 +49,7 @@ i_id = 100
 def typeInterpreter(msg_def_str, msgDependences):
 	global strNum
 	msg_def_arr = msg_def_str.split(' ')
+	print(msg_def_arr)
 	msgType = msg_def_arr[0]
 	msgName = msg_def_arr[1]
 	isArray = False
@@ -120,7 +121,8 @@ def msgDataGenerator(line):
 							break #end of message definition
 						else:
 							msg_def_str = arr[def_i].strip().replace('return "','')[:-3]
-							msg_def.append(typeInterpreter(msg_def_str, msgDependences))
+							if msg_def_str != '':
+								msg_def.append(typeInterpreter(msg_def_str, msgDependences))
 							def_i = def_i + 1
 				if 'DataType' in h_line:
 					msg_type = arr[i+4].strip().lstrip('	return "').rstrip('";')
@@ -177,6 +179,7 @@ with open('including_msgs.json','r') as f:
 	catkin_include_path = json_data['catkin_ws_dir'] + "/devel/include/"
 	for line in json_data['including_msgs']:
 		line = line.strip()
+		print(line)
 		if line in std_msgs:
 			#use of msgs in std_msgs
 			linestr = line.split('/')

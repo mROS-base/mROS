@@ -67,9 +67,9 @@ void usr_task1(){
   ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_msg",1);
   ros::Rate loop_rate(5);
   mros_test::PersonalData msg;
-  msg.floatVal = 1.919;
-  msg.doubleVal = 11.4514;
-  msg.boolVal = true;
+  //msg.floatVal = 1.919;
+  //msg.doubleVal = 11.4514;
+  //msg.boolVal = true;
   /*
   mros_test::PersonalData msg;
   msg.first_name = "Charlie";
@@ -105,7 +105,7 @@ void usr_task1(){
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
-  while(1){
+  while(0){
     /*
     if(Button.read() == 0 && bb){
       b = !b;
@@ -126,8 +126,8 @@ void usr_task1(){
     wait_ms(1000);
     //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
     chatter_pub.publish(msg);
-    msg.floatVal += 0.1;
-    msg.doubleVal += 0.01;
+    //msg.floatVal += 0.1;
+    //msg.doubleVal += 0.01;
     msg.boolVal = !msg.boolVal;
   //  msg.lsValue.person1 += 2;
   //  msg.age ++;
@@ -147,7 +147,7 @@ void led_init(){
   ledb.period_ms(10);
   ledb = 0.0f;
 }
-
+/*
 void LED_switch(string *msg){
   if(msg->find("red") != -1){
     if(ledr == 0){
@@ -176,13 +176,15 @@ void LED_switch(string *msg){
     exit(1);
   }
 }
-
+*/
 /*******  callback **********/
 void Callback(mros_test::PersonalData *msg){	
   //LED_switch(msg);
   ROS_INFO("I hear msgs from ros host");
-  ROS_INFO("age: %1.4f", msg->floatVal);
-  ROS_INFO("age: %2.5lf", msg->doubleVal);
+  string name = msg->nameVal.firstName + " " + msg->nameVal.lastName;
+  ROS_INFO("recieved name: %s", name.c_str());
+  ROS_INFO("try: %d", msg->intVal);
+  //ROS_INFO("age: %2.5lf", msg->doubleVal);
   if(msg->boolVal){
     ROS_INFO("bool val is true");
   } else {

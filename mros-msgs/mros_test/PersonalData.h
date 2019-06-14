@@ -1,7 +1,7 @@
 #ifndef _MROS_TEST_PERSONALDATA_H
 #define _MROS_TEST_PERSONALDATA_H
 
-#include "mros_test/LightSensorValues.h"
+#include "mros_test/PersonName.h"
 
 
 static const int PERSONALDATA_MSG_ID = 102;
@@ -9,44 +9,37 @@ static const int PERSONALDATA_MSG_ID = 102;
 namespace mros_test{
 class PersonalData{
 public:
-  float floatVal;
-  double doubleVal;
+  int32_t intVal;
   uint8_t boolVal;
-  mros_test::LightSensorValues lsVal;
+  mros_test::PersonName nameVal;
 
   int dataSize(){
-    return  4 +  8 +  1 +  lsVal.dataSize() +  4*0;
+    return  4 +  1 +  nameVal.dataSize() +  4*2;
   }
 
   void memCopy(char*& addrPtr){
     int size; 
     
-    memcpy(addrPtr,&floatVal,4);
+    memcpy(addrPtr,&intVal,4);
     addrPtr += 4;
-    
-    memcpy(addrPtr,&doubleVal,8);
-    addrPtr += 8;
     
     memcpy(addrPtr,&boolVal,1);
     addrPtr += 1;
     
-    lsVal.memCopy(addrPtr);
+    nameVal.memCopy(addrPtr);
     
   }
 
   void deserialize(char*& rbuf){
     uint32_t size;
-    memcpy(&floatVal,rbuf,4);
+    memcpy(&intVal,rbuf,4);
     rbuf += 4;
-    
-    memcpy(&doubleVal,rbuf,8);
-    rbuf += 8;
     
     memcpy(&boolVal,rbuf,1);
     rbuf += 1;
     
     
-    lsVal.deserialize(rbuf);
+    nameVal.deserialize(rbuf);
     
     
   }
@@ -61,7 +54,7 @@ struct MD5Sum<PERSONALDATA_MSG_ID>
 {
   static const char* value()
   {
-    return "6b671d7cfacf9c831e0b4dde2f3fc4bf";
+    return "a4a6d0515f63fae77f6c3b4aa56b405e";
   }
 
 };
@@ -91,10 +84,9 @@ struct Definition<mros_test::PersonalData*>
 {
 	static const char* value()
 	{
-		return "float32 floatVal\n\
-float64 doubleVal\n\
+		return "int32 intVal\n\
 bool boolVal\n\
-LightSensorValues lsVal\n\
+PersonName nameVal\n\
 ";
 	}
 };
