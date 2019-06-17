@@ -186,26 +186,12 @@ void Callback(mros_test::PersonalData *msg){
   ROS_INFO("try: %d", msg->intVal);
   //ROS_INFO("age: %2.5lf", msg->doubleVal);
   if(msg->boolVal){
-    ROS_INFO("bool val is true");
   } else {
     ROS_INFO("bool val is false");
-  }
-  /*
-  ROS_INFO("name: %s", (msg->first_name + " " + msg->last_name).c_str() );
-  ROS_INFO("age: %u", msg->age);
-  ROS_INFO("lsValue.person1: %u", msg->lsValue.person1);
-  ROS_INFO("lsValue.person2:");
-  for(std::vector<uint32_t>::const_iterator it = msg->lsValue.person2.begin(); it != msg->lsValue.person2.end(); ++it)
-  {
-      ROS_INFO("%d", *it);
-  }
-  ROS_INFO("lsValue.name: %s", msg->lsValue.name.c_str());
-  ROS_INFO("score:");
-  for(std::vector<uint32_t>::const_iterator it = msg->score.begin(); it != msg->score.end(); ++it)
-  {
-      ROS_INFO("%d", *it);
-  }
-  */
+ }
+ ledr=msg->ledVal.red;
+ ledg=msg->ledVal.green;
+ ledb=msg->ledVal.blue;
 }
 
 /*****mROS user task code*******/

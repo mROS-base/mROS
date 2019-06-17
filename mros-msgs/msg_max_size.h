@@ -1,1 +1,1 @@
-#define PUB_MSG_MAX_SIZE 5
+#define PUB_MSG_MAX_SIZE 29

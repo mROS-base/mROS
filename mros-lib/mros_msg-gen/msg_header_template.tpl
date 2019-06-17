@@ -1,7 +1,8 @@
 #ifndef _{{msg.PKG}}_{{msg.NAME}}_H
 #define _{{msg.PKG}}_{{msg.NAME}}_H
 
-{%for dep in msg.dependences %}#include "{{dep}}"{%endfor%}
+{%for dep in msg.dependences %}#include "{{dep}}"
+{%endfor%}
 
 {% set id_name = msg.NAME + '_MSG_ID'%}
 static const int {{id_name}} = {{msg.id}};

@@ -2,9 +2,11 @@
 #define _MROS_TEST_PERSONALDATA_H
 
 #include "mros_test/PersonName.h"
+#include "mros_test/LEDValues.h"
 
 
-static const int PERSONALDATA_MSG_ID = 102;
+
+static const int PERSONALDATA_MSG_ID = 103;
 
 namespace mros_test{
 class PersonalData{
@@ -12,9 +14,10 @@ public:
   int32_t intVal;
   uint8_t boolVal;
   mros_test::PersonName nameVal;
+  mros_test::LEDValues ledVal;
 
   int dataSize(){
-    return  4 +  1 +  nameVal.dataSize() +  4*2;
+    return  4 +  1 +  nameVal.dataSize() +  ledVal.dataSize() +  4*2;
   }
 
   void memCopy(char*& addrPtr){
@@ -27,6 +30,8 @@ public:
     addrPtr += 1;
     
     nameVal.memCopy(addrPtr);
+    
+    ledVal.memCopy(addrPtr);
     
   }
 
@@ -42,6 +47,9 @@ public:
     nameVal.deserialize(rbuf);
     
     
+    ledVal.deserialize(rbuf);
+    
+    
   }
 };
 
@@ -54,7 +62,7 @@ struct MD5Sum<PERSONALDATA_MSG_ID>
 {
   static const char* value()
   {
-    return "a4a6d0515f63fae77f6c3b4aa56b405e";
+    return "0107a86535f313508e11b1f77d855c02";
   }
 
 };
@@ -87,6 +95,7 @@ struct Definition<mros_test::PersonalData*>
 		return "int32 intVal\n\
 bool boolVal\n\
 PersonName nameVal\n\
+LEDValues ledVal\n\
 ";
 	}
 };
