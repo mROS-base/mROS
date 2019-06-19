@@ -281,7 +281,6 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				//publish
 				int err = lst.sock_vec[num].send(buf,l);
 				int number = errno;
-				ROS_INFO(buf);
 				if(err < 0)  ROS_INFO("PUB_TASK: PUBLISHING ERROR ! [%d] errno=%d %s",err,number,strerror(number));
 			}else if(lst.stat_vec[num] == 1){
 				syslog(LOG_NOTICE,"PUB_TASK: internal data publish");
