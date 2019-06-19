@@ -83,8 +83,7 @@ std_msgs::String str;
 ros::Rate loop_rate(FREQ);
 
 void Callback(std_msgs::String *msg){ 
-  ROS_INFO("hellooo from ROS master!");
-  syslog(LOG_NOTICE,"I heard [%s]",msg);
+  syslog(LOG_NOTICE,"I heard [%s] from ROS host",msg);
 }
 
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
@@ -214,6 +213,7 @@ static void camera_start(void) {
   if (error != DisplayBase::GRAPHICS_OK) {
     printf("Line %d, error %d\n", __LINE__, error);
     while (1);
+  } else {
   }
 
 
@@ -241,9 +241,7 @@ static void camera_start(void) {
   }
 
   /* Wait vsync to update resister */
-  //WaitVsync(1);//for publishing strings
-
-  syslog(LOG_NOTICE, "Hello from Yugen!");
+  WaitVsync(1);//for publishing strings
 }
 #endif /* camera_start(void) */
 unsigned char ibuf[320*4*240];
@@ -259,7 +257,12 @@ void usr_task1(){
   char *argv = NULL;
   int count = 0;
   ros::init(argc,argv,"mros_camera");
-  pub = n.advertise<std_msgs::String>("mros_msg",1);
+  //for image pub
+  pub = n.advertise("image_raw",1);
+  //for string pub
+  //pub = n.advertise<std_msgs::String>("mros_msg",1);
+  
+  img.encoding="bgra8";
   img.is_bigendian = 0;
   img.width = 320;
   img.height = 240;
@@ -271,19 +274,21 @@ void usr_task1(){
   head.frame_id = "mROScam";
   img.header = head;
   img.data = &ibuf[0];
-  str.data = "hello from mROS!";
+  
   //camera start and publish loop
-
-  //camera_start(); //for publishing strings
+ 
+  camera_start(); //for publishing strings
   dly_tsk(1000);	//pubノードの起動が間に合わない？
   ROS_INFO("USER TASK1: start data publish");
   int count_i = 0;
   while(1){
-    ROS_INFO("USER TASK1: publishing image %d", count++);
-    pub.publish(str);
+    //ROS_INFO("USER TASK1: publishing image %d", count++);
+    //pub.publish(str);
+    ROS_INFO("USER TASK1: publishing image %s",&img.data);
+    pub.publish(img);
     loop_rate.sleep();
-    dly_tsk(200);
-    count_i ++;
+    dly_tsk(1000);
+    //count_i ++;
   }
 }
 
@@ -312,12 +317,10 @@ void usr_task2(){
 #ifndef _USR_TASK_2_
 #define _USR_TASK_2_
   syslog(LOG_NOTICE,"========Activate user task2========");
-  /*
   int argc = 0;
   char *argv = NULL;
   ros::init(argc,argv,"mros_image_converter");
   ROS_INFO("ADVERTISE PUB2");
-  pub2 = nh.advertise<std_msgs::String>("input_data",1000);
   img2.width = 160;
   img2.height = 120;
   img2.encoding="bgra8";
@@ -330,13 +333,12 @@ void usr_task2(){
   head.nsec = 0;
   head.frame_id = "mROScam2";
   img2.header = head;
-  */
-  //sub = nh.subscriber("image_raw",1,Callback);
+  sub = nh.subscriber("image_raw",1,Callback);
   int argc = 0;
   char *argv = NULL;
-  ros::init(argc,argv,"mros_node2");
-  ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("test_string",1,Callback);
+  //ros::init(argc,argv,"mros_node2");
+  //ros::NodeHandle n;
+  //ros::Subscriber sub = n.subscribe("test_string",1,Callback);
   ros::spin();
 
 #endif

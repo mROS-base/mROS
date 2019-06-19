@@ -116,6 +116,7 @@ public:
 	char node;
 	template <class T>
 	void publish(T& data);
+	void publish(sensor_msgs::Image& img);
 	char ID;
 };
 
@@ -134,17 +135,12 @@ class NodeHandle{
 	//Subscriber sub;
 	//Publisher pub;
 public:
-#if 0
-<<<<<<< HEAD
-	Subscriber subscriber(std::string topic,std::string type,int queue_size,void(*fp)(std::string));
-	Publisher advertise(std::string topic,std::string type,int queue_size);
-=======
-#endif
 	template<class T>
 	Subscriber subscribe(std::string topic,int queue_size,void(*fp)(T));
 	template <class T>
 	Publisher advertise(std::string topic,int queue_size);
-//>>>>>>> mori_ws
+
+	Publisher advertise(std::string topic,int queue_size);
 };
 
 class Rate{
@@ -159,18 +155,6 @@ void spin();
 //void spinOnce();
 
 }
-/*
-class std_msgs{
-public:
-	class String{
-	public:
-		typedef class ConstPtr{
-		public:
-		std::string data;
-		}ConstPtr;
-	};
-};
-*/
 
 
 #define ROS_INFO(...) syslog(LOG_NOTICE,__VA_ARGS__)
