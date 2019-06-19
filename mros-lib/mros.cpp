@@ -14,7 +14,7 @@
 char evl_flag = 0;
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.11.4";	//ros master IP
+const char *m_ip = "192.168.11.3";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
@@ -242,10 +242,10 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 							break;
 						default:
 							// TODO: check last arg
-              /** for image data **/
-							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
+              				/** for image data **/
+							//int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
 							/**for string data**/
-							//int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
 							lst.sock_vec[num].send(snd_buf,len);
 							node_lst[node_num].set_pub();
 							connect_status = false;
@@ -275,13 +275,12 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				memcpy(rbuf,&mem[PUB_ADDR],size);
 				rbuf[size] = '\0';	//cutting data end
 				/**for string data**/
-				//int l = pub_gen_msg(buf,rbuf);	
+				int l = pub_gen_msg(buf,rbuf);	
 				/**for image data**/
-				int l = pub_gen_img_msg(buf,rbuf,size);
+				//int l = pub_gen_img_msg(buf,rbuf,size);
 				//publish
 				int err = lst.sock_vec[num].send(buf,l);
 				int number = errno;
-				ROS_INFO(buf);
 				if(err < 0)  ROS_INFO("PUB_TASK: PUBLISHING ERROR ! [%d] errno=%d %s",err,number,strerror(number));
 			}else if(lst.stat_vec[num] == 1){
 				syslog(LOG_NOTICE,"PUB_TASK: internal data publish");
@@ -614,7 +613,7 @@ void xml_mas_task(){
 #endif
 	while(1){
 		syslog(LOG_NOTICE,"XML_MAS_TASK: enter loop");
-		TCPSocketConnecti行番号on xml_mas_sock;
+		TCPSocketConnection xml_mas_sock;
 		xml_mas_sock.set_blocking(true,1500);
 		rcv_dtq(XML_DTQ,dq);
 		syslog(LOG_NOTICE,"XML_MAS_TASK: receive dtq");
@@ -696,7 +695,7 @@ void xml_mas_task(){
 				if(num != -1){
 				syslog(LOG_NOTICE,"XML_MAS_TASK: request node [ID:%x, topic:%s]",node_lst[num].ID,node_lst[num].topic_name.c_str());
 				string body = requestTopic(node_lst[num].callerid,node_lst[num].topic_name);
-				node_lst[num].ip = "192.168.100.113";
+				//node_lst[num].ip = "192.168.100.113";
 				syslog(LOG_NOTICE,"XML_MAS_TASK: ip[%s],port[%d]",node_lst[num].ip.c_str(),node_lst[num].port);
 				//syslog(LOG_NOTICE,"XML_MAS_TASK: %s",body.c_str());
 				int le = xml_mas_sock.connect(node_lst[num].ip.c_str(),node_lst[num].port);
