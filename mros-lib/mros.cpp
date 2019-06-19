@@ -16,6 +16,7 @@
 char evl_flag = 0;
 
 /***** congiuration ros master ******/
+
 const char *m_ip = "192.168.11.5";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
@@ -251,10 +252,10 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 							break;
 						default:
 							// TODO: check last arg
-              /** for image data **/
-							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
+              				/** for image data **/
+							//int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"060021388200f6f0f447d0fcd9c64743");	//test function
 							/**for string data**/
-							//int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
+							int len = pub_gen_header(snd_buf,node_lst[node_num].callerid,node_lst[node_num].message_definition,node_lst[node_num].topic_name,node_lst[node_num].topic_type,"992ce8a1687cec8c8bd883ec73ca41d1");	//test function
 							lst.sock_vec[num].send(snd_buf,len);
 							node_lst[node_num].set_pub();
 							connect_status = false;
@@ -283,7 +284,6 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 			//	if(lst.sock_vec[num].is_connected()){
 				ROS_INFO("PUB_TASK: TOPIC send size[%d]",size);
 				memcpy(rbuf,&mem[PUB_ADDR],size);
-				//int l = pub_gen_msg(buf,rbuf);	
 				/**for image data**/
 				//int l = pub_gen_img_msg(buf,rbuf,size);
 				//publish
