@@ -95,7 +95,6 @@ ros::Subscriber ros::NodeHandle::subscribe(std::string topic,int queue_size,void
 	snd_dtq(XML_DTQ,*sdq); //sndはデータ本体を渡す？big-little?なエンディアン 20b1->1b02で渡される
 	return sub;
 }
-template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(std_msgs::String*));
 
 
 template <class T>
@@ -224,120 +223,6 @@ void ros::Publisher::publish(T& data){
 
 }
 
-
-
-/**image data用関数なんかアレ**/
-
-void ros::Publisher::publish(sensor_msgs::Image& img){
-	syslog(LOG_NOTICE,"start to pub image");
-	while(ros_sem != 0){
-
-	}
-	int size = 0;
-	//Header
-	//sprintf(&data[size],"%u",img->header.seq);
-	char *data;
-
-	int i = find_sub(node_lst,node_lst[find_id(node_lst,this->ID)].topic_name);
-	bool p = node_lst[find_id(node_lst,this->ID)].pub_stat;
-	if(i != -1){
-		data = &mem[PUB_ADDR2];
-	}
-	if(p){
-		data = &mem[PUB_ADDR];
-	}
-	data[size] = img.header.seq;
-	data[size+1] = img.header.seq/256;
-	data[size+2] = img.header.seq/65536;
-	data[size+3] = 0;
-	size += 4;
-	//sprintf(&data[size],"%c",img.header.sec);
-	data[size] = img.header.sec;
-	data[size+1] = img.header.sec/256;
-	data[size+2] = img.header.sec/65536;
-	data[size+3] = 0;
-	size += 4;
-	//sprintf(&data[size],"%c",img.header.nsec);
-	data[size] = img.header.nsec;
-	data[size+1] = img.header.nsec/256;
-	data[size+2] = img.header.nsec/65536;
-	data[size+3] = 0;
-	size += 4;
-	//frame_id
-	data[size] = strlen(img.header.frame_id.c_str());
-	data[size+1] = strlen(img.header.frame_id.c_str())/256;
-	data[size+2] = strlen(img.header.frame_id.c_str())/65536;
-	data[size+3] = 0;
-	size += 4;
-	sprintf(&data[size],"%s",img.header.frame_id.c_str());
-	size += strlen(img.header.frame_id.c_str());
-	//rosImage
-	//height
-	//sprintf(&data[size],"%x",img.height);
-	data[size] = img.height;
-	data[size+1] = img.height/256;
-	data[size+2] = img.height/65536;
-	data[size+3] = 0;
-	size += 4;
-	//width
-	//sprintf(&data[size],"%u",img.width);
-	data[size] = img.width;
-	data[size+1] = img.width/256;
-	data[size+2] = img.width/65536;
-	data[size+3] = 0;
-	size += 4;
-	//encoding
-	data[size] = strlen(img.encoding.c_str());
-	data[size+1] = strlen(img.encoding.c_str())/256;
-	data[size+2] = strlen(img.encoding.c_str())/65536;
-	data[size+3] = 0;
-	size += 4;
-	sprintf(&data[size],"%s",img.encoding.c_str());
-	size += strlen(img.encoding.c_str());
-	//endian
-	sprintf(&data[size],"%c",img.is_bigendian);
-	size += sizeof(img.is_bigendian);
-	//step
-	//sprintf(&data[size],"%u",img.step);
-	data[size] = img.step;
-	data[size+1] = img.step/256;
-	data[size+2] = img.step/65536;
-	data[size+3] = 0;
-	size += 4;
-	//data
-	data[size] = img.step*img.height;
-	data[size+1] = (img.step*img.height)/256;
-	data[size+2] = (img.step*img.height)/65536;
-	data[size+3] = 0;
-	size += 4; 	//length space
-	memcpy(&data[size],img.data,img.step*img.height);
-	size += img.step*img.height;
-	
-	if(i != -1){
-		//ROS_INFO("internal publishing");
-		char sbuf[4];
-		intptr_t *pdq;
-		sbuf[0] = node_lst[i].ID;
-		sbuf[1] = size;
-		sbuf[2] = size/256;
-		sbuf[3] = size/65536;
-		pdq = (intptr_t) &sbuf;
-		snd_dtq(SUB_DTQ,*pdq);
-	}
-
-	if(p){
-		//ROS_INFO("PUBLISH ID[%d]",this->ID);
-		char pbuf[4];
-		intptr_t *pdq;
-		pbuf[0] = this->ID;
-		pbuf[1] = size;
-		pbuf[2] = size/256;
-		pbuf[3] = size/65536;
-		pdq = (intptr_t) &pbuf;
-		snd_dtq(PUB_DTQ,*pdq);
-	}
-
-}
 
 void ros::Rate::sleep(){
 	wait_ms(1000/this->rate);

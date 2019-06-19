@@ -16,7 +16,7 @@
 char evl_flag = 0;
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.11.4";	//ros master IP
+const char *m_ip = "192.168.11.5";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
@@ -285,7 +285,7 @@ syslog(LOG_NOTICE, "========Activate mROS PUBLISH========");
 				memcpy(rbuf,&mem[PUB_ADDR],size);
 				//int l = pub_gen_msg(buf,rbuf);	
 				/**for image data**/
-				int l = pub_gen_img_msg(buf,rbuf,size);
+				//int l = pub_gen_img_msg(buf,rbuf,size);
 				//publish
 				int bodySize = size;
 				memcpy(buf,&bodySize,4);
@@ -362,7 +362,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				//get function pointer address
 				string str = rbuf;
 				funcp = (intptr_t)atoi(get_fptr(str).c_str());
-				lst.add(sock,sdq[0],funcp);
+				lst.add(sock,sdq[0],funcp,node_lst[node_num].topic_type_id);
 				syslog(LOG_NOTICE,"SUB_TASK:IP [%s][%s]",node_lst[node_num].ip.c_str(),network.getIPAddress());
 				ROS_INFO("SUB_TASK:IP [%s][%s]",node_lst[node_num].ip.c_str(),network.getIPAddress());
 				if(strcmp(node_lst[node_num].ip.c_str(),network.getIPAddress()) != 0){
@@ -642,7 +642,7 @@ void xml_mas_task(){
 #endif
 	while(1){
 		syslog(LOG_NOTICE,"XML_MAS_TASK: enter loop");
-		TCPSocketConnecti行番号on xml_mas_sock;
+		TCPSocketConnection xml_mas_sock;
 		xml_mas_sock.set_blocking(true,1500);
 		rcv_dtq(XML_DTQ,dq);
 		syslog(LOG_NOTICE,"XML_MAS_TASK: receive dtq");

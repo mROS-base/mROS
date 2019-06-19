@@ -67,71 +67,16 @@ void usr_task1(){
   ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_msg",1);
   ros::Rate loop_rate(5);
   mros_test::PersonalData msg;
-  //msg.floatVal = 1.919;
-  //msg.doubleVal = 11.4514;
-  //msg.boolVal = true;
-  /*
-  mros_test::PersonalData msg;
-  msg.first_name = "Charlie";
-  msg.last_name = "Parker";
-  msg.age = 32;
-  msg.lsValue.person1 = 0;
-  msg.lsValue.person2.push_back(10);
-  msg.lsValue.name = "hoge";
-
-  for (int i = 1 ; i <= 10 ; i ++)
-  {
-      msg.score.push_back(i);
-  }
-  */
-  //std_msgs::String str;
-  //std_msgs::UInt32 str;
-  //str.data = 4294967200;
-
-  //char msg[100];
-  /*
-  mros_test::StrMsg msg;
-  msg.baker = "unchi";
-  msg.parker = "kongutte";
-  msg.coltrane = "shitteru????";
-  */
-  //mros_test::PersonalData msg;
-  //msg.first_name = "Phil";
-  //msg.last_name = "Woods";
-  //msg.age = 83;
-  //msg.score = 100000;
-  int count=0;
-  init();
-  bool b = false;
-  bool bb = true;
+  msg.intVal = 10;
+  msg.boolVal = false;
+  msg.nameVal.firstName="Charlie";
+  msg.nameVal.lastName="Parker";
   syslog(LOG_NOTICE,"Data Publish Start");
-  while(0){
-    /*
-    if(Button.read() == 0 && bb){
-      b = !b;
-      bb = false;
-    }else if(Button.read() == 1){
-      bb = true;
-    }
-    if(b){
-      wait_ms(1000);
-      //sprintf(msg,"Distance[%d]cm\0",USSDistance);
-      std::ostringstream s;
-      s << "Distance[" << USSDistance << "]cm\0" << std::flush;
-      msg.data = s.str();
-      syslog(LOG_NOTICE, "%s", msg.data.c_str());
-      chatter_pub.publish(msg);
-      loop_rate.sleep();
-    }*/
+  while(1){
     wait_ms(1000);
-    //ROS_INFO("USER TASK1: publishing string,%s",msg.parker);
     chatter_pub.publish(msg);
-    //msg.floatVal += 0.1;
-    //msg.doubleVal += 0.01;
+    msg.intVal += 1;
     msg.boolVal = !msg.boolVal;
-  //  msg.lsValue.person1 += 2;
-  //  msg.age ++;
-  ////  count ++;
   }
 #endif
 }
@@ -199,7 +144,6 @@ void usr_task2(){
 
 #ifndef _USR_TASK_2_
 #define _USR_TASK_2_
-
   syslog(LOG_NOTICE,"========Activate user task2========");
   led_init();
   ledg = (float)100/128;
