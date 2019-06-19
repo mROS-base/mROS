@@ -4,4 +4,20 @@
 *.bin
 *.history
 
-.metadata/
+# for TrueSTUDIO
+workspace/.metadata/
+workspace/*/.metadata/
+workspace/*/.settings/language.settings.xml
+
+# for ASP
+asp
+asp.*
+cfg1_out*
+kernel_cfg*
+offset.h
+GR-PEACH_mbed.map
+Makefile.depend
+
+# etc.,,,
+*.swp
+.DS_Store

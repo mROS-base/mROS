@@ -1,3 +1,5 @@
+//ros.h below
+
 #ifndef _ROS_HEADER_
 #define _ROS_HEADER_
 
@@ -7,7 +9,7 @@
 
 
 
-//========================================================================================================================================================
+//==========================node_name==============================================================================================================================
 //========================================================================================================================================================
 //========================================================================================================================================================
 /******************************************************
@@ -61,12 +63,7 @@ public:
 	std::string frame_id;
 };
 
-namespace std_msgs{
-class String{
-public:
-	std::string data;
-};
-}
+
 
 namespace sensor_msgs{
 class Image{
@@ -80,6 +77,19 @@ public:
 	unsigned char *data;
 };
 }
+
+namespace message_traits
+{
+	template <class T>
+	struct MD5Sum{static const char* value();};
+
+	template <class T>
+	struct DataType{static const char* value();};
+
+	template <class T>
+	struct Definition{static const char* value();};
+}
+
 //========================================================================================================================================================
 //========================================================================================================================================================
 //========================================================================================================================================================
@@ -87,14 +97,15 @@ public:
 
 namespace ros{
 
-typedef class Publisher{
+class Publisher{
 public:
 	char topic;
 	char node;
-	void publish(std_msgs::String& data);
-	void publish(sensor_msgs::Image& data);
+	template <class T>
+	void publish(T& data);
+	void publish(sensor_msgs::Image& img);
 	char ID;
-}Publisher;
+};
 
 typedef class Subscriber{
 public:
@@ -108,18 +119,15 @@ void init(int argc,char *argv,std::string node_name);
 
 //現状キューサイズは機能していない
 class NodeHandle{
-	Subscriber sub;
-	Publisher pub;
+	//Subscriber sub;
+	//Publisher pub;
 public:
-#if 0
-<<<<<<< HEAD
-	Subscriber subscriber(std::string topic,std::string type,int queue_size,void(*fp)(std::string));
-	Publisher advertise(std::string topic,std::string type,int queue_size);
-=======
-#endif
-	Subscriber subscriber(std::string topic,int queue_size,void(*fp)());
+	template<class T>
+	Subscriber subscribe(std::string topic,int queue_size,void(*fp)(T));
+	template <class T>
 	Publisher advertise(std::string topic,int queue_size);
-//>>>>>>> mori_ws
+
+	Publisher advertise(std::string topic,int queue_size);
 };
 
 class Rate{
@@ -134,20 +142,9 @@ void spin();
 //void spinOnce();
 
 }
-/*
-class std_msgs{
-public:
-	class String{
-	public:
-		typedef class ConstPtr{
-		public:
-		std::string data;
-		}ConstPtr;
-	};
-};
-*/
 
 
 #define ROS_INFO(...) syslog(LOG_NOTICE,__VA_ARGS__)
 
 #endif
+

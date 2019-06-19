@@ -1,5 +1,0 @@
-OPENCV_INCLUDE_PATHS += -I$(OPENCV_DIR)/include
-
-OPENCV_LIBS +=  $(OPENCV_DIR)/lib/TOOLCHAIN_GCC_ARM/libopencv_core320.a \
-                $(OPENCV_DIR)/lib/TOOLCHAIN_GCC_ARM/libopencv_imgproc320.a \
-               
