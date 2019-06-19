@@ -23,7 +23,8 @@ int main(int argc,char **argv){
     std::string str,nav;
     //ss << "Hello World!" << count;
     //ss << std::cin;
-    nav = "\n\n[Type LED color] \n [red] or [green] or [blue] or (reset)";
+    //nav = "\n\n[Type LED color] \n [red] or [green] or [blue] or (reset)";
+    nav = "Type what you send\n";
     ROS_INFO("%s",nav.c_str());
     std::cin >> str;
     msg.data = str;
