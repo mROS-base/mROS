@@ -53,7 +53,22 @@ Please let us know if you could develop and build anothoer host OS.
 
 ## TODO
 
-- Support `app` example
+- Describe how to use manual
+- Support `MessageType`
 
 ## References
+
+- Research papers
+  - [Work-in-Progress: Design Concept of a Lightweight Runtime Environment for Robot Software Components Onto Embedded Devices
+](https://ieeexplore.ieee.org/document/8537199)
+    - Authors: Hideki Takase, Tomoya Mori, Kazuyoshi Takagi and Naofumi Takagi
+    - 2018 International Conference on Embedded Software (EMSOFT), pp. 1-3, Turin, Italy, Sep 2018.
+    - doi: 10.1109/EMSOFT.2018.8537199
+  - mROS: A Lightweight Runtime Environment for Robot Software Components onto Embedded Devices
+    - Authors: Hideki Takase, Tomoya Mori, Kazuyoshi Takagi and Naofumi Takagi
+    - The 10th International Symposium on Highly-Efficient Accelerators and Reconfigurable Technologies (HEART 2019), Nagasaki, Jun 2019.
+    - It will be appeared on ACM Portal
+
+- Qiita article (in Japanese)
+  - https://qiita.com/takasehideki/items/7d783ecd605dcee29ee0
 
