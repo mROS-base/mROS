@@ -9,6 +9,7 @@
 #include "xmlcall.h"
 #include "xmlparser.h"
 #include "tcp_ros.h"
+#include "msg_max_size.h"
 #endif
 
 #define MODE1
@@ -55,19 +56,24 @@
 
 #ifndef MEM_ADD				/* base address of shared memory in mROS */
 #define MEM_ADD
+#ifndef PUB_MSG_MAX_SIZE
+#define PUB_MSG_MAX_SIZE 1024*512
+#endif
 #define PUB_ADDR (0)
-#define PUB_ADDR2 (1024*512)
-#define SUB_ADDR (1024*1024)
-#define XML_ADDR (1024*1024 + 1024*2)
-#define INT_ADDR (1024*1024 + 1024*4)
+#define PUB_ADDR2 (PUB_MSG_MAX_SIZE)
+#define SUB_ADDR (PUB_ADDR2 + PUB_MSG_MAX_SIZE)
+#define XML_ADDR (SUB_ADDR + 1024*2)
+#define INT_ADDR (XML_ADDR + 1024*2)
 #endif	/*MEM_ADD*/
+
+
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern char mem[1024*1024*2];
+extern char mem[INT_ADDR + 1024*1020];
 extern int ros_sem;
 extern int count;
 extern int state;
@@ -83,7 +89,8 @@ extern void usr_task2();
 extern void sus_all();
 extern void rsm_all();
 
-extern void cyclic_handler(intptr_t exinf);
+extern void cyclic_handler(intptr_t exinf); 
+
 #ifdef __cplusplus
 }
 #endif

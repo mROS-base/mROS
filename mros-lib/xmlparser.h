@@ -50,6 +50,7 @@ string get_ip(string ip);
 
 //node情報切り出し
 string get_ttype(string xml);
+string get_ttypeid(string xml);
 string get_tname(string xml);
 string get_cid(string xml);
 string get_msgdef(string xml);
