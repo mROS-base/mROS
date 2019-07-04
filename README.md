@@ -38,7 +38,31 @@ Please let us know if you could develop and build anothoer host OS.
     - $ sudo apt install libstdc++6 lib32stdc++6
   - (for macOS) cfg-osx-static-1_9_5.gz
 
-## Build
+## Build (v1.1)
+- For CUI (terminal) (v1.1)
+  - cd to project dir such as `workspace/app/`
+  - Describe `USE_TRUESTUDIO = false` or comment-out such as `#USE_TRUESTUDIO = true` on Makefile
+  - Edit `mros-lib/mros_msg-gen/including_msgs.json` and
+    - Specify your catkin workspace such as `"catkin_ws_dir": "../../../catkin_ws/"`
+    - Specify headers for message types that are used in your app such as 
+    ```
+    "including_msgs": [
+      "mros_test/PersonalData.h",
+      "std_msgs/String.h"
+    ]
+  ```
+    - Specify depending packages for message types such as 
+    ```
+    "depending_packages": [
+      "std_msgs",
+      "mros_test"
+    ]
+    ```
+  - Build ROS applications (= run catkin_make) to generate message type header files for ROS system
+  - run `$ python (mROS root directory)/mros-lib/mros_msg-gen/mros_msg-gen.py` to generate message type header files for mROS applications
+  - run `$ make clean && make` or `$ make depend && make`
+
+## Build (v1.0)
 
 - For TrueSTUDIO
   - Specify and open `workspace` as workspace
@@ -50,6 +74,8 @@ Please let us know if you could develop and build anothoer host OS.
   - cd to project dir such as `workspace/asp_sample1/`
   - Describe `USE_TRUESTUDIO = false` or comment-out such as `#USE_TRUESTUDIO = true` on Makefile
   - `$ make` or `$ make depend && make`
+
+
 
 ## TODO
 
