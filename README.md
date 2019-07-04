@@ -50,7 +50,7 @@ Please let us know if you could develop and build anothoer host OS.
       "mros_test/PersonalData.h",
       "std_msgs/String.h"
     ]
-  ```
+    ```
     - Specify depending packages for message types such as 
     ```
     "depending_packages": [
