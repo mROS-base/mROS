@@ -5,8 +5,6 @@
 
 #include <string>
 #include <vector>
-#include <cstdlib>
-#include <sstream>
 #include "mros.h"
 
 
@@ -24,7 +22,6 @@ typedef struct node{
 		char ID;							//for mROS ID>1
 		std::string topic_name;				//ROS
 		std::string topic_type;				//ROS
-		int topic_type_id;
 		std::string callerid;				//ROS
 		std::string message_definition;		//ROS
 		std::string uri;					//ROS	自ノードのURI
@@ -38,7 +35,6 @@ public:
 		void set_ID(char c){this->ID = c;};
 		void set_topic_name(std::string t){this->topic_name=t;};
 		void set_topic_type(std::string t){this->topic_type=t;};
-		void set_topic_type_id(std::string t){this->topic_type_id=atoi(t.c_str());};
 		void set_callerid(std::string t){this->callerid=t;};
 		void set_message_definition(std::string t){this->message_definition=t;};
 		void set_uri(std::string t){this->uri=t;};
@@ -84,24 +80,15 @@ public:
 
 namespace message_traits
 {
-	template <int V>
+	template <class T>
 	struct MD5Sum{static const char* value();};
 
 	template <class T>
 	struct DataType{static const char* value();};
 
 	template <class T>
-	struct DataTypeId{static const int value();};
-
-	template <class T>
 	struct Definition{static const char* value();};
 }
-
-namespace subtask_methods
-{
-	template <int T>
-	struct CallCallbackFuncs{static void call(void (*fp)(), char *rbuf);};
-} 
 
 //========================================================================================================================================================
 //========================================================================================================================================================
