@@ -6,7 +6,6 @@ ALL_MROS_OBJ = $(MROS_C_OBJ) $(MROS_CXX_OBJ)
 .PHONY: all clean
 
 all: $(MROS_LIB).a
-
 #clean:
 #	rm -f $(MROS_LIB).lib $(ALL_MROS_OBJ) $(DEPS)
 
@@ -29,6 +28,6 @@ DEPS += $(ALL_MROS_OBJ:.o=.d)
 APPL_LIBS = $(MROS_LIB).a libmbed.a
 
 INCLUDES += $(MROS_INCLUDE_PATHS)  # MROSライブラリのヘッダファイルをアプリで使う
-INCLUDES += -I$(MROS_DIR)/mros-msgs # -I/home/yugen/mROS
+INCLUDES += -I$(MROS_DIR)/../workspace/$(APPNAME)/include
 # INCLUDES += -I/opt/ros/kinetic/include -I/usr/include -I/usr/include/x86_64-linux-gnu -I/usr/include/i386-linux-gnu
 

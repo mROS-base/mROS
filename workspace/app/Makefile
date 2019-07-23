@@ -10,7 +10,7 @@ APPLDIR = app
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
-USE_TRUESTUDIO = false
+USE_TRUESTUDIO = true
 
 DEBUG = true
 OMIT_OPTIMIZATION = true
@@ -42,6 +42,7 @@ MROS_DIR = ../../mros-lib
 #  ASPソースファイルのディレクトリの定義
 #
 SRCDIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
+
 
 #
 #  MBEDライブラリのビルド
