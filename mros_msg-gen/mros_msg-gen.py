@@ -1,5 +1,6 @@
 import os
 import json
+import sys
 from jinja2 import Template, Environment, FileSystemLoader
 
 std_msgs ={
@@ -43,8 +44,11 @@ msg_cpp_types = {
 msgs = []
 depMsgs = []
 strNum = 0
-
+arg = sys.argv
+if(len(arg) == 1):
+	raise Exception('Error: json file is not specified')
 i_id = 100
+jsonFileName = arg[1]
 
 def typeInterpreter(msg_def_str, msgDependences):
 	global strNum
@@ -171,10 +175,13 @@ def computeMsgTypeSize(msg):
 	return msgSize
 
 fileDir = os.path.dirname(__file__) 
-os.chdir(fileDir)
+appDir = os.getcwd()
+print(appDir)
+includePath = appDir + "/include/"
+if  not(os.path.isfile(appDir +"/"+ jsonFileName)):
+	raise Exception('specified json file ('+appDir +"/"+ jsonFileName+') not found')
 included_std_msgs = []
-
-with open('including_msgs.json','r') as f:
+with open(jsonFileName,'r') as f:
 	json_data = json.load(f)
 	catkin_include_path = json_data['catkin_ws_dir'] + "/devel/include/"
 	for line in json_data['including_msgs']:
@@ -186,13 +193,13 @@ with open('including_msgs.json','r') as f:
 			included_std_msgs.append({'pkg': linestr[0],'name':linestr[1].rstrip('.h'), 'id':std_msgs[line]})
 		else:
 			msgs.append(msgDataGenerator(line))
-
+os.chdir(fileDir)
 #header generator
 for msg in msgs:
 	env = Environment(loader=FileSystemLoader('.'))
 	template = env.get_template('msg_header_template.tpl')
 	datatext = template.render({"msg":msg, "strNum":strNum})
-	pkgPath = '../../mros-msgs/'+msg['pkg']
+	pkgPath = includePath+msg['pkg']
 	if not(os.path.isdir(pkgPath)):
 		os.mkdir(pkgPath)
 	with open(os.path.join(pkgPath,msg['name']+".h"),"wb") as f:
@@ -202,7 +209,7 @@ for msg in depMsgs:
 	env = Environment(loader=FileSystemLoader('.'))
 	template = env.get_template('msg_header_template.tpl')
 	datatext = template.render({"msg":msg, "strNum":strNum})
-	pkgPath = '../../mros-msgs/'+msg['pkg']
+	pkgPath = includePath+msg['pkg']
 	if not(os.path.isdir(pkgPath)):
 		os.mkdir(pkgPath)
 	with open(os.path.join(pkgPath,msg['name']+".h"),"wb") as f:
@@ -219,7 +226,7 @@ print(maxSize)
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('msg_max_size.tpl')
 datatext = template.render({"size":maxSize})
-with open("../../mros-msgs/msg_max_size.h","wb") as f:
+with open(includePath+"msg_max_size.h","wb") as f:
 	f.write(datatext)
 
 
@@ -227,12 +234,11 @@ with open("../../mros-msgs/msg_max_size.h","wb") as f:
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('msg_headers_includer.tpl')
 datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
-with open("../../mros-msgs/message_headers.h","wb") as f:
+with open(includePath+"message_headers.h","wb") as f:
 	f.write(datatext)
 # header_specializer generator
 env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('msg_headers_spetializer.tpl')
 datatext = template.render({"msgs":msgs,"std_msgs":included_std_msgs})
-with open("../../mros-msgs/message_class_specialization.h","wb") as f:
+with open(includePath+"message_class_specialization.h","wb") as f:
 	f.write(datatext)
-

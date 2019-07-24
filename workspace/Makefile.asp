@@ -374,7 +374,7 @@ $(OBJFILE): $(APPL_CFG) kernel_cfg.timestamp $(ALL_OBJS) $(LIBS_DEP)
 #
 #  バイナリファイルの生成
 #
-$(OBJNAME).bin: $(OBJFILE)
+$(OBJNAME).bin: genmsg $(OBJFILE)
 	$(OBJCOPY) -O binary -S $(OBJFILE) $(OBJNAME).bin
 #	cp -X $(OBJNAME).bin /Volumes/MBED # for MacOSX
 	
@@ -649,3 +649,9 @@ $(APPL_ASMOBJS:.o=.d): %.d: %.S
 %.o: %.S
 	@echo "*** Default compile rules should not be used."
 	$(CC) -c $(CFLAGS) $<
+
+.PHONY: genmsg
+genmsg:
+ifeq ($(GEN_MSG),true)
+	$(PYTHON) $(MROS_DIR)/../mros_msg-gen/mros_msg-gen.py $(MSG_SETTING_JSON)
+endif
