@@ -28,7 +28,7 @@ public:
       size = {{def_data.typeName}}.size();
       memcpy(addrPtr,&size,4);
       addrPtr += 4;
-      const {{def_data.rosType[:-2]}}_t* ptr = {{def_data.typeName}}.data();
+      const {{def_data.cppType}}* ptr = {{def_data.typeName}}.data();
       for(int i=0; i<size ; i++){
         memcpy(addrPtr, &(ptr[i]),{{def_data.size}});
         addrPtr += {{def_data.size}};

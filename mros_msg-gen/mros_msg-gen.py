@@ -155,14 +155,14 @@ def computeMsgTypeSize(msg):
 		if typeArr['isCustomType']:
 			fullName = [hoge for hoge in msg['dependences'] if typeArr['rosType'] in hoge]
 			if len(fullName) == 1:
-				print(fullName[0])
+			#	print(fullName[0])
 				foundMsgs = [hoge for hoge in msgs if hoge["originalName"] == fullName[0]]
 				if len(foundMsgs) != 0:
-					msgSize = msgSize + computeMsgTypeSize(hoge)
+					msgSize = msgSize + computeMsgTypeSize(foundMsgs[0])
 					continue
 				foundMsgs = [hoge for hoge in depMsgs if hoge["originalName"] == fullName[0]]
 				if len(foundMsgs) != 0:
-					msgSize = msgSize + computeMsgTypeSize(hoge)
+					msgSize = msgSize + computeMsgTypeSize(foundMsgs[0])
 					continue
 		elif typeArr['isArray']:
 			msgSize = 1024*512
@@ -178,6 +178,8 @@ fileDir = os.path.dirname(__file__)
 appDir = os.getcwd()
 print(appDir)
 includePath = appDir + "/include/"
+if not(os.path.isdir(includePath)):
+	os.mkdir(includePath)
 if  not(os.path.isfile(appDir +"/"+ jsonFileName)):
 	raise Exception('specified json file ('+appDir +"/"+ jsonFileName+') not found')
 included_std_msgs = []
@@ -217,6 +219,8 @@ for msg in depMsgs:
 
 #get max size of included msg type
 maxSize = 0
+print("msgs:")
+print(msgs)
 for msg in msgs:
 	msgSize = computeMsgTypeSize(msg)
 	if msgSize > maxSize:
