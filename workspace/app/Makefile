@@ -1,16 +1,21 @@
 #
 #  ターゲットの指定（Makefile.targetで上書きされるのを防ぐため）
 #
-all:
+
+all: 
 
 #
 #  アプリケーションファイル
 #
-APPLDIR = app 
+APPNAME = app
+APPLDIR = app
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
-USE_TRUESTUDIO = true
+USE_TRUESTUDIO = false
+GEN_MSG = false
+MSG_SETTING_JSON = app.json
+PYTHON = /usr/bin/python
 
 DEBUG = true
 OMIT_OPTIMIZATION = true
@@ -52,7 +57,6 @@ include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/SoftPWM/Makefile.pwm
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
 include ../Makefile.mbd
-
 #
 #  mROSライブラリのビルド
 #
@@ -66,7 +70,3 @@ KERNEL_LIB = .
 include ../Makefile.asp
 
 $(ALL_OBJ): kernel_cfg.h
-
-.PHONY: yugen
-yugen: all
-	cp asp.bin /media/yugen/MBED
