@@ -4,7 +4,7 @@
 
 
 
-static const int PERSONNAME_MSG_ID = 101;
+static const int PERSONNAME_MSG_ID = 102;
 
 namespace mros_test{
 class PersonName{

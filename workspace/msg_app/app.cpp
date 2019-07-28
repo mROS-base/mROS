@@ -7,10 +7,7 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "SoftPWM.h"
-#include "std_msgs/String.h"
-#include "std_msgs/UInt32.h"
-#include "std_msgs/UInt32MultiArray.h"
-#include "mros_test/PersonalData.h"
+#include "mros_test/UserTypeTest.h"
 
 //pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
@@ -53,7 +50,7 @@ void init(void){
 }
 
 /*****mROS user task code*******/
-
+static mros_test::UserTypeTest pubMsg;
 void usr_task1(){
 #ifndef _USR_TASK_1_
 #define _USR_TASK_1_
@@ -64,19 +61,17 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<mros_test::PersonalData>("mros_msg",1);
+  ros::Publisher chatter_pub = n.advertise<mros_test::UserTypeTest>("mros_msg",1);
   ros::Rate loop_rate(5);
-  mros_test::PersonalData msg;
-  msg.intVal = 10;
-  msg.boolVal = false;
-  msg.nameVal.firstName="Charlie";
-  msg.nameVal.lastName="Parker";
+  pubMsg.nameVal.firstName="Charlie";
+  pubMsg.nameVal.lastName="Parker";
+  pubMsg.ledVal.red = 0.0;
+  pubMsg.ledVal.green = 0.0;
+  pubMsg.ledVal.blue = 0.0;
   syslog(LOG_NOTICE,"Data Publish Start");
   while(1){
     wait_ms(1000);
-    chatter_pub.publish(msg);
-    msg.intVal += 1;
-    msg.boolVal = !msg.boolVal;
+    chatter_pub.publish(pubMsg);
   }
 #endif
 }
@@ -123,22 +118,20 @@ void LED_switch(string *msg){
 }
 */
 /*******  callback **********/
-void Callback(mros_test::PersonalData *msg){	
+void Callback(mros_test::UserTypeTest *msg){	
   //LED_switch(msg);
   ROS_INFO("I hear msgs from ros host");
   string name = msg->nameVal.firstName + " " + msg->nameVal.lastName;
   ROS_INFO("recieved name: %s", name.c_str());
-  ROS_INFO("try: %d", msg->intVal);
-  //ROS_INFO("age: %2.5lf", msg->doubleVal);
-  if(msg->boolVal){
-  } else {
-    ROS_INFO("bool val is false");
- }
- /*
- ledr=msg->ledVal.red;
- ledg=msg->ledVal.green;
- ledb=msg->ledVal.blue;
- */
+  pubMsg.nameVal.firstName = msg->nameVal.firstName;
+  pubMsg.nameVal.lastName = msg->nameVal.lastName;
+  pubMsg.ledVal.red = msg->ledVal.red;
+  pubMsg.ledVal.green = msg->ledVal.green;
+  pubMsg.ledVal.blue = msg->ledVal.blue;
+  ledr = msg->ledVal.red;
+  ledg = msg->ledVal.green;
+  ledb = msg->ledVal.blue;
+ 
 }
 
 /*****mROS user task code*******/

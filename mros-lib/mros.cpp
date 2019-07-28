@@ -17,7 +17,7 @@
 char evl_flag = 0;
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.11.3";	//ros master IP
+const char *m_ip = "192.168.11.5";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
