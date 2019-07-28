@@ -1,16 +1,21 @@
 #
 #  ターゲットの指定（Makefile.targetで上書きされるのを防ぐため）
 #
+
 all: 
 
 #
 #  アプリケーションファイル
 #
-APPLDIR = camera_app 
+APPNAME = camera_app
+APPLDIR = camera_app
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
-USE_TRUESTUDIO = false 
+USE_TRUESTUDIO = false
+GEN_MSG = true
+MSG_SETTING_JSON = camera_app.json
+PYTHON = /usr/bin/python
 
 DEBUG = true
 OMIT_OPTIMIZATION = true
@@ -22,6 +27,7 @@ OMIT_OPTIMIZATION = true
 APPL_ASMOBJS = 
 APPL_CXXOBJS =  
 APPL_COBJS = 
+
 
 #
 #  mros.cpp のコンパイル時にエラーとなる不具合を解消するため
@@ -46,6 +52,7 @@ OPENCV_DIR = ../../opencv-lib
 #
 SRCDIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
 
+
 #
 #  MBEDライブラリのビルド
 #
@@ -56,12 +63,12 @@ include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
 include $(MBED_LIB_DIR)/GR-PEACH_video/Makefile.gpv
 include $(MBED_LIB_DIR)/GraphicsFramework/Makefile.gfw
 include ../Makefile.mbd
-
 #
 #  mROSライブラリのビルド
 #
 include $(MROS_DIR)/Makefile.m
 include ../Makefile.mros
+
 #
 #  OpenCVライブラリのビルド
 #
@@ -74,7 +81,3 @@ KERNEL_LIB = .
 include ../Makefile.asp
 
 $(ALL_OBJ): kernel_cfg.h
-
-.PHONY: yugen
-yugen: all
-	cp asp.bin /media/yugen/MBED

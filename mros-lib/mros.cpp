@@ -103,9 +103,9 @@ void tcpros_decoder(char* buf,sensor_msgs::Image& msg_buf){
 		p=0;
 		msg_buf.header.seq = buf[p];
 		p=p+4;
-		msg_buf.header.sec = buf[p];
+		msg_buf.header.stamp.sec = buf[p];
 		p=p+4;
-		msg_buf.header.nsec = buf[p];
+		msg_buf.header.stamp.nsec = buf[p];
 		p=p+4;
 		l = buf[p];
 		l = l +buf[p+1]*256;
@@ -131,7 +131,7 @@ void tcpros_decoder(char* buf,sensor_msgs::Image& msg_buf){
 		l= l+ buf[p+1]*256;
 		l= l+ buf[p+2]*65536;
 		p=p+4;
-		msg_buf.data = &buf[p];
+		//msg_buf.data = &buf[p];
 }
 
 

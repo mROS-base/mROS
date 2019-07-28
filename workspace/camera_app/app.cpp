@@ -20,6 +20,7 @@
 #include "opencv2/opencv.hpp"
 
 #include "std_msgs/String.h"
+#include "sensor_msgs/Image.h"
 
 
 #define VIDEO_CVBS             (0)                 /* Analog  Video Signal */
@@ -88,8 +89,9 @@ void Callback(std_msgs::String *msg){
 
 static void IntCallbackFunc_Vfield(DisplayBase::int_type_t int_type) {
   //Interrupt callback function
-  //mROSCallback　function pub
-  memcpy(img.data,FrameBuffer_Video,sizeof(FrameBuffer_Video));
+  //mROSCallback　function pub]
+
+ memcpy(&img.data[0],FrameBuffer_Video,sizeof(FrameBuffer_Video));
 
 }
 
@@ -244,7 +246,7 @@ static void camera_start(void) {
   WaitVsync(1);//for publishing strings
 }
 #endif /* camera_start(void) */
-unsigned char ibuf[320*4*240];
+//unsigned char ibuf[320*4*240];
 void usr_task1(){
 #ifndef _USR_TASK_1_
 #define _USR_TASK_1_
@@ -258,35 +260,42 @@ void usr_task1(){
   int count = 0;
   ros::init(argc,argv,"mros_camera");
   //for image pub
-  pub = n.advertise("image_raw",1);
+  //pub = n.advertise("image_raw",1);
+  pub = n.advertise<sensor_msgs::Image>("image_raw",1);
   //for string pub
   //pub = n.advertise<std_msgs::String>("mros_msg",1);
-  
   img.encoding="bgra8";
   img.is_bigendian = 0;
   img.width = 320;
   img.height = 240;
   img.step = img.width*4;
+  img.data.resize(320*240*4);
+  /*
   Header head;
   head.seq = 0;
   head.sec = 0;
   head.nsec = 0;
   head.frame_id = "mROScam";
-  img.header = head;
-  img.data = &ibuf[0];
+  */
+  //img.header = head;
+  img.header.seq=0;
+  img.header.stamp.sec=0;
+  img.header.stamp.nsec=0;
+  img.header.frame_id="mROScam";
+  //img.data = &ibuf[0];
   
   //camera start and publish loop
  
-  camera_start(); //for publishing strings
+  camera_start();
   dly_tsk(1000);	//pubノードの起動が間に合わない？
   ROS_INFO("USER TASK1: start data publish");
   int count_i = 0;
   while(1){
     //ROS_INFO("USER TASK1: publishing image %d", count++);
     //pub.publish(str);
-    ROS_INFO("USER TASK1: publishing image %s",&img.data);
+    ROS_INFO("USER TASK1: publishing image");
     pub.publish(img);
-    loop_rate.sleep();
+    //loop_rate.sleep();
     dly_tsk(1000);
     //count_i ++;
   }
@@ -316,6 +325,7 @@ void Callback(sensor_msgs::Image& msg){
 void usr_task2(){
 #ifndef _USR_TASK_2_
 #define _USR_TASK_2_
+  /*
   syslog(LOG_NOTICE,"========Activate user task2========");
   int argc = 0;
   char *argv = NULL;
@@ -336,6 +346,7 @@ void usr_task2(){
   sub = nh.subscriber("image_raw",1,Callback);
   int argc = 0;
   char *argv = NULL;
+  */
   //ros::init(argc,argv,"mros_node2");
   //ros::NodeHandle n;
   //ros::Subscriber sub = n.subscribe("test_string",1,Callback);
