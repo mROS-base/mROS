@@ -21,6 +21,7 @@ std_msgs ={
 	"std_msgs/UInt16MultiArray.h": 16,
 	"std_msgs/UInt32MultiArray.h": 17,
 	"std_msgs/UInt64MultiArray.h": 18,
+	"sensor_msgs/Image.h" : 20
 }
 
 msg_sizes = {
