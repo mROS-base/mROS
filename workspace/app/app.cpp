@@ -62,17 +62,15 @@ void usr_task1(){
   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
   ros::Rate loop_rate(5);
   std_msgs::String str;
-  str.data = "hello from mROS!";
+#endif
 
-  //char msg[100];
-  std_msgs::String msg;
+  char msg[100];
   int count=0;
   init();
   bool b = false;
   bool bb = true;
   syslog(LOG_NOTICE,"Data Publish Start");
   while(1){
-    /*
     if(Button.read() == 0 && bb){
       b = !b;
       bb = false;
@@ -81,19 +79,12 @@ void usr_task1(){
     }
     if(b){
       wait_ms(1000);
-      //sprintf(msg,"Distance[%d]cm\0",USSDistance);
-      std::ostringstream s;
-      s << "Distance[" << USSDistance << "]cm\0" << std::flush;
-      msg.data = s.str();
-      syslog(LOG_NOTICE, "%s", msg.data.c_str());
-      chatter_pub.publish(msg);
+      sprintf(msg,"Distance[%d]cm\0",USSDistance);
+      str.data = msg;
+      chatter_pub.publish(str);
       loop_rate.sleep();
-    }*/
-    wait_ms(1000);
-    ROS_INFO("USER TASK1: publishing string");
-    chatter_pub.publish(str);
+    }
   }
-#endif
 }
 
 
@@ -139,7 +130,7 @@ void LED_switch(string *msg){
 
 /*******  callback **********/
 void Callback(std_msgs::String *msg){	
-  //LED_switch(msg);
+  LED_switch(&(msg->data));
   syslog(LOG_NOTICE,"I heard [%s]",msg);
 }
 
