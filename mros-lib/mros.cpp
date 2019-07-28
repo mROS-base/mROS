@@ -96,7 +96,7 @@ void network_init(){
 		syslog(LOG_NOTICE,"NetMask is %s\r\n", network.getNetworkMask());
 		syslog(LOG_NOTICE,"Gateway Address is %s\r\n", network.getGateway());
 }
-
+/*
 void tcpros_decoder(char* buf,sensor_msgs::Image& msg_buf){
 	//TCPROSメッセージをデコードしてメッセージバッファに入れる
 		int l,p;
@@ -134,7 +134,7 @@ void tcpros_decoder(char* buf,sensor_msgs::Image& msg_buf){
 		//msg_buf.data = &buf[p];
 }
 
-
+*/
 /**********************************
 * Main Task						  *
 ***********************************/
@@ -339,7 +339,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	bool rcv_flag = true;
 	bool init_flag = true;
 	int len,msg_size;
-	sensor_msgs::Image msg_buf;
+	//sensor_msgs::Image msg_buf;
 #endif //_SUB_
 
 	while(1){
@@ -444,11 +444,11 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				size += sdq[2]*256;
 				size += sdq[3]*65536;
 				//ROS_INFO("SUB_TASK: data size[%d]",size);
-				memcpy(rbuf,&mem[PUB_ADDR2],size);
-				tcpros_decoder(rbuf,msg_buf);		//TCPROSからメッセージに戻す
-				void (*fp)(sensor_msgs::Image&);
-				fp = lst.func_vec[num];
-				fp(msg_buf);
+				//memcpy(rbuf,&mem[PUB_ADDR2],size);
+				//tcpros_decoder(rbuf,msg_buf);		//TCPROSからメッセージに戻す
+				//void (*fp)(sensor_msgs::Image&);
+				//fp = lst.func_vec[num];
+				//fp(msg_buf);
 			}
 	    }else{
  //subscribe and callback loop
