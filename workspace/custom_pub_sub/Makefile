@@ -7,14 +7,14 @@ all:
 #
 #  アプリケーションファイル
 #
-APPNAME = camera_app
-APPLDIR = camera_app
+APPNAME = custom_pub_sub
+APPLDIR = custom_pub_sub 
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
 USE_TRUESTUDIO = false
 GEN_MSG = true
-MSG_SETTING_JSON = camera_app.json
+MSG_SETTING_JSON = msg_app.json
 PYTHON = /usr/bin/python
 
 DEBUG = true
@@ -44,10 +44,6 @@ MBED_LIB_DIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/mbed-lib
 #
 MROS_DIR = ../../mros-lib
 #
-#  opencvライブラリのディレクトリ定義
-#
-OPENCV_DIR = ../../opencv-lib
-#
 #  ASPソースファイルのディレクトリの定義
 #
 SRCDIR = ../../asp_mbed/asp-gr_peach_gcc-mbed/asp-1.9.2-utf8
@@ -60,19 +56,12 @@ include $(MBED_LIB_DIR)/common/Makefile.cmn
 include $(MBED_LIB_DIR)/mbed-src/Makefile.src
 include $(MBED_LIB_DIR)/SoftPWM/Makefile.pwm
 include $(MBED_LIB_DIR)/EthernetInterface/Makefile.eif
-include $(MBED_LIB_DIR)/GR-PEACH_video/Makefile.gpv
-include $(MBED_LIB_DIR)/GraphicsFramework/Makefile.gfw
 include ../Makefile.mbd
 #
 #  mROSライブラリのビルド
 #
 include $(MROS_DIR)/Makefile.m
 include ../Makefile.mros
-
-#
-#  OpenCVライブラリのビルド
-#
-include ../Makefile.cv
 
 #
 #  ASPカーネルライブラリ
