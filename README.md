@@ -9,8 +9,6 @@ A lightweight runtime environment of ROS1 nodes onto embedded systems
 - Host devices
   - ROS Kinetic with Ubuntu 16.04
 
-- `--recursive` option is mandatory since we use git submodules for SW components
-
 ### Development Platform/Tools for Host PC
 
 - IDE: [Atollic TrueSTUDIO](https://atollic.com/truestudio/)
@@ -51,6 +49,8 @@ Please let us know if you could develop and build another host OS.
 ```bash
 $ git clone --recursive https://github.com/tlk-emb/mROS
 ```
+
+`--recursive` option is mandatory since we use git submodules for SW components
 
 ## Build
 
@@ -128,12 +128,13 @@ catkin_make
   - sensor_msgs/Image is used as the communication type
 - Host can subscribe the image with `$ rosrun image_view image_view /image:=/image_raw`
 
-## Limitation
+## Limitation & TODO
 
 - Currently we cannot support following primitive types
   - Time
   - Duration
   - Header
+- Support the edge detection example application
 
 ## References
 
