@@ -1,3 +1,0 @@
-<launch>
- <node pkg="mask" name="mas" type="mask" args="/output_data /image_fast_fpga" />
-</launch>
