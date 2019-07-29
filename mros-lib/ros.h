@@ -68,7 +68,7 @@ public:
 };
 
 
-
+/*
 namespace sensor_msgs{
 class Image{
 public:
@@ -81,7 +81,7 @@ public:
 	unsigned char *data;
 };
 }
-
+*/
 namespace message_traits
 {
 	template <int V>
@@ -116,7 +116,7 @@ public:
 	char node;
 	template <class T>
 	void publish(T& data);
-	void publish(sensor_msgs::Image& img);
+	//void publish(sensor_msgs::Image& img);
 	char ID;
 };
 

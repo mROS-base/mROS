@@ -17,7 +17,7 @@
 char evl_flag = 0;
 
 /***** congiuration ros master ******/
-const char *m_ip = "192.168.11.3";	//ros master IP
+const char *m_ip = "192.168.11.5";	//ros master IP
 const int m_port = 11311;	//ros master xmlrpc port
 
 /*********global variables***************/
@@ -96,16 +96,16 @@ void network_init(){
 		syslog(LOG_NOTICE,"NetMask is %s\r\n", network.getNetworkMask());
 		syslog(LOG_NOTICE,"Gateway Address is %s\r\n", network.getGateway());
 }
-
+/*
 void tcpros_decoder(char* buf,sensor_msgs::Image& msg_buf){
 	//TCPROSメッセージをデコードしてメッセージバッファに入れる
 		int l,p;
 		p=0;
 		msg_buf.header.seq = buf[p];
 		p=p+4;
-		msg_buf.header.sec = buf[p];
+		msg_buf.header.stamp.sec = buf[p];
 		p=p+4;
-		msg_buf.header.nsec = buf[p];
+		msg_buf.header.stamp.nsec = buf[p];
 		p=p+4;
 		l = buf[p];
 		l = l +buf[p+1]*256;
@@ -131,10 +131,10 @@ void tcpros_decoder(char* buf,sensor_msgs::Image& msg_buf){
 		l= l+ buf[p+1]*256;
 		l= l+ buf[p+2]*65536;
 		p=p+4;
-		msg_buf.data = &buf[p];
+		//msg_buf.data = &buf[p];
 }
 
-
+*/
 /**********************************
 * Main Task						  *
 ***********************************/
@@ -339,7 +339,7 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 	bool rcv_flag = true;
 	bool init_flag = true;
 	int len,msg_size;
-	sensor_msgs::Image msg_buf;
+	//sensor_msgs::Image msg_buf;
 #endif //_SUB_
 
 	while(1){
@@ -444,11 +444,11 @@ syslog(LOG_NOTICE, "========Activate mROS SUBSCRIBE========");
 				size += sdq[2]*256;
 				size += sdq[3]*65536;
 				//ROS_INFO("SUB_TASK: data size[%d]",size);
-				memcpy(rbuf,&mem[PUB_ADDR2],size);
-				tcpros_decoder(rbuf,msg_buf);		//TCPROSからメッセージに戻す
-				void (*fp)(sensor_msgs::Image&);
-				fp = lst.func_vec[num];
-				fp(msg_buf);
+				//memcpy(rbuf,&mem[PUB_ADDR2],size);
+				//tcpros_decoder(rbuf,msg_buf);		//TCPROSからメッセージに戻す
+				//void (*fp)(sensor_msgs::Image&);
+				//fp = lst.func_vec[num];
+				//fp(msg_buf);
 			}
 	    }else{
  //subscribe and callback loop

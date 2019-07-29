@@ -186,7 +186,6 @@ ros::Publisher ros::NodeHandle::advertise(string topic,int queue_size){
 
 template<class T>
 void ros::Publisher::publish(T& data){
-	ROS_INFO("PUBLISH STRING");
 	while(ros_sem != 0){
 
 	}
