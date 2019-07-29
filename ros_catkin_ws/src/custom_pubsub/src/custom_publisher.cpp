@@ -24,44 +24,44 @@ int main(int argc,char **argv){
   int val;
   while(ok()){
       nav = "type first name";
-      ROS_INFO(nav.c_str());
+      ROS_INFO("%s",nav.c_str());
       std::cin >> str;
       msg.nameVal.firstName = str;
       nav = "type last name";
-      ROS_INFO(nav.c_str());
+      ROS_INFO("%s",nav.c_str());
       std::cin >> str;
       msg.nameVal.lastName = str;
       int ledVal;
       nav = "type red value (0-128)";
-      ROS_INFO(nav.c_str());
+      ROS_INFO("%s",nav.c_str());
       while (1) {
         if (scanf("%d", &ledVal) == 1 && ledVal >= 0 && ledVal <= 128){
           break; 
         }
         nav = "wrong input: please try again";
-        ROS_INFO(nav.c_str());
+        ROS_INFO("%s",nav.c_str());
         scanf("%*[^\n]");
       }
       msg.ledVal.red = (float)ledVal/128.0;
       while (1) {
         nav = "type green value (0-128)";
-        ROS_INFO(nav.c_str());
+        ROS_INFO("%s",nav.c_str());
         if (scanf("%d", &ledVal) == 1 && ledVal >= 0 && ledVal <= 128){
           break; 
         }
         nav = "wrong input: please try again";
-        ROS_INFO(nav.c_str());
+        ROS_INFO("%s",nav.c_str());
         scanf("%*[^\n]");
       }
       msg.ledVal.green = (float)ledVal/128.0;
       nav = "type blue value (0-128)";
-      ROS_INFO(nav.c_str());
+      ROS_INFO("%s",nav.c_str());
       while (1) {
         if (scanf("%d", &ledVal) == 1 && ledVal >= 0 && ledVal <= 128){
           break; 
         }
         nav = "wrong input: please try again";
-        ROS_INFO(nav.c_str());
+        ROS_INFO("%s",nav.c_str());
         scanf("%*[^\n]");
       }
       msg.ledVal.blue = (float)ledVal/128.0;
