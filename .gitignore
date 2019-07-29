@@ -4,6 +4,12 @@
 *.bin
 *.history
 
+# for ROS catkin_ws
+ros_catkin_ws/.catkin_workspace
+ros_catkin_ws/build
+ros_catkin_ws/devel
+ros_catkin_ws/src/CMakeLists.txt
+
 # for TrueSTUDIO
 workspace/.metadata/
 workspace/*/.metadata/
