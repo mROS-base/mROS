@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(mros_test)
+project(custom_pub_sub)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -67,7 +67,7 @@ find_package(catkin REQUIRED COMPONENTS
  generate_messages(
    DEPENDENCIES
    std_msgs
-   mros_test
+   custom_pub_sub
  )
 
 
@@ -102,7 +102,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES mros_test
+#  LIBRARIES custom_pub_sub
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -119,24 +119,24 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(mros_test
-#   src/${PROJECT_NAME}/mros_test.cpp
+# add_library(custom_pub_sub
+#   src/${PROJECT_NAME}/custom_pub_sub.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(mros_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(custom_pub_sub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(mros_test_node src/mros_test_node.cpp)
+# add_executable(custom_pub_sub_node src/custom_pub_sub_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(mros_test_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(custom_pub_sub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(mros_test_node
+# target_link_libraries(custom_pub_sub_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -155,7 +155,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS mros_test mros_test_node
+# install(TARGETS custom_pub_sub custom_pub_sub_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -180,7 +180,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_mros_test.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_custom_pub_sub.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -189,8 +189,8 @@ include_directories(
 # catkin_add_nosetests(test)
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(mros_talker src/mros_pub.cpp)
-target_link_libraries(mros_talker ${catkin_LIBRARIES})
+add_executable(custom_publisher src/custom_publisher.cpp)
+target_link_libraries(custom_publisher ${catkin_LIBRARIES})
 
-add_executable(mros_listener src/mros_sub.cpp)
-target_link_libraries(mros_listener ${catkin_LIBRARIES})
+add_executable(custom_subscriber src/custom_subscriber.cpp)
+target_link_libraries(custom_subscriber ${catkin_LIBRARIES})

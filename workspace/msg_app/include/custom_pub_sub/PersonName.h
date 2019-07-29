@@ -1,12 +1,12 @@
-#ifndef _MROS_TEST_PERSONNAME_H
-#define _MROS_TEST_PERSONNAME_H
+#ifndef _CUSTOM_PUB_SUB_PERSONNAME_H
+#define _CUSTOM_PUB_SUB_PERSONNAME_H
 
 
 
 
 static const int PERSONNAME_MSG_ID = 102;
 
-namespace mros_test{
+namespace custom_pub_sub{
 class PersonName{
 public:
   string firstName;
@@ -74,17 +74,17 @@ struct MD5Sum<PERSONNAME_MSG_ID>
 };
 
 template<>
-struct DataType<mros_test::PersonName*>
+struct DataType<custom_pub_sub::PersonName*>
 {
   static const char* value()
   {
-    return "mros_test/PersonName";
+    return "custom_pub_sub/PersonName";
   }
 
 };
 
 template<>
-struct DataTypeId<mros_test::PersonName*>
+struct DataTypeId<custom_pub_sub::PersonName*>
 {
   static const int value()
   {
@@ -94,7 +94,7 @@ struct DataTypeId<mros_test::PersonName*>
 };
 
 template<>
-struct Definition<mros_test::PersonName*>
+struct Definition<custom_pub_sub::PersonName*>
 {
 	static const char* value()
 	{
@@ -111,7 +111,7 @@ namespace subtask_methods
   struct CallCallbackFuncs<PERSONNAME_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      mros_test::PersonName msg;
+      custom_pub_sub::PersonName msg;
       rbuf += 4;
       msg.deserialize(rbuf);
       fp(&msg);

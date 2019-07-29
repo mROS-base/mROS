@@ -1,18 +1,18 @@
-#ifndef _MROS_TEST_USERTYPETEST_H
-#define _MROS_TEST_USERTYPETEST_H
+#ifndef _CUSTOM_PUB_SUB_USERTYPETEST_H
+#define _CUSTOM_PUB_SUB_USERTYPETEST_H
 
-#include "mros_test/LEDValues.h"
-#include "mros_test/PersonName.h"
+#include "custom_pub_sub/LEDValues.h"
+#include "custom_pub_sub/PersonName.h"
 
 
 
 static const int USERTYPETEST_MSG_ID = 103;
 
-namespace mros_test{
+namespace custom_pub_sub{
 class UserTypeTest{
 public:
-  mros_test::LEDValues ledVal;
-  mros_test::PersonName nameVal;
+  custom_pub_sub::LEDValues ledVal;
+  custom_pub_sub::PersonName nameVal;
 
   int dataSize(){
     return  ledVal.dataSize() +  nameVal.dataSize() +  4*2;
@@ -54,17 +54,17 @@ struct MD5Sum<USERTYPETEST_MSG_ID>
 };
 
 template<>
-struct DataType<mros_test::UserTypeTest*>
+struct DataType<custom_pub_sub::UserTypeTest*>
 {
   static const char* value()
   {
-    return "mros_test/UserTypeTest";
+    return "custom_pub_sub/UserTypeTest";
   }
 
 };
 
 template<>
-struct DataTypeId<mros_test::UserTypeTest*>
+struct DataTypeId<custom_pub_sub::UserTypeTest*>
 {
   static const int value()
   {
@@ -74,7 +74,7 @@ struct DataTypeId<mros_test::UserTypeTest*>
 };
 
 template<>
-struct Definition<mros_test::UserTypeTest*>
+struct Definition<custom_pub_sub::UserTypeTest*>
 {
 	static const char* value()
 	{
@@ -91,7 +91,7 @@ namespace subtask_methods
   struct CallCallbackFuncs<USERTYPETEST_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      mros_test::UserTypeTest msg;
+      custom_pub_sub::UserTypeTest msg;
       rbuf += 4;
       msg.deserialize(rbuf);
       fp(&msg);

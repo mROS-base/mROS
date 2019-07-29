@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "mros_test/UserTypeTest.h"
+#include "custom_pub_sub/UserTypeTest.h"
 
 #include <string>
 #include <sstream>
@@ -12,11 +12,11 @@ int main(int argc,char **argv){
   init(argc,argv,"mros_talker");
   
   NodeHandle n;
-  Publisher pub = n.advertise<mros_test::UserTypeTest>("test_msg",1000);
+  Publisher pub = n.advertise<custom_pub_sub::UserTypeTest>("test_msg",1000);
   Rate loop_rate(1);
   int count =0;
   bool set_msg=false;
-  mros_test::UserTypeTest msg;
+  custom_pub_sub::UserTypeTest msg;
   std::stringstream ss;
   std::string nav;
   std::string str;

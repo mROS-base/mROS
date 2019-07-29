@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-<name>mros_test</name>
+<name>custom_pub_sub</name>
 <version>0.0.0</version>
-<description>The mros_test package</description>
+<description>The custom_pub_sub package</description>
 
 <!-- One maintainer tag required, multiple allowed, one person per tag --> 
 <!-- Example:  -->

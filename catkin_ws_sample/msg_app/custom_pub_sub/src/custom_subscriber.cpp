@@ -1,11 +1,11 @@
 #include "ros/ros.h"
-#include "mros_test/UserTypeTest.h"
+#include "custom_pub_sub/UserTypeTest.h"
 #include <sstream>
 
 using namespace ros; 
 
 
-void mrosCallback(mros_test::UserTypeTest msg){
+void mrosCallback(custom_pub_sub::UserTypeTest msg){
   ROS_INFO("I heard from [%s %s]",msg.nameVal.firstName.c_str(),msg.nameVal.lastName.c_str());
   ROS_INFO("red value [%f]",msg.ledVal.red);
   ROS_INFO("green value [%f]",msg.ledVal.green);
