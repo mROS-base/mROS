@@ -1,2 +1,0 @@
-LEDValues ledVal
-PersonName nameVal
