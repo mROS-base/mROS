@@ -1,5 +1,5 @@
 {
-	"catkin_ws_dir": "../../../catkin_ws/",
+	"catkin_ws_dir": "../../ros_catkin_ws/",
 	"ros_include_dir": "/opt/ros/kinetic/include",
 	"including_msgs": [
 		"std_msgs/String.h"

@@ -7,8 +7,8 @@ all:
 #
 #  アプリケーションファイル
 #
-APPNAME = custom_pub_sub
-APPLDIR = custom_pub_sub 
+APPNAME = custom_pubsub
+APPLDIR = custom_pubsub
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg

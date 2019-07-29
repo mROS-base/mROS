@@ -3,9 +3,9 @@ MROS_LIB = libmros
 ALL_MROS_OBJ = $(MROS_C_OBJ) $(MROS_CXX_OBJ)
 
 
-.PHONY: all clean genmsg
+.PHONY: all clean
 
-all: $(MROS_LIB).a
+all: genmsg $(MROS_LIB).a
 #clean:
 #	rm -f $(MROS_LIB).lib $(ALL_MROS_OBJ) $(DEPS)
 
@@ -17,7 +17,7 @@ $(MROS_CXX_OBJ:.o=.s): %.s: %.cpp
 	$(CPP) -S $(CFLAGS) $(APPL_CXXFLAGS) $(MROS_INCLUDE_PATHS) -o $@ $< 
 endif
 
-$(MROS_LIB).a: genmsg $(ALL_MROS_OBJ)
+$(MROS_LIB).a: $(ALL_MROS_OBJ)
 	rm -f $(MROS_LIB).a
 	$(AR) -rcs $(MROS_LIB).a $(ALL_MROS_OBJ)
 	$(RANLIB) $(MROS_LIB).a
@@ -28,14 +28,12 @@ DEPS += $(ALL_MROS_OBJ:.o=.d)
 APPL_LIBS = $(MROS_LIB).a libmbed.a
 
 INCLUDES += $(MROS_INCLUDE_PATHS)  # MROSライブラリのヘッダファイルをアプリで使う
-INCLUDES += -I$(MROS_DIR)/../workspace/$(APPNAME)/include
+INCLUDES += -I$(MROS_DIR)/../mros_ws/$(APPNAME)/include
 INCLUDES += -I$(MROS_DIR)/mros-msgs 
 # INCLUDES += -I/opt/ros/kinetic/include -I/usr/include -I/usr/include/x86_64-linux-gnu -I/usr/include/i386-linux-gnu
 
-genmsg:
-ifneq ($(USE_TRUESTUDIO),true)
+genmsg: $(MSG_SETTING_JSON)
 ifeq ($(GEN_MSG),true)
 	$(PYTHON) $(MROS_DIR)/../mros_msg-gen/mros_msg-gen.py $(MSG_SETTING_JSON)
 	echo "message generated"
-endif
 endif

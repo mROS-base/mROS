@@ -7,7 +7,7 @@
 #include "mbed.h"
 #include "EthernetInterface.h"
 #include "SoftPWM.h"
-#include "custom_pub_sub/UserTypeTest.h"
+#include "custom_pubsub/UserTypeTest.h"
 
 //pin assign
 static DigitalOut ledu(P6_12);                                  // LED-User
@@ -50,7 +50,7 @@ void init(void){
 }
 
 /*****mROS user task code*******/
-static custom_pub_sub::UserTypeTest pubMsg;
+static custom_pubsub::UserTypeTest pubMsg;
 void usr_task1(){
 #ifndef _USR_TASK_1_
 #define _USR_TASK_1_
@@ -61,7 +61,7 @@ void usr_task1(){
   ros::init(argc,argv,"mros_node");
   ros::NodeHandle n;
   //ros::Publisher chatter_pub = n.advertise<std_msgs::String>("mros_msg",1);
-  ros::Publisher chatter_pub = n.advertise<custom_pub_sub::UserTypeTest>("mros_msg",1);
+  ros::Publisher chatter_pub = n.advertise<custom_pubsub::UserTypeTest>("mros_msg",1);
   ros::Rate loop_rate(5);
   pubMsg.nameVal.firstName="Charlie";
   pubMsg.nameVal.lastName="Parker";
@@ -118,7 +118,7 @@ void LED_switch(string *msg){
 }
 */
 /*******  callback **********/
-void Callback(custom_pub_sub::UserTypeTest *msg){	
+void Callback(custom_pubsub::UserTypeTest *msg){	
   //LED_switch(msg);
   ROS_INFO("I hear msgs from ros host");
   string name = msg->nameVal.firstName + " " + msg->nameVal.lastName;

@@ -1,12 +1,12 @@
-#ifndef _CUSTOM_PUB_SUB_LEDVALUES_H
-#define _CUSTOM_PUB_SUB_LEDVALUES_H
+#ifndef _CUSTOM_PUBSUB_LEDVALUES_H
+#define _CUSTOM_PUBSUB_LEDVALUES_H
 
 
 
 
 static const int LEDVALUES_MSG_ID = 101;
 
-namespace custom_pub_sub{
+namespace custom_pubsub{
 class LEDValues{
 public:
   float red;
@@ -61,17 +61,17 @@ struct MD5Sum<LEDVALUES_MSG_ID>
 };
 
 template<>
-struct DataType<custom_pub_sub::LEDValues*>
+struct DataType<custom_pubsub::LEDValues*>
 {
   static const char* value()
   {
-    return "custom_pub_sub/LEDValues";
+    return "custom_pubsub/LEDValues";
   }
 
 };
 
 template<>
-struct DataTypeId<custom_pub_sub::LEDValues*>
+struct DataTypeId<custom_pubsub::LEDValues*>
 {
   static const int value()
   {
@@ -81,7 +81,7 @@ struct DataTypeId<custom_pub_sub::LEDValues*>
 };
 
 template<>
-struct Definition<custom_pub_sub::LEDValues*>
+struct Definition<custom_pubsub::LEDValues*>
 {
 	static const char* value()
 	{
@@ -99,7 +99,7 @@ namespace subtask_methods
   struct CallCallbackFuncs<LEDVALUES_MSG_ID>{
     static void call(void (*fp)(intptr_t), char *rbuf)
     {
-      custom_pub_sub::LEDValues msg;
+      custom_pubsub::LEDValues msg;
       rbuf += 4;
       msg.deserialize(rbuf);
       fp(&msg);
