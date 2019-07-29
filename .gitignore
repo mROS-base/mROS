@@ -11,9 +11,9 @@ ros_catkin_ws/devel
 ros_catkin_ws/src/CMakeLists.txt
 
 # for TrueSTUDIO
-workspace/.metadata/
-workspace/*/.metadata/
-workspace/*/.settings/language.settings.xml
+mros_ws/.metadata/
+mros_ws/*/.metadata/
+mros_ws/*/.settings/language.settings.xml
 
 # for ASP
 asp
