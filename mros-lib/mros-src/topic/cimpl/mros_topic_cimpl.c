@@ -261,10 +261,8 @@ mRosReturnType mros_topic_add_data(mRosTopicIdType id, mRosMemoryListEntryType *
 	}
 	if (TOPIC_OBJ(id).data.queue_head.entry_num >= TOPIC_OBJ(id).data.queue_maxsize) {
 		ROS_WARN("%s %s() %u :WARNING: Removed topic data for queufull(%u).", __FILE__, __FUNCTION__, __LINE__, TOPIC_OBJ(id).data.queue_maxsize);
-		ROS_WARN("added topic_id=%d data=%s", id, data->data.memp);
 		datap = ListEntry_First(TOPIC_OBJ(id).data.queue_head.entries);
 		ListEntry_RemoveEntry(&TOPIC_OBJ(id).data.queue_head, datap);
-		ROS_WARN("removed topic_id=%d data=%s", id, datap->data.memp);
 		(void)mros_mem_free(datap->data.mgrp, datap);
 	}
 	ListEntry_AddEntry(&TOPIC_OBJ(id).data.queue_head, data);
