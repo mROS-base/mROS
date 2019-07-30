@@ -12,11 +12,11 @@ public:
   int dataSize(){return data.size() + 4;}
 
   void memCopy(char *addrPtr){
-	  int size;
-	  size = data.size();
-	  memcpy(addrPtr, &size, 4);
-	  addrPtr += 4;
-	  memcpy(addrPtr, data.c_str(), data.size());
+    int size;
+    size = data.size();
+    memcpy(addrPtr, &size, 4);
+    addrPtr += 4;
+    memcpy(addrPtr, data.c_str(), size);
   }
 };
 }
@@ -48,7 +48,7 @@ struct DataTypeId<std_msgs::String*>
 {
   static int value()
   {
-    return STRING_MSG_ID;
+    return (int)STRING_MSG_ID;
   }
 
 };

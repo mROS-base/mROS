@@ -128,9 +128,9 @@ struct DataType<sensor_msgs::Image*>
 template<>
 struct DataTypeId<sensor_msgs::Image*>
 {
-  static const int value()
+  static int value()
   {
-    return IMAGE_MSG_ID;
+    return (int)IMAGE_MSG_ID;
   }
 
 };
@@ -156,7 +156,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<IMAGE_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       sensor_msgs::Image msg;
       rbuf += 4;

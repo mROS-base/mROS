@@ -41,9 +41,9 @@ struct DataType<std_msgs::UInt8*>
 template<>
 struct DataTypeId<std_msgs::UInt8*>
 {
-  static const int value()
+  static int value()
   {
-    return UINT8_MSG_ID;
+    return (int)UINT8_MSG_ID;
   }
 
 };
@@ -63,7 +63,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<UINT8_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::UInt8 msg;
       rbuf += 4;

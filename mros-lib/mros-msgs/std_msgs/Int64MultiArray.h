@@ -47,9 +47,9 @@ struct DataType<std_msgs::Int64MultiArray*>
 template<>
 struct DataTypeId<std_msgs::Int64MultiArray*>
 {
-  static const int value()
+  static int value()
   {
-    return INT64MULTIARRAY_MSG_ID;
+    return (int)INT64MULTIARRAY_MSG_ID;
   }
 
 };
@@ -69,7 +69,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<INT64MULTIARRAY_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Int64MultiArray msg;
       rbuf += 4;

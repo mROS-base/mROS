@@ -41,9 +41,9 @@ struct DataType<std_msgs::UInt64*>
 template<>
 struct DataTypeId<std_msgs::UInt64*>
 {
-  static const int value()
+  static int value()
   {
-    return UINT64_MSG_ID;
+    return (int)UINT64_MSG_ID;
   }
 
 };
@@ -63,7 +63,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<UINT64_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::UInt64 msg;
       rbuf += 4;

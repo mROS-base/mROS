@@ -67,9 +67,9 @@ struct DataType<std_msgs::Time*>
 template<>
 struct DataTypeId<std_msgs::Time*>
 {
-  static const int value()
+  static int value()
   {
-    return TIME_MSG_ID;
+    return (int)TIME_MSG_ID;
   }
 
 };
@@ -90,7 +90,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<TIME_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Time msg;
       rbuf += 4;

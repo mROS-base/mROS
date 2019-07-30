@@ -83,9 +83,9 @@ struct DataType<std_msgs::Header*>
 template<>
 struct DataTypeId<std_msgs::Header*>
 {
-  static const int value()
+  static int value()
   {
-    return HEADER_MSG_ID;
+    return (int)HEADER_MSG_ID;
   }
 
 };
@@ -107,7 +107,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<HEADER_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Header msg;
       rbuf += 4;
