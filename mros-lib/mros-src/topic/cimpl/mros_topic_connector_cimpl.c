@@ -332,7 +332,7 @@ mRosReturnType mros_topic_connector_send_data(mRosTopicConnectorManagerType *mgr
 		//TOPIC ==> inner node callback
 		mros_uint32 type_id;
 		(void)mros_topic_get_typeid(entry->data.value.topic_id, &type_id);
-		mros_topic_callback(type_id, entry->data.value.func_id, data, len);
+		mros_topic_callback(type_id, entry->data.value.func_id, data);
 		return MROS_E_OK;
 	}
 	//TOPIC ==> outer node

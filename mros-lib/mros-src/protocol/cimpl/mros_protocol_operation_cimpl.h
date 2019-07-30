@@ -11,6 +11,9 @@ extern "C" {
 extern mRosReturnType mros_protocol_topic_data_send(mRosCommTcpClientType *client, const char *data, mRosSizeType datalen);
 extern mRosReturnType mros_protocol_topic_data_receive(mRosCommTcpClientType *client, mRosMemoryManagerType *mempool, mRosMemoryListEntryType **retp);
 
+extern mRosSizeType mros_protocol_get_buffersize(mRosSizeType body_size);
+extern char* mros_protocol_get_body(char *buffer);
+
 /*
  * reqp: mRosCommTcpClientListReqEntryType
  */

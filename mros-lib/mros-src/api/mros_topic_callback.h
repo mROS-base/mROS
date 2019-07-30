@@ -7,7 +7,7 @@ extern "C" {
 
 #include "mros_types.h"
 
-extern void mros_topic_callback(mros_uint32 type_id, mRosFuncIdType func_id, const char *data, int len);
+extern void mros_topic_callback(mros_uint32 type_id, mRosFuncIdType func_id, const char *data);
 
 
 #ifdef __cplusplus

@@ -54,8 +54,8 @@ mRosReturnType mros_proc_tcpros_receive(mRosCommTcpClientType *client, mRosPacke
 		return ret;
 	}
 
-	header_packet.total_size = MROS_TOPIC_RAWDATA_HEADER_SIZE;
-	header_packet.data_size = MROS_TOPIC_RAWDATA_HEADER_SIZE;
+	header_packet.total_size = MROS_TCPROS_RAWDATA_HEADER_SIZE;
+	header_packet.data_size = MROS_TCPROS_RAWDATA_HEADER_SIZE;
 	header_packet.data = rawdata;
 	ret = mros_tcprospacket_get_body_size(&header_packet, &res);
 	if (ret != MROS_E_OK) {

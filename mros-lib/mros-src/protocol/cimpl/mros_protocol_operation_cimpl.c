@@ -3,6 +3,18 @@
 #include "mros_packet_decoder_cimpl.h"
 #include "mros_packet_encoder_cimpl.h"
 #include "mros_sys_config.h"
+#include <string.h>
+
+mRosSizeType mros_protocol_get_buffersize(mRosSizeType body_size)
+{
+	return (body_size + MROS_TOPIC_RAWDATA_HEADER_SIZE);
+}
+
+char* mros_protocol_get_body(char *buffer)
+{
+	return &buffer[MROS_TOPIC_RAWDATA_HEADER_SIZE];
+}
+
 
 mRosReturnType mros_protocol_topic_data_send(mRosCommTcpClientType *client, const char *data, mRosSizeType datalen)
 {
@@ -10,12 +22,11 @@ mRosReturnType mros_protocol_topic_data_send(mRosCommTcpClientType *client, cons
 	mRosSizeType res;
 	mRosPacketType packet;
 	mRosEncodeArgType arg;
-	mros_int8 rawdata[MROS_TOPIC_RAWDATA_HEADER_SIZE];
 
 	packet.total_size = MROS_TOPIC_RAWDATA_HEADER_SIZE;
 	packet.data_size = 0;
 
-	packet.data = rawdata;
+	packet.data = (char*)data;
 	arg.type = MROS_PACKET_DATA_TOPIC;
 	arg.args_int = 1;
 	arg.argi[0] = datalen;
@@ -25,14 +36,7 @@ mRosReturnType mros_protocol_topic_data_send(mRosCommTcpClientType *client, cons
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;
 	}
-	//send header
-	ret = mros_comm_tcp_client_send_all(client, (const char*)packet.data, packet.data_size, &res);
-	if (ret != MROS_E_OK) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
-		return ret;
-	}
-
-	//send body
+	//send header & body
 	return mros_comm_tcp_client_send_all(client, data, datalen, &res);
 }
 
@@ -67,16 +71,14 @@ mRosReturnType mros_protocol_topic_data_receive(mRosCommTcpClientType *client, m
 		return ret;
 	}
 	//receive body
-	ret = mros_mem_alloc(mempool, len, &mem_entryp);
+	ret = mros_mem_alloc(mempool, len + MROS_TOPIC_RAWDATA_HEADER_SIZE, &mem_entryp);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;
 	}
-	packet.total_size = len;
-	packet.data_size = len;
-	packet.data = mem_entryp->data.memp;
+	memcpy(&mem_entryp->data.memp[0], rawdata, MROS_TOPIC_RAWDATA_HEADER_SIZE);
 
-	ret = mros_comm_tcp_client_receive_all(client, packet.data, len, &res);
+	ret = mros_comm_tcp_client_receive_all(client, &mem_entryp->data.memp[MROS_TOPIC_RAWDATA_HEADER_SIZE], len, &res);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;

@@ -525,7 +525,7 @@ mRosReturnType mros_tcprospacket_decode(mRosPacketType *packet, mRosTcpRosPacket
  ****************************************************/
 mRosReturnType mros_topicpacket_get_body_size(mRosPacketType *packet, mRosSizeType *len)
 {
-	*len = ( (*((mRosSizeType*)&packet->data[0])) - MROS_TOPIC_RAWDATA_HEADER_SIZE );
+	*len = ( (*((mRosSizeType*)&packet->data[0])) );
 	return MROS_E_OK;
 }
 

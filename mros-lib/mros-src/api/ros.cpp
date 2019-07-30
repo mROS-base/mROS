@@ -6,6 +6,7 @@
 #include "mros_exclusive_area.h"
 #include "mros_wait_queue.h"
 #include "mros_protocol_master_cimpl.h"
+#include "mros_protocol_operation_cimpl.h"
 #include "mros_usr_config.h"
 #include "mros_topic_callback.h"
 #include <string.h>
@@ -166,14 +167,19 @@ void ros::Publisher::publish(T& data)
 {
 	mRosReturnType ret;
 	char *snd_data;
+	char *bodyp;
+	mRosSizeType size;
 	mROsExclusiveUnlockObjType unlck_obj;
 
+	size = mros_protocol_get_buffersize(data.dataSize());
+
 	mros_exclusive_lock(&mros_exclusive_area, &unlck_obj);
-	ret = mros_topic_connector_alloc_data((mRosContainerObjType)this->get(), &snd_data, data.dataSize());
+	ret = mros_topic_connector_alloc_data((mRosContainerObjType)this->get(), &snd_data, size);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 	}
-	data.memCopy(snd_data);
+	bodyp = mros_protocol_get_body(snd_data);
+	data.memCopy(bodyp);
 	mros_exclusive_unlock(&unlck_obj);
 	return;
 }
@@ -191,12 +197,12 @@ void ros::spin(void){
 }
 
 
-void mros_topic_callback(mros_uint32 type_id, mRosFuncIdType func_id, const char *data, int len)
+void mros_topic_callback(mros_uint32 type_id, mRosFuncIdType func_id, const char *data)
 {
 	void (*fp)(void *ptr);
 	fp = (void (*)(void *))func_id;
 
-	callCallback((int)type_id, fp, (char*)data, len);
+	callCallback((int)type_id, fp, (char*)data);
 	return;
 }
 

@@ -69,10 +69,12 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<STRING_MSG_ID>{
-    static void call(void (*fp)(void *), char *rbuf, int len)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::String msg;
-      std::string str_msg((const char*)&rbuf[4], (len - 4));
+	  int size;
+	  memcpy((char*)&size, &rbuf[4], 4);
+      std::string str_msg((const char*)&rbuf[8], size);
 
       msg.data = str_msg;
       fp(&msg);

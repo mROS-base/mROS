@@ -4,10 +4,10 @@
 #include "{{msg.pkg}}/{{msg.name}}.h"{% endfor %}
 
 
-static void callCallback(int id, void (*fp)(void *), char *rbuf, int len){
+static void callCallback(int id, void (*fp)(void *), char *rbuf){
 	switch(id){
 	{%for msg in std_msgs %}	case {{ msg.id }}:
-			subtask_methods::CallCallbackFuncs<{{ msg.id }}>().call(fp,rbuf, len);
+			subtask_methods::CallCallbackFuncs<{{ msg.id }}>().call(fp,rbuf);
 			break;
 	{% endfor %}
 	{%for msg in msgs %}	case {{ msg.id }}:
