@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_UINT32_H
 #define _STD_MSGS_UINT32_H
 
+#include <string.h>
 
 static const int UINT32_MSG_ID = 7;
 

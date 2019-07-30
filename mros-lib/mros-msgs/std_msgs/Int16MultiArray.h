@@ -1,5 +1,7 @@
 #include <vector>
 
+#include <string.h>
+
 static const int INT16MULTIARRAY_MSG_ID = 12;
 
 namespace std_msgs{

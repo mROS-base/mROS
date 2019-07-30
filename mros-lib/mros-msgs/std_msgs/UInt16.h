@@ -1,6 +1,8 @@
 #ifndef _STD_MSGS_UINT16_
 #define _STD_MSGS_UINT16_
 
+#include <string.h>
+
 static const int UINT16_MSG_ID = 6;
 
 namespace std_msgs{

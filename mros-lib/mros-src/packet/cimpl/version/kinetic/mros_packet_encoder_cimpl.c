@@ -368,7 +368,6 @@ static mRosReturnType encode_topic_data(mRosEncodeArgType *arg, mRosPacketType *
 		return MROS_E_NOMEM;
 	}
     add_len((unsigned char*)&packet->data[0], arg->argi[0] + 4);
-    add_len((unsigned char*)&packet->data[4], arg->argi[0]);
     packet->data_size = MROS_TOPIC_RAWDATA_HEADER_SIZE;
 
 	return MROS_E_OK;

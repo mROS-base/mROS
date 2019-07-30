@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_UINT8_H
 #define _STD_MSGS_UINT8_H
 
+#include <string.h>
 
 static const int UINT8_MSG_ID = 5;
 

@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_UINT64_H
 #define _STD_MSGS_UINT64_H
 
+#include <string.h>
 
 static const int UINT64_MSG_ID = 8;
 

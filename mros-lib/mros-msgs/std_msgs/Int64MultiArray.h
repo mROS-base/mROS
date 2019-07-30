@@ -1,4 +1,5 @@
 #include <vector>
+#include <string.h>
 
 static const int INT64MULTIARRAY_MSG_ID = 14;
 

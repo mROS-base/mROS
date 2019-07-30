@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#define MROS_TOPIC_RAWDATA_HEADER_SIZE					8
+#define MROS_TOPIC_RAWDATA_HEADER_SIZE					4
 #define MROS_TCPROS_RAWDATA_HEADER_SIZE					4
 
 /**************************************

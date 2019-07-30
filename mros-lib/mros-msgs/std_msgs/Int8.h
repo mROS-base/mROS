@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_INT8_H
 #define _STD_MSGS_INT8_H
 
+#include <string.h>
 
 static const int INT8_MSG_ID = 1;
 

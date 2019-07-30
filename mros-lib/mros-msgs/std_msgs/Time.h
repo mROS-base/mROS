@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_TIME_H
 #define _STD_MSGS_TIME_H
 
+#include <string.h>
 
 
 

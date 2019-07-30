@@ -9,10 +9,14 @@ namespace std_msgs{
 class String{
 public:
 	std::string data;
-  int dataSize(){return data.size();}
+  int dataSize(){return data.size() + 4;}
 
   void memCopy(char *addrPtr){
-    memcpy(addrPtr, data.c_str(), data.size());
+	  int size;
+	  size = data.size();
+	  memcpy(addrPtr, &size, 4);
+	  addrPtr += 4;
+	  memcpy(addrPtr, data.c_str(), data.size());
   }
 };
 }
@@ -68,7 +72,7 @@ namespace subtask_methods
     static void call(void (*fp)(void *), char *rbuf, int len)
     {
       std_msgs::String msg;
-      std::string str_msg((const char*)rbuf, len);
+      std::string str_msg((const char*)&rbuf[4], (len - 4));
 
       msg.data = str_msg;
       fp(&msg);
