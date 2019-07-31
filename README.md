@@ -2,6 +2,10 @@
 
 A lightweight runtime environment of ROS1 nodes onto embedded systems
 
+| *master* | *develop* |
+|----------|-----------|
+|[![Build Status](https://travis-ci.org/OUXT-Polaris/mROS.svg?branch=master)](https://travis-ci.org/OUXT-Polaris/mROS)|[![Build Status](https://travis-ci.org/OUXT-Polaris/mROS.svg?branch=develop)](https://travis-ci.org/OUXT-Polaris/mROS)|
+
 ## Supported Platform
 
 - Embedded board

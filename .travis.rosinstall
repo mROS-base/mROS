@@ -1,0 +1,8 @@
+- git:
+    local-name: asp_mbed/asp-gr_peach_gcc-mbed
+    uri: https://github.com/tlk-emb/asp-gr_peach_gcc-mbed.git
+    version:  master
+- git:
+    local-name: opencv-lib
+    uri: https://github.com/d-kato/opencv-lib.git
+    version:  master
