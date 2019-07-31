@@ -3,6 +3,10 @@
 
 
 
+#include <string.h>
+
+using namespace std;
+
 
 static const int PERSONNAME_MSG_ID = 102;
 
@@ -86,7 +90,7 @@ struct DataType<custom_pubsub::PersonName*>
 template<>
 struct DataTypeId<custom_pubsub::PersonName*>
 {
-  static const int value()
+  static int value()
   {
     return PERSONNAME_MSG_ID;
   }
@@ -109,7 +113,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<PERSONNAME_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       custom_pubsub::PersonName msg;
       rbuf += 4;
