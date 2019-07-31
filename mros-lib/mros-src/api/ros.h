@@ -81,7 +81,7 @@ namespace message_traits
 namespace subtask_methods
 {
 	template <int T>
-	struct CallCallbackFuncs{static void call(void (*fp)(), char *rbuf, int len);};
+	struct CallCallbackFuncs{static void call(void (*fp)(void *), char *rbuf);};
 }
 
 #include "mros_log.h"
