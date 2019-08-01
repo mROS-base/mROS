@@ -1,8 +1,8 @@
-#ifndef _SENSOR_MSGS_TEST_IMAGE_H
+#ifndef _SENSOR_MSGS_IMAGE_H
 #define _SENSOR_MSGS_IMAGE_H
 
 #include "std_msgs/Header.h"
-
+#include <vector>
 
 
 static const int IMAGE_MSG_ID = 20;
@@ -13,7 +13,7 @@ public:
   std_msgs::Header header;
   uint32_t height;
   uint32_t width;
-  string encoding;
+  std::string encoding;
   uint8_t is_bigendian;
   uint32_t step;
   std::vector<uint8_t> data;

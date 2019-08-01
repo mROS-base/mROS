@@ -12,7 +12,7 @@ class Header{
 public:
   uint32_t seq;
   std_msgs::Time stamp;
-  string frame_id;
+  std::string frame_id;
 
   int dataSize(){
     return  4 +  stamp.dataSize() +  frame_id.size() +  4*3;
