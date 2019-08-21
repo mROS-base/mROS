@@ -235,20 +235,24 @@ static mRosPacketDataEnumType mros_xmlpacket_slave_request_get_method(mRosPacket
 	ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
 	return MROS_PACKET_DATA_INVALID;
 }
-#ifdef ROS_INDIGO
-#define REQTOPIC_VALUE_TAG_START "<value>"
-#define REQTOPIC_VALUE_TAG_END "</value>"
-#else
+#define REQTOPIC_VALUE_TAG_START_NOSTRING "<value>"
+#define REQTOPIC_VALUE_TAG_END_NOSTRING "</value>"
 #define REQTOPIC_VALUE_TAG_START "<value><string>"
 #define REQTOPIC_VALUE_TAG_END "</string></value>"
-#endif
 
 static mRosReturnType mros_xmlpacket_request_topic_req_decode(mRosPacketType *packet, mRosPacketDecodedRequestType *decoded_infop)
 {
 	mRosReturnType ret;
 	char *node_name_tail;
+	char *has_string;
 
-	decoded_infop->request.topic.node_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	has_string = find_string_after(packet->data, REQTOPIC_VALUE_TAG_START);
+	if (has_string != MROS_NULL) {
+		decoded_infop->request.topic.node_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	}
+	else {
+		decoded_infop->request.topic.node_name.req.start_key = REQTOPIC_VALUE_TAG_START_NOSTRING;
+	}
 	decoded_infop->request.topic.node_name.req.end_key = "<";
 	ret = mros_xmlpacket_get_member_info(decoded_infop->method.res.tail, &decoded_infop->request.topic.node_name);
 	if (ret != MROS_E_OK) {
@@ -256,7 +260,12 @@ static mRosReturnType mros_xmlpacket_request_topic_req_decode(mRosPacketType *pa
 		return MROS_E_INVAL;
 	}
 	node_name_tail = decoded_infop->request.topic.node_name.res.tail;
-	decoded_infop->request.topic.topic_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	if (has_string != MROS_NULL) {
+		decoded_infop->request.topic.topic_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	}
+	else {
+		decoded_infop->request.topic.topic_name.req.start_key = REQTOPIC_VALUE_TAG_START_NOSTRING;
+	}
 	decoded_infop->request.topic.topic_name.req.end_key = "<";
 	ret = mros_xmlpacket_get_member_info(node_name_tail, &decoded_infop->request.topic.topic_name);
 	if (ret != MROS_E_OK) {
@@ -271,8 +280,15 @@ static mRosReturnType mros_xmlpacket_publisher_update_req_decode(mRosPacketType 
 {
 	mRosReturnType ret;
 	char *node_name_tail;
+	char *has_string;
 
-	decoded_infop->request.publisher_update.name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	has_string = find_string_after(packet->data, REQTOPIC_VALUE_TAG_START);
+	if (has_string != MROS_NULL) {
+		decoded_infop->request.topic.node_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	}
+	else {
+		decoded_infop->request.topic.node_name.req.start_key = REQTOPIC_VALUE_TAG_START_NOSTRING;
+	}
 	decoded_infop->request.publisher_update.name.req.end_key = "<";
 	ret = mros_xmlpacket_get_member_info(decoded_infop->method.res.tail, &decoded_infop->request.publisher_update.name);
 	if (ret != MROS_E_OK) {
@@ -280,7 +296,12 @@ static mRosReturnType mros_xmlpacket_publisher_update_req_decode(mRosPacketType 
 		return MROS_E_INVAL;
 	}
 	node_name_tail = decoded_infop->request.publisher_update.name.res.tail;
-	decoded_infop->request.publisher_update.topic_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	if (has_string != MROS_NULL) {
+		decoded_infop->request.topic.topic_name.req.start_key = REQTOPIC_VALUE_TAG_START;
+	}
+	else {
+		decoded_infop->request.topic.topic_name.req.start_key = REQTOPIC_VALUE_TAG_START_NOSTRING;
+	}
 	decoded_infop->request.publisher_update.topic_name.req.end_key = "<";
 	ret = mros_xmlpacket_get_member_info(node_name_tail, &decoded_infop->request.publisher_update.topic_name);
 	if (ret != MROS_E_OK) {
@@ -347,6 +368,7 @@ Content-length: 377
 mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
 {
 	mRosReturnType ret;
+	char* tmp;
 	//      search HERE
 	//             |
 	//             V
@@ -379,11 +401,16 @@ mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mro
 	//              |
 	//              V
 	//<value><string>Chagall</string></value>
-	head = find_string_after(head, "<value><string>");
-	if (head == MROS_NULL) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
-		return MROS_NULL;
+	tmp = find_string_after(head, "<value><string>");
+	if (tmp == MROS_NULL) {
+		//<value>Chagall</value>
+		tmp = find_string_after(head, "<value>");
+		if (tmp == MROS_NULL) {
+			ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
+			return MROS_NULL;
+		}
 	}
+	head = tmp;
 
 	//             search HERE
 	//                      |
@@ -402,11 +429,16 @@ mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mro
 	//           |
 	//           V
 	//<value><int>54894</int></value>
-	head = find_string_after(tail, "<value><int>");
-	if (head == MROS_NULL) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
-		return MROS_NULL;
+	tmp = find_string_after(tail, "<value><int>");
+	if (tmp == MROS_NULL) {
+		//<value><i4>54894</i4></value>
+		tmp = find_string_after(tail, "<value><i4>");
+		if (tmp == MROS_NULL) {
+			ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
+			return MROS_NULL;
+		}
 	}
+	head = tmp;
 
 	//         search HERE
 	//                 |
