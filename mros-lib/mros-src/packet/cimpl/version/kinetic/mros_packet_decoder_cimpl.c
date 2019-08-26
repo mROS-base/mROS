@@ -363,7 +363,7 @@ Content-length: 377
 </params>
 </methodResponse>
  */
-mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
+static mRosPtrType mros_xmlpacket_reqtopicres_get_uri(char *packet_data, mros_uint32 *ipaddr, mros_int32 *port)
 {
 	mRosReturnType ret;
 	char* tmp;
@@ -371,7 +371,7 @@ mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mro
 	//             |
 	//             V
 	//"<value><array><data>"
-	char* head = find_string_after((const char *)&packet->data[0], "<array>");
+	char* head = find_string_after((const char *)packet_data, "<array>");
 	if (head == MROS_NULL) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
 		return MROS_NULL;
@@ -452,11 +452,13 @@ mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mro
 	*port = strtol(head, MROS_NULL, 10);
 	return (mRosPtrType)tail;
 }
-
+mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
+{
+	return mros_xmlpacket_reqtopicres_get_uri(packet->data, ipaddr, port);
+}
 mRosPtrType mros_xmlpacket_reqtopicres_get_next_uri(mRosPtrType ptr, mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
 {
-	//TODO
-	return MROS_NULL;
+	return mros_xmlpacket_reqtopicres_get_uri(ptr, ipaddr, port);
 }
 
 mRosPtrType mros_xmlpacket_pubupreq_get_first_uri(char *packet_data, mros_uint32 *ipaddr, mros_int32 *port)
