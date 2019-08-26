@@ -373,7 +373,7 @@ static mRosPtrType mros_xmlpacket_reqtopicres_get_uri(char *packet_data, mros_ui
 	//"<value><array><data>"
 	char* head = find_string_after((const char *)packet_data, "<array>");
 	if (head == MROS_NULL) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
+		//ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
 		return MROS_NULL;
 	}
 
