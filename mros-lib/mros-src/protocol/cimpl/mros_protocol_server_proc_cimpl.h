@@ -14,7 +14,7 @@ extern "C" {
 extern mRosReturnType mros_proc_init(void);
 extern mRosReturnType mros_proc_receive(mRosCommTcpClientType *client, mRosPacketType *packet);
 extern mRosReturnType mros_proc_tcpros_receive(mRosCommTcpClientType *client, mRosPacketType *packet);
-extern mRosReturnType mros_proc_slave(mRosCommTcpClientType *client, mRosPacketType *packet);
+extern mRosReturnType mros_proc_slave(mRosCommTcpClientType *client, mRosPacketType *packet, mros_uint32 self_ipaddr);
 extern mRosReturnType mros_proc_pub_tcpros(mRosCommTcpClientType *client, mRosPacketType *packet);
 extern mRosReturnType mros_proc_request_outer_node_addition(mRosTopicIdType topic_id, mRosRequestTopicResType *rpc_response, void *api_reqp);
 typedef struct {

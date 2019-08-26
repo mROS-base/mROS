@@ -20,6 +20,7 @@ typedef struct {
 	mRosPacketType						packet;
 	mRosCommTcpServerType				server_comm;
 	mRosCommTcpClientType				client_comm;
+	mros_uint32							self_ipaddr;
 } mRosProtocolSlaveType;
 
 static mRosProtocolSlaveType mros_protocol_slave MROS_MATTR_BSS_NOCLR;
@@ -41,6 +42,11 @@ mRosReturnType mros_protocol_slave_init(void)
 		return ret;
 	}
 	ret = mros_comm_tcp_server_listen(&mros_protocol_slave.server_comm, MROS_COMM_TCP_SERVER_LISTEN_MAX_DEFAULT_VALUE);
+	if (ret != MROS_E_OK) {
+		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		return ret;
+	}
+	ret = mros_comm_inet_get_ipaddr((const char *)MROS_NODE_IPADDR, &mros_protocol_slave.self_ipaddr);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;
@@ -67,7 +73,7 @@ void mros_protocol_slave_run(void)
 			continue;
 		}
 		mros_exclusive_lock(&mros_exclusive_area, &unlck_obj);
-		ret = mros_proc_slave(&mros_protocol_slave.client_comm, &mros_protocol_slave.packet);
+		ret = mros_proc_slave(&mros_protocol_slave.client_comm, &mros_protocol_slave.packet, mros_protocol_slave.self_ipaddr);
 		mros_exclusive_unlock(&unlck_obj);
 		if (ret != MROS_E_OK) {
 			ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);

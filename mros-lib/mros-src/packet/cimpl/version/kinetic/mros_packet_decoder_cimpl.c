@@ -132,7 +132,7 @@ static mRosPtrType mros_xmlpacket_get_first_uri(char *packet_data, mros_uint32 *
 	//"http://xxx.xxx.xx:8080/"
 	char* head = find_string_after((const char *)packet_data, "http://");
 	if (head == MROS_NULL) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
+		//ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
 		return MROS_NULL;
 	}
 
@@ -181,8 +181,7 @@ mRosPtrType mros_xmlpacket_subres_get_first_uri(mRosPacketType *packet, mros_uin
 
 mRosPtrType mros_xmlpacket_subres_get_next_uri(mRosPtrType ptr, mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
 {
-	//TODO
-	return MROS_NULL;
+	return mros_xmlpacket_get_first_uri(ptr, ipaddr, port);
 }
 
 
@@ -364,7 +363,6 @@ Content-length: 377
 </params>
 </methodResponse>
  */
-
 mRosPtrType mros_xmlpacket_reqtopicres_get_first_uri(mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
 {
 	mRosReturnType ret;
@@ -468,8 +466,7 @@ mRosPtrType mros_xmlpacket_pubupreq_get_first_uri(char *packet_data, mros_uint32
 
 mRosPtrType mros_xmlpacket_pubupreq_get_next_uri(mRosPtrType ptr, mRosPacketType *packet, mros_uint32 *ipaddr, mros_int32 *port)
 {
-	//TODO
-	return MROS_NULL;
+	return mros_xmlpacket_get_first_uri(ptr, ipaddr, port);
 }
 
 

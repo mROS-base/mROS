@@ -236,7 +236,7 @@ static mRosReturnType mros_proc_slave_publisher_update_do_request_topic(mRosTopi
 	return MROS_E_OK;
 }
 
-static mRosReturnType mros_proc_slave_publisher_update(mRosCommTcpClientType *client, mRosPacketType *packet)
+static mRosReturnType mros_proc_slave_publisher_update(mRosCommTcpClientType *client, mRosPacketType *packet, mros_uint32 self_ipaddr)
 {
 	mRosReturnType ret;
 	mRosTopicIdType topic_id;
@@ -253,8 +253,17 @@ static mRosReturnType mros_proc_slave_publisher_update(mRosCommTcpClientType *cl
 		return ret;
 	}
 
+	ret = MROS_E_OK;
 	ptr = mros_xmlpacket_pubupreq_get_first_uri(&mros_proc_slave_decoded_requst.request.publisher_update.topic_name.res.tail[1], &tcp_conn.ipaddr, &tcp_conn.port);
 	while (ptr != MROS_NULL) {
+		if (tcp_conn.ipaddr == self_ipaddr) {
+			ptr = mros_xmlpacket_pubupreq_get_next_uri(ptr, packet, &tcp_conn.ipaddr, &tcp_conn.port);
+			continue;
+		}
+		if (mros_proc_connector_get_first(topic_id, MROS_TOPIC_CONNECTOR_PUB, MROS_NODE_TYPE_OUTER, &tcp_conn) != MROS_ID_NONE) {
+			ptr = mros_xmlpacket_pubupreq_get_next_uri(ptr, packet, &tcp_conn.ipaddr, &tcp_conn.port);
+			continue;
+		}
 		ret = mros_proc_slave_publisher_update_do_request_topic(topic_id, &tcp_conn, packet);
 		if (ret != MROS_E_OK) {
 			ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
@@ -266,7 +275,7 @@ static mRosReturnType mros_proc_slave_publisher_update(mRosCommTcpClientType *cl
 	return ret;
 }
 
-mRosReturnType mros_proc_slave(mRosCommTcpClientType *client, mRosPacketType *packet)
+mRosReturnType mros_proc_slave(mRosCommTcpClientType *client, mRosPacketType *packet, mros_uint32 self_ipaddr)
 {
 	mRosReturnType ret = MROS_E_INVAL;
 
@@ -276,7 +285,7 @@ mRosReturnType mros_proc_slave(mRosCommTcpClientType *client, mRosPacketType *pa
 		ret = mros_proc_slave_request_topic(client, packet);
 		break;
 	case MROS_PACKET_DATA_PUBLISHER_UPDATE_REQ:
-		ret = mros_proc_slave_publisher_update(client, packet);
+		ret = mros_proc_slave_publisher_update(client, packet, self_ipaddr);
 		break;
 	default:
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
