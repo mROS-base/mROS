@@ -371,7 +371,7 @@ mRosReturnType mros_topic_connector_receive_data(mRosTopicConnectorManagerType *
 	}
 	ret = entry->data.commp->data.op.topic_data_receive(&entry->data.commp->data.client, entry->data.mempool, memp);
 	if ((ret != MROS_E_OK) && (ret != MROS_E_NOENT)) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		//ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		mgrp->is_error = MROS_TRUE;
 		mros_comm_tcp_client_close(&entry->data.commp->data.client);
 	}

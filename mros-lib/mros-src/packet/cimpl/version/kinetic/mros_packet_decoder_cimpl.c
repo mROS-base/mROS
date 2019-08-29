@@ -147,6 +147,7 @@ static mRosPtrType mros_xmlpacket_get_first_uri(char *packet_data, mros_uint32 *
 	}
 	mros_uint32 len = (tail - head);
 	head[len - 1] = '\0';
+	//head[len] = '\0';
 	mRosReturnType ret = mros_comm_inet_get_ipaddr((const char *)head, ipaddr);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
@@ -416,12 +417,14 @@ static mRosPtrType mros_xmlpacket_reqtopicres_get_uri(char *packet_data, mros_ui
 	//<value><string>Chagall</string></value>
 	char* tail = strstr(head, "<");
 	mros_uint32 len = (tail - head);
-	head[len - 1] = '\0';
+	//head[len - 1] = '\0';
+	head[len] = '\0';
 	ret = mros_comm_inet_get_ipaddr((const char *)head, ipaddr);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
 		return MROS_NULL;
 	}
+	tail++;
 
 	//   search HERE
 	//           |

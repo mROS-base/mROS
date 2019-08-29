@@ -59,11 +59,11 @@ mRosReturnType mros_comm_inet_get_ipaddr(const char *hostname, mros_uint32 *ipad
 	mros_uint8 addr_array[5];
     mros_uint8 *paddr = addr_array;
 
-    result = sscanf(hostname, "%3u.%3u.%3u.%3u",
-    		(mros_uint32*)&addr_array[0],
-			(mros_uint32*)&addr_array[1],
-			(mros_uint32*)&addr_array[2],
-			(mros_uint32*)&addr_array[3]);
+    result = sscanf(hostname, "%hhu.%hhu.%hhu.%hhu",
+    		(mros_uint8*)&addr_array[0],
+			(mros_uint8*)&addr_array[1],
+			(mros_uint8*)&addr_array[2],
+			(mros_uint8*)&addr_array[3]);
 
     if (result != 4) {
     	mRosHostEntType *host_address = mros_comm_gethostbyname(hostname);
@@ -86,11 +86,11 @@ void mros_comm_inet_remote_sockaddr_init(mRosSockAddrInType *addr, mros_int32 po
 
     addr->sin_family = AF_INET;
     addr->sin_port = htons(port);
-    result = sscanf(ipaddrp, "%3u.%3u.%3u.%3u",
-    		(mros_uint32*)&addr_array[0],
-			(mros_uint32*)&addr_array[1],
-			(mros_uint32*)&addr_array[2],
-			(mros_uint32*)&addr_array[3]);
+    result = sscanf(ipaddrp, "%hhu.%hhu.%hhu.%hhu",
+    		(mros_uint8*)&addr_array[0],
+			(mros_uint8*)&addr_array[1],
+			(mros_uint8*)&addr_array[2],
+			(mros_uint8*)&addr_array[3]);
 
     if (result != 4) {
     	mRosHostEntType *host_address = mros_comm_gethostbyname(ipaddrp);

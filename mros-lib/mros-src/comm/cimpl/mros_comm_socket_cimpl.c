@@ -99,10 +99,10 @@ mRosReturnType mros_comm_socket_set_blocking(mRosCommSocketType *socket, mros_bo
 
 mRosReturnType mros_comm_socket_wait_readable(mRosCommSocketType *socket, mros_uint32 timeout)
 {
-	return mros_comm_socket_select(socket, timeout, true, false);
+	return mros_comm_socket_select(socket, timeout, MROS_TRUE, MROS_FALSE);
 }
 
 mRosReturnType mros_comm_socket_wait_writable(mRosCommSocketType *socket, mros_uint32 timeout)
 {
-	return mros_comm_socket_select(socket, timeout, false, true);
+	return mros_comm_socket_select(socket, timeout, MROS_FALSE, MROS_TRUE);
 }

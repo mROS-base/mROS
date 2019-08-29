@@ -179,7 +179,7 @@ mRosReturnType mros_comm_tcp_client_receive_all(mRosCommTcpClientType *client, c
         } else if (retlen == 0) {
     		client->connected = MROS_FALSE;
             *res = readLen;
-    		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
+    		//ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
             return MROS_E_SYSERR;
         } else {
             *res = readLen;
