@@ -332,7 +332,7 @@ mRosReturnType mros_topic_connector_send_data(mRosTopicConnectorManagerType *mgr
 		//TOPIC ==> inner node callback
 		mros_uint32 type_id;
 		(void)mros_topic_get_typeid(entry->data.value.topic_id, &type_id);
-		mros_topic_callback(type_id, entry->data.value.func_id, data);
+		mros_topic_callback(entry->data.value.topic_id, type_id, entry->data.value.func_id, data, len);
 		return MROS_E_OK;
 	}
 	//TOPIC ==> outer node
@@ -371,7 +371,7 @@ mRosReturnType mros_topic_connector_receive_data(mRosTopicConnectorManagerType *
 	}
 	ret = entry->data.commp->data.op.topic_data_receive(&entry->data.commp->data.client, entry->data.mempool, memp);
 	if ((ret != MROS_E_OK) && (ret != MROS_E_NOENT)) {
-		//ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		mgrp->is_error = MROS_TRUE;
 		mros_comm_tcp_client_close(&entry->data.commp->data.client);
 	}

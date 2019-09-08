@@ -197,7 +197,7 @@ void ros::spin(void){
 }
 
 
-void mros_topic_callback(mros_uint32 type_id, mRosFuncIdType func_id, const char *data)
+void mros_topic_callback(mros_uint32 topic_id, mros_uint32 type_id, mRosFuncIdType func_id, const char *data, mros_uint32 len)
 {
 	void (*fp)(void *ptr);
 	fp = (void (*)(void *))func_id;

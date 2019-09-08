@@ -87,6 +87,7 @@ mRosReturnType mros_comm_tcp_client_send(mRosCommTcpClientType *client, const ch
     }
     snd_size = mros_comm_send(client->socket.sock_fd, data, length, 0);
     if (snd_size == 0) {
+		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		client->connected = MROS_FALSE;
     }
     *res = snd_size;
@@ -148,6 +149,7 @@ mRosReturnType mros_comm_tcp_client_receive(mRosCommTcpClientType *client, char*
     rcv_size = mros_comm_recv(client->socket.sock_fd, data, length, 0);
     if (rcv_size == 0) {
 		client->connected = MROS_FALSE;
+		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
     }
     *res = rcv_size;
 
@@ -179,7 +181,7 @@ mRosReturnType mros_comm_tcp_client_receive_all(mRosCommTcpClientType *client, c
         } else if (retlen == 0) {
     		client->connected = MROS_FALSE;
             *res = readLen;
-    		//ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
+    		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
             return MROS_E_SYSERR;
         } else {
             *res = readLen;
