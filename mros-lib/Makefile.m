@@ -5,8 +5,6 @@ MROS_SRC_DIR	:= $(MROS_DIR)/mros-src
 MROS_MSG_DIR	:= $(MROS_DIR)/mros-msg
 
 MROS_IFLAGS	+= -I$(MROS_SRC_DIR)/inc
-MROS_IFLAGS	+= -I$(MROS_SRC_DIR)/config
-MROS_IFLAGS	+= -I$(MROS_SRC_DIR)/config/os/target/$(OS_NAME)
 MROS_IFLAGS	+= -I$(MROS_SRC_DIR)/api
 MROS_IFLAGS	+= -I$(MROS_SRC_DIR)/protocol/cimpl
 MROS_IFLAGS	+= -I$(MROS_SRC_DIR)/node/cimpl
@@ -35,7 +33,6 @@ VPATH	+= $(MROS_SRC_DIR)/protocol/cimpl
 VPATH	+= $(MROS_SRC_DIR)/topic/cimpl
 VPATH	+= $(MROS_SRC_DIR)/transfer/cimpl
 VPATH	+= $(MROS_SRC_DIR)/config
-VPATH	+= $(MROS_SRC_DIR)/config/os/target/$(OS_NAME)
 
 MROS_CXX_OBJ := ros.o
 MROS_C_OBJ += mros_comm_cimpl.o
@@ -64,9 +61,6 @@ MROS_C_OBJ += mros_topic_cimpl.o
 MROS_C_OBJ += mros_topic_connector_cimpl.o
 MROS_C_OBJ += mros_topic_connector_factory_cimpl.o
 MROS_C_OBJ += mros_name.o
-MROS_C_OBJ += mros_os_config.o
-MROS_C_OBJ += mros_usr_config.o
-MROS_C_OBJ += mros_sys_config.o
 
 MROS_INCLUDE_PATHS += $(MROS_IFLAGS)
 
