@@ -71,6 +71,11 @@ extern void cyclic_handler(intptr_t exinf);
 #define MROS_TASK_STACK_SIZE 1024 * 2	//for mros task
 #endif	/*MROS_TASK_STACK_SIZE*/
 
+#ifndef KMM_SIZE
+#define MBED_TASK_STACK_SIZE 1024 * 8	//for mbed task
+#define	KMM_SIZE	(MBED_TASK_STACK_SIZE * 16)	/* kernel assign */
+#endif /* KMM_SIZE */						/* size of memory */
+
 /*
  * do not change this parameter
  */
