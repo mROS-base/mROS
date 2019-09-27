@@ -157,7 +157,7 @@ static mRosReturnType mros_protocol_master_register_publisher(mRosProtocolMaster
 
 	ret = mros_comm_tcp_client_connect(&mros_protocol_master.master_comm);
 	if (ret != MROS_E_OK) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		ROS_ERROR("ERROR: Unable to communicate with master!");
 		goto done;
 	}
@@ -194,7 +194,7 @@ static mRosReturnType mros_protocol_master_register_subscriber(mRosProtocolMaste
 
 	ret = mros_comm_tcp_client_connect(&mros_protocol_master.master_comm);
 	if (ret != MROS_E_OK) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		ROS_ERROR("ERROR: Unable to communicate with master!");
 		goto done;
 	}

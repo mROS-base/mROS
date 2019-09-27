@@ -61,6 +61,7 @@ MROS_C_OBJ += mros_topic_cimpl.o
 MROS_C_OBJ += mros_topic_connector_cimpl.o
 MROS_C_OBJ += mros_topic_connector_factory_cimpl.o
 MROS_C_OBJ += mros_name.o
+CDEFS += -DMROS_LOG_DISABLE_WARN 
 
 MROS_INCLUDE_PATHS += $(MROS_IFLAGS)
 

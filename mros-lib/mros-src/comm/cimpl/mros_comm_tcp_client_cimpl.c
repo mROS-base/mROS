@@ -55,7 +55,7 @@ mRosReturnType mros_comm_tcp_client_connect(mRosCommTcpClientType *client)
 
 	ret = mros_comm_connect(client->socket.sock_fd, (const mRosSockAddrType *)&client->remote, sizeof(mRosSockAddrInType));
 	if (ret != MROS_E_OK) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return MROS_E_NOTCONN;
 	}
 	client->connected = MROS_TRUE;
@@ -123,7 +123,7 @@ mRosReturnType mros_comm_tcp_client_send_all(mRosCommTcpClientType *client, cons
             return MROS_E_SYSERR;
         } else {
             *res = writtenLen;
-    		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
+    		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
             return MROS_E_SYSERR;
         }
     }
@@ -181,7 +181,7 @@ mRosReturnType mros_comm_tcp_client_receive_all(mRosCommTcpClientType *client, c
         } else if (retlen == 0) {
     		client->connected = MROS_FALSE;
             *res = readLen;
-    		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
+    		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
             return MROS_E_SYSERR;
         } else {
             *res = readLen;

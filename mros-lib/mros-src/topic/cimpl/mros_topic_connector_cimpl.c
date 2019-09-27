@@ -341,7 +341,7 @@ mRosReturnType mros_topic_connector_send_data(mRosTopicConnectorManagerType *mgr
 	}
 	ret = entry->data.commp->data.op.topic_data_send(&entry->data.commp->data.client, data, len);
 	if (ret != MROS_E_OK) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		mgrp->is_error = MROS_TRUE;
 		mros_comm_tcp_client_close(&entry->data.commp->data.client);
 	}
@@ -371,7 +371,7 @@ mRosReturnType mros_topic_connector_receive_data(mRosTopicConnectorManagerType *
 	}
 	ret = entry->data.commp->data.op.topic_data_receive(&entry->data.commp->data.client, entry->data.mempool, memp);
 	if ((ret != MROS_E_OK) && (ret != MROS_E_NOENT)) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		mgrp->is_error = MROS_TRUE;
 		mros_comm_tcp_client_close(&entry->data.commp->data.client);
 	}
@@ -391,7 +391,7 @@ static mros_boolean mros_topic_connector_purge_one(mRosTopicConnectorManagerType
 				mros_node_remove(entryp->data.value.node_id);
 				ListEntry_RemoveEntry(&topic_root->data.head[MROS_NODE_TYPE_OUTER], entryp);
 				ListEntry_Free(&mgrp->conn_head, entryp);
-				ROS_ERROR("removed connector topic_id=%d node_id=%d", entryp->data.value.topic_id, entryp->data.value.node_id);
+				ROS_WARN("removed connector topic_id=%d node_id=%d", entryp->data.value.topic_id, entryp->data.value.node_id);
 				return MROS_TRUE;
 			}
 		}

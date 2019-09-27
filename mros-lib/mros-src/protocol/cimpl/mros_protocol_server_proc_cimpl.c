@@ -50,7 +50,7 @@ mRosReturnType mros_proc_tcpros_receive(mRosCommTcpClientType *client, mRosPacke
 
 	ret = mros_comm_tcp_client_receive_all(client, rawdata, MROS_TCPROS_RAWDATA_HEADER_SIZE, &res);
 	if (ret != MROS_E_OK) {
-		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;
 	}
 

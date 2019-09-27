@@ -19,7 +19,7 @@ static void mros_topic_subscribe(mRosTopicConnectorManagerType *mgrp, mRosNodeEn
 	while (obj != MROS_COBJ_NULL) {
 		ret = mros_topic_connector_send_data(mgrp, obj, topic_data->data.memp, topic_data->data.size);
 		if (ret != MROS_E_OK) {
-			ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+			ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		}
 		obj = mros_topic_connector_get_next(mgrp, topic_obj, obj);
 	}

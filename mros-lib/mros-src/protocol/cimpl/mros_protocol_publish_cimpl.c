@@ -58,7 +58,7 @@ void mros_protocol_publish_run(void)
 		mros_protocol_publish.state = MROS_PROTOCOL_PUBLISH_STATE_STARTING_PUBLISH_TOPIC;
 		ret = mros_proc_tcpros_receive(&mros_protocol_publish.client_comm, &mros_protocol_publish.packet);
 		if (ret != MROS_E_OK) {
-			ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+			ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 			mros_comm_tcp_client_close(&mros_protocol_publish.client_comm);
 			continue;
 		}
