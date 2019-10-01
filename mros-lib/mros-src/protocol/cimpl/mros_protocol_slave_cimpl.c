@@ -46,7 +46,7 @@ mRosReturnType mros_protocol_slave_init(void)
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;
 	}
-	ret = mros_comm_inet_get_ipaddr((const char *)MROS_NODE_IPADDR, &mros_protocol_slave.self_ipaddr);
+	ret = mros_comm_inet_get_ipaddr((const char *)mros_comm_config.mros_node_ipaddr, &mros_protocol_slave.self_ipaddr);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		return ret;

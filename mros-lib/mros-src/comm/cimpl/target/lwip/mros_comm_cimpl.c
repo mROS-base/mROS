@@ -17,6 +17,7 @@
  */
 #include "mros_types.h"
 #include "mros_comm_cimpl.h"
+#include "mros_sys_config.h"
 #ifndef TARGET_ATHRILL
 #include <kernel.h>
 #include <t_syslog.h>
@@ -42,6 +43,7 @@ extern void mbed_mac_address(char *mac);
 #include <string.h>
 #include <stdio.h>
 
+mRosCommConfigType mros_comm_config;
 
 void mros_comm_inet_local_sockaddr_init(mRosSockAddrInType *addr, mros_int32 port)
 {
@@ -121,19 +123,51 @@ void mros_comm_timeval_set(mros_uint32 sec, mros_uint32 usec, mRosTimeValType *t
 	return;
 }
 
-#ifndef TARGET_ATHRILL
-#define USE_DHCP (0)
-#if(USE_DHCP == 0)
-	#define IP_ADDRESS  	("127.0.0.1")	/*IP address */
-	#define SUBNET_MASK		("255.0.0.0")	/*Subset mask */
+#if(MROS_NODE_USE_DHCP == 0)
+	#define IP_ADDRESS  	(MROS_NODE_IPADDR)	/*IP address */
+	#define SUBNET_MASK		(MROS_NODE_SUBNET_MASK)	/*Subset mask */
 	#define DEFAULT_GATEWAY	("")	/*Default gateway */
 #endif
 
 static mros_boolean use_dhcp;
-static char mac_addr[19];
 static char ip_addr[17] = "\0";
+static char mac_addr[19];
 static char gateway[17] = "\0";
 static char networkmask[17] = "\0";
+
+static char* ethernet_getMACAddress() {
+    return mac_addr;
+}
+
+static char* ethernet_getIPAddress() {
+    return ip_addr;
+}
+
+static char* ethernet_getGateway() {
+    return gateway;
+}
+
+static char* ethernet_getNetworkMask() {
+    return networkmask;
+}
+static void mros_comm_config_init(void)
+{
+	int ret;
+
+	mros_comm_config.use_dhcp = use_dhcp;
+	mros_comm_config.mros_node_ipaddr = ethernet_getIPAddress();
+	mros_comm_config.mros_gateway = ethernet_getGateway();
+	mros_comm_config.mros_mac_addr = ethernet_getMACAddress();
+	mros_comm_config.mros_networkmask = ethernet_getNetworkMask();
+	ret = snprintf(&mros_comm_config.mros_uri_slave[0], MROS_URI_SLAVE_LEN, "http://%s:%u",
+			mros_comm_config.mros_node_ipaddr, MROS_SLAVE_PORT_NO);
+	if (ret < 0) {
+		ROS_ERROR("ERROR: can not convert mros uri for slave\n");
+	}
+}
+
+
+#ifndef TARGET_ATHRILL
 /* TCP/IP and Network Interface Initialisation */
 static struct netif netif;
 
@@ -184,7 +218,7 @@ static void set_mac_address(void) {
 #endif
 }
 
-#if (USE_DHCP == 1)
+#if (MROS_NODE_USE_DHCP == 1)
 static int ethernet_init(void)
 {
     use_dhcp = true;
@@ -210,21 +244,6 @@ static int ethernet_ip_init(const char* ip, const char* mask, const char* gatewa
     return 0;
 }
 
-static char* ethernet_getMACAddress() {
-    return mac_addr;
-}
-
-static char* ethernet_getIPAddress() {
-    return ip_addr;
-}
-
-static char* ethernet_getGateway() {
-    return gateway;
-}
-
-static char* ethernet_getNetworkMask() {
-    return networkmask;
-}
 static int ethernet_connect(unsigned int timeout_ms) {
     eth_arch_enable_interrupts();
 
@@ -245,8 +264,9 @@ static int ethernet_connect(unsigned int timeout_ms) {
 	//    return (inited > 0) ? (0) : (-1);
 }
 
+
 static void network_init(){
-#if (USE_DHCP == 1)
+#if (MROS_NODE_USE_DHCP == 1)
 	if(ethernet_init() != 0) {
 #else
 	if(ethernet_ip_init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) {
@@ -262,11 +282,16 @@ static void network_init(){
 	syslog(LOG_NOTICE,"IP Address is %s\r\n", ethernet_getIPAddress());
 	syslog(LOG_NOTICE,"NetMask is %s\r\n", ethernet_getNetworkMask());
 	syslog(LOG_NOTICE,"Gateway Address is %s\r\n", ethernet_getGateway());
+	mros_comm_config_init();
 	return;
 }
 #else
 static void network_init(void)
 {
+	int len = strlen(MROS_NODE_IPADDR);
+	memcpy(ip_addr, MROS_NODE_IPADDR, len);
+	ip_addr[len] = '\0';
+	mros_comm_config_init();
 	lwip_init();
 	return;
 }

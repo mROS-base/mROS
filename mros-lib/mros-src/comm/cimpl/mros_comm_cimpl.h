@@ -24,6 +24,16 @@ extern "C" {
 
 #include "mros_types.h"
 
+#define MROS_URI_SLAVE_LEN	256
+typedef struct {
+	mros_boolean use_dhcp;
+	const char *mros_node_ipaddr;
+	const char *mros_gateway;
+	const char *mros_mac_addr;
+	const char *mros_networkmask;
+	char mros_uri_slave[MROS_URI_SLAVE_LEN];
+} mRosCommConfigType;
+extern mRosCommConfigType mros_comm_config;
 
 extern mRosReturnType mros_comm_inet_get_ipaddr(const char *hostname, mros_uint32 *ipaddr);
 extern void mros_comm_inet_local_sockaddr_init(mRosSockAddrInType *addr, mros_int32 port);

@@ -47,7 +47,7 @@ mRosReturnType mros_rpc_register_publisher(mRosCommTcpClientType *client, mRosRe
 	arg.argv[1] = req->node_name;
 	arg.argv[2] = req->topic_name;
 	arg.argv[3] = req->topic_typename;
-	arg.argv[4] = MROS_URI_SLAVE;
+	arg.argv[4] = &mros_comm_config.mros_uri_slave[0];
 	return mros_rpc_sendreply_xmlpacket(&arg, client, req->req_packet, res->reply_packet);
 }
 
@@ -62,7 +62,7 @@ mRosReturnType mros_rpc_register_subscriber(mRosCommTcpClientType *client, mRosR
 	arg.argv[1] = req->node_name;
 	arg.argv[2] = req->topic_name;
 	arg.argv[3] = req->topic_typename;
-	arg.argv[4] = MROS_URI_SLAVE;
+	arg.argv[4] = &mros_comm_config.mros_uri_slave[0];
 	return mros_rpc_sendreply_xmlpacket(&arg, client, req->req_packet, res->reply_packet);
 }
 
