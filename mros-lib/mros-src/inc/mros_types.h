@@ -58,7 +58,7 @@ typedef mros_int32 mRosReturnType;
 #define MROS_MATTR_BSS_NOCLR __attribute__((section("NC_BSS")))
 #else
 /*
- * NC_BSS must not set NC_BSS on target board because NC_BSS means non cache region.
+ * NC_BSS must not set on target board because NC_BSS means non cache region.
  */
 #define MROS_MATTR_BSS_NOCLR
 #endif /* TARGET_ATHRILL */
