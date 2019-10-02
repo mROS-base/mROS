@@ -70,7 +70,7 @@ mRosReturnType mros_comm_inet_get_ipaddr(const char *hostname, mros_uint32 *ipad
     if (result != 4) {
     	mRosHostEntType *host_address = mros_comm_gethostbyname(hostname);
         if (host_address == MROS_NULL) {
-    		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_INVAL);
+    		ROS_ERROR("%s %s() %u hostname=%s ret=%d", __FILE__, __FUNCTION__, __LINE__, hostname, MROS_E_INVAL);
         	return MROS_E_INVAL;
         }
         paddr = (mros_uint8*)host_address->h_addr_list[0];

@@ -51,8 +51,17 @@ typedef mros_int32 mRosReturnType;
 #include "mros_os_target.h"
 #define MROS_TASKID_NONE	0U
 
-
+#ifdef TARGET_ATHRILL
+/*
+ * NC_BSS means non clear bss section on athrill.
+ */
 #define MROS_MATTR_BSS_NOCLR __attribute__((section("NC_BSS")))
+#else
+/*
+ * NC_BSS must not set NC_BSS on target board because NC_BSS means non cache region.
+ */
+#define MROS_MATTR_BSS_NOCLR
+#endif /* TARGET_ATHRILL */
 
 /*
  * Comm dependent data types
