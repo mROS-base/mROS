@@ -26,7 +26,7 @@ extern "C" {
 /*
  * max name length of topic type name
  */
-#define MROS_TOPIC_TYPENAME_MAXLEN				20U
+#define MROS_TOPIC_TYPENAME_MAXLEN				50U
 
 
 /**************************************
