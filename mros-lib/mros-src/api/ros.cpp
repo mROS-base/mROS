@@ -118,7 +118,7 @@ ros::Publisher ros::NodeHandle::advertise(std::string topic, int queue_size)
 		return pub;
 	}
 
-	ret = mros_topic_create(topic.c_str(), message_traits::DataType<T*>().value(), &connector.topic_id);//TODO typename
+	ret = mros_topic_create(topic.c_str(), message_traits::DataType<T*>().value(), &connector.topic_id);
 	if (ret != MROS_E_OK) {
 		mros_exclusive_unlock(&unlck_obj);
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);

@@ -65,6 +65,7 @@ void mros_protocol_slave_run(void)
 		if (ret != MROS_E_OK) {
 			continue;
 		}
+		ROS_INFO("INFO: slave accepted");
 		mros_protocol_slave.state = MROS_PROTOCOL_SLAVE_STATE_REPLYING_REQUEST_TOPIC;
 		ret = mros_proc_receive(&mros_protocol_slave.client_comm, &mros_protocol_slave.packet);
 		if (ret != MROS_E_OK) {

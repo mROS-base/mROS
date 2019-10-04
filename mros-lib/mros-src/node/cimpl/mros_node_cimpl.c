@@ -151,7 +151,7 @@ static mRosReturnType mros_node_create(const char *node_name, mRosTaskIdType tas
 	if (node_name != MROS_NULL) {
 		len = strlen(node_name);
 		if (len >= (MROS_NODE_NAME_MAXLEN + 1)) { /* for add slash on top */
-			ROS_ERROR("%s %u ret=%d", __FUNCTION__, __LINE__, MROS_E_NOMEM);
+			ROS_ERROR("CONFIG ERROR: node_Name(%s) len(%u) is too large(MROS_NODE_NAME_MAXLEN=%u)", node_name, len, MROS_NODE_NAME_MAXLEN);
 			return MROS_E_NOMEM;
 		}
 		mros_name_formalize(node_name, len, node_name_buffer, &len);

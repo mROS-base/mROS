@@ -118,9 +118,11 @@ mRosReturnType mros_topic_create(const char *topic_name, const char *topic_typen
 	mRosReturnType ret;
 
 	if (len >= (MROS_TOPIC_NAME_MAXLEN + 1)) { /* for add slash on top */
+		ROS_ERROR("CONFIG ERROR: topic_name(%s) len(%u) is too large(MROS_TOPIC_NAME_MAXLEN=%u)", topic_name, len, MROS_TOPIC_NAME_MAXLEN);
 		return MROS_E_NOMEM;
 	}
 	if (typelen >= MROS_TOPIC_NAME_MAXLEN) {
+		ROS_ERROR("CONFIG ERROR: topic_typename(%s) len(%u) is too large(MROS_TOPIC_TYPENAME_MAXLEN=%u)", topic_name, typelen, MROS_TOPIC_TYPENAME_MAXLEN);
 		return MROS_E_NOMEM;
 	}
 	mros_name_formalize(topic_name, len, topic_name_buffer, &len);
@@ -265,6 +267,7 @@ mRosReturnType mros_topic_add_data(mRosTopicIdType id, mRosMemoryListEntryType *
 		ListEntry_RemoveEntry(&TOPIC_OBJ(id).data.queue_head, datap);
 		(void)mros_mem_free(datap->data.mgrp, datap);
 	}
+	//ROS_INFO("topic(%u):%s", id, &data->data.memp[8]); //for string debug
 	ListEntry_AddEntry(&TOPIC_OBJ(id).data.queue_head, data);
 	return MROS_E_OK;
 }

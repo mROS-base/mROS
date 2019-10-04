@@ -157,10 +157,11 @@ static mRosReturnType mros_protocol_master_register_publisher(mRosProtocolMaster
 
 	ret = mros_comm_tcp_client_connect(&mros_protocol_master.master_comm);
 	if (ret != MROS_E_OK) {
-		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		ROS_ERROR("ERROR: Unable to communicate with master!");
 		goto done;
 	}
+	ROS_INFO("INFO: master pub: connected");
 	ret = mros_protocol_master_register(pub_req, MROS_TOPIC_CONNECTOR_PUB, &rpc_response);
 	if (ret != MROS_E_OK) {
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
@@ -194,10 +195,11 @@ static mRosReturnType mros_protocol_master_register_subscriber(mRosProtocolMaste
 
 	ret = mros_comm_tcp_client_connect(&mros_protocol_master.master_comm);
 	if (ret != MROS_E_OK) {
-		ROS_WARN("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
+		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, ret);
 		ROS_ERROR("ERROR: Unable to communicate with master!");
 		goto done;
 	}
+	ROS_INFO("INFO: master sub: connected");
 
 	ret = mros_protocol_master_register(sub_req, MROS_TOPIC_CONNECTOR_SUB, &rpc_regc_res);
 	if (ret != MROS_E_OK) {

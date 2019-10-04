@@ -74,6 +74,7 @@ void mros_protocol_subscribe_run(void)
 			mros_comm_tcp_client_free(client_req);
 			continue;
 		}
+		ROS_INFO("INFO: sub connected");
 
 		connector.topic_id = client_req->data.reqobj.topic_id;
 		connector.func_id = (mRosFuncIdType)MROS_ID_NONE;

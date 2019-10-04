@@ -55,6 +55,7 @@ void mros_protocol_publish_run(void)
 		if (ret != MROS_E_OK) {
 			continue;
 		}
+		ROS_INFO("INFO: pub accepted");
 		mros_protocol_publish.state = MROS_PROTOCOL_PUBLISH_STATE_STARTING_PUBLISH_TOPIC;
 		ret = mros_proc_tcpros_receive(&mros_protocol_publish.client_comm, &mros_protocol_publish.packet);
 		if (ret != MROS_E_OK) {
