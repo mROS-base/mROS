@@ -8,7 +8,7 @@ all:
 #  アプリケーションファイル
 #
 APPNAME = custom_pubsub
-APPLDIR = custom_pubsub
+APPLDIR = custom_pubsub mros_config mros_config/os/target/os_asp
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
@@ -26,7 +26,7 @@ OMIT_OPTIMIZATION = true
 #
 APPL_ASMOBJS = 
 APPL_CXXOBJS =  
-APPL_COBJS = 
+APPL_COBJS = mros_sys_config.o mros_usr_config.o mros_os_config.o
 
 
 #

@@ -1,5 +1,7 @@
 #include <vector>
 
+#include <string.h>
+
 static const int INT16MULTIARRAY_MSG_ID = 12;
 
 namespace std_msgs{
@@ -46,9 +48,9 @@ struct DataType<std_msgs::Int16MultiArray*>
 template<>
 struct DataTypeId<std_msgs::Int16MultiArray*>
 {
-  static const int value()
+  static int value()
   {
-    return INT16MULTIARRAY_MSG_ID;
+    return (int)INT16MULTIARRAY_MSG_ID;
   }
 
 };
@@ -68,7 +70,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<INT16MULTIARRAY_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Int16MultiArray msg;
       rbuf += 4;

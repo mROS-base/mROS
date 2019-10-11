@@ -1,6 +1,8 @@
 #ifndef _STD_MSGS_INT16_
 #define _STD_MSGS_INT16_
 
+#include <string.h>
+
 static const int INT16_MSG_ID = 6;
 
 namespace std_msgs{
@@ -42,9 +44,9 @@ struct DataType<std_msgs::UInt16*>
 template<>
 struct DataTypeId<std_msgs::Int16*>
 {
-  static const int value()
+  static int value()
   {
-    return INT16_MSG_ID;
+    return (int)INT16_MSG_ID;
   }
 
 };
@@ -77,7 +79,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<INT16_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Int16 msg;
       rbuf += 4;

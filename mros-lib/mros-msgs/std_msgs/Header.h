@@ -12,7 +12,7 @@ class Header{
 public:
   uint32_t seq;
   std_msgs::Time stamp;
-  string frame_id;
+  std::string frame_id;
 
   int dataSize(){
     return  4 +  stamp.dataSize() +  frame_id.size() +  4*3;
@@ -83,9 +83,9 @@ struct DataType<std_msgs::Header*>
 template<>
 struct DataTypeId<std_msgs::Header*>
 {
-  static const int value()
+  static int value()
   {
-    return HEADER_MSG_ID;
+    return (int)HEADER_MSG_ID;
   }
 
 };
@@ -107,7 +107,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<HEADER_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Header msg;
       rbuf += 4;

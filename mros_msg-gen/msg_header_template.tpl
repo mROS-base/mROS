@@ -4,6 +4,10 @@
 {%for dep in msg.dependences %}#include "{{dep}}"
 {%endfor%}
 
+#include <string.h>
+
+using namespace std;
+
 {% set id_name = msg.NAME + '_MSG_ID'%}
 static const int {{id_name}} = {{msg.id}};
 
@@ -101,7 +105,7 @@ struct DataType<{{msg.pkg}}::{{msg.name}}*>
 template<>
 struct DataTypeId<{{msg.pkg}}::{{msg.name}}*>
 {
-  static const int value()
+  static int value()
   {
     return {{id_name}};
   }
@@ -123,7 +127,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<{{id_name}}>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       {{msg.pkg}}::{{msg.name}} msg;
       rbuf += 4;

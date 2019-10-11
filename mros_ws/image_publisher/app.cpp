@@ -1,7 +1,6 @@
 #include "app.h"
 //TODO: catkin統合時におそらく名前衝突するのでなにかしら考える
 //#include "../mros-lib/ros.h"
-#include "mros.h"
 #include "ros.h"
 
 //try to include String header

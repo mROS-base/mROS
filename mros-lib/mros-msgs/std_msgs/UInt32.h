@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_UINT32_H
 #define _STD_MSGS_UINT32_H
 
+#include <string.h>
 
 static const int UINT32_MSG_ID = 7;
 
@@ -40,9 +41,9 @@ struct DataType<std_msgs::UInt32*>
 template<>
 struct DataTypeId<std_msgs::UInt32*>
 {
-  static const int value()
+  static int value()
   {
-    return UINT32_MSG_ID;
+    return (int)UINT32_MSG_ID;
   }
 
 };
@@ -62,7 +63,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<UINT32_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::UInt32 msg;
       rbuf += 4;

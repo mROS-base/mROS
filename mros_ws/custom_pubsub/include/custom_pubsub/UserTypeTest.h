@@ -5,6 +5,10 @@
 #include "custom_pubsub/PersonName.h"
 
 
+#include <string.h>
+
+using namespace std;
+
 
 static const int USERTYPETEST_MSG_ID = 103;
 
@@ -66,7 +70,7 @@ struct DataType<custom_pubsub::UserTypeTest*>
 template<>
 struct DataTypeId<custom_pubsub::UserTypeTest*>
 {
-  static const int value()
+  static int value()
   {
     return USERTYPETEST_MSG_ID;
   }
@@ -89,7 +93,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<USERTYPETEST_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       custom_pubsub::UserTypeTest msg;
       rbuf += 4;

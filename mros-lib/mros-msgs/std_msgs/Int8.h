@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_INT8_H
 #define _STD_MSGS_INT8_H
 
+#include <string.h>
 
 static const int INT8_MSG_ID = 1;
 
@@ -40,9 +41,9 @@ struct DataType<std_msgs::Int8*>
 template<>
 struct DataTypeId<std_msgs::Int8*>
 {
-  static const int value()
+  static int value()
   {
-    return INT8_MSG_ID;
+    return (int)INT8_MSG_ID;
   }
 
 };
@@ -62,7 +63,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<INT8_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::Int8 msg;
       rbuf += 4;
