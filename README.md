@@ -139,6 +139,9 @@ catkin_make
 ## References
 
 - Research papers
+  - [mROS: A Lightweight Runtime Environment of ROS 1 nodes for Embedded Devices](https://www.jstage.jst.go.jp/article/ipsjjip/28/0/28_150/_article/-char/en)
+    - Authors: Hideki Takase, Tomoya Mori, Kazuyoshi Takagi and Naofumi Takagi
+    - Journal of Information Processing, Vol. 28, pp. 150-160, Feb 2020.
   - [mROS: A Lightweight Runtime Environment for Robot Software Components onto Embedded Devices](https://dl.acm.org/citation.cfm?id=3337815)
     - Authors: Hideki Takase, Tomoya Mori, Kazuyoshi Takagi and Naofumi Takagi
     - The 10th International Symposium on Highly-Efficient Accelerators and Reconfigurable Technologies (HEART 2019), Nagasaki, Jun 2019.
