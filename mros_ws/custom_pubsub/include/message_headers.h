@@ -3,7 +3,7 @@
 #include "custom_pubsub/UserTypeTest.h"
 
 
-void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
+static void callCallback(int id, void (*fp)(void *), char *rbuf){
 	switch(id){
 	
 		case 103:
@@ -13,12 +13,12 @@ void callCallback(int id, void (*fp)(intptr_t), char *rbuf){
 	}
 }
 
-std::string getMD5Sum(int id){
+static const char* getMD5Sum(int id){
 	switch(id){
 	
 		case 103:
 			return message_traits::MD5Sum<103>().value();
-			break;
 	
 	}
+	return NULL;
 }

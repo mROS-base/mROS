@@ -3,6 +3,10 @@
 
 
 
+#include <string.h>
+
+using namespace std;
+
 
 static const int LEDVALUES_MSG_ID = 101;
 
@@ -73,7 +77,7 @@ struct DataType<custom_pubsub::LEDValues*>
 template<>
 struct DataTypeId<custom_pubsub::LEDValues*>
 {
-  static const int value()
+  static int value()
   {
     return LEDVALUES_MSG_ID;
   }
@@ -97,7 +101,7 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<LEDVALUES_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       custom_pubsub::LEDValues msg;
       rbuf += 4;

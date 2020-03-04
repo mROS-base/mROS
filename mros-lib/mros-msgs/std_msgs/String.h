@@ -1,6 +1,7 @@
 #ifndef _STD_MSGS_STRING_
 #define _STD_MSGS_STRING_
 
+#include <string.h>
 
 static const int STRING_MSG_ID = 9;
 
@@ -45,9 +46,9 @@ struct DataType<std_msgs::String*>
 template<>
 struct DataTypeId<std_msgs::String*>
 {
-  static const int value()
+  static int value()
   {
-    return STRING_MSG_ID;
+    return (int)STRING_MSG_ID;
   }
 
 };
@@ -68,10 +69,14 @@ namespace subtask_methods
 {
   template<>
   struct CallCallbackFuncs<STRING_MSG_ID>{
-    static void call(void (*fp)(intptr_t), char *rbuf)
+    static void call(void (*fp)(void *), char *rbuf)
     {
       std_msgs::String msg;
-      msg.data = &rbuf[8];
+	  int size;
+	  memcpy((char*)&size, &rbuf[4], 4);
+      std::string str_msg((const char*)&rbuf[8], size);
+
+      msg.data = str_msg;
       fp(&msg);
     }
   };

@@ -5,5 +5,5 @@
 
 
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(sensor_msgs::Image*));
-template ros::Publisher ros::NodeHandle::advertise<sensor_msgs::Image>(string, int);
+template ros::Publisher ros::NodeHandle::advertise<sensor_msgs::Image>(std::string, int);
 template void ros::Publisher::publish(sensor_msgs::Image&);

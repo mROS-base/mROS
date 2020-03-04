@@ -131,7 +131,7 @@ void LED_switch(string *msg){
 /*******  callback **********/
 void Callback(std_msgs::String *msg){	
   LED_switch(&(msg->data));
-  syslog(LOG_NOTICE,"I heard [%s]",msg);
+  syslog(LOG_NOTICE,"I heard [%s]",msg->data.c_str());
 }
 
 /*****mROS user task code*******/

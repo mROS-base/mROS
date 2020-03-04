@@ -12,6 +12,9 @@ all: genmsg $(MROS_LIB).a
 $(MROS_CXX_OBJ): %.o: %.cpp
 	$(CPP) -c $(CFLAGS) $(APPL_CXXFLAGS) $(MROS_INCLUDE_PATHS) -o $@ $< 
 
+$(MROS_C_OBJ): %.o: %.c
+	$(CC) -c $(CFLAGS) $(APPL_CFLAGS) $(MROS_INCLUDE_PATHS) -o $@ $< 
+
 ifneq ($(USE_TRUESTUDIO),true)
 $(MROS_CXX_OBJ:.o=.s): %.s: %.cpp
 	$(CPP) -S $(CFLAGS) $(APPL_CXXFLAGS) $(MROS_INCLUDE_PATHS) -o $@ $< 

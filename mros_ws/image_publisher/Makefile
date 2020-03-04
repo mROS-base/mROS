@@ -8,11 +8,11 @@ all:
 #  アプリケーションファイル
 #
 APPNAME = image_publisher
-APPLDIR = image_publisher
+APPLDIR = image_publisher mros_config mros_config/os/target/os_asp
 APPLNAME = app
 USE_CXX = true
 APPL_CFG = $(APPLNAME).cfg
-USE_TRUESTUDIO = true
+USE_TRUESTUDIO = false
 GEN_MSG = true
 MSG_SETTING_JSON = camera_app.json
 PYTHON = /usr/bin/python
@@ -26,7 +26,7 @@ OMIT_OPTIMIZATION = true
 #
 APPL_ASMOBJS = 
 APPL_CXXOBJS =  
-APPL_COBJS = 
+APPL_COBJS = mros_sys_config.o mros_usr_config.o mros_os_config.o
 
 
 #

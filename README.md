@@ -63,8 +63,12 @@ catkin_make
 ```
 
 ### For embedded device (mROS applications)
-
-- (Optional) For generation of customized message
+##### Configuring IP adderss
+  - Edit `mros-lib/mros-src/config/mros_sys_config.h`
+    - Set the value of `MROS_MASTER_IPADDR` as the IP address of the host PC
+    - Set the value of `MROS_NODE_IPADDR` as the IP address of the embedded device,  
+    ***or*** set the value of `MROS_NODE_USE_DHCP` as `1` 
+##### (Optional) For generation of customized message
   - Describe `GEN_MSGS = true` on app's Makefile
   - Edit app's JSON file such as `mros_ws/custom_pubsub/msg_app.json` for the customization of message types if you prefer
     - Specify headers for message types that are used in your app such as follows
@@ -83,11 +87,11 @@ catkin_make
   - `python2` and `jinja2` python package is needed to operate the message generation script
     - `pip install jinja2`
 
-- For CUI (terminal)
+##### For CUI (terminal)
   - cd to project dir such as `mros_ws/string_pubsub/`
   - Describe `USE_TRUESTUDIO = false` or comment-out such as `#USE_TRUESTUDIO = true` on Makefile
   - `$ make`
-- For TrueSTUDIO
+##### For TrueSTUDIO
   - Specify and open `mros_ws` as workspace
   - Import `mros_ws/*` such as `string_pubsub`
   - Describe `USE_TRUESTUDIO = true` on Makefile
@@ -139,6 +143,9 @@ catkin_make
 ## References
 
 - Research papers
+  - [mROS: A Lightweight Runtime Environment of ROS 1 nodes for Embedded Devices](https://www.jstage.jst.go.jp/article/ipsjjip/28/0/28_150/_article/-char/en)
+    - Authors: Hideki Takase, Tomoya Mori, Kazuyoshi Takagi and Naofumi Takagi
+    - Journal of Information Processing, Vol. 28, pp. 150-160, Feb 2020.
   - [mROS: A Lightweight Runtime Environment for Robot Software Components onto Embedded Devices](https://dl.acm.org/citation.cfm?id=3337815)
     - Authors: Hideki Takase, Tomoya Mori, Kazuyoshi Takagi and Naofumi Takagi
     - The 10th International Symposium on Highly-Efficient Accelerators and Reconfigurable Technologies (HEART 2019), Nagasaki, Jun 2019.
@@ -149,5 +156,5 @@ catkin_make
     - doi: 10.1109/EMSOFT.2018.8537199
 
 - Qiita article (in Japanese)
-  - https://qiita.com/takasehideki/items/7d783ecd605dcee29ee0
+    - https://qiita.com/takasehideki/items/7d783ecd605dcee29ee0
 

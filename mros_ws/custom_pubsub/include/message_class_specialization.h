@@ -6,5 +6,5 @@
 
 
 template ros::Subscriber ros::NodeHandle::subscribe(std::string,int,void (*fp)(custom_pubsub::UserTypeTest*));
-template ros::Publisher ros::NodeHandle::advertise<custom_pubsub::UserTypeTest>(string, int);
+template ros::Publisher ros::NodeHandle::advertise<custom_pubsub::UserTypeTest>(std::string, int);
 template void ros::Publisher::publish(custom_pubsub::UserTypeTest&);
