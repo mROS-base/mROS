@@ -16,8 +16,9 @@ int main(int argc,char **argv){
 
   Rate loop_rate(10);
   int count =0;
-  bool set_msg=false; 
-  while(ok()){
+  bool set_msg=false;
+  /* quit by Ctrl+C */
+  while(ros::ok()){
     std_msgs::String msg;
     std::stringstream ss;
     std::string str,nav;

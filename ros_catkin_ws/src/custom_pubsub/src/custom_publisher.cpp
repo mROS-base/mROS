@@ -22,7 +22,8 @@ int main(int argc,char **argv){
   std::string str;
   int hoge = 0;
   int val;
-  while(ok()){
+  /* quit by Ctrl+C */
+  while(ros::ok()){
       nav = "type first name";
       ROS_INFO("%s",nav.c_str());
       std::cin >> str;
