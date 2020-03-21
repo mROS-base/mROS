@@ -64,7 +64,7 @@ catkin_make
 
 ### For embedded device (mROS applications)
 ##### Configuring IP adderss
-  - Edit `mros-lib/mros-src/config/mros_sys_config.h`
+  - Edit `mros_ws/<app>/mros_config/mros_sys_config.h`
     - Set the value of `MROS_MASTER_IPADDR` as the IP address of the host PC
     - Set the value of `MROS_NODE_IPADDR` as the IP address of the embedded device,  
     ***or*** set the value of `MROS_NODE_USE_DHCP` as `1` 

@@ -21,11 +21,11 @@ extern "C" {
 /*
  * dhcp option of self node(0:not use, 1:use)
  */
-#define MROS_NODE_USE_DHCP 						0
+#define MROS_NODE_USE_DHCP 						1
 /*
  * ipaddr of master
  */
-#define MROS_MASTER_IPADDR						"0.0.0.0"
+#define MROS_MASTER_IPADDR						"192.168.11.5"
 
 /*
  * ipaddr of self node
