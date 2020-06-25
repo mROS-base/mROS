@@ -181,6 +181,7 @@ void ros::Publisher::publish(T& data)
 	bodyp = mros_protocol_get_body(snd_data);
 	data.memCopy(bodyp);
 	mros_exclusive_unlock(&unlck_obj);
+	wup_tsk(SUB_TASK);
 	return;
 }
 

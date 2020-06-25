@@ -59,6 +59,8 @@ mRosReturnType mros_comm_tcp_client_connect(mRosCommTcpClientType *client)
 		return MROS_E_NOTCONN;
 	}
 	client->connected = MROS_TRUE;
+    int i = 1;
+    mros_comm_setsockopt(client->socket.sock_fd, IPPROTO_TCP, TCP_NODELAY, &i, sizeof(int));
 	return MROS_E_OK;
 }
 
