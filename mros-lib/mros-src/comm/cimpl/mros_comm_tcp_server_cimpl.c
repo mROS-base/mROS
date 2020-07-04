@@ -76,6 +76,8 @@ mRosReturnType mros_comm_tcp_server_accept(mRosCommTcpServerType *server, mRosCo
 		ROS_ERROR("%s %s() %u ret=%d", __FILE__, __FUNCTION__, __LINE__, MROS_E_SYSERR);
 		return MROS_E_SYSERR;
     }
+    int i=0;
+    mros_comm_setsockopt(client->socket.sock_fd, IPPROTO_TCP, TCP_NODELAY, &i, sizeof(int));
     client->socket.blocking = MROS_TRUE;
     client->socket.timeout = MROS_COMM_DEFAULT_TIMEOUT;
     client->connected = MROS_TRUE;
