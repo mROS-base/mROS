@@ -140,6 +140,11 @@ catkin_make
   - Header
 - Support the edge detection example application
 
+## License
+
+- This repo has been distributed under [TOPPERS License](https://toppers.jp/en/license.html)
+- Submodules ([asp_mbed/asp_gr_peach_gcc-mbed](https://github.com/tlk-emb/asp-gr_peach_gcc-mbed) and [opencv-lib](https://github.com/d-kato/opencv-lib)) include another Licenses, such as MIT and GPLv2. Please check them for details.
+
 ## References
 
 - Research papers
